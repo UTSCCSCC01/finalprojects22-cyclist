@@ -6,6 +6,6 @@
 | Dane Gledhill   | gledhi14 | 1006028399 | dane.gledhill@mail.utoronto.ca    | 2892009120                    | Dane#s90         |
 | Andrew D’Amario | damario4 | 1006618947 | andrew.damario@mail.utornto.ca    | 6478550319                    | aclear#9804      |
 | Yi Hai Xiao     | xiaoyi10 | 1006291175 | yihai.xiao@mail.utoronto.ca       | yihai.xiao@mail.utoronto.ca   | rickyyy#9247     |
-| Kexin Zhai      | zhaikex1 | 1005706700 | kexinmaxine.zhai@mail.utoronto.ca | 6479941368 & email            | jksvr#1892s      |
+| Kexin Zhai      | zhaikex1 | 1005706700 | kexinmaxine.zhai@mail.utoronto.ca | 6479941368                    | jksvr#1892       |
 
 **Discord Chat/Server Invite :** [https://discord.gg/gZQErXNfFj]
