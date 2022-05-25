@@ -1,5 +1,16 @@
 # Product Backlog
 
+## Users & Sharing
+
+1.  As a user, I want to **register** an account, so that I can save my tasks
+    and achievements.
+
+2.  As a user, I want to **share my achievements with my friends**, so that I
+    can show off my productivity and share tips on task planning.
+
+3.  As a user, I want to **add friends**, so that I can share my schedule with
+    them.
+
 ## Tasks
 
 1.  As a user, I want to **create a task**, so that I don’t have to worry about
@@ -60,14 +71,3 @@
 
 3.  As a user, I want to see the monthly and yearly log overview, so that I can
     have a better understanding of my year.
-
-## Users & Sharing
-
-1.  As a user, I want to **register** an account, so that I can save my tasks
-    and achievements.
-
-2.  As a user, I want to **share my achievements with my friends**, so that I
-    can show off my productivity and share tips on task planning.
-
-3.  As a user, I want to **add friends**, so that I can share my schedule with
-    them.
