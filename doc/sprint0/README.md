@@ -10,10 +10,10 @@ Since this is a web app, so no installation is needed, a browser and stable inte
 We will use git flow to track the changes of each branch. Features will be created and developed on different branches and when a feature is implemented and pass all tests, it will be merged into respective branch.
 
 ### What do you name your branches?
-main: The main(master) branch, feature being fully tested will be merged into this branch.
+main: The main(master) branch, frontend/backend being fully tested that features inside won't confict with other will be merged into this branch.
 frontend: This branch is used for the frontend work include user interfaces and so on.
 backend: This branch is used for the backend work include database and server.
-feature-xxx: A feature named xxx will be implemented on this branch, once it has passed all tests, it will be merged into main branch.
+feature-xxx: A feature named xxx will be implemented on this branch, once it has passed all tests, it will be merged into frontend/backend branch.
 
 ### Do you use github issues or another ticketing website?
 We will use discord/Github issues for ticketing.
