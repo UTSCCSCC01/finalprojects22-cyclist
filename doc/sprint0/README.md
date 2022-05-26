@@ -11,8 +11,11 @@ We will use git flow to track the changes of each branch. Features will be creat
 
 ### What do you name your branches?
 main: The main(master) branch, frontend/backend being fully tested that features inside won't confict with other will be merged into this branch.
+
 frontend: This branch is used for the frontend work include user interfaces and so on.
+
 backend: This branch is used for the backend work include database and server.
+
 feature-xxx: A feature named xxx will be implemented on this branch, once it has passed all tests, it will be merged into frontend/backend branch.
 
 ### Do you use github issues or another ticketing website?
