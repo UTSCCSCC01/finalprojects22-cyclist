@@ -36,7 +36,8 @@ goal is to succeed in high school.
 Wanda Maximoff started to lose control over her life when exam season was approaching.
 She not only found that she was behind in her studies but also that life was a whirlpool.
 She could hardly find any time to relax and was always anxious. She needed some
-motivation to see long term improvements in her university life.
+motivation to see improvements in her university life so she decided to plan her
+tasks day by day to make incremental progress.
 
 ### Scenario 2:
 
@@ -64,7 +65,7 @@ taking into consideration which tasks are related to each other and which depend
 2. Never show too many tasks at once: Providing an overview to users is
    essential, but the side effect is to overwhelm users.
 3. Don't allow user to plan far in the future: focus on today and plan for the
-   next 3 days. There is no reason to remember a important event which will take
+   next 5 days. There is no reason to remember a important event which will take
    place in 3 months.
 4. As little design as possible: good UI/UX design elevates the essential
    functionalities
