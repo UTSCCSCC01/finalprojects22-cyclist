@@ -3,9 +3,9 @@
 ## Objectives
 
 The bullet journal app is designed to help users to have better
-self-realization, mental preparation when planning daily tasks out. Users can
-have in a more productive and efficient working routine or lifestyle. Make life
-easier and manageable.
+self-realization and mental preparation when planning daily tasks out, 
+have a more productive and efficient working routine or lifestyle, and 
+make life easier and manageable.
 
 ## Key Personas
 
@@ -19,43 +19,44 @@ while hoping for a healthy life style.
 ### Persona 2:
 
 Steve Rogers, a 35-year old male team manager, works for the government in
-managing community projects. He is a passionate and motivating leader but he can
-sometimes struggle to keep up with the times and feels like he is living in the
+managing community projects. He is a passionate and motivating leader but he
+sometimes struggles to keep up with the times and feels like he is living in the
 wrong era.
 
 ### Persona 3:
 
 Michelle Jones Watson, a student and a young team member of Steve, likes to keep
-up with various blogs, news articles, political commentators. Michelle’s largest
+up with various blogs, news articles, and political commentators. Michelle’s largest
 goal is to succeed in high school.
 
 ## Key Scenarios
 
 ### Scenario 1:
 
-Wanda Maximoff started to lose control over her life when exam season is coming
-up soon. She not only found her study is behind but also life is is a whirlpool.
-She can hardly find any time to relax and always anxious. She needs some
-motivation and see long improvement in her university life.
+Wanda Maximoff started to lose control over her life when exam season was approaching.
+She not only found that she was behind in her studies but also that life was a whirlpool.
+She could hardly find any time to relax and was always anxious. She needed some
+motivation to see long term improvements in her university life.
 
 ### Scenario 2:
 
 Steve Rogers spent hours just to find a simple but powerful planning tool that
-allow task categorization with hierarchy for the government projects. Many
-projects requires negotiation with third party suppliers but it is hard to
-arrange meetings for a specific date until a few days before the meeting.
-Although, Steve put unconfirmed dates on a yellow sticker note inside his
-notebook, it is still hard to keep track of each and every unconfirmed date with
+allowed task categorization with hierarchy for all the government projects he 
+had been asigned. Many projects required negotiation with third party suppliers,
+but it was hard to arrange meetings for a specific date until a few days before the meeting.
+Although Steve put unconfirmed dates on a yellow sticky note inside his
+notebook, it was still hard to keep track of each and every unconfirmed date with
 different suppliers.
 
 ### Scenario 3:
 
-Michelle’s largest goal is to succeed in high school. But She sometimes got
-overwhelmed by courses assignments. She has to spend a lot time planning and
-tracking her mood and task difficulty everyday in order to graph the statics.
-This usually takes hours to graph. Although, she loves to see the long term
-performance, a digital planner that can suggest her the best to work on
-assignments and figure out which tasks are related and depended on.
+Michelle’s largest goal was to succeed in high school, but she sometimes got
+overwhelmed by courses assignments. She had to spend a lot time planning and
+tracking her mood and task difficulty everyday in order to graph the statistics,
+which usually took hours. Although she loves to see her long term performance, 
+she wished for a digital planner that would plot out her task statistics for her and 
+would use it to make suggestions on what would best for her to work on next, 
+taking into consideration which tasks are related to eachother and which depend on others.
 
 ## Key Principle:
 
