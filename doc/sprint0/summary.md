@@ -42,7 +42,7 @@ motivation to see long term improvements in her university life.
 
 Steve Rogers spent hours just to find a simple but powerful planning tool that
 allowed task categorization with hierarchy for all the government projects he 
-had been asigned. Many projects required negotiation with third party suppliers,
+had been assigned. Many projects required negotiation with third party suppliers,
 but it was hard to arrange meetings for a specific date until a few days before the meeting.
 Although Steve put unconfirmed dates on a yellow sticky note inside his
 notebook, it was still hard to keep track of each and every unconfirmed date with
@@ -56,7 +56,7 @@ tracking her mood and task difficulty everyday in order to graph the statistics,
 which usually took hours. Although she loves to see her long term performance, 
 she wished for a digital planner that would plot out her task statistics for her and 
 would use it to make suggestions on what would best for her to work on next, 
-taking into consideration which tasks are related to eachother and which depend on others.
+taking into consideration which tasks are related to each other and which depend on others.
 
 ## Key Principle:
 
