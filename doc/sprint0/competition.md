@@ -14,11 +14,11 @@ Users who want to learn about themselves and improve over time can use CycList�
 On the other hand, MS Todo focuses on task planning and doesn't offer any features for tracking task completion times and mood. This is probably because MS Todo is an app that serves everyone with a Microsoft account and mood tracking isn’t a need for everyone. As a result, MS Todo is a generic to-do list app.
 
 ## Google Calendar
-Google Calendar is a calendar app for users to add and visualize events on a calendar. Google Calendar also has a tasks list, where users can record tasks with no specified time. 
-Similarly in CycList, users can record tasks and visualize them on a timeline, on the future log page.
-However, the timeline of CycList is only accurate up to the date of each task. This is different from Google Calendar, where events are visualized with both date and time on the weekly view.
+Google Calendar is a calendar app for users to add and visualize events on a calendar. Google Calendar also has a tasks list, where users can record tasks with optional specified time. 
+Similarly in CycList, users can record tasks and visualize them on a timeline, on the Dashboard page.
+However, the timeline of CycList simply displays each task under their corresponding dates,  with no special formatting based on their times. This is different from Google Calendar, where events are positioned and sized according to date and time, on the weekly view.
 
-This is useful for users who have trouble focusing on the tasks at hand because CycList simplifies the user’s view of their tasks. Presenting tasks along a line lets users focus on the nearest upcoming tasks, displayed at the top.
+This is useful for users who have trouble focusing on the tasks at hand because CycList simplifies the user’s view of their tasks. Presenting tasks along a line lets users focus on the nearest upcoming tasks, displayed at the top of the timeline.
 Google Calendar helps plan long term events and schedules. Therefore emphasising the nearest tasks to the users isn't a priority, and the task list feature is more of an add-on. Google would need to develope a brand new app in order for the to-do list feature to be genuine.
 
 ## Periodically
