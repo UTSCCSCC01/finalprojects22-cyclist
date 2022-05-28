@@ -2,9 +2,9 @@
 This project is a bullet journal to help you build your daily schedule, you can add tasks and notes to the journal to avoid missing an important meeting or assignment deadline and so on. It also provides a suggested start time, expected end time, and the day it should be started based on your past experience when you create a new task. If you have too many tasks at the same time thus forget to attend an important appointment, we will remember it for you. If you don't have a clear plan about what should I do in the next few days, we will make a personalized suggestion based on you. Since many journal apps in the market cannot give a suggestion, we are here to make your life easier. That's the reason we exist.
 
 # Installation
-Since this is a web app, so no installation is needed, a browser and stable internet are enough.
+For users: Since this is a web app, so no installation is needed, a browser and stable internet are enough.
 
-For developers: we will use ReactJs for frontend and backend, MongoDB cloud service for database. 
+For developers: We will use ReactJs for frontend and backend, MongoDB cloud service for database. 
 There is no need to install MongoDB. 
 Please follow [install npm](https://phoenixnap.com/kb/install-node-js-npm-on-windows) to install npm.
 
