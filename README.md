@@ -8,8 +8,8 @@ For developers: We will use ReactJs for frontend and backend, MongoDB cloud serv
 There is no need to install MongoDB. 
 Please follow [install npm](https://phoenixnap.com/kb/install-node-js-npm-on-windows) to install npm.
 
-Basic step to install npm:
-1. Go to [npm downlopad](https://nodejs.org/en/download/) to download npm. 
+Basic steps to install npm:
+1. Go to [npm download](https://nodejs.org/en/download/) to download npm. 
 2. The system will ask if you want to run the software – click Run.
 3. You will be welcomed to the Node.js Setup Wizard – click Next.
 4. On the next screen, review the license agreement. Click Next if you agree to the terms and install the software.
@@ -20,8 +20,8 @@ Basic step to install npm:
 
 
 To run our app on your terminal:
-1. Clone this repo
-2. Run `npm install` under both folders frontend and backend to install necessssary packages for frontend and backend code.
+1. Clone this [repo](https://github.com/UTSCCSCC01/finalprojects22-cyclist.git)
+2. Run `npm install` under both folders frontend and backend to install necessary packages for frontend and backend code.
 3. Run `npm start` under both folders frontend and backend to start frontend and backend service.
 
 # Contribution
