@@ -3,9 +3,11 @@ This project is a bullet journal to help you build your daily schedule, you can 
 
 # Installation
 Since this is a web app, so no installation is needed, a browser and stable internet are enough.
+
 For developers: we will use ReactJs for frontend and backend, MongoDB cloud service for database. 
 There is no need to install MondoDB. 
 Please follow [install npm](https://phoenixnap.com/kb/install-node-js-npm-on-windows) to install npm.
+
 Basic step to install npm:
 1. Go to [npm downlopad](https://nodejs.org/en/download/) to download npm. 
 2. The system will ask if you want to run the software – click Run.
@@ -15,6 +17,8 @@ Basic step to install npm:
 6. The wizard will let you select components to include or remove from the installation. Again, unless you have a specific need, accept the defaults by clicking Next.
 7. Finally, click the Install button to run the installer. When it finishes, click Finish.
 8. By typing `node -v` and `npm -v` on terminal to verify you installed successfully, the system should display the Node.js version installed on your system.
+
+
 To run our app on your terminal:
 1. Clone this repo
 2. Run `npm install` under both folders frontend and backend to install necessssary packages for frontend and backend code.
