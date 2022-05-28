@@ -22,7 +22,8 @@ Basic steps to install npm:
 To run our app on your terminal:
 1. Clone this [repo](https://github.com/UTSCCSCC01/finalprojects22-cyclist.git)
 2. Run `npm install` under both folders frontend and backend to install necessary packages for frontend and backend code.
-3. Run `npm start` under both folders frontend and backend to start frontend and backend service.
+3. Run `npm init vue@latest` under folder frontend to install vue.
+4. Run `npm start` under both folders frontend and backend to start frontend and backend service.
 
 # Contribution
 
