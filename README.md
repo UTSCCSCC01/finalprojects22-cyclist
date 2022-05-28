@@ -20,7 +20,7 @@ Basic steps to install npm:
 
 
 To run our app on your terminal:
-1. Clone this [repo](https://github.com/UTSCCSCC01/finalprojects22-cyclist.git)
+1. Run `git clone https://github.com/UTSCCSCC01/finalprojects22-cyclist.git` to clone this [repo](https://github.com/UTSCCSCC01/finalprojects22-cyclist.git), then go into this folder.
 2. Run `npm install` under both folders frontend and backend to install necessary packages for frontend and backend code.
 3. Run `npm start` under both folders frontend and backend to start frontend and backend service.
 
