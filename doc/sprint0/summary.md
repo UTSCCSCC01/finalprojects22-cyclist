@@ -11,14 +11,14 @@ make life easier and manageable.
 
 ### Persona 1:
 
-Wanda Maximoff, a 20-year old female university student, loves to keep herself
+Wanda Maximoff, a 20-year-old female university student, loves to keep herself
 busy with a wide range of topics, whether it be coding, watching tv, writing
-stories, or building a business. She has to work under pressure for long time
-while hoping for a healthy life style.
+stories, or building a business. She has to work under pressure for a long time
+while hoping for a healthy lifestyle.
 
 ### Persona 2:
 
-Steve Rogers, a 35-year old male team manager, works for the government in
+Steve Rogers, a 35-year-old male team manager, works for the government in
 managing community projects. He is a passionate and motivating leader but he
 sometimes struggles to keep up with the times and feels like he is living in the
 wrong era.
@@ -46,27 +46,27 @@ allowed task categorization with hierarchy for all the government projects he
 had been assigned. Many projects required negotiation with third party suppliers,
 but it was hard to arrange meetings for a specific date until a few days before the meeting.
 Although Steve put unconfirmed dates on a yellow sticky note inside his
-notebook, it was still hard to keep track of each and every unconfirmed date with
+notebook, it was still hard to keep track of every unconfirmed date with
 different suppliers.
 
 ### Scenario 3:
 
 Michelle’s largest goal was to succeed in high school, but she sometimes got
-overwhelmed by courses assignments. She had to spend a lot time planning and
-tracking her mood and task difficulty everyday in order to graph the statistics,
+overwhelmed by courses assignments. She had to spend a lot of time planning and
+tracking her mood and task difficulty every day in order to graph the statistics,
 which usually took hours. Although she loves to see her long term performance, 
 she wished for a digital planner that would plot out her task statistics for her and 
-would use it to make suggestions on what would best for her to work on next, 
+would use it to make suggestions on what would be best for her to work on next, 
 taking into consideration which tasks are related to each other and which depend on others.
 
-## Key Principle:
+## Key Principles:
 
 1. Task hierarchy and dependency over detailed planning.
 2. Never show too many tasks at once: Providing an overview to users is
    essential, but the side effect is to overwhelm users.
-3. Don't allow user to plan far in the future: focus on today and plan for the
-   next 5 days. There is no reason to remember a important event which will take
+3. Don't allow users to plan far in the future: focus on today and plan for the
+   next 5 days. There is no reason to remember an important event which will take
    place in 3 months.
 4. As little design as possible: good UI/UX design elevates the essential
    functionalities
-5. Make users to evaluate their performance.
+5. Make users evaluate their performance.

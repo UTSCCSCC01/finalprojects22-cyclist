@@ -9,7 +9,7 @@
 | Frontend Manager | Andrew        |
 | Backend Manager  | Daniel        |
 
-The rest of the group members are referred as "developers"
+The rest of the group members are referred to as "developers"
 
 The managers remain at their position while the rest of the group members (developers) can switch their roles and pair with a manager at the end of each sprint. This allows inexperienced group members to gain broader developing skills.
 
@@ -29,7 +29,7 @@ The managers remain at their position while the rest of the group members (devel
 
 ## Prioritizing User Stories
 
-Our team will prioritize our user stories together. A user story will be broken down by the entire group first. Then, it is passed down to the corresponding department, fontend or backend group, and further split into functions with more implementation details.
+Our team will prioritize our user stories together. A user story will be broken down by the entire group first. Then, it is passed down to the corresponding department, frontend or backend group, and further split into functions with more implementation details.
 
 ## Meetings
 
@@ -39,12 +39,12 @@ Our team will prioritize our user stories together. A user story will be broken 
 | Wednesday | 19:00 to 21:00 | Discord  |
 | Friday    | 14:00 to 16:00 | IC406    |
 
-Meeting agenda is available one day in advance.
+The meeting agenda is available one day in advance.
 
 ## Next Phase
 
 - Hold more in-person meetings.
-  - Zoom meeting with camera on may yield a more efficient outcome than Discord voice chat.
-- Make sure everyone have some tasks to work on. 
-- Work as team together.
+  - Zoom meeting with the camera on may yield a more efficient outcome than Discord voice chat.
+- Make sure everyone has some tasks to work on. 
+- Work as a team together.
   - Hold good ideas until the product owner is on this topic.
