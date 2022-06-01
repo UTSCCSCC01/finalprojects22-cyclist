@@ -6,6 +6,8 @@
 
 - [ ] Distribute sprint1 files
 - [ ] Assign user stories on JIRA
+- [ ] Break user stories into tasks on JIRA
+- [ ] Prioritized on JIRA for all user stories.
 - [ ] Create Github Branch
 
 ### Participants
