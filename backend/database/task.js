@@ -27,10 +27,13 @@ const taskSchema = new Schema({
         type: Date,
     },
     repeatOrSingle:{
-        type: String
+        type: String,
+    },
+    dayWeekMonth:{
+        type: String,
     },
     frequency:{
-        type: Number,
+        type: String,
     },
     repeatStartDay:{
         type: Date,
@@ -67,12 +70,22 @@ const taskSchema = new Schema({
             type: String,
         },
     },
-    mood:{
-        type: Number,
-    },
-    difficulty:{
-        type: Number,
-    },
+    mood:[{
+        date:{
+            type: Date,
+        },
+        score:{
+            type: Number,
+        },
+    }],
+    difficulty:[{
+        date:{
+            type: Date,
+        },
+        score:{
+            type: Number,
+        },
+    }],
     location:{
         type: String,
     },
