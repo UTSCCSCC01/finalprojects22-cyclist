@@ -10,17 +10,23 @@
 - [ ] Prioritized on JIRA for all user stories.
 - [ ] Create Github Branch
 
+## Distribution of Sprint1 files
+
+1. RPM.md TP
+2. sprintN.md tp
+3. 
+
 ### Participants
 
 | Name                  | Attendance |
 | --------------------- | ---------- |
-| Tianpai Zhang (Tp)    |            |
-| Yiming Zheng (Daniel) |            |
-| Yining He (Jeffrey)   |            |
-| Dane Gledhill         |            |
-| Andrew D’Amario       |            |
-| Yi Hai Xiao (Ricky)   |            |
-| Kexin Zhai (Maxine)   |            |
+| Tianpai Zhang (Tp)    | P          |
+| Yiming Zheng (Daniel) | P          |
+| Yining He (Jeffrey)   | P          |
+| Dane Gledhill         | P          |
+| Andrew D’Amario       | P          |
+| Yi Hai Xiao (Ricky)   | L          |
+| Kexin Zhai (Maxine)   | P          |
 
 - A: absent
 - E: late with valid and reasonable excuse
@@ -28,9 +34,6 @@
 - P: participate on time
 - U: Withdraw form the meeting early
 
-### everyone has participated
-
-    true or false
 
 ### Release goals
 
