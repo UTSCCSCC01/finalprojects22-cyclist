@@ -70,9 +70,14 @@ const taskSchema = new Schema({
     mood:{
         type: Number,
     },
-    difficulty:{
-        type: Number,
-    },
+    difficulty:[{
+        date:{
+            type: Date,
+        },
+        score:{
+            type: Number,
+        },
+    }],
     location:{
         type: String,
     },
