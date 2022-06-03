@@ -20,7 +20,9 @@ module.exports = {
             }
             const newTask = new Task({
                 creater: "6297e22dab2c042c8dd6effb",
-                planningDate: args.date,
+                day: args.day,
+                month: args.month,
+                year: args.year,
                 hierarchy: args.hierarchy,
                 startTime: 0,
                 expectedDuration: 0,

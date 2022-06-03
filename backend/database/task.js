@@ -6,14 +6,22 @@ const taskSchema = new Schema({
         ref:'User',
         required: true,
     },
-    planningDate:{
-        type: Date,
-        required: true,
+    // the planning day of this task
+    day:{
+        type: Number,
     },
+    month:{
+        type: Number,
+    },
+    year:{
+        type: Number,
+    },
+    // daily, monthly, year
     hierarchy:{
         type: String,
         required: true,
     },
+    // am/pm
     startTime:{
         type: Number,
     },
@@ -23,6 +31,7 @@ const taskSchema = new Schema({
     actualDuration:{
         type: Number,
     },
+    // record the start time of this task to calculate actualDuration
     start:{
         type: Date,
     },
@@ -49,6 +58,7 @@ const taskSchema = new Schema({
     important:{
         type: Boolean,
     },
+    // parent or subtask
     identity:{
         type: String,
     },
