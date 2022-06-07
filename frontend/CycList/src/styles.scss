@@ -1,1 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
+/*****************/
+/* All Variables */
+/*****************/
+
+// white mode
+:root {
+  --bg: #efefef;
+  --fg: #313443;     
+  --variant: 'light';
+}
+// dark mode
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #333541;
+    --fg: #efefef;
+    --variant: 'dark';
+  }
+}
+
+$variant: var(--variant);
+
+// colours
+$bg: var(--bg);
+$fg: var(--fg);
+// $bg: if($variant == 'light', #efefef, #343434);
+// $fg: if($variant == 'dark', #efefef, #343434);
+$bg-top-bar: #3f4252;
+$fg-top-bar: #efefef;
+
+// shadows
+$shadow-top-bar: 0px 12px 25px rgba(0,0,0,0.21);
+
+// radii
+
+// heights
+$height-top-bar: 3em;
+
+// padding
+$pd-top-bar: 0.3em;
+
+
+
+
+
+
+
+
+
+
+
+
+// main CSS
+html, body {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: $bg;
+}
+

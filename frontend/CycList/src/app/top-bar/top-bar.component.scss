@@ -1,0 +1,11 @@
+@import "../../styles.scss";
+
+.top-bar {
+    background-color: $bg-top-bar;
+    width: auto;
+    height: $height-top-bar;
+    line-height: $height-top-bar;
+    box-shadow: $shadow-top-bar;
+    color: $fg-top-bar;
+    padding: $pd-top-bar;
+}
