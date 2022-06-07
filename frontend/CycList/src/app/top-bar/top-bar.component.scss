@@ -9,4 +9,20 @@
     box-shadow: $shadow-top-bar;
     color: $fg-top-bar;
     padding: $pd-top-bar;
+    display: flex;
+    padding-right: 2%;
+}
+
+.top-bar-elem {
+    margin-left: 2%;
+    text-decoration: none; 
+}
+
+.top-bar-elem:visited { 
+    text-decoration: none; 
+    color: white; 
+}
+
+.spacer {
+    flex: 1;
 }
