@@ -38,7 +38,7 @@ $height-top-bar: 3em;
 
 // padding
 $pd-top-bar: 0.3em;
-
+$pd-main-view: 0.7em;
 
 
 
@@ -60,5 +60,6 @@ html, body {
   top: 0;
   bottom: 0;
   background-color: $bg;
+  color: $fg;
 }
 

@@ -10,6 +10,11 @@ export class TopBarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
+
+  notify() {
+    console.log("ok here");
+  } 
 
 }
