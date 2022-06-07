@@ -151,4 +151,15 @@ module.exports = {
             throw err;
         }
     },
+    getSingleTask: async args=>{
+        try{
+            // if(!req.isAuth){
+            //     throw new Error("User not authenticated");
+            // }
+            let task = await Task.findById(args.id);
+            return task;
+        } catch(err){
+            throw err;
+        }
+    },
 }
