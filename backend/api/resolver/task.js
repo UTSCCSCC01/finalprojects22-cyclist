@@ -48,7 +48,7 @@ module.exports = {
                 location:null,
             })
             const result = await newTask.save();
-            return result.id;
+            return result;
         } catch(err){
             throw err;
         }

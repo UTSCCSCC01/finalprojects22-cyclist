@@ -71,10 +71,13 @@ export class GlobalsService {
   createTask(form: FormGroup) {
     const body = {
       query:`
-      query {
-        createTask(hierarchy:"daily",date:"${form.value.dueDate}",repeat:"single", content:"${form.value.description}",name:"${form.value.name}, startTime:"${form.value.dueTime}"){
+      mutation {
+        createTask(hierarchy:"daily",date:"${form.value.dueDate}",repeat:"single", content:"${form.value.description}",name:"${form.value.name}", startTime:"${form.value.dueTime}"){
           content
           startTime
+          day
+          month
+          year
         }
       }
       `
