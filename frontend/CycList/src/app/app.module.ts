@@ -3,22 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DailyViewComponent } from './daily-view/daily-view.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
-import { MonthlyViewComponent } from './monthly-view/monthly-view.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { TaskComponent } from './task/task.component';
+import { FutureLogComponent } from './future-log/future-log.component';
+import { MonthlyLogComponent } from './monthly-log/monthly-log.component';
+import { DailyLogComponent } from './daily-log/daily-log.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DailyViewComponent,
     TopBarComponent,
     SideBarComponent,
-    MonthlyViewComponent,
     AddTaskComponent,
-    TaskComponent
+    TaskComponent,
+    FutureLogComponent,
+    MonthlyLogComponent,
+    DailyLogComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

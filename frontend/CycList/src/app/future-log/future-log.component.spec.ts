@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DailyViewComponent } from './daily-view.component';
+import { FutureLogComponent } from './future-log.component';
 
-describe('DailyViewComponent', () => {
-  let component: DailyViewComponent;
-  let fixture: ComponentFixture<DailyViewComponent>;
+describe('FutureLogComponent', () => {
+  let component: FutureLogComponent;
+  let fixture: ComponentFixture<FutureLogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DailyViewComponent ]
+      declarations: [ FutureLogComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DailyViewComponent);
+    fixture = TestBed.createComponent(FutureLogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

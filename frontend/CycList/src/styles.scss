@@ -40,7 +40,7 @@ $color-darker: #313443;
 $color-dark: #3f4252;
 $color-grey: #6a6d80;
 $color-grey-trans: #6a6d8027;
-$color-lightgrey-trans: #9a9cac17;
+$color-lightgrey-trans: #9a9cac09;
 $color-light: #efefef;
 $color-white: white;
 $color-green: rgb(18, 202, 165);
@@ -90,6 +90,23 @@ html, body {
   &:active {
     box-shadow: $shadow-medium-active;
   }
+}
+
+// main view
+.main-view > router-outlet {
+  flex: 1;
+  align-items: stretch;
+  text-align: left;
+  padding: $pd-main-view;
+}
+
+router-outlet {
+  display: none;
+}
+
+app-dashboard, app-daily-log, app-monthly-log, app-future-log {
+  padding: $pd-view;
+
 }
 
 // -------------------------------

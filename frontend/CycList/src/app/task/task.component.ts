@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DailyViewComponent } from '../daily-view/daily-view.component';
 
 @Component({
   selector: 'app-task',
@@ -8,7 +7,8 @@ import { DailyViewComponent } from '../daily-view/daily-view.component';
 })
 export class TaskComponent implements OnInit {
 
-  constructor(private dailyView: DailyViewComponent) { }
+  constructor() { }
+  // constructor(private dailyView: DailyViewComponent) { }
 
 
   ngOnInit(): void {

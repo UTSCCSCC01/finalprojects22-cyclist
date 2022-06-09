@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from '../app.component';
+// import { AppComponent } from '../app.component';
 
 @Component({
-  selector: 'app-daily-view',
-  templateUrl: './daily-view.component.html',
-  styleUrls: ['./daily-view.component.scss']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
-export class DailyViewComponent implements OnInit {
+export class DashboardComponent implements OnInit {
 
   constructor() { }
-
+  
   // app = new AppComponent();
   tasks = new Array();
 
