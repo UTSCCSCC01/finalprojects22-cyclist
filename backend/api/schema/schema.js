@@ -52,6 +52,7 @@ type RootQuery {
     getMonthTask(month: Int!, year: Int!): [task!]
     getFutureTask(year: Int): [task!]
     getSingleTask(id: ID!): task
+    getAllTask(type: String):[task!]
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!

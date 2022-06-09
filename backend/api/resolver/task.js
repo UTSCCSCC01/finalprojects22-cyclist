@@ -166,4 +166,16 @@ module.exports = {
             throw err;
         }
     },
+    getAllTask: async args=>{
+        try{
+            // if(!req.isAuth){
+            //     throw new Error("User not authenticated");
+            // }
+            // if(args.type == "all")
+            let task = await Task.find({creater: ObjectId("6297e22dab2c042c8dd6effb")});
+            return task;
+        } catch(err){
+            throw err;
+        }
+    },
 }
