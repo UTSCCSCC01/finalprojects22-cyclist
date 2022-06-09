@@ -6,12 +6,12 @@
   <!-- <form #addTaskForm="ngForm" (ngSubmit)="submitForm(addTaskForm.value)" > -->
   <form [formGroup]="form">
     <div>
-      <select id="signifier" formControlName="signifier">
+      <!-- <select id="signifier" formControlName="signifier">
         <option>task</option>
         <option>event</option>
         <option>note</option>
-      </select>
-      <input type="text" id="task" placeholder="New Task" required formControlName="content"/>
+      </select> -->
+      <input type="text" id="task" placeholder="New Task" required formControlName="name"/>
     </div>
     <div>
       Due: 
@@ -19,10 +19,10 @@
       <input type="time" formControlName="dueTime"/>
     </div>
     <div>
-      Start: 
+      <!-- Start:  -->
       <!-- TODO: put an "add start" because its optional -->
-      <input type="date" id="startDate" formControlName="startDate"/>  
-      <input type="time" formControlName="startTime"/>
+      <!-- <input type="date" id="startDate" formControlName="startDate"/>  
+      <input type="time" formControlName="startTime"/> -->
     </div>
     <div>
       <!-- TODO: add as many reminders as they would like -->
@@ -31,7 +31,7 @@
       <input type="time" formControlName="reminderTime"/> -->
     </div>
     <div>
-      Repeat: 
+      <!-- Repeat: 
       <input type="checkbox" formControlName="repeat"/>  
        every: 
       <input type="number" min="1" formControlName="frequency"/>  
@@ -40,11 +40,10 @@
         <option>week(s)</option>
         <option>month(s)</option>
         <option>year(s)</option>
-      </select>
-
+      </select> -->
     </div>
     <div>
-      Group: 
+      <!-- Group: 
       <select id="group" formControlName="group">
         <option>Home</option>
         <option>Work</option>
@@ -56,7 +55,7 @@
         <option>!</option>
         <option>!!</option>
         <option>!!!</option>
-      </select>
+      </select> -->
     </div>
     <div>
       <!-- TODO: add choose on map/enter location, maybe with google maps -->
