@@ -7,7 +7,8 @@
 // white mode
 :root {
   --fg-alt: white; //$color-white;
-  --bg: #efefef; //$color-light;
+  --bg-alt: #eaebef;
+  --bg: #f1f3f6; //$color-light;
   --fg: #313443;  //$color-darker;
   // --variant: 'light';
 }
@@ -15,6 +16,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --fg-alt: #3f4252; //$color-dark;
+    --bg-alt: #373949;
     --bg: #313443; //$color-darker;
     --fg: #acaeb8; //$color-light;
     // --variant: 'dark';
@@ -25,24 +27,27 @@
 // main
 $bg: var(--bg);
 $fg: var(--fg);
+$bg-alt: var(--bg-alt);
 $fg-alt: var(--fg-alt);
-// $bg: if($variant == 'light', #efefef, #343434);
-// $fg: if($variant == 'dark', #efefef, #343434);
+// $bg: if($variant == 'light', #f1f3f6, #343434);
+// $fg: if($variant == 'dark', #f1f3f6, #343434);
 
 // ------------------------------
 
 // fonts
 $font-mono: monospace;
+$font-UI: 'IBM Plex Sans', sans-serif;
 
 // colours
 
 $color-darker: #313443;
 $color-dark: #3f4252;
-$color-grey: #6a6d80;
+$color-grey: #808397;
 $color-grey-trans: #6a6d8027;
 $color-lightgrey-trans: #9a9cac09;
-$color-light: #efefef;
+$color-light: #f1f3f6;
 $color-white: white;
+$color-blue: rgb(18, 95, 202);
 $color-green: rgb(18, 202, 165);
 
 // shadows
@@ -50,9 +55,11 @@ $shadow-huge: 0px 12px 25px rgba(0,0,0,0.21);
 $shadow-medium: 1px 2px 7px rgba(0,0,0,0.15);
 $shadow-medium-hover: 2px 3px 9px rgba(0,0,0,0.19);
 $shadow-medium-active: 1px 1px 4px rgba(0,0,0,0.15);
+$shadow-menu: 0px 0px 90px rgba(0, 0, 0, 0.16);
 
 // radii
 $radius-circle: 100%;
+$radius-menu: 1em;
 
 // heights
 
@@ -92,6 +99,14 @@ html, body {
   }
 }
 
+.menu {
+  color: $color-grey;
+  background-color: $bg-alt;
+  padding: $pd-main-view;
+  border-radius: $radius-menu;
+  box-shadow: $shadow-menu;
+}
+
 // main view
 .main-view > router-outlet {
   flex: 1;
@@ -107,6 +122,10 @@ router-outlet {
 app-dashboard, app-daily-log, app-monthly-log, app-future-log {
   padding: $pd-view;
 
+}
+
+.hidden {
+  display: none;
 }
 
 // -------------------------------
