@@ -1,0 +1,51 @@
+.container-2 :hover{
+  background-color:#DDDDDD;
+  // border:#33CCFF solid;
+  border-radius: 5px;
+}
+
+.date-one :hover{
+  border:#DDDDDD;
+}
+
+.container-1{
+  border: 2px white;
+  height: 5%;
+  margin-bottom: 1%;
+}
+
+.container-2{
+  position: relative;
+  top: 15px;
+  border: 2px;
+  // width: 100%;
+  // float:right;
+}
+
+#task-text {
+  padding-left: 3%;
+}
+
+#task-time {
+  padding-left: 12%;
+}
+
+.date-one{
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 17px;
+  white-space: nowrap, pre;
+  display: flex;
+  padding: 1%;
+}
+
+.square-icon{
+  box-sizing: border-box;
+  /* position: relative; */
+  width: 18px;
+  height: 18px;
+  /* left: 618px; */
+  /* top: 512.13px; */
+  background: rgba(255, 164, 164, 0.27);
+  border: 2px solid #FFA4A4;
+  border-radius: 4px;
+}

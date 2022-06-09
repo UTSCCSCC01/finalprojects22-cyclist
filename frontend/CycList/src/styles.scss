@@ -124,6 +124,12 @@ app-dashboard, app-daily-log, app-monthly-log, app-future-log {
 
 }
 
+app-daily-log {
+  width: 58%;
+  position: fixed;
+  right: 0px;
+}
+
 .hidden {
   display: none;
 }
