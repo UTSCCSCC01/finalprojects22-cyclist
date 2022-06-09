@@ -14,14 +14,55 @@ export class GlobalsService {
 
   constructor() { }
 
-  sayHi() {
-    console.log(this.test);
+  getAllTasks(type: string) {
+    const body = {
+      query:`
+      query {
+        getAllTask(day: ${type}){
+          content
+          name
+          day
+          month
+          year
+          start      
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json'
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        this.tasks = data.data.getAllTask;
+        console.log(this.tasks);
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
   }
-
-  getTasks() {
-    return this.tasks;
-  }
-
 
   getDailyTasks(day: number, month: number, year: number) {
     const body = {

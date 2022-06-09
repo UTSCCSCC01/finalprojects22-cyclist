@@ -16,7 +16,8 @@ export class DashboardComponent implements OnInit {
   
   ngOnInit(): void {
     // this.app.getTasks();
-    this.globals.getDailyTasks(3, 6, 2022);
+    // this.globals.getDailyTasks(3, 6, 2022);
+    this.globals.getAllTasks("");
   }
 
 }
