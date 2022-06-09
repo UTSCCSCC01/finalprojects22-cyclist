@@ -17,7 +17,8 @@ module.exports = {
             }else{
                 dwm = args.dayWeekMonth;
                 fre = args.frequency;
-                repeatStartDay = new Date().toISOString();
+                let date = args.month+"/"+args.day+"/"+args.year;
+                repeatStartDay = new Date(date).toISOString();
             }
             const newTask = new Task({
                 creater: "6297e22dab2c042c8dd6effb",
