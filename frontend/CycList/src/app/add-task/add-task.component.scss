@@ -61,6 +61,13 @@ $font-size-add-task: 2.7em;
   right: 1em;
   width: fit-content;
   font-size: smaller;
+
+  & form > * {
+    margin-left: 0.2em;
+    display: flex;
+    align-items: center;
+  }
+
   &.active {
     transform: scale(1);
   }

@@ -18,20 +18,20 @@
       <input type="date" id="dueDate" formControlName="dueDate"/>
       <input type="time" formControlName="dueTime"/>
     </div>
-    <div>
-      <!-- Start:  -->
-      <!-- TODO: put an "add start" because its optional -->
-      <!-- <input type="date" id="startDate" formControlName="startDate"/>  
-      <input type="time" formControlName="startTime"/> -->
-    </div>
-    <div>
-      <!-- TODO: add as many reminders as they would like -->
-      <!-- Reminder:
+    <!-- <div>
+      Start: 
+      TODO: put an "add start" because its optional
+      <input type="date" id="startDate" formControlName="startDate"/>  
+      <input type="time" formControlName="startTime"/>
+    </div> -->
+    <!-- <div>
+      TODO: add as many reminders as they would like
+      Reminder:
       <input type="date" placeholder="enter" formControlName="reminder"/>  
-      <input type="time" formControlName="reminderTime"/> -->
-    </div>
-    <div>
-      <!-- Repeat: 
+      <input type="time" formControlName="reminderTime"/>
+    </div> -->
+    <!-- <div>
+      Repeat: 
       <input type="checkbox" formControlName="repeat"/>  
        every: 
       <input type="number" min="1" formControlName="frequency"/>  
@@ -40,10 +40,10 @@
         <option>week(s)</option>
         <option>month(s)</option>
         <option>year(s)</option>
-      </select> -->
-    </div>
-    <div>
-      <!-- Group: 
+      </select>
+    </div> -->
+    <!-- <div>
+      Group: 
       <select id="group" formControlName="group">
         <option>Home</option>
         <option>Work</option>
@@ -55,20 +55,20 @@
         <option>!</option>
         <option>!!</option>
         <option>!!!</option>
-      </select> -->
-    </div>
-    <div>
-      <!-- TODO: add choose on map/enter location, maybe with google maps -->
-      <!-- Location: 
-      <input type="location" />   -->
-    </div>
-    <div>
-      <!-- TODO: add friend list here, can be chosen to collaborate with -->
-      <!-- Collaborations: <input />   -->
-    </div>
-    <div>
-      <!-- TODO: add mood -->
-    </div>
+      </select>
+    </div> -->
+    <!-- <div>
+      TODO: add choose on map/enter location, maybe with google maps
+      Location: 
+      <input type="location" />  
+    </div> -->
+    <!-- <div>
+      TODO: add friend list here, can be chosen to collaborate with
+      Collaborations: <input />  
+    </div> -->
+    <!-- <div>
+      TODO: add mood
+    </div> -->
     <textarea type="text" id="description" placeholder="Description" formControlName="description"></textarea>
   </form>
   <button type="submit" class="add-task btn submit" (click)="submitForm()"></button>

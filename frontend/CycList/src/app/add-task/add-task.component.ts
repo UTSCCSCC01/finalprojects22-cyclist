@@ -64,6 +64,7 @@ export class AddTaskComponent implements OnInit {
 
     // TODO: get all tasks from backend again
     // this.getDailyTasks(3, 6, 2022);
+    
     this.form.reset();
   }
 
