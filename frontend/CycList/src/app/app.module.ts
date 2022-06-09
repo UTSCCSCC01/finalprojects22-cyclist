@@ -6,13 +6,17 @@ import { AppComponent } from './app.component';
 import { DailyViewComponent } from './daily-view/daily-view.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
+import { MonthlyViewComponent } from './monthly-view/monthly-view.component';
+import { AddTaskComponent } from './add-task/add-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DailyViewComponent,
     TopBarComponent,
-    SideBarComponent
+    SideBarComponent,
+    MonthlyViewComponent,
+    AddTaskComponent
   ],
   imports: [
     BrowserModule,

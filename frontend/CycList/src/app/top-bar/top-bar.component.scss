@@ -1,5 +1,11 @@
 @import "../../styles.scss";
 
+$bg-top-bar: $color-dark;
+$fg-top-bar: $color-light;
+$shadow-top-bar: $shadow-huge;
+$height-top-bar: 3em;
+
+
 .top-bar {
     background-color: $bg-top-bar;
     position: relative;

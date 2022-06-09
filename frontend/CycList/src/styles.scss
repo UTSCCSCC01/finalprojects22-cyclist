@@ -1,54 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
+
 /*****************/
 /* All Variables */
 /*****************/
 
 // white mode
 :root {
-  --bg: #efefef;
-  --fg: #313443;     
-  --variant: 'light';
+  --fg-alt: white; //$color-white;
+  --bg: #efefef; //$color-light;
+  --fg: #313443;  //$color-darker;
+  // --variant: 'light';
 }
 // dark mode
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #333541;
-    --fg: #efefef;
-    --variant: 'dark';
+    --fg-alt: #3f4252; //$color-dark;
+    --bg: #313443; //$color-darker;
+    --fg: #acaeb8; //$color-light;
+    // --variant: 'dark';
   }
 }
 
-$variant: var(--variant);
-
-// colours
+// $variant: var(--variant);
+// main
 $bg: var(--bg);
 $fg: var(--fg);
+$fg-alt: var(--fg-alt);
 // $bg: if($variant == 'light', #efefef, #343434);
 // $fg: if($variant == 'dark', #efefef, #343434);
-$bg-top-bar: #3f4252;
-$fg-top-bar: #efefef;
+
+// ------------------------------
+
+// fonts
+$font-mono: monospace;
+
+// colours
+
+$color-darker: #313443;
+$color-dark: #3f4252;
+$color-grey: #6a6d80;
+$color-grey-trans: #6a6d8027;
+$color-lightgrey-trans: #9a9cac17;
+$color-light: #efefef;
+$color-white: white;
+$color-green: rgb(18, 202, 165);
 
 // shadows
-$shadow-top-bar: 0px 12px 25px rgba(0,0,0,0.21);
+$shadow-huge: 0px 12px 25px rgba(0,0,0,0.21);
+$shadow-medium: 1px 2px 7px rgba(0,0,0,0.15);
+$shadow-medium-hover: 2px 3px 9px rgba(0,0,0,0.19);
+$shadow-medium-active: 1px 1px 4px rgba(0,0,0,0.15);
 
 // radii
+$radius-circle: 100%;
 
 // heights
-$height-top-bar: 3em;
+
+// size
 
 // padding
 $pd-top-bar: 0.3em;
 $pd-main-view: 0.7em;
+$pd-view: 1.5em;
+$pd-side-bar: 1em;
 
-
-
-
-
-
-
-
-
-
+// -------------------------------
 
 // main CSS
 html, body {
@@ -63,3 +79,17 @@ html, body {
   color: $fg;
 }
 
+.btn {
+  transition: all 0.2s;
+  box-shadow: $shadow-medium;
+
+  &:hover {
+    transform: translateY(-1);
+    box-shadow: $shadow-medium-hover;
+  }
+  &:active {
+    box-shadow: $shadow-medium-active;
+  }
+}
+
+// -------------------------------

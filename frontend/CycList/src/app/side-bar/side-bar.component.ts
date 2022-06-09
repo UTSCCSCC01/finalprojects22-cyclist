@@ -12,4 +12,9 @@ export class SideBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // switchView(this) {
+  //   document.querySelector(".switch-views a")?.classList.remove("selected");
+  //   this.classList.add("selected");
+  // }
+
 }

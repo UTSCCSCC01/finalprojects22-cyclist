@@ -1,0 +1,24 @@
+@import "../../styles.scss";
+
+$color-add-task: $color-green;
+$shadow-add-task: $shadow-medium;
+$radius-add-task: $radius-circle;
+$size-add-task: 0.9em;
+$line-height-add-task: 0.855em;
+$font-size-add-task: 3.5em;
+
+
+.add-task {
+  user-select: none;
+  margin: 0.2em;
+  overflow: hidden;
+  text-align: center;
+  width: $size-add-task;
+  height: $size-add-task;
+  border-radius: $radius-add-task;
+  background-color: $color-add-task;
+  color: $fg-alt;
+  font-size: $font-size-add-task;
+  font-family: $font-mono;
+  line-height: $line-height-add-task;
+}

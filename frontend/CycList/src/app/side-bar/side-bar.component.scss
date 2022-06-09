@@ -1,0 +1,36 @@
+@import "../../styles.scss";
+
+$bd-switch: 0.2em;
+$radius-switch: 1.2em;
+
+.side-view {
+  padding: $pd-side-bar;
+}
+
+.switch-views {
+  display: flex;
+  flex-direction: column;
+  padding: 0.1em;
+
+  & a {
+    color: $color-grey;
+    text-decoration-line: none;
+    padding: 1em;
+    border-style: solid;
+    border-color: $color-grey-trans;
+    background-color: $color-lightgrey-trans;
+    border-width: $bd-switch/1.2 $bd-switch;
+
+    &:first-child {
+      border-width: $bd-switch $bd-switch $bd-switch/2 $bd-switch;
+      border-radius: $radius-switch $radius-switch 0 0;
+    }
+    &:last-child {
+      border-width: $bd-switch/2 $bd-switch $bd-switch $bd-switch;
+      border-radius: 0 0 $radius-switch $radius-switch;
+    }
+    &:selected {
+      
+    }
+  }
+}

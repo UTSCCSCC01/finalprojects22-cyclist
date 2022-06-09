@@ -11,10 +11,19 @@
 .main-view > :not(app-side-bar) {
   flex: 1;
   align-items: stretch;
-
+  text-align: left;
+  padding: $pd-main-view;
 }
 
+router-outlet {
+  display: none;
+}
 
+app-add-task {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 
 
 
