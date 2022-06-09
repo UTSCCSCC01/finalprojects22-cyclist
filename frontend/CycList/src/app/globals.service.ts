@@ -18,13 +18,13 @@ export class GlobalsService {
     const body = {
       query:`
       query {
-        getAllTask(day: ${type}){
+        getAllTask(type: "all"){
           content
           name
           day
           month
           year
-          start      
+          startTime      
         }
       }
       `
