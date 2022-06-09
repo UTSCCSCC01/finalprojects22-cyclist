@@ -8,6 +8,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { MonthlyViewComponent } from './monthly-view/monthly-view.component';
 import { AddTaskComponent } from './add-task/add-task.component';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AddTaskComponent } from './add-task/add-task.component';
     TopBarComponent,
     SideBarComponent,
     MonthlyViewComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
