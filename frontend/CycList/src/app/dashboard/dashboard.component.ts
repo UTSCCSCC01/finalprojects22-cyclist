@@ -1,67 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-// import { AppComponent } from '../app.component';
+import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  providers: [GlobalsService]
 })
 export class DashboardComponent implements OnInit {
-
-  constructor() { }
+  globals: GlobalsService;
   
-  // app = new AppComponent();
-  tasks = new Array();
-
+  constructor(globals: GlobalsService) {
+    this.globals = globals;
+  }
+  
   ngOnInit(): void {
     // this.app.getTasks();
-    this.getDailyTasks(3, 6, 2022);
-  }
-
-  getDailyTasks(day: number, month: number, year: number) {
-    const body = {
-      query:`
-      query {
-        getDailyTask(day: ${day}, month: ${month}, year: ${year}){
-          content
-        }
-      }
-      `
-    }
-    let err = false;
-    let backenderr = false;
-    fetch("http://localhost:3000/graphql", {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers:{
-      "Content-Type": 'application/json'
-    }
-    })
-    .then(res =>{
-      if(res.status !== 200 && res.status !== 201){
-        err = true;
-        if(res.status === 400){
-          backenderr = true;
-        }
-      }
-      return res.json();
-    })
-    .then(data =>{
-      if(err){
-        if(backenderr){
-          console.log("Something wrong with server, please contact to admin");
-        }else{
-          console.log("** " + data.errors[0].message + " **");
-        }
-      }else{
-        this.tasks = data.data.getDailyTask;
-        // console.log(this.tasks);
-
-      }
-    })
-    .catch(err =>{
-      console.log(err)
-    });
+    this.globals.getDailyTasks(3, 6, 2022);
   }
 
 }

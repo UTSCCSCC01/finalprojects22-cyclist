@@ -12,6 +12,7 @@ import { FutureLogComponent } from './future-log/future-log.component';
 import { MonthlyLogComponent } from './monthly-log/monthly-log.component';
 import { DailyLogComponent } from './daily-log/daily-log.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { GlobalsService } from './globals.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FutureLogComponent,
     MonthlyLogComponent,
     DailyLogComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +32,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [GlobalsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

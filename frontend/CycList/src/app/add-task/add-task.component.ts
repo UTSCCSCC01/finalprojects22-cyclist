@@ -1,5 +1,6 @@
 import { Component, ElementRef, INJECTOR, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-add-task',
@@ -8,11 +9,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AddTaskComponent implements OnInit {
 
-  formActive = true;
-
+  formActive = false;
+  globals: GlobalsService;
+  
   constructor(
+    globals: GlobalsService,
     private fb: FormBuilder
     ) {
+    this.globals = globals;
   }
 
   ngOnInit(): void {
@@ -60,11 +64,10 @@ export class AddTaskComponent implements OnInit {
   submitForm() {
     this.formActive = false;
     console.log(this.form.value)
-    // TODO: send data to back end
-
-    // TODO: get all tasks from backend again
-    // this.getDailyTasks(3, 6, 2022);
-    
+    // send data to back end
+    this.globals.createTask(this.form);
+    // get all tasks from backend again
+    this.globals.getDailyTasks(3, 6, 2022);
     this.form.reset();
   }
 
