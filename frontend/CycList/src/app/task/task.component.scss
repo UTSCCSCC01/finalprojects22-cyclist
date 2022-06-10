@@ -1,0 +1,69 @@
+@import "../../styles.scss";
+
+$radius-todo: 0.34em;
+$pd-task: 0.5em;
+$radius-task: calc($radius-todo + $pd-task / 1.3);
+
+.task {
+  display: flex;
+  padding: $pd-task;
+  transition: all ease-in-out 200ms;
+  border-radius: $radius-task;
+  justify-content: space-between;
+  align-items: center;
+
+  &:hover{
+    background-color: $color-grey-trans;
+    // border:#33CCFF solid;
+  }
+}
+
+// .date-one :hover{
+//   border:#DDDDDD;
+// }
+
+// .container-1{
+//   border: 2px white;
+//   height: 5%;
+//   margin-bottom: 1%;
+// }
+
+// .container-2{
+  // position: relative;
+  // top: 15px;
+  // border: 2px;
+  // width: 100%;
+  // float:right;
+// }
+
+#task-text, #task-time {
+  padding-right: 0.7em;
+  padding-left: 0.7em;
+}
+
+#task-time {
+  color: $color-grey;
+}
+
+.date-one{
+  white-space: nowrap, pre;
+  display: flex;
+}
+
+.square-icon{
+  box-sizing: border-box;
+  /* position: relative; */
+  width: 18px;
+  height: 18px;
+  flex: none;
+  /* left: 618px; */
+  /* top: 512.13px; */
+  background: rgba(255, 164, 164, 0.27);
+  border: 2px solid #ff7575af;
+  border-radius: $radius-todo;
+
+  .square-icon:hover {
+    box-shadow: $shadow-huge;
+    background-color: red;
+  }
+}

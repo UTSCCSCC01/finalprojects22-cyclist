@@ -1,0 +1,137 @@
+@import "../../styles.scss";
+
+$color-add-task: $color-green;
+$shadow-add-task: $shadow-medium;
+$radius-add-task: $radius-circle;
+$size-add-task: 1.289em;
+$line-height-add-task: 1.289em;
+$font-size-add-task: 2.7em;
+
+
+.add-task {
+  margin: 0.2em;
+  overflow: hidden;
+  text-align: center;
+  border-radius: $radius-add-task;
+  background-color: $color-add-task;
+  color: $fg-alt;
+  font-family: $font-UI;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: $size-add-task;
+  height: $size-add-task;
+  font-size: $font-size-add-task;
+  line-height: $line-height-add-task;
+  transition: all 200ms ease-in-out;
+  border: none;
+
+  
+  &.add {
+    width: 0.9em;
+    height: 0.9em;
+    font-size: 3.5em;
+    line-height: 0.3em;
+    padding: 0.1em 0.1em 0.13em 0.1em;
+    transition: all 200ms ease-in-out;
+    transform: scale(0);
+    &::after {
+      content: "+";
+      font-family: $font-UI-mono;
+    }
+    &.active {
+      transform: scale(1);
+    }
+  }
+
+  &.submit {
+    background-color: $color-blue;
+    &::after {
+      content: "✓";
+      font-family: $font-UI;
+    }
+  }
+}
+
+.menu {
+  transition: all 200ms ease-in-out;
+  transform: scale(0);
+  transform-origin: bottom right;
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  width: fit-content;
+  font-size: smaller;
+
+  & form > * {
+    margin-left: 0.2em;
+    display: flex;
+    align-items: center;
+  }
+
+  &.active {
+    transform: scale(1);
+  }
+
+  & textarea {
+    resize: none;
+    height: 5em;
+  }
+
+  & form {
+    display: flex;
+    flex-direction: column;  
+  }
+}
+
+input,
+textarea,
+select {
+  color: $color-grey;
+  border: none;
+  border-radius: 0.5em;
+  padding: 0.3em 0.5em;
+  /* color: white; */
+  margin: 0.2em;
+  /* width: 100; */
+  background-color: rgba(125, 125, 125, 0.069);
+  // box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
+  font-size: small;
+  
+  &::placeholder {
+    color: $color-grey;
+  }
+
+  &:focus {
+    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
+    outline: none;
+  }
+
+  &#task {
+    font-size: medium;
+  }
+
+  &[type="number"] {
+    width: 4em;
+  }
+}
+textarea {
+  background-color: $bg;
+  resize: none;
+  height: 3em;
+}
+
+.task-check {
+  width: 1em;
+  height: 1em;
+  border: 0.3em solid $color-grey-trans;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: transparent;
+}

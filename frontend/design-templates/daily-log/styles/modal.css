@@ -1,0 +1,124 @@
+:root {
+  --bg-color: #F9F9F9;
+  --green: #3FD182;
+  --med-text: #B5B5B5;
+  --light-text: #EAEAEA;
+  --off-black: #575757;
+}
+
+.add-task-button {
+  border-radius: 50%;
+  background-color: var(--green);
+  color: var(--bg-color);
+  border: 0;
+  height: 55px;
+  width: 55px;
+  font-size: 45px;
+}
+
+.add-task-modal {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid var(--light-text);
+  border-radius: 10px;
+  z-index: 10;
+  background-color: var(--bg-color);
+  width: 273px;
+  height: 422px;
+  max-width: 80%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.add-task-modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.atm-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  align-content: flex-start;
+  max-width: 500px;
+  /*margin: 50 px auto;*/
+  /*padding: 10px 15px;*/
+  
+  /* border-bottom: 1px solid var(--light-text);
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: var(--med-text);
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.1em; */
+}
+
+.atm-tabs input[type="radio"] {
+  display: none;
+}
+
+.atm-tabs label {
+  padding: 10px;
+  border-bottom: 1px ridge var(--light-text);
+  flex-grow: 1;
+  text-align: center;
+}
+
+.atm-tabs .atm-content {
+  width: 100%;
+  padding: 15px;
+  order: 1;
+  display: none;
+}
+
+.atm-tabs input[type="radio"]:checked + label + .atm-content {
+  display: block;
+}
+
+.atm-tabs input[type="radio"]:checked + label {
+  background-color: var(--light-text);
+}
+
+/* .atm-new {
+  padding: 10px 15px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: var(--off-black);
+  font-size: 15px;
+}
+
+.atm-forms {
+  padding: 10px 15px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: var(--med-text);
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+} */
+
+.atm-text {
+  padding: 10px 15px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: var(--med-text);
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .2);
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 0;
+  pointer-events: all;
+}

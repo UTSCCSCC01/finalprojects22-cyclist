@@ -1,7 +1,9 @@
 # Motivation
+
 This project is a bullet journal to help you build your daily schedule, you can add tasks and notes to the journal to avoid missing an important meeting or assignment deadline and so on. It also provides a suggested start time, expected end time, and the day it should be started based on your past experience when you create a new task. If you have too many tasks at the same time thus forget to attend an important appointment, we will remember it for you. If you don't have a clear plan about what should I do in the next few days, we will make a personalized suggestion based on you. Since many journal apps in the market cannot give a suggestion, we are here to make your life easier. That's the reason we exist.
 
 # Installation
+
 For users: Since this is a web app, so no installation is needed, a browser and stable internet are enough.
 
 For developers: We will use ReactJs for frontend and backend, MongoDB cloud service for database. 
@@ -20,16 +22,39 @@ Basic steps to install npm:
 
 
 To run our app on your terminal:
-1. Run `git clone https://github.com/UTSCCSCC01/finalprojects22-cyclist.git` to clone this [repo](https://github.com/UTSCCSCC01/finalprojects22-cyclist.git), then go into this folder.
-2. Run `npm install` under both folders frontend and backend to install necessary packages for frontend and backend code.
-3. Run `npm start` under both folders frontend and backend to start frontend and backend service.
+
+Clone the repo
+
+```
+ git clone https://github.com/UTSCCSCC01/finalprojects22-cyclist.git
+```
+Frontend:
+
+1 go into thisfolder `cd finalprojects22-cyclist`.
+
+2 Enter the frontend directory `cd frontend/CycList`.
+
+3 Run `npm install` under this folder, to install necessary packages for frontend.
+
+4 Run `npm start` under this folder to run Angular app. Now the app will be running at `http://localhost:4200/`.
+
+Backend:
+
+1 go to backend directory.
+
+2 Run `npm install` to install necessary packages for backend code.
+
+3 Run `npm start` to start backend service, the backend should be running at `http://localhost:3000/`.
+
 
 # Contribution
 
 ### Do you use git flow?
+
 We will use git flow to track the changes of each branch. Features will be created and developed on different branches and when a feature is implemented and pass all tests, it will be merged into the respective branch.
 
 ### What do you name your branches?
+
 main: This is the main(master) branch. Frontend/backend code, after being fully tested and being ensured that features inside won't conflict with others, will be merged into this branch. 
 
 frontend: This branch is used for the frontend work including user interfaces and so on.
@@ -39,7 +64,9 @@ backend: This branch is used for the backend work including database and server.
 feature-xxx: A feature named xxx will be implemented on this branch, once it has passed all tests, it will be merged into the frontend/backend branch.
 
 ### Do you use github issues or another ticketing website?
+
 We will use discord/Github issues for ticketing.
 
 ### Do you use pull requests?
+
 Our team members will use pull requests to help other members understand the changes with details during building our web app.
