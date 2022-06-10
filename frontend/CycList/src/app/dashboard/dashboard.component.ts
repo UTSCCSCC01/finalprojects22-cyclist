@@ -23,7 +23,10 @@ export class DashboardComponent implements OnInit {
     // GlobalsService.getDailyTasks(3, 6, 2022);
     GlobalsService.getAllTasks("");
     // refresh to get show new tasks
-    setInterval(() => { this.tasks = GlobalsService.getTasks(); console.log("refresh");}, 500);
+    setInterval(() => { 
+      this.tasks = GlobalsService.getTasks(); 
+      // console.log("refresh");
+    }, 500);
   }
 
   refreshTasks() {
