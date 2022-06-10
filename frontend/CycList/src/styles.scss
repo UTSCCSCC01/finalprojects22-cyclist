@@ -135,7 +135,7 @@ router-outlet {
 }
 
 app-dashboard, app-daily-log, app-monthly-log, app-future-log {
-  padding: $pd-view;
+  padding: $pd-view $pd-view / 4 $pd-view $pd-view;
 
 }
 

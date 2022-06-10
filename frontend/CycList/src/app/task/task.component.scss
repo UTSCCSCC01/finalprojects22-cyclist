@@ -4,10 +4,13 @@ $radius-todo: 0.34em;
 $pd-task: 0.3em;
 $radius-task: $radius-todo + $pd-task;
 
-.container-2 {
+.task {
+  display: flex;
   padding: $pd-task;
   transition: all ease-in-out 200ms;
   border-radius: $radius-task;
+  justify-content: space-between;
+  align-items: center;
 
   &:hover{
     background-color: $color-grey-trans;
@@ -19,26 +22,23 @@ $radius-task: $radius-todo + $pd-task;
 //   border:#DDDDDD;
 // }
 
-.container-1{
-  border: 2px white;
-  height: 5%;
-  margin-bottom: 1%;
-}
+// .container-1{
+//   border: 2px white;
+//   height: 5%;
+//   margin-bottom: 1%;
+// }
 
-.container-2{
-  position: relative;
-  top: 15px;
-  border: 2px;
+// .container-2{
+  // position: relative;
+  // top: 15px;
+  // border: 2px;
   // width: 100%;
   // float:right;
-}
+// }
 
-#task-text {
-  padding-left: 3%;
-}
-
-#task-time {
-  padding-left: 12%;
+#task-text, #task-time {
+  padding-right: 0.7em;
+  padding-left: 0.7em;
 }
 
 .date-one{
@@ -52,6 +52,7 @@ $radius-task: $radius-todo + $pd-task;
   /* position: relative; */
   width: 18px;
   height: 18px;
+  margin-top: 0.1em;
   flex: none;
   /* left: 618px; */
   /* top: 512.13px; */

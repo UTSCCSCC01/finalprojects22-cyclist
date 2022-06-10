@@ -1,3 +1,5 @@
+@import "../../styles.scss";
+
 .daily-log-task-container {
   // width: 100%;
 }
@@ -8,7 +10,7 @@
   // width: 720px;
   border-width: 0 0 2px 0;
   border-style: solid;
-  border-color: #dedede;
+  border-color: $color-grey-trans;
 
   
 
