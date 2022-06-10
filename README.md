@@ -20,9 +20,20 @@ Basic steps to install npm:
 
 
 To run our app on your terminal:
-1. Run `git clone https://github.com/UTSCCSCC01/finalprojects22-cyclist.git` to clone this [repo](https://github.com/UTSCCSCC01/finalprojects22-cyclist.git), then go into this folder.
-2. Run `npm install` under both folders frontend and backend to install necessary packages for frontend and backend code.
-3. Run `npm start` under both folders frontend and backend to start frontend and backend service.
+Clone the repo
+
+```
+ git clone https://github.com/UTSCCSCC01/finalprojects22-cyclist.git
+```
+Frontend:
+1 go into this folder `cd finalprojects22-cyclist`
+2 Enter the frontend directory `cd frontend/CycList`. 
+3 Run `npm install` under this folder, to install necessary packages for frontend.
+4 Run `npm start` under this folder to run Angular app. Now the app will be running at `http://localhost:4200/`.
+Backend:
+1 go to backend directory.
+2 Run `npm install` to install necessary packages for backend code.
+3 Run `npm start` to start backend service, the backend should be running at `http://localhost:3000/`.
 
 # Contribution
 
