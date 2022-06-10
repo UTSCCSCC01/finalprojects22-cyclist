@@ -2,7 +2,7 @@
 
 $radius-todo: 0.34em;
 $pd-task: 0.5em;
-$radius-task: $radius-todo + $pd-task / 1.3;
+$radius-task: calc($radius-todo + $pd-task / 1.3);
 
 .task {
   display: flex;
