@@ -18,9 +18,7 @@
 - frontend: npm
 - backend: 
   - Node.js 
-    - version:
   - express.js
-    - version:
   - Database: MongoDB Atlas
 
 # Set up
