@@ -8,7 +8,12 @@ export class GlobalsService {
   test: string = "hello";
   tasks = [
     {
-      content: "loading ..."
+      content: "",
+      name: "loading ...",
+      day: "__",
+      month: "__",
+      year: "____",
+      startTime: "00:00"
     }
   ];
 
@@ -18,7 +23,7 @@ export class GlobalsService {
     const body = {
       query:`
       query {
-        getAllTask(type: "all"){
+        getAllTask(type: "${type}"){
           content
           name
           day
