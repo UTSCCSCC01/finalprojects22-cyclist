@@ -6,19 +6,28 @@ import { FormGroup } from '@angular/forms';
 })
 export class GlobalsService {
   test: string = "hello";
-  tasks = [
+  private static tasks = [
     {
-      content: "loading ..."
+      content: "",
+      name: "loading ...",
+      day: "__",
+      month: "__",
+      year: "____",
+      startTime: "00:00"
     }
   ];
 
   constructor() { }
 
-  getAllTasks(type: string) {
+  static getTasks() {
+    return GlobalsService.tasks;
+  }
+
+  static getAllTasks(type: string) {
     const body = {
       query:`
       query {
-        getAllTask(type: "all"){
+        getAllTask(type: "${type}"){
           content
           name
           day
@@ -55,8 +64,8 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        this.tasks = data.data.getAllTask;
-        console.log(this.tasks);
+        GlobalsService.tasks = data.data.getAllTask;
+        console.log(GlobalsService.tasks);
       }
     })
     .catch(err =>{
@@ -64,7 +73,7 @@ export class GlobalsService {
     });
   }
 
-  getDailyTasks(day: number, month: number, year: number) {
+  static getDailyTasks(day: number, month: number, year: number) {
     const body = {
       query:`
       query {
@@ -100,8 +109,8 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        this.tasks = data.data.getDailyTask;
-        console.log(this.tasks);
+        GlobalsService.tasks = data.data.getDailyTask;
+        console.log(GlobalsService.tasks);
       }
     })
     .catch(err =>{
@@ -109,7 +118,7 @@ export class GlobalsService {
     });
   }
 
-  createTask(form: FormGroup) {
+  static createTask(form: FormGroup) {
     const body = {
       query:`
       mutation {
@@ -152,7 +161,7 @@ export class GlobalsService {
         // all g!
         console.log(form);
         // refresh, ISN'T WORKING THOUGH
-        this.getAllTasks("");
+        GlobalsService.getAllTasks("");
       }
     })
     .catch(err =>{
