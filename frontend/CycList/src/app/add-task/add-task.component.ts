@@ -10,13 +10,10 @@ import { GlobalsService } from '../globals.service';
 export class AddTaskComponent implements OnInit {
 
   formActive = false;
-  globals: GlobalsService;
   
   constructor(
-    globals: GlobalsService,
     private fb: FormBuilder
     ) {
-    this.globals = globals;
   }
 
   ngOnInit(): void {
@@ -68,13 +65,10 @@ export class AddTaskComponent implements OnInit {
     this.formActive = false;
     console.log(this.form.value)
     // send data to back end
-    this.globals.createTask(this.form);
+    GlobalsService.createTask(this.form);
     // get all tasks from backend again
-    // this.globals.getDailyTasks(3, 6, 2022);
-    this.globals.getAllTasks("");
-    // BUG: since it doesn't update the interface just manually push it to UI for now:
-      // reload dashboard?
-
+    // GlobalsService.getDailyTasks(3, 6, 2022);
+    GlobalsService.getAllTasks("");
     this.form.reset();
   }
 
