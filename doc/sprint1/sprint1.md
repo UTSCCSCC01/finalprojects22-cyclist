@@ -2,7 +2,11 @@
 
 Location and date: June 2 on Discord
 
-## Sprint goal
+## Sprint Goals
+
+For Sprint1, the frontend team will focus on learning Angular for building the app, the backend team will focus on doing the basic setup related to the database for the project, the QA team will focus on testing whether all the user stories our team want to complete in sprint1 work well. Our team will focus on completing user stories CYC-63, CYC-60, CYC-27, CYC-38 and CYC-66. At the end of Sprint1, we want to have a web app by which users can see the navigation bars for Dashboard, Daily Log, Monthly Log and Future Log and switch between each view, can add tasks and see them show on the Dashboard page in a consistent format and can change to the dark mode.
+
+## User Stories
 
 Sprint 1 user stories to be completed
 
