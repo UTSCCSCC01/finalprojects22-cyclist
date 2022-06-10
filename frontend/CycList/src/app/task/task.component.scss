@@ -1,12 +1,23 @@
-.container-2 :hover{
-  background-color:#DDDDDD;
-  // border:#33CCFF solid;
-  border-radius: 5px;
+@import "../../styles.scss";
+
+$radius-todo: 0.34em;
+$pd-task: 0.3em;
+$radius-task: $radius-todo + $pd-task;
+
+.container-2 {
+  padding: $pd-task;
+  transition: all ease-in-out 200ms;
+  border-radius: $radius-task;
+
+  &:hover{
+    background-color: $color-grey-trans;
+    // border:#33CCFF solid;
+  }
 }
 
-.date-one :hover{
-  border:#DDDDDD;
-}
+// .date-one :hover{
+//   border:#DDDDDD;
+// }
 
 .container-1{
   border: 2px white;
@@ -41,9 +52,15 @@
   /* position: relative; */
   width: 18px;
   height: 18px;
+  flex: none;
   /* left: 618px; */
   /* top: 512.13px; */
   background: rgba(255, 164, 164, 0.27);
-  border: 2px solid #FFA4A4;
-  border-radius: 4px;
+  border: 2px solid #ff7575af;
+  border-radius: $radius-todo;
+
+  .square-icon:hover {
+    box-shadow: $shadow-huge;
+    background-color: red;
+  }
 }
