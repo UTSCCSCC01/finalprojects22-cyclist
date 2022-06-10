@@ -73,15 +73,7 @@ export class AddTaskComponent implements OnInit {
     // this.globals.getDailyTasks(3, 6, 2022);
     this.globals.getAllTasks("");
     // BUG: since it doesn't update the interface just manually push it to UI for now:
-    const newTask = {
-      content: this.form.value.content,
-      name: this.form.value.name,
-      day: this.form.value.dueDate.slice(0,4),
-      month: this.form.value.dueDate.slice(5,7),
-      year: this.form.value.dueDate.slice(8,10),
-      startTime: this.form.value.startTime
-    };
-    this.globals.tasks.push(newTask);
+      // reload dashboard?
 
     this.form.reset();
   }
