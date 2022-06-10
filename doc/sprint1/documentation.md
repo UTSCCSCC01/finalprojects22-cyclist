@@ -43,8 +43,8 @@
   - Task views: `dashboard`, `daily-log`, `monthly-log`, `future-log`
   - Navigation: `top-bar`, `side-bar`
   - Task format: `task`
-- Main styles and SASS variables are in `styles.scss`.
-- Global variables and methods are in `globals` service.
+- Main styles and SASS variables are in `styles.scss` and can be imported and used by components.
+- Global variables and methods are in `globals` service and can be imported and used by components.
 
 ## Backend
 1. Enter the backend directory `cd backend`.
