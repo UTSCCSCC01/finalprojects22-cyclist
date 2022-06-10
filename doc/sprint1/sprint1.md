@@ -21,6 +21,7 @@ Sprint 1 user stories to be completed
 
 ## Team Capacity 
 
+24 hrs
 
 ## Participants
 
