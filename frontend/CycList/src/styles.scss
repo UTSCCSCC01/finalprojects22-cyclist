@@ -37,7 +37,9 @@ $fg-alt: var(--fg-alt);
 // ------------------------------
 
 // fonts
-$font-mono: monospace;
+$font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-mono: 'Source Code Pro', monospace;
+$font-UI-mono: 'Source Code Pro';
 $font-UI: 'IBM Plex Sans', sans-serif;
 
 // colours
@@ -90,6 +92,7 @@ html, body {
 }
 
 .btn {
+  // user-select: none;
   transition: all 0.2s;
   box-shadow: $shadow-medium;
 

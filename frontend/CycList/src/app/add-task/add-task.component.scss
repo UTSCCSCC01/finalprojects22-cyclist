@@ -9,7 +9,6 @@ $font-size-add-task: 2.7em;
 
 
 .add-task {
-  user-select: none;
   margin: 0.2em;
   overflow: hidden;
   text-align: center;
@@ -37,7 +36,7 @@ $font-size-add-task: 2.7em;
     transform: scale(0);
     &::after {
       content: "+";
-      font-family: $font-mono;
+      font-family: $font-UI-mono;
     }
     &.active {
       transform: scale(1);
@@ -47,7 +46,8 @@ $font-size-add-task: 2.7em;
   &.submit {
     background-color: $color-blue;
     &::after {
-    content: "✓";
+      content: "✓";
+      font-family: $font-UI;
     }
   }
 }
