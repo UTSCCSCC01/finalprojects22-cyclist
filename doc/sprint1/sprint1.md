@@ -19,9 +19,12 @@ Sprint 1 user stories to be completed
   - As a QA, I want to test this feature by following the criteria we create so
     that our web app works well.
 - CYC-27: As a user, I want to press an add button to input information about a
-  new task, and create the new task. (~ 10hrs)
+  new task, and create the new task. (~ 12hrs)
   - create the database to store the tasks
   - create a add button and pop-up window
+  - provide a function to add task to database based on the data sent by frontend.
+  - initialize backend server using Express and graphQL to receive request and send response to the frontend
+  - get task data from backend and display it to user
   - test this feature by following the criteria we create so that our web app
     works well.
   - test that a new task will appear on the dashboard page if I create one by
@@ -31,6 +34,8 @@ Sprint 1 user stories to be completed
   - create a dark mode color version for the web app
 - CYC-66: As a user, I want to view each task with a consistent format. (~ 4hrs)
   - send task data to frontend with consistent format
+  - implement getAllTask so I can return all tasks that the user have in database
+  - implement getDailyTask so I can return all tasks that the user have on the given date in database
   - get task data from backend and display it to user
 
 ## Spikes
