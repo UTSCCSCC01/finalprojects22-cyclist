@@ -36,6 +36,16 @@
 1. Run `npm install` under this folder, to install necessary packages for frontend.
 2. Run `npm start` under this folder to run Angular app. Now the app will be running at `http://localhost:4200/`.
 
+### Frontend Structure
+- Each frontend component is separated into Angular components: 
+  - Main app layout: `app`
+  - Add tasks: `add-task`
+  - Task views: `dashboard`, `daily-log`, `monthly-log`, `future-log`
+  - Navigation: `top-bar`, `side-bar`
+  - Task format: `task`
+- Main styles and SASS variables are in `styles.scss`.
+- Global variables and methods are in `globals` service.
+
 ## Backend
 1. Enter the backend directory `cd backend`.
 2. Run `npm install` under this folder to install necessary packages for backend code.
