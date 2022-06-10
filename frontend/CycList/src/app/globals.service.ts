@@ -151,6 +151,8 @@ export class GlobalsService {
       }else{
         // all g!
         console.log(form);
+        // refresh, ISN'T WORKING THOUGH
+        this.getAllTasks("");
       }
     })
     .catch(err =>{

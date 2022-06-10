@@ -67,7 +67,8 @@ export class AddTaskComponent implements OnInit {
     // send data to back end
     this.globals.createTask(this.form);
     // get all tasks from backend again
-    this.globals.getDailyTasks(3, 6, 2022);
+    // this.globals.getDailyTasks(3, 6, 2022);
+    this.globals.getAllTasks("");
     this.form.reset();
   }
 
