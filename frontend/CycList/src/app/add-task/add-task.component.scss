@@ -31,7 +31,8 @@ $font-size-add-task: 2.7em;
     width: 0.9em;
     height: 0.9em;
     font-size: 3.5em;
-    line-height: 0.855em;
+    line-height: 0.3em;
+    padding: 0.1em 0.1em 0.13em 0.1em;
     transition: all 200ms ease-in-out;
     transform: scale(0);
     &::after {
