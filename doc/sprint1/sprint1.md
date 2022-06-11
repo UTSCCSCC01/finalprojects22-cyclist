@@ -22,7 +22,7 @@ Sprint 1 user stories to be completed
   new task, and create the new task. (~ 12hrs)
   - create the database to store the tasks
   - create a add button and pop-up window
-  - provide a function to add task to database based on the data sent by frontend.
+  - provide a function to add task to database based on the data sent by frontend
   - initialize backend server using Express and graphQL to receive request and send response to the frontend
   - get task data from backend and display it to user
   - test this feature by following the criteria we create so that our web app
@@ -34,8 +34,9 @@ Sprint 1 user stories to be completed
   - create a dark mode color version for the web app
 - CYC-66: As a user, I want to view each task with a consistent format. (~ 4hrs)
   - send task data to frontend with consistent format
-  - implement getAllTask so I can return all tasks that the user have in database
-  - implement getDailyTask so I can return all tasks that the user have on the given date in database
+  - implement getAllTask to return all tasks that the user have in database
+  - implement getDailyTask to return all tasks that the user have on the given date in database
+  - implement getSingleTask to return the details of the given task id in database
   - get task data from backend and display it to user
 
 ## Spikes
