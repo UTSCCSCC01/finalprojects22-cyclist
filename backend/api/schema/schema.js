@@ -46,6 +46,15 @@ type task{
     mood: [mood]
     location: String
 }
+type tag{
+    _id: ID!
+    creater: ID!
+    name: String
+    color: Int
+    icon: Int
+    totalExpectedTime: Float
+    totalActualTime: Float
+}
 type RootQuery {
     emailLogin(email: String!, password: String!): authdata!
     getDailyTask(day: Int!, month: Int!, year:Int!): [task!]
@@ -59,6 +68,7 @@ type RootMutation {
     createTask(hierarchy: String!, date: String!, repeat: String, dayWeekMonth: String, frequency: String, content:String!, startTime: String, expectedDuration: Int, name:String!): task
     rateDifficulty(id: ID!, score: Float!): String
     markSignifier(id: ID!, field: String, value: String): String!
+    createTag(name:String!, color:String!, icon:Int!): tag
 }
 schema {
     query: RootQuery
