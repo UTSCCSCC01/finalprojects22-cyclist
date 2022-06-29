@@ -117,6 +117,56 @@ export class GlobalsService {
       console.log(err)
     });
   }
+  static getFutureTasks(type: string) {
+    const body = {
+      query:`
+      query {
+        getFutureTask(int:2022){
+          id
+          content
+          name
+          day
+          month
+          year
+          startTime      
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json'
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        GlobalsService.tasks = data.data.getFutureTask;
+        console.log(GlobalsService.tasks);
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
 
   static createTask(form: FormGroup) {
     const body = {
