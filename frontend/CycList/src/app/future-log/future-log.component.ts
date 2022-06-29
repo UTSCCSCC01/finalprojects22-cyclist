@@ -18,9 +18,10 @@ export class FutureLogComponent implements OnInit {
   ngOnInit(): void {
     // this.app.getTasks();
     // GlobalsService.getDailyTasks(3, 6, 2022);
-    GlobalsService.getAllTasks("");
+    // GlobalsService.getFutureTasks("");
     // refresh to get show new tasks
     setInterval(() => { 
+      GlobalsService.getFutureTasks(2022);
       this.tasks = GlobalsService.getTasks(); 
       // console.log("refresh");
     }, 500);

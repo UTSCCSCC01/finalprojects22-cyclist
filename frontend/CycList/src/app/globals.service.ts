@@ -33,7 +33,7 @@ export class GlobalsService {
           day
           month
           year
-          startTime      
+          startTime
         }
       }
       `
@@ -117,18 +117,18 @@ export class GlobalsService {
       console.log(err)
     });
   }
-  static getFutureTasks(type: string) {
+  static getFutureTasks(year: number) {
     const body = {
       query:`
       query {
-        getFutureTask(int:2022){
-          id
+        getFutureTask(year: ${year}){
+          _id
           content
           name
           day
           month
           year
-          startTime      
+          startTime
         }
       }
       `
