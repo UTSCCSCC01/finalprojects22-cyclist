@@ -58,7 +58,7 @@ type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
     createTask(hierarchy: String!, date: String!, repeat: String, dayWeekMonth: String, frequency: String, content:String!, startTime: String, expectedDuration: Int, name:String!): task
     rateDifficulty(id: ID!, score: Float!): String
-    markSignifier(id: ID!, field: String, value: String): String!
+    markSignifier(id: ID!, value: String): task
 }
 schema {
     query: RootQuery

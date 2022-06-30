@@ -149,8 +149,18 @@ module.exports = {
             //     throw new Error("User not authenticated");
             // }
             let task = await Task.find({_id:ObjectId(args.id), creater: ObjectId("6297e22dab2c042c8dd6effb")});
-            console.log(task);
-            return "done";
+            if(task.length === 0){
+                throw new Error("wrong task id");
+            }
+            if(!['daily','monthly','future', 'complete','abandon'].includes(args.value)){
+                throw new Error("Not valid input");
+            }
+            await Task.updateOne(
+                {_id: args.id},
+                {$set:{hierarchy:args.value}}
+            );
+            task = await Task.findById(args.id);
+            return task;
         } catch(err){
             throw err;
         }
