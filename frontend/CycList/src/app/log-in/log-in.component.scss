@@ -8,7 +8,17 @@
     background-color: rgba(0, 0, 0, 0.212);
 }
 
-
+.button{
+    background-color: rgba(211,211,211,0.5);
+    color:black;
+    border:none;
+    width:5%;
+    align-items: center;
+}
+.button:hover{
+    background:blue;
+    color:white;
+}
 
 .complete-log-in{
     padding:30px;
@@ -30,3 +40,9 @@
     padding:10px;
 }
 
+.complete-log-in input[type="text"]{
+    background-color:rgba(211,211,211,0.5);
+    border-radius: 5px;
+    width: 30%;
+    border-color:rgba(211,211,211,0.5);
+}
