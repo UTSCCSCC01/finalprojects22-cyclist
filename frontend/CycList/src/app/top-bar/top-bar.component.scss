@@ -1,0 +1,34 @@
+@import "../../styles.scss";
+
+$bg-top-bar: $color-dark;
+$fg-top-bar: $color-light;
+$shadow-top-bar: $shadow-huge;
+$height-top-bar: 3em;
+
+
+.top-bar {
+    background-color: $bg-top-bar;
+    position: relative;
+    width: auto;
+    height: $height-top-bar;
+    line-height: $height-top-bar;
+    box-shadow: $shadow-top-bar;
+    color: $fg-top-bar;
+    padding: $pd-top-bar;
+    display: flex;
+    padding-right: 2%;
+}
+
+.top-bar-elem {
+    margin-left: 2%;
+    text-decoration: none; 
+}
+
+.top-bar-elem:visited { 
+    text-decoration: none; 
+    color: white; 
+}
+
+.spacer {
+    flex: 1;
+}

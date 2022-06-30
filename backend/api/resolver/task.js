@@ -9,7 +9,9 @@ module.exports = {
             let dwm;
             let fre;
             let repeatStartDay;
-
+            let year = parseInt(args.date.split("-")[0]);
+            let month = parseInt(args.date.split("-")[1]);
+            let day = parseInt(args.date.split("-")[2]);
             if(args.repeat === "single"){
                 dwm = null;
                 fre = null;
@@ -17,15 +19,17 @@ module.exports = {
             }else{
                 dwm = args.dayWeekMonth;
                 fre = args.frequency;
-                repeatStartDay = new Date().toISOString();
+                let date = month+"/"+day+"/"+year;
+                repeatStartDay = new Date(date).toISOString();
             }
             const newTask = new Task({
                 creater: "6297e22dab2c042c8dd6effb",
-                day: args.day,
-                month: args.month,
-                year: args.year,
+                name: args.name,
+                day: day,
+                month: month,
+                year: year,
                 hierarchy: args.hierarchy,
-                startTime: 0,
+                startTime: args.startTime,
                 expectedDuration: 0,
                 actualDuration: 0,
                 start: new Date().toISOString(),
@@ -33,7 +37,7 @@ module.exports = {
                 dayWeekMonth: dwm,
                 frequency: fre,
                 repeatStartDay: repeatStartDay,
-                content: "test content",
+                content: args.content,
                 tag: null,
                 important: false,
                 identity: "parent",
@@ -44,7 +48,7 @@ module.exports = {
                 location:null,
             })
             const result = await newTask.save();
-            return result.id;
+            return result;
         } catch(err){
             throw err;
         }
@@ -157,6 +161,18 @@ module.exports = {
             //     throw new Error("User not authenticated");
             // }
             let task = await Task.findById(args.id);
+            return task;
+        } catch(err){
+            throw err;
+        }
+    },
+    getAllTask: async args=>{
+        try{
+            // if(!req.isAuth){
+            //     throw new Error("User not authenticated");
+            // }
+            // if(args.type == "all")
+            let task = await Task.find({creater: ObjectId("6297e22dab2c042c8dd6effb")});
             return task;
         } catch(err){
             throw err;

@@ -24,11 +24,12 @@ type mood{
 type task{
     _id: ID!
     creater: ID
+    name: String
     day: Int
     month: Int
     year: Int
     hierarchy: String
-    startTime: Int
+    startTime: String
     expectedDuration: Float
     actualDuration: Float
     start: String
@@ -51,10 +52,11 @@ type RootQuery {
     getMonthTask(month: Int!, year: Int!): [task!]
     getFutureTask(year: Int): [task!]
     getSingleTask(id: ID!): task
+    getAllTask(type: String):[task!]
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
-    createTask(hierarchy: String!, day: Int, month: Int, year:Int!, repeat: String!, dayWeekMonth: String, frequency: String): ID!
+    createTask(hierarchy: String!, date: String!, repeat: String, dayWeekMonth: String, frequency: String, content:String!, startTime: String, expectedDuration: Int, name:String!): task
     rateDifficulty(id: ID!, score: Float!): String
     markSignifier(id: ID!, field: String, value: String): String!
 }
