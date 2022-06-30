@@ -5,7 +5,7 @@
             <input
             type="text"
             placeholder="Username"
-            name="username"
+            required formControlName="username"
             required
           />
         </div>
@@ -13,10 +13,14 @@
             <input
             type="text"
             placeholder="Password"
-            name="password"
+            required formControlName="password"
             required
           />
         </div>
     <input class="button" type="submit" value="Login" name="">
+    <div class="notation">
+        <p class = "words">Don't have an account?</p>
+        <a class ="register" href="register.component.html">REGISTER</a>
+    </div>
 </form>
 </div>
