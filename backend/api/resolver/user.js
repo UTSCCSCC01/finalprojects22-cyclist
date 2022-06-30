@@ -49,13 +49,14 @@ module.exports = {
         //     {email:args.email},
         //     {$set:{status:"login"}}
         // );
-        // const token = jwt.sign({userId: user.id, email:user.email}, 'my token secret', {
-        //     expiresIn:'1h'
-        // });
+        const token = jwt.sign({userId: user.id, email:user.email}, 'my token secret', {
+            expiresIn:'1h'
+        });
         return {
-            userId: result.id,
-            email: result.email,
-            nickName: result.nickName,
+            userId: user.id,
+            email: user.email,
+            nickName: user.nickName,
+            token: token,
         }
     },
     // logout: async (args,req) =>{
