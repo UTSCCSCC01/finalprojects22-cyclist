@@ -1,0 +1,155 @@
+/* You can add global styles to this file, and also import other style files */
+
+/*****************/
+/* All Variables */
+/*****************/
+
+// Automatic Darkmode and Lightmode with system settings:
+
+// light mode
+:root {
+  --fg-alt: white; //$color-white;
+  --bg-alt: #eaebef;
+  --bg: #f1f3f6; //$color-light;
+  --fg: #313443;  //$color-darker;
+  // --variant: 'light';
+}
+// dark mode
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg-alt: #3f4252; //$color-dark;
+    --bg-alt: #373949;
+    --bg: #313443; //$color-darker;
+    --fg: #acaeb8; //$color-light;
+    // --variant: 'dark';
+  }
+}
+
+// $variant: var(--variant);
+// main
+$bg: var(--bg);
+$fg: var(--fg);
+$bg-alt: var(--bg-alt);
+$fg-alt: var(--fg-alt);
+// $bg: if($variant == 'light', #f1f3f6, #343434);
+// $fg: if($variant == 'dark', #f1f3f6, #343434);
+
+// ------------------------------
+
+// fonts
+$font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-mono: 'Source Code Pro', monospace;
+$font-UI-mono: 'Source Code Pro';
+$font-UI: 'IBM Plex Sans', sans-serif;
+
+// colours
+
+$color-darker: #313443;
+$color-dark: #3f4252;
+$color-grey: #808397;
+$color-lightgrey: #bcbeca;
+$color-grey-trans: #6a6d8027;
+$color-lightgrey-trans: #9a9cac09;
+$color-light: #f1f3f6;
+$color-white: white;
+$color-blue: rgb(18, 95, 202);
+$color-green: rgb(18, 202, 165);
+
+// shadows
+$shadow-huge: 0px 12px 25px rgba(0,0,0,0.21);
+$shadow-medium: 1px 2px 7px rgba(0,0,0,0.15);
+$shadow-medium-hover: 2px 3px 9px rgba(0,0,0,0.19);
+$shadow-medium-active: 1px 1px 4px rgba(0,0,0,0.15);
+$shadow-menu: 0px 0px 90px rgba(0, 0, 0, 0.16);
+
+// radii
+$radius-circle: 100%;
+$radius-menu: 1em;
+
+// heights
+
+// size
+
+// padding
+$pd-top-bar: 0.3em;
+$pd-main-view: 0.7em;
+$pd-view: 1.5em;
+$pd-side-bar: 1em;
+
+// -------------------------------
+
+// main CSS
+html, body {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: $bg;
+  color: $fg;
+}
+
+.btn {
+  // user-select: none;
+  transition: all 0.2s;
+  box-shadow: $shadow-medium;
+
+  &:hover {
+    transform: translateY(-1);
+    box-shadow: $shadow-medium-hover;
+  }
+  &:active {
+    box-shadow: $shadow-medium-active;
+  }
+}
+
+.menu {
+  color: $color-grey;
+  background-color: $bg-alt;
+  padding: $pd-main-view;
+  border-radius: $radius-menu;
+  box-shadow: $shadow-menu;
+}
+
+// main view
+.main-view {
+  display: flex;
+  align-items: stretch;
+  color: $fg;
+  overflow: hidden;
+  padding: $pd-main-view;
+  
+  & > :not(app-side-bar) {
+    align-items: stretch;
+    flex: 1;
+  }
+}
+// .main-view > router-outlet {
+//   flex: 1;
+//   align-items: stretch;
+//   text-align: left;
+//   padding: $pd-main-view;
+// }
+
+router-outlet {
+  display: none;
+}
+
+app-dashboard, app-daily-log, app-monthly-log, app-future-log {
+  padding: $pd-view calc($pd-view / 4) $pd-view $pd-view;
+
+}
+
+// app-daily-log {
+  // width: 58%;
+  // position: fixed;
+  // right: 0px;
+// }
+
+.hidden {
+  display: none;
+}
+
+// -------------------------------

@@ -1,0 +1,9 @@
+<div class="tasks">
+  <!-- Tasks: -->
+  <!-- <app-task></app-task> -->
+  <div class="tasks">
+    <div class="task" *ngFor="let task of tasks">
+      <div class="name">{{ task.name }}</div><div>{{ task.startTime}}: {{ task.year}}-{{ task.month }}-{{ task.day }}</div>
+    </div>
+  </div>
+</div>

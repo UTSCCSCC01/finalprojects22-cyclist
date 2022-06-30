@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Daily Log</title>
+    <link href="styles/modal.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script defer src="js/modal.js"></script>
+  </head>
+  <body>
+    <button data-modal-target="#modal" class="add-task-button">
+      +
+    </button>
+
+    <div class="add-task-modal" id="modal">
+      <div class="atm-tabs">
+        <input type="radio" id="tab-task" name="atm-tabs" checked="checked"> 
+        <label for="tab-task" class="atm-text">ADD TASK</label>
+        <div class="atm-content atm-text">
+          DUE:
+          <br>
+          START:
+          <br>
+          REMINDER:
+          <br>
+          REPEAT:
+          <br>
+          GROUP:
+          <br>
+          LOCATION:
+          <br>
+          COLLABORATIONS:
+        </div>
+
+        <input type="radio" id="tab-note" name="atm-tabs"> 
+        <label for="tab-note" class="atm-text">ADD NOTE</label>
+        <div class="atm-content atm-text">
+          SAMPLE TEXT:
+        </div>
+      </div>
+    </div>
+
+    <div id="overlay"></div>
+  </body>
+</html>

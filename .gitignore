@@ -3,3 +3,4 @@
 doc/sprint0/.vscode/settings.json
 node_modules/
 backend/package-lock.json
+.angular

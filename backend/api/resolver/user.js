@@ -5,8 +5,7 @@ const validator = require("validator");
 module.exports = {
     createUser: async args => {
         try {
-            if(!validator.isEmail(args.email) 
-            || !validator.isAlpha(args.nickName)){
+            if(!validator.isEmail(args.email)){
               throw new Error("Wrong format of email or name");
             }
             const user = await User.findOne({ email: args.email });

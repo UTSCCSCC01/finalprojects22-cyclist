@@ -6,6 +6,9 @@ const taskSchema = new Schema({
         ref:'User',
         required: true,
     },
+    name:{
+        type: String,
+    },
     // the planning day of this task
     day:{
         type: Number,
@@ -23,7 +26,7 @@ const taskSchema = new Schema({
     },
     // am/pm
     startTime:{
-        type: Number,
+        type: String,
     },
     expectedDuration:{
         type: Number,
