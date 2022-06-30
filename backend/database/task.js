@@ -38,8 +38,8 @@ const taskSchema = new Schema({
     start:{
         type: Date,
     },
-    repeatOrSingle:{
-        type: String,
+    isRepeat:{
+        type: Boolean,
     },
     dayWeekMonth:{
         type: String,
