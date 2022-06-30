@@ -11,6 +11,7 @@ type authdata{
     userId: ID!
     email: String!
     nickName: String!
+    token: String!
 }
 type liteTask{
     _id: ID!

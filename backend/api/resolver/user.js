@@ -24,13 +24,14 @@ module.exports = {
                 achievement:[]
             });
             const result = await newUser.save();
-            // const token = jwt.sign({userId: result.id, email:result.email}, 'my token secret', {
-            //     expiresIn:'1h'
-            // });
+            const token = jwt.sign({userId: result.id, email:result.email}, 'cyclist secret', {
+                expiresIn:'1h'
+            });
             return {
                 userId: result.id,
                 email: result.email,
                 nickName: result.nickName,
+                token: token,
             }
         } catch (err) {
             throw err;
