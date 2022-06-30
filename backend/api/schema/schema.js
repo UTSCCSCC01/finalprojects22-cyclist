@@ -62,13 +62,14 @@ type RootQuery {
     getFutureTask(year: Int): [task!]
     getSingleTask(id: ID!): task
     getAllTask(type: String):[task!]
+    getAllTag(id: ID):[tag]
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
     createTask(hierarchy: String!, date: String!, repeat: String, dayWeekMonth: String, frequency: String, content:String!, startTime: String, expectedDuration: Int, name:String!): task
     rateDifficulty(id: ID!, score: Float!): String
     markSignifier(id: ID!, field: String, value: String): String!
-    createTag(name:String!, color:String!, icon:Int!): tag
+    createTag(name:String!, color:String!): tag
 }
 schema {
     query: RootQuery
