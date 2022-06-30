@@ -38,7 +38,7 @@ module.exports = {
                 frequency: fre,
                 repeatStartDay: repeatStartDay,
                 content: args.content,
-                tag: null,
+                tag: args.tagID,
                 important: false,
                 identity: "parent",
                 subTask:[],
