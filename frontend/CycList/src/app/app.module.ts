@@ -13,6 +13,7 @@ import { MonthlyLogComponent } from './monthly-log/monthly-log.component';
 import { DailyLogComponent } from './daily-log/daily-log.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GlobalsService } from './globals.service';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { GlobalsService } from './globals.service';
     MonthlyLogComponent,
     DailyLogComponent,
     DashboardComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
