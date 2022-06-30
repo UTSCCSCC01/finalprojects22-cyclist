@@ -1,0 +1,32 @@
+.overlayer{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    backdrop-filter:blur(30px);
+    background-color: rgba(0, 0, 0, 0.212);
+}
+
+
+
+.complete-log-in{
+    padding:30px;
+    text-align: center;
+    margin-top: 115px;
+}
+
+.circle{
+    background: rgba(211,211,211,0.5);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-left: 44%;
+    margin-bottom: 30px;
+    
+}
+
+.complete-log-in .log-in{
+    padding:10px;
+}
+
