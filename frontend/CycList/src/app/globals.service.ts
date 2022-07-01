@@ -65,7 +65,7 @@ export class GlobalsService {
         }
       }else{
         GlobalsService.tasks = data.data.getAllTask;
-        console.log(GlobalsService.tasks);
+        // console.log(GlobalsService.tasks);
       }
     })
     .catch(err =>{
@@ -110,7 +110,7 @@ export class GlobalsService {
         }
       }else{
         GlobalsService.tasks = data.data.getDailyTask;
-        console.log(GlobalsService.tasks);
+        // console.log(GlobalsService.tasks);
       }
     })
     .catch(err =>{
@@ -160,7 +160,7 @@ export class GlobalsService {
         }
       }else{
         GlobalsService.tasks = data.data.getFutureTask;
-        console.log(GlobalsService.tasks);
+        // console.log(GlobalsService.tasks);
       }
     })
     .catch(err =>{

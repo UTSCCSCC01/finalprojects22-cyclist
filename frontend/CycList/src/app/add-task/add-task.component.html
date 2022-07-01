@@ -30,18 +30,39 @@
       <input type="date" placeholder="enter" formControlName="reminder"/>  
       <input type="time" formControlName="reminderTime"/>
     </div> -->
-    <!-- <div>
+    <div>
       Repeat: 
-      <input type="checkbox" formControlName="repeat"/>  
-       every: 
-      <input type="number" min="1" formControlName="frequency"/>  
-      <select id="repeat-cycle" formControlName="dayWeekMonthYear">
+      <input (change)="repeatCheck($event)" type="checkbox" formControlName="repeat"/>  
+      <span *ngIf="repeat">
+        every
+        <span *ngIf="form.value.dayWeekMonth === 'day'">
+          <input type="number" min="1" formControlName="frequency"/>
+          th
+        </span>
+        <span *ngIf="form.value.dayWeekMonth === 'week'">
+          <div class="btn circ" [ngClass]="{'toggled': Su}" (click)="Su = !Su">S</div>
+          <div class="btn circ" [ngClass]="{'toggled': Mo}" (click)="Mo = !Mo">M</div>
+          <div class="btn circ" [ngClass]="{'toggled': Tu}" (click)="Tu = !Tu">T</div>
+          <div class="btn circ" [ngClass]="{'toggled': We}" (click)="We = !We">W</div>
+          <div class="btn circ" [ngClass]="{'toggled': Th}" (click)="Th = !Th">T</div>
+          <div class="btn circ" [ngClass]="{'toggled': Fr}" (click)="Fr = !Fr">F</div>
+          <div class="btn circ" [ngClass]="{'toggled': Sa}" (click)="Sa = !Sa">S</div>
+        </span>
+        <select formControlName="dayWeekMonth">
+          <option>day</option>
+          <option>week</option>
+          <option>month</option>
+        </select>
+        <!-- <span *ngIf="form.value.dayWeekMonth === 'month'">
+        </span> -->
+      </span>
+      <!-- <select id="repeat-cycle" formControlName="dayWeekMonthYear">
         <option>day(s)</option>
         <option>week(s)</option>
         <option>month(s)</option>
         <option>year(s)</option>
-      </select>
-    </div> -->
+      </select> -->
+    </div>
     <!-- <div>
       Group: 
       <select id="group" formControlName="group">

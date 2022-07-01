@@ -10,6 +10,14 @@ import { GlobalsService } from '../globals.service';
 export class AddTaskComponent implements OnInit {
 
   formActive = false;
+  repeat = false;
+  Su = false;
+  Mo = false;
+  Tu = false;
+  We = false;
+  Th = false;
+  Fr = false;
+  Sa = false;
   
   constructor(
     private fb: FormBuilder
@@ -18,7 +26,7 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  
   addTaskForm() {
     this.formActive = true;
   }
@@ -27,6 +35,17 @@ export class AddTaskComponent implements OnInit {
     this.formActive = false;
   }
 
+  setRepeatFrequency() {
+    if (this.form.value.dayWeekMonth === 'week') {
+      
+    }    
+  }
+
+  repeatCheck(event: any) {
+    this.repeat = event.target.checked;
+    this.form.value.frequency = [null];
+    this.form.value.dayWeekMonth = [null];
+  }
   // @ViewChild("addTask") addTask: ElementRef<HTMLElement>;
 
   form: FormGroup = this.fb.group({
@@ -41,10 +60,10 @@ export class AddTaskComponent implements OnInit {
 
     expectedDuration: [null],  // pointless because we have start and due/end unless this is an AI value
 
-    repeat: [null],         // maybe just repeat true of false
+    isRepeat: [null],         // maybe just repeat true of false
     frequency: [null],
-    dayWeekMonthYear: [null],   // add year?
-    repeatStartDay: [null],     // pointless????????
+    dayWeekMonth: [null],   // add year?
+    // repeatStartDay: [null],     // only in backend
 
     group: [null],                // maybe just call tag, group, was this what was meant????????
     priority: [null],         // maybe like options: ! !! or !!!    
