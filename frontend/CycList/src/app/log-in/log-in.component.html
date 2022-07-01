@@ -1,26 +1,25 @@
-<div class="overlayer">
-<form class="complete-log-in">
+<div class="signin-overlay" [ngClass]="{'hidden': loggedin}">
+  <div class="signin">
     <div class="circle"></div>
-        <div class="log-in">
-            <input
-            type="text"
-            placeholder="Username"
-            required formControlName="username"
-            required
-          />
-        </div>
-        <div class="log-in">
-            <input
-            type="text"
-            placeholder="Password"
-            required formControlName="password"
-            required
-          />
-        </div>
-    <input class="button" type="submit" value="Login" name="">
+    <form class="complete-log-in" [formGroup]="form">
+      <input
+        type="text"
+        placeholder="Email"
+        formControlName="email"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Password"
+        formControlName="password"
+        required
+      />
+      <input class="btn" type="submit" value="Login" name="" (click)="login()">
+    </form>
     <div class="notation">
-        <p class = "words">Don't have an account?</p>
-        <a class ="register" href="register.component.html">REGISTER</a>
-    </div>
-</form>
+      <p class = "words">
+        Don't have an account? <a class ="register" href="register.component.html">REGISTER</a>
+      </p>
+    </div>  
+  </div>
 </div>

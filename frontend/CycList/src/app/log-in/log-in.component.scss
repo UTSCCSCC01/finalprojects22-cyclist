@@ -1,4 +1,6 @@
-.overlayer{
+@import "../../styles.scss";
+
+.signin-overlay {
     position: absolute;
     top:0;
     bottom:0;
@@ -6,60 +8,78 @@
     right:0;
     backdrop-filter:blur(30px);
     background-color: rgba(0, 0, 0, 0.212);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
-.button{
-    background-color: rgba(211,211,211,0.5);
-    color:black;
-    border:none;
-    width:5%;
-    align-items: center;
-}
-.button:hover{
-    background:blue;
-    color:white;
+// .button{
+//     background-color: rgba(211,211,211,0.5);
+//     color:black;
+//     border:none;
+//     width:5%;
+//     align-items: center;
+// }
+// .button:hover{
+//     background:blue;
+//     color:white;
+// }
+
+.signin {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .complete-log-in{
-    padding:30px;
-    text-align: center;
-    margin-top: 115px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  width: 50%;
+  max-width: 20em;
+  min-width: 10em;
+  text-align: center;
+  justify-content: center;
+  // margin-top: 115px;
 }
 
 .circle{
-    background: rgba(211,211,211,0.5);
+    background: $color-mediumgrey-trans;
     border-radius: 50%;
     width: 150px;
     height: 150px;
-    margin-left: 44%;
-    margin-bottom: 30px;
-    
+    // margin-left: 44%;
+    // margin-bottom: 30px;
 }
 
-.complete-log-in .log-in{
-    padding:10px;
-}
+// .complete-log-in .log-in{
+//     padding:10px;
+// }
 
-.complete-log-in input[type="text"]{
-    background-color:rgba(211,211,211,0.5);
-    border-radius: 5px;
-    width: 30%;
-    border-color:rgba(211,211,211,0.5);
-}
+// .complete-log-in input[type="text"]{
+//     background-color:rgba(211,211,211,0.5);
+//     border-radius: 5px;
+//     width: 30%;
+//     border-color:rgba(211,211,211,0.5);
+// }
 
 .words{
-    font-family: 'Times New Roman', Times, serif;
+    // font-family: 'Times New Roman', Times, serif;
     font-size: small;
-    color:lightgrey;
-    display: inline-block;
+    color: $fg;
+    // display: inline-block;
 }
 
 .register{
-    font-family:'Courier New', Courier, monospace;
+    // font-family:'Courier New', Courier, monospace;
     font-size: small;
     color:cornflowerblue;
     font-weight:bold;
 }
-.register:hover{
-    color:black;
+.register:hover {
+    color: rgb(131, 168, 236);
+}
+.register:active {
+  color: rgb(82, 137, 239);
 }
