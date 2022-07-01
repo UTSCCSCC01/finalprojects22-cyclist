@@ -79,6 +79,11 @@ export class GlobalsService {
       query {
         getDailyTask(day: ${day}, month: ${month}, year: ${year}){
           content
+          name
+          day
+          month
+          year
+          startTime
         }
       }
       `

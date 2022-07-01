@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
 import { GlobalsService } from '../globals.service';
 
 @Component({
@@ -8,11 +9,13 @@ import { GlobalsService } from '../globals.service';
 })
 export class DailyLogComponent implements OnInit {
 
-  dailyTasks : any;
+  dailyTasks : any[] = [];
   numDates = 6;   // TODO: dependency injection!?
   dates : Date[] = [];
 
-  constructor() {}
+  constructor() {
+    GlobalsService.getDailyTasks(1, 7, 2022);
+  }
 
   ngOnInit(): void {
 
@@ -24,17 +27,14 @@ export class DailyLogComponent implements OnInit {
       this.dates[i].setDate(today.getDate() + i);
     }
 
-    // this.tasks = GlobalsService.getDailyTasks();
-
-    let day1 = ["[test]1a", "[test]1b", "[test]1c", "[test]1d"];
-    let day2 : string[] = [];
-    let day3 = ["[test]1a"];
-    let day4 = ["[test]1a", "[test]1d"];
-    let day5 : string[] = [];
-    let day6 : string[] = [];
-
-    this.dailyTasks = [day1, day2, day3, day4, day5, day6];
-
+    //get each day's tasks, update every 500ms
+    setInterval(() => { 
+      for(let i = 0; i < this.numDates; i++) {
+        GlobalsService.getDailyTasks(this.dates[i].getDate(), this.dates[i].getMonth() + 1, this.dates[i].getFullYear());
+        let tasks = GlobalsService.getTasks(); 
+        this.dailyTasks[i] = tasks;
+      }
+    }, 500);
     
   }
 
