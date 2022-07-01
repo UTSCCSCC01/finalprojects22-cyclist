@@ -1,7 +1,10 @@
 <div class="daily-log-task-container">
   <h1>To Do</h1>
   <hr class="daily-log-underline">
-  <app-task></app-task>
-  <app-task></app-task>
-  <app-task></app-task>
+  <div *ngFor = "let day of dailyTasks; index as i">
+    <h2>{{dates[i].toDateString()}}</h2>
+    <div *ngFor = "let task of day; index as j">
+      <p>{{task}}</p>
+    </div>
+  </div>
 </div>
