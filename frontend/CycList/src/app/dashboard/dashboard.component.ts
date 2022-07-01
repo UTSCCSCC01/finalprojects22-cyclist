@@ -9,24 +9,24 @@ import { GlobalsService } from '../globals.service';
 })
 export class DashboardComponent implements OnInit {
   // globals: GlobalsService;
-  tasks;
+  // tasks;
   
   constructor(
-    // globals: GlobalsService
+    public globals: GlobalsService
     ) {
     // this.globals = globals;
-    this.tasks = GlobalsService.getTasks();
+    // this.tasks = GlobalsService.getTasks();
   }
   
   ngOnInit(): void {
     // this.app.getTasks();
     // GlobalsService.getDailyTasks(3, 6, 2022);
-    GlobalsService.getAllTasks("");
+    this.globals.getAllTasks("");
     // refresh to get show new tasks
-    setInterval(() => { 
-      this.tasks = GlobalsService.getTasks(); 
-      // console.log("refresh");
-    }, 500);
+    // setInterval(() => {
+    //   this.tasks = GlobalsService.getTasks(); 
+    //   // console.log("refresh");
+    // }, 500);
   }
 
   refreshTasks() {

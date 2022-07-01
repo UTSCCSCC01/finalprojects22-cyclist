@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalsService } from '../globals.service';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-log-in',
@@ -14,12 +13,11 @@ export class LogInComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private cookie: CookieService
+    public globals: GlobalsService
     ) {
   }
 
   ngOnInit(): void {
-    // this.cookie.set('user', "", 2, '/', "Cyclist", true, 'Lax');
   }
 
   form: FormGroup = this.fb.group({
@@ -27,12 +25,15 @@ export class LogInComponent implements OnInit {
     password: [null]
   });
 
-  login() {
-    GlobalsService.login(this.form);
-    let user = GlobalsService.getUser();
-    console.log(user);
-    if (user.token === null) {
-      this.cookie.set("user", user.toString());
+  async login() {
+    // console.log(this.cookie.get('user'));
+    // stop if the form isn't full
+    if (!this.form.value.email || !this.form.value.password) return;
+    await this.globals.login(this.form);
+    // after we have logged in we can continue
+    console.log("login: ");
+    console.log(this.globals.getUser());
+    if (this.globals.getUser() !== undefined) {
       this.loggedin = true;
     }
   }

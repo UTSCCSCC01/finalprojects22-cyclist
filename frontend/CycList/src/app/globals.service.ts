@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class GlobalsService {
 
-  private static tasks = [
+  public tasks = [
     {
       content: "",
       name: "loading ...",
@@ -18,36 +18,41 @@ export class GlobalsService {
     }
   ];
 
-  private static user = {
-    userId: [null],
-    email: [null],
-    nickName: [null],
-    token: [null]
-  };
+  private user: any;
+  //  = {
+  //   userId: [null],
+  //   email: [null],
+  //   nickName: [null],
+  //   token: [null]
+  // };
+  
+  constructor(private cookie: CookieService) { }
 
-  constructor() { }
-
-  static getToken(cookie: CookieService) {
-    return cookie.get("user.token");
+  public getToken() {
+    return this.cookie.get("user.token");
   }
 
-  static getTasks() {
-    return GlobalsService.tasks;
-  }
-
-  static setUser(user: any) {
-    GlobalsService.user = user;
-  }
-
-  static getUser() {
-    return GlobalsService.user;
-  }
-
-  // static signin() {
-  //   GlobalsService.cookie.set('user', 'Readerstacks', 2, '/', "Cyclist", true, 'Lax');
+  // public getTasks() {
+  //   return this.tasks;
   // }
 
-  static login(form: FormGroup) {
+  public setUser(data: any) {
+    this.user = data;
+  }
+
+  public setTasks(tasks: any) {
+    this.tasks = tasks;
+  }
+
+  public getUser() {
+    return this.user;
+  }
+
+  // public signin() {
+  //   this.cookie.set('user', 'Readerstacks', 2, '/', "Cyclist", true, 'Lax');
+  // }
+
+  public async login(form: FormGroup) {
     const body = {
       query:`
       query {
@@ -62,7 +67,7 @@ export class GlobalsService {
     }
     let err = false;
     let backenderr = false;
-    fetch("http://localhost:3000/graphql", {
+    await fetch("http://localhost:3000/graphql", {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
@@ -85,22 +90,31 @@ export class GlobalsService {
         }else{
           console.log("** " + data.errors[0].message + " **");
         }
-      }else{
+      }else{ 
         // all g!
-        console.log(form);
-        console.log(data);
+        // console.log(form);
+        // console.log(data);
         // refresh, ISN'T WORKING THOUGH
-        GlobalsService.setUser(data);
+        
+        this.setUser(data);
+        // console.log(cookie.get('user'));
+        // cookie.set('user', data);
       }
     })
     .catch(err =>{
       console.log(err)
     });
+
+    // since we awaited the fetch, we have the data now and set it in the cookie
+    this.cookie.set('user', this.getUser(), 2, '/', "Cyclist", true, 'Strict');
+
+    // send back user we just got
+    // return this.getUser();
   }
 
 
 
-  static getAllTasks(type: string) {
+  public async getAllTasks(type: string) {
     const body = {
       query:`
       query {
@@ -117,7 +131,7 @@ export class GlobalsService {
     }
     let err = false;
     let backenderr = false;
-    fetch("http://localhost:3000/graphql", {
+    await fetch("http://localhost:3000/graphql", {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
@@ -141,8 +155,8 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        GlobalsService.tasks = data.data.getAllTask;
-        console.log(GlobalsService.tasks);
+        this.setTasks(data.data.getAllTask);
+        // console.log(this.tasks);
       }
     })
     .catch(err =>{
@@ -150,7 +164,7 @@ export class GlobalsService {
     });
   }
 
-  static getDailyTasks(day: number, month: number, year: number) {
+  public async getDailyTasks(day: number, month: number, year: number) {
     const body = {
       query:`
       query {
@@ -162,7 +176,7 @@ export class GlobalsService {
     }
     let err = false;
     let backenderr = false;
-    fetch("http://localhost:3000/graphql", {
+    await fetch("http://localhost:3000/graphql", {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
@@ -186,15 +200,16 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        GlobalsService.tasks = data.data.getDailyTask;
-        console.log(GlobalsService.tasks);
+        this.setTasks(data.data.getDailyTask);
+        // console.log(this.tasks);
       }
     })
     .catch(err =>{
       console.log(err)
     });
   }
-  static getFutureTasks(year: number) {
+
+  public async getFutureTasks(year: number) {
     const body = {
       query:`
       query {
@@ -212,7 +227,7 @@ export class GlobalsService {
     }
     let err = false;
     let backenderr = false;
-    fetch("http://localhost:3000/graphql", {
+    await fetch("http://localhost:3000/graphql", {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
@@ -236,8 +251,7 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        GlobalsService.tasks = data.data.getFutureTask;
-        console.log(GlobalsService.tasks);
+        this.setTasks(data.data.getFutureTask);
       }
     })
     .catch(err =>{
@@ -245,7 +259,7 @@ export class GlobalsService {
     });
   }
 
-  static createTask(form: FormGroup) {
+  public async createTask(form: FormGroup) {
     const body = {
       query:`
       mutation {
@@ -261,7 +275,7 @@ export class GlobalsService {
     }
     let err = false;
     let backenderr = false;
-    fetch("http://localhost:3000/graphql", {
+    await fetch("http://localhost:3000/graphql", {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
@@ -288,7 +302,7 @@ export class GlobalsService {
         // all g!
         console.log(form);
         // refresh, ISN'T WORKING THOUGH
-        GlobalsService.getAllTasks("");
+        this.getAllTasks("");
       }
     })
     .catch(err =>{
