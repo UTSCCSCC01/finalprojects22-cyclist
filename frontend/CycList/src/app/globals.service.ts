@@ -236,8 +236,11 @@ export class GlobalsService {
     });
   }
 
+  static getTags() {
+    return GlobalsService.tags;
+  }
 
-  static getTag(tagID: string) {
+  static getAllTags(tagID: string) {
     console.log("TAG ID " + tagID)
     const body = {
       query:`

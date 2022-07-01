@@ -29,15 +29,15 @@ export class TaskComponent {
   tagID: string = "";
 
   constructor() { 
-    this.tags = GlobalsService.getTag(this.tagID);
+    this.tags = GlobalsService.getTags();
   }
   // constructor(private dailyView: DailyViewComponent) { }
 
 
   ngOnInit(): void {
     // console.log();
-    this.tags = GlobalsService.getTag(this.tagID);
-    
+    GlobalsService.getAllTags(this.tagID);
+    this.tags = GlobalsService.getTags();
   }
 
 }
