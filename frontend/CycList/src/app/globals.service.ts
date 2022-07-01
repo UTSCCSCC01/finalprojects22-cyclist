@@ -13,7 +13,17 @@ export class GlobalsService {
       day: "__",
       month: "__",
       year: "____",
-      startTime: "00:00"
+      startTime: "00:00",
+      tag: ""
+    }
+  ];
+
+  private static tags = [
+    {
+      creater: "",
+      name: "",
+      color: "0",
+      icon: "0",
     }
   ];
 
@@ -34,6 +44,7 @@ export class GlobalsService {
           month
           year
           startTime
+          tag
         }
       }
       `
@@ -129,6 +140,7 @@ export class GlobalsService {
           month
           year
           startTime
+          tag
         }
       }
       `
@@ -169,15 +181,20 @@ export class GlobalsService {
   }
 
   static createTask(form: FormGroup) {
+
+    let taskGroup = (document.querySelector('input[name="taskGroup"]:checked') as HTMLInputElement).value;
+    console.log("TASK GROUP " + taskGroup)
+
     const body = {
       query:`
       mutation {
-        createTask(hierarchy:"daily",date:"${form.value.dueDate}",repeat:"single", content:"${form.value.description}",name:"${form.value.name}", startTime:"${form.value.dueTime}"){
+        createTask(hierarchy:"daily",date:"${form.value.dueDate}",repeat:"single", content:"${form.value.description}",name:"${form.value.name}", startTime:"${form.value.dueTime}", tagID:"${taskGroup}"){
           content
           startTime
           day
           month
           year
+          tag
         }
       }
       `
@@ -218,4 +235,58 @@ export class GlobalsService {
       console.log(err)
     });
   }
+
+
+  static getTag(tagID: string) {
+    console.log("TAG ID " + tagID)
+    const body = {
+      query:`
+      query {
+        getAllTag(id: ${tagID}){
+          creater
+          name
+          color
+          icon
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json'
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        GlobalsService.tags = data.data.getAllTag;
+        console.log(GlobalsService.tags);
+
+        // GlobalsService.tasks = data.data.getDailyTask;
+        // console.log(GlobalsService.tasks);
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
+
 }

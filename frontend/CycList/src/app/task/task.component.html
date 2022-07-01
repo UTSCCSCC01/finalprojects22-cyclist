@@ -3,8 +3,12 @@
 <!-- <div class="container-1"> -->
   <div class="task">
       <div class="date-one">
+
+        <div class="task" *ngFor="let tag of tags">
           <div class="square-icon"></div>
-          <div id="task-text" >{{ name }}</div>
+        </div>
+          <div id="task-text" >{{ name }} {{ tagID }}</div>
+        
           <!-- This is a <b>task</b> for SCHOOL that is <b>over due</b> so it needs to be rescheduled. -->
       </div>
       <div id="task-time">{{ startTime}}: {{ year}}-{{ month }}-{{ day }}</div>
