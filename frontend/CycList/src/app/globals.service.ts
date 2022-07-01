@@ -18,23 +18,18 @@ export class GlobalsService {
     }
   ];
 
-  private user: any;
-  //  = {
-  //   userId: [null],
-  //   email: [null],
-  //   nickName: [null],
-  //   token: [null]
-  // };
+  private user = {
+    userId: "",
+    email: "",
+    nickName: "",
+    token: ""
+  };
   
   constructor(private cookie: CookieService) { }
 
   public getToken() {
     return JSON.parse(this.cookie.get("user")).token;
   }
-
-  // public getTasks() {
-  //   return this.tasks;
-  // }
 
   public setUser(user: any) {
     this.user = user;
@@ -48,9 +43,10 @@ export class GlobalsService {
     return this.user;
   }
 
-  // public signin() {
-  //   this.cookie.set('user', 'Readerstacks', 2, '/', "Cyclist", true, 'Lax');
-  // }
+  // check if the user is Authenticated (signed in)
+  public isAuthenticated() {
+    return this.user.userId !== "";
+  }
 
   public async login(form: FormGroup) {
     const body = {
@@ -91,11 +87,7 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{ 
-        // all g!
-        // console.log(form);
-        // console.log(data);
-        // refresh, ISN'T WORKING THOUGH
-        
+        // all g!        
         this.setUser(data.data.emailLogin);
         // console.log(cookie.get('user'));
         // cookie.set('user', data);
@@ -112,6 +104,8 @@ export class GlobalsService {
 
 
   public async getAllTasks(type: string) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
     const body = {
       query:`
       query {
@@ -132,7 +126,8 @@ export class GlobalsService {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
-      "Content-Type": 'application/json'
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
     }
     })
     .then(res =>{
@@ -162,6 +157,8 @@ export class GlobalsService {
   }
 
   public async getDailyTasks(day: number, month: number, year: number) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
     const body = {
       query:`
       query {
@@ -177,7 +174,8 @@ export class GlobalsService {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
-      "Content-Type": 'application/json'
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
     }
     })
     .then(res =>{
@@ -207,6 +205,8 @@ export class GlobalsService {
   }
 
   public async getFutureTasks(year: number) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
     const body = {
       query:`
       query {
@@ -228,7 +228,8 @@ export class GlobalsService {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
-      "Content-Type": 'application/json'
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
     }
     })
     .then(res =>{
@@ -257,6 +258,8 @@ export class GlobalsService {
   }
 
   public async createTask(form: FormGroup) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
     const body = {
       query:`
       mutation {
@@ -277,7 +280,7 @@ export class GlobalsService {
     body: JSON.stringify(body),
     headers:{
       "Content-Type": 'application/json',
-      // "Authorization": this.getToken()
+      "Authorization": this.getToken()
     }
     })
     .then(res =>{

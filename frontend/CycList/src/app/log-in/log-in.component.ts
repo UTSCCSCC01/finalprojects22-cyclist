@@ -33,7 +33,7 @@ export class LogInComponent implements OnInit {
     // after we have logged in we can continue
     // console.log("login: ");
     // console.log(this.globals.getUser());
-    if (this.globals.getUser() !== undefined) {
+    if (this.globals.isAuthenticated()) {
       this.loggedin = true;
     }
   }
