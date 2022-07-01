@@ -4,8 +4,7 @@ import { GlobalsService } from '../globals.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
-  providers: [GlobalsService]
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   // globals: GlobalsService;
@@ -15,7 +14,7 @@ export class DashboardComponent implements OnInit {
     public globals: GlobalsService
     ) {
     // this.globals = globals;
-    // this.tasks = GlobalsService.getTasks();
+    // this.tasks = this.globals.getTasks();
   }
   
   ngOnInit(): void {
@@ -24,12 +23,13 @@ export class DashboardComponent implements OnInit {
     this.globals.getAllTasks("");
     // refresh to get show new tasks
     // setInterval(() => {
-    //   this.tasks = GlobalsService.getTasks(); 
+    //   this.tasks = this.globals.getTasks(); 
     //   // console.log("refresh");
     // }, 500);
   }
 
-  refreshTasks() {
-  }
-  
+  // getTasks() {
+  //   return this.globals.getTasks();
+  // }
+
 }

@@ -29,15 +29,15 @@ export class GlobalsService {
   constructor(private cookie: CookieService) { }
 
   public getToken() {
-    return this.cookie.get("user.token");
+    return JSON.parse(this.cookie.get("user")).token;
   }
 
   // public getTasks() {
   //   return this.tasks;
   // }
 
-  public setUser(data: any) {
-    this.user = data;
+  public setUser(user: any) {
+    this.user = user;
   }
 
   public setTasks(tasks: any) {
@@ -96,7 +96,7 @@ export class GlobalsService {
         // console.log(data);
         // refresh, ISN'T WORKING THOUGH
         
-        this.setUser(data);
+        this.setUser(data.data.emailLogin);
         // console.log(cookie.get('user'));
         // cookie.set('user', data);
       }
@@ -106,10 +106,7 @@ export class GlobalsService {
     });
 
     // since we awaited the fetch, we have the data now and set it in the cookie
-    this.cookie.set('user', this.getUser(), 2, '/', "Cyclist", true, 'Strict');
-
-    // send back user we just got
-    // return this.getUser();
+    this.cookie.set('user', JSON.stringify(this.getUser()));
   }
 
 
@@ -279,7 +276,8 @@ export class GlobalsService {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
-      "Content-Type": 'application/json'
+      "Content-Type": 'application/json',
+      // "Authorization": this.getToken()
     }
     })
     .then(res =>{

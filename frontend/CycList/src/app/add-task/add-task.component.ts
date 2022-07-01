@@ -13,7 +13,7 @@ export class AddTaskComponent implements OnInit {
   
   constructor(
     private fb: FormBuilder,
-    private globals: GlobalsService
+    public globals: GlobalsService
     ) {
   }
 

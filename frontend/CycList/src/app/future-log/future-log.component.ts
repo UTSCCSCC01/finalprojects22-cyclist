@@ -7,11 +7,12 @@ import { GlobalsService } from '../globals.service';
   styleUrls: ['./future-log.component.scss']
 })
 export class FutureLogComponent implements OnInit {
-  
+  // tasks;
+
   constructor(
     public globals: GlobalsService
     ) {
-    // this.tasks = GlobalsService.getTasks();
+    // this.tasks = this.globals.getTasks();
   }
   
   ngOnInit(): void {
@@ -20,14 +21,17 @@ export class FutureLogComponent implements OnInit {
     // GlobalsService.getFutureTasks("");
     // refresh to get show new tasks
 
-    // setInterval(() => { 
     this.globals.getFutureTasks(2022);
+
+    // setInterval(() => { 
     //   this.tasks = this.globals.getTasks(); 
     //   // console.log("refresh");
     // }, 500);
   }
 
-  refreshTasks() {
-  }
+  // getTasks() {
+  //   console.log(this.globals.getTasks());
+  //   return this.globals.getTasks();
+  // }
 
 }

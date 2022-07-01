@@ -31,8 +31,8 @@ export class LogInComponent implements OnInit {
     if (!this.form.value.email || !this.form.value.password) return;
     await this.globals.login(this.form);
     // after we have logged in we can continue
-    console.log("login: ");
-    console.log(this.globals.getUser());
+    // console.log("login: ");
+    // console.log(this.globals.getUser());
     if (this.globals.getUser() !== undefined) {
       this.loggedin = true;
     }
