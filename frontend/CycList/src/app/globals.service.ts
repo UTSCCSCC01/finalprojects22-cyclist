@@ -73,7 +73,7 @@ export class GlobalsService {
   public async register(form: FormGroup) {
     const body = {
       query:`
-      query {
+      mutation {
         createUser(email: "${form.value.email}", nickName: "${form.value.name}", password: "${form.value.password}"){
           userId
           email
@@ -110,7 +110,7 @@ export class GlobalsService {
         }
       }else{ 
         // all g!        
-        this.setUser(data.data.emailLogin);
+        this.setUser(data.data.createUser);
         // console.log(cookie.get('user'));
         // cookie.set('user', data);
       }
@@ -119,7 +119,7 @@ export class GlobalsService {
       console.log(err)
     });
 
-    if (this.getUser().token !== undefined) {
+    if (this.getUser()) {
       // since we awaited the fetch, we have the data now and set it in the cookie
       this.cookie.set('user', JSON.stringify(this.getUser()));
     }
@@ -173,7 +173,7 @@ export class GlobalsService {
       console.log(err)
     });
 
-    if (this.getUser().token !== undefined) {
+    if (this.getUser()) {
       // since we awaited the fetch, we have the data now and set it in the cookie
       this.cookie.set('user', JSON.stringify(this.getUser()));
     }
