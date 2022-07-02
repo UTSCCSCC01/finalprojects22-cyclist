@@ -4,7 +4,7 @@
 
 <div class="menu" [class.active]="formActive" #addTask>
   <!-- <form #addTaskForm="ngForm" (ngSubmit)="submitForm(addTaskForm.value)" > -->
-  <form [formGroup]="form">
+  <form (ngSubmit)="submitForm()" [formGroup]="form">
     <div>
       <!-- <select id="signifier" formControlName="signifier">
         <option>task</option>

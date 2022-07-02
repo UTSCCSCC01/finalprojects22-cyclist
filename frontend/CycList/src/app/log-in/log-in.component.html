@@ -1,7 +1,14 @@
 <div class="signin-overlay" [ngClass]="{'hidden': globals.loggedIn}">
   <div class="signin">
     <div class="circle"></div>
-    <form class="complete-log-in" [formGroup]="form">
+    <form class="complete-log-in" (ngSubmit)="submit()" [formGroup]="form">
+      <input
+        [ngClass]="{'hidden': !registering}"
+        type="text"
+        placeholder="Name"
+        formControlName="name"
+        required
+      />
       <input
         type="text"
         placeholder="Email"
@@ -14,11 +21,22 @@
         formControlName="password"
         required
       />
-      <input class="btn" type="submit" value="Login" name="" (click)="login()">
+      <input
+        [ngClass]="{'hidden': !registering}"
+        type="password"
+        placeholder="Confirm Password"
+        formControlName="confirmPassword"
+        required
+      />
+      <input [ngClass]="{'hidden': registering}" class="btn" type="submit" value="Login"/>
+      <input [ngClass]="{'hidden': !registering}" class="btn" type="submit" value="Register"/>
     </form>
     <div class="notation">
-      <p class = "words">
-        Don't have an account? <a class ="register" href="register.component.html">REGISTER</a>
+      <p class = "words" [ngClass]="{'hidden': registering}">
+        Don't have an account? <a class ="register" (click)="registering = true">REGISTER</a>
+      </p>
+      <p class = "words" [ngClass]="{'hidden': !registering}">
+        Already have an account? <a class ="register" (click)="registering = false">LOGIN</a>
       </p>
     </div>  
   </div>

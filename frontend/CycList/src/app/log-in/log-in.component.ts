@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class LogInComponent implements OnInit {
 
+  registering: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     public globals: GlobalsService,
@@ -24,8 +26,10 @@ export class LogInComponent implements OnInit {
   }
 
   form: FormGroup = this.fb.group({
+    name: [null],
     email: [null],
-    password: [null]
+    password: [null],
+    confirmPassword: [null]
   });
 
   loadSession() {
@@ -38,6 +42,11 @@ export class LogInComponent implements OnInit {
     }
   }
 
+  submit() {
+    if (this.registering) this.register();
+    else this.login();
+  }
+
   async login() {
     // console.log(this.cookie.get('user'));
     // stop if the form isn't full
@@ -46,6 +55,15 @@ export class LogInComponent implements OnInit {
     // after we have logged in we can continue
     // console.log("login: ");
     // console.log(this.globals.getUser());
+    this.loadSession();
+  }
+
+  async register() {
+    console.log(this.form);
+    if (!this.form.value.name || !this.form.value.email || 
+        !this.form.value.password || !this.form.value.confirmPassword ||
+        this.form.value.password !== this.form.value.confirmPassword) return;
+    await this.globals.register(this.form);
     this.loadSession();
   }
 }

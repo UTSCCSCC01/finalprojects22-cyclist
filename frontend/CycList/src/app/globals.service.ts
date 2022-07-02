@@ -70,6 +70,60 @@ export class GlobalsService {
     this.loggedIn = false;
   }
 
+  public async register(form: FormGroup) {
+    const body = {
+      query:`
+      query {
+        createUser(email: "${form.value.email}", nickName: "${form.value.name}", password: "${form.value.password}"){
+          userId
+          email
+          nickName
+          token
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json'
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{ 
+        // all g!        
+        this.setUser(data.data.emailLogin);
+        // console.log(cookie.get('user'));
+        // cookie.set('user', data);
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+
+    if (this.getUser().token !== undefined) {
+      // since we awaited the fetch, we have the data now and set it in the cookie
+      this.cookie.set('user', JSON.stringify(this.getUser()));
+    }
+  }
   public async login(form: FormGroup) {
     const body = {
       query:`
