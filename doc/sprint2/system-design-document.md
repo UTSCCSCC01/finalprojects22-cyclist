@@ -17,6 +17,7 @@ Responsibility: Set up the backend server, use schema and resolver to handle eac
 
 Collaborator: schema.js, resolver.js, auth.js
 
+
 Under database folder:
 
 {
@@ -42,17 +43,25 @@ Collaborator: api/resolver/tag.js
 }
 
 
-### Class name: auth.js
+Under schema folder:
 
-Responsibility: verify the token given from frontend, once verified, extract user id from this token and provide this user id for further action in backend
-
-Collaborator: app.js
+{
 
 ### Class name: schema.js
 
 Responsibility: provide all functions name the backend currently have, include arguments and  their type for each function, also provide the return type for each function.
 
 Collaborator: app.js, resolver.js
+
+}
+
+
+### Class name: auth.js
+
+Responsibility: verify the token given from frontend, once verified, extract user id from this token and provide this user id for further action in backend
+
+Collaborator: app.js
+
 
 Under api/resolver folder
 
@@ -62,7 +71,7 @@ Under api/resolver folder
 
 Responsibility: collect all function implementations that tag.js, task.js and user.js provide, so it can be used in app.js to solve each request. It should contain all functions which are listed in schema.js
 
-Collaborator: api/resolver/task.js, api/resolver/task.js, api/resolver/tag.js, app.js, schema.js
+Collaborator: api/resolver/task.js, api/resolver/user.js, api/resolver/tag.js, app.js, schema.js
 
 ### Class name: user.js
 
