@@ -2,12 +2,25 @@
 
 **CSCC01 Summer 2022 CycList**
 
+\newpage
 # Table of Content
 
 - [System Design](#system-design)
 - [Table of Content](#table-of-content)
   - [CRC](#crc)
+    - [Class name: app.js](#class-name-appjs)
+    - [Class name: user.js](#class-name-userjs)
+    - [Class name: task.js](#class-name-taskjs)
+    - [Class name: tag.js](#class-name-tagjs)
+    - [Class name: auth.js](#class-name-authjs)
+    - [Class name: schema.js](#class-name-schemajs)
+    - [Class name: resolver.js](#class-name-resolverjs)
+    - [Class name: user.js](#class-name-userjs-1)
+    - [Class name: task.js](#class-name-taskjs-1)
+    - [Class name: tag.js](#class-name-tagjs-1)
   - [System Architecture Design](#system-architecture-design)
+
+
 
 ##  CRC
 
