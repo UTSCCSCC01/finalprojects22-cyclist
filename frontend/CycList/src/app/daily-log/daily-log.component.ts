@@ -15,7 +15,7 @@ export class DailyLogComponent implements OnInit {
 
   constructor(public globals: GlobalsService) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     //this.globals.resetTasks();
 
     //get the upcomming `this.numDates` dates
@@ -28,10 +28,10 @@ export class DailyLogComponent implements OnInit {
 
     //get each day's tasks
     for(let i = 0; i < this.numDates; i++) {
-      this.globals.getDailyTasks(this.dates[i].getDate(), this.dates[i].getMonth() + 1, this.dates[i].getFullYear());
+      await this.globals.getDailyTasks(this.dates[i].getDate(), this.dates[i].getMonth() + 1, this.dates[i].getFullYear());
       //console.log(this.globals.tasks);
 
-      this.dailyTasks[i] = this.globals.getTasks();
+      this.dailyTasks[i] = this.globals.getTasks().slice();
       console.log(this.dailyTasks[i]);
     }
     
