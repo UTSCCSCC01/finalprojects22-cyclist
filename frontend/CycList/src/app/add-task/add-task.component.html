@@ -32,8 +32,7 @@
     </div> -->
     <div>
       Repeat: 
-      <input (change)="repeatCheck($event)" type="checkbox" formControlName="repeat"/>  
-      <div (click)="setRepeatFrequency()">show</div>
+      <input (change)="repeatCheck($event)" type="checkbox" formControlName="isRepeat"/>  
       <span *ngIf="repeat">
         every
         <span *ngIf="form.value.dayWeekMonth === 'day'">
