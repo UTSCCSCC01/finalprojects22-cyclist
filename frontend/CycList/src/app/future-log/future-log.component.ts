@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-future-log',
@@ -8,10 +7,9 @@ import { GlobalsService } from '../globals.service';
 })
 export class FutureLogComponent implements OnInit {
 
-  constructor(public globals: GlobalsService) {}
-  
+  constructor() { }
+
   ngOnInit(): void {
-    this.globals.getFutureTasks(2022);
   }
 
 }

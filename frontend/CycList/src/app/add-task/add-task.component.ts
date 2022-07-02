@@ -12,8 +12,7 @@ export class AddTaskComponent implements OnInit {
   formActive = false;
   
   constructor(
-    private fb: FormBuilder,
-    public globals: GlobalsService
+    private fb: FormBuilder
     ) {
   }
 
@@ -59,17 +58,17 @@ export class AddTaskComponent implements OnInit {
                             // Ideas: file (image), url
   });
 
-  async submitForm() {
+  submitForm() {
     if (this.form.value.name === null || this.form.value.dueDate === null || this.form.value.dueTime === null ) {
       return;
     };
     this.formActive = false;
-    console.log(this.form.value);
+    console.log(this.form.value)
     // send data to back end
-    await this.globals.createTask(this.form);
+    GlobalsService.createTask(this.form);
     // get all tasks from backend again
     // GlobalsService.getDailyTasks(3, 6, 2022);
-    this.globals.getAllTasks("");
+    GlobalsService.getAllTasks("");
     this.form.reset();
   }
 
