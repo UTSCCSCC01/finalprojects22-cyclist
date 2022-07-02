@@ -42,7 +42,8 @@ export class GlobalsService {
   }
 
   public loadUser() {
-    this.user = JSON.parse(this.cookie.get('user'));
+    if (this.cookie.check('user'))
+      this.user = JSON.parse(this.cookie.get('user'));
   }
 
   public setUser(user: any) {
