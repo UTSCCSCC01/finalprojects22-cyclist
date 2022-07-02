@@ -41,6 +41,24 @@ export class GlobalsService {
   //   };
   }
 
+  /**
+   * reset the value of `this.tasks` to default value. 
+   * This is to solve the problem that switching between pages briefly show 
+   * tasks from the previous page.
+   */
+  public resetTasks() {
+    this.tasks = [
+      {
+        content: "",
+        name: "loading ...",
+        day: "__",
+        month: "__",
+        year: "____",
+        startTime: "00:00"
+      }
+    ];
+  }
+
   public loadUser() {
     if (this.cookie.check('user'))
       this.user = JSON.parse(this.cookie.get('user'));
@@ -56,6 +74,10 @@ export class GlobalsService {
 
   public getUser() {
     return this.user;
+  }
+
+  public getTasks() {
+    return this.tasks;
   }
 
   // check if the user is Authenticated (signed in)
@@ -225,7 +247,7 @@ export class GlobalsService {
         }
       }else{
         this.setTasks(data.data.getDailyTask);
-        // console.log(this.tasks);
+        console.log(this.tasks);  // [DEBUG]
       }
     })
     .catch(err =>{
