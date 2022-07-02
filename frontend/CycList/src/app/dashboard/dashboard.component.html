@@ -2,7 +2,7 @@
   <!-- Tasks: -->
   <!-- <app-task></app-task> -->
   <div class="tasks">
-    <div class="task" *ngFor="let task of globals.tasks">
+    <div class="task" *ngFor="let task of globals.dashboardTasks">
       <div class="name">{{ task.name }}</div><div>{{ task.startTime}}: {{ task.year}}-{{ task.month }}-{{ task.day }}</div>
     </div>
   </div>

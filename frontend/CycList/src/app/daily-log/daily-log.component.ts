@@ -9,32 +9,13 @@ import { GlobalsService } from '../globals.service';
 })
 export class DailyLogComponent implements OnInit {
 
-  dailyTasks : any[] = [];
   numDates = 6;   // TODO: dependency injection!?
-  dates : Date[] = [];
 
   constructor(public globals: GlobalsService) {}
 
   async ngOnInit() {
-    //this.globals.resetTasks();
-
-    //get the upcomming `this.numDates` dates
-    let today = new Date();
-    
-    for (let i = 0; i < this.numDates; i++) {
-      this.dates[i] = new Date();
-      this.dates[i].setDate(today.getDate() + i);
-    }
-
-    //get each day's tasks
-    for(let i = 0; i < this.numDates; i++) {
-      await this.globals.getDailyTasks(this.dates[i].getDate(), this.dates[i].getMonth() + 1, this.dates[i].getFullYear());
-      //console.log(this.globals.tasks);
-
-      this.dailyTasks[i] = this.globals.getTasks().slice();
-      console.log(this.dailyTasks[i]);
-    }
-    
+    this.globals.setNDates();
+    this.globals.getNDailyTasks();
   }
 
 }

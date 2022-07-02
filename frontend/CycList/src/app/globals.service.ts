@@ -20,6 +20,14 @@ export class GlobalsService {
     }
   ];
 
+  public nDays: number = 7;
+  public nDates: Date[] = [];
+
+  public dashboardTasks: any[] = [];
+  public dailyTasks: any[] = [];
+  public monthlyTasks: any[] = [];
+  public futureTasks: any[] = [];
+
   private user: any = {};
   
   constructor(private cookie: CookieService) {
@@ -70,6 +78,17 @@ export class GlobalsService {
 
   public setTasks(tasks: any) {
     this.tasks = tasks;
+  }
+
+  // TODO: update when go to a new day
+  public setNDates() {
+    //get the upcomming `this.numDates` dates
+    let today = new Date();
+
+    for (let i = 0; i < this.nDays; i++) {
+      this.nDates[i] = new Date();
+      this.nDates[i].setDate(today.getDate() + i);
+    }
   }
 
   public getUser() {
@@ -147,8 +166,11 @@ export class GlobalsService {
     }
   }
 
-
-
+  public async getDashboardTasks() {
+    // TODO: actual update for Dashboard
+    await this.getAllTasks("");
+    this.dashboardTasks = this.getTasks().slice();
+  }
   public async getAllTasks(type: string) {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
@@ -202,6 +224,19 @@ export class GlobalsService {
     });
   }
 
+  public async getNDailyTasks() {
+    //get each day's tasks
+    for(let i = 0; i < this.nDays; i++) {
+      await this.getDailyTasks(this.nDates[i].getDate(), this.nDates[i].getMonth() + 1, this.nDates[i].getFullYear());
+      // console.log(this.nDates[i].getDate());
+      // console.log(this.nDates[i].getMonth() + 1);
+      // console.log(this.nDates[i].getFullYear());
+
+      this.dailyTasks[i] = this.getTasks().slice();
+      // console.log(this.dailyTasks[i]);
+    }    
+    // console.log(this.dailyTasks);
+  }
   public async getDailyTasks(day: number, month: number, year: number) {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
@@ -247,7 +282,7 @@ export class GlobalsService {
         }
       }else{
         this.setTasks(data.data.getDailyTask);
-        console.log(this.tasks);  // [DEBUG]
+        // console.log(this.tasks);  // [DEBUG]
       }
     })
     .catch(err =>{
@@ -255,6 +290,11 @@ export class GlobalsService {
     });
   }
 
+  public async getFutureLogTasks() {
+    // TODO: Actually update for Future Log
+    this.getFutureTasks((new Date()).getFullYear());
+    this.futureTasks = this.getTasks().slice();
+  }
   public async getFutureTasks(year: number) {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
@@ -353,8 +393,10 @@ export class GlobalsService {
       }else{
         // all g!
         console.log(form);
-        // refresh, ISN'T WORKING THOUGH
-        this.getAllTasks("");
+        this.getDashboardTasks();
+        this.getNDailyTasks();
+        this.getFutureLogTasks();
+        // TODO: Add update for Monthly Log
       }
     })
     .catch(err =>{

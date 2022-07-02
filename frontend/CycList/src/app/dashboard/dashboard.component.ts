@@ -11,7 +11,7 @@ export class DashboardComponent implements OnInit {
   constructor(public globals: GlobalsService) {}
   
   ngOnInit(): void {
-    this.globals.getAllTasks("");
+    this.globals.getDashboardTasks();
   }
 
 }

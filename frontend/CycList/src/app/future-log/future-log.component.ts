@@ -11,7 +11,7 @@ export class FutureLogComponent implements OnInit {
   constructor(public globals: GlobalsService) {}
   
   ngOnInit(): void {
-    this.globals.getFutureTasks(2022);
+    this.globals.getFutureLogTasks();
   }
 
 }
