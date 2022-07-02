@@ -8,7 +8,6 @@ import { GlobalsService } from '../globals.service';
   styleUrls: ['./add-task.component.scss']
 })
 export class AddTaskComponent implements OnInit {
-
   formActive = false;
   repeat = false;
   Su = false;
@@ -17,7 +16,7 @@ export class AddTaskComponent implements OnInit {
   We = false;
   Th = false;
   Fr = false;
-  Sa = false;
+  Sa = false;  
   
   constructor(
     private fb: FormBuilder,
@@ -28,6 +27,18 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {
   }
   
+  formReset() {
+    this.repeat = false;
+    this.Su = false;
+    this.Mo = false;
+    this.Tu = false;
+    this.We = false;
+    this.Th = false;
+    this.Fr = false;
+    this.Sa = false;
+    this.form.reset();
+  }
+
   addTaskForm() {
     this.formActive = true;
   }
@@ -74,7 +85,7 @@ export class AddTaskComponent implements OnInit {
     expectedDuration: [null],  // pointless because we have start and due/end unless this is an AI value
 
     isRepeat: [null],         // maybe just repeat true of false
-    frequency: [null],
+    frequency: "",
     dayWeekMonth: [null],   // add year?
     // repeatStartDay: [null],     // only in backend
 
@@ -91,20 +102,22 @@ export class AddTaskComponent implements OnInit {
   });
 
   async submitForm() {
-    // set frequency
     this.setRepeatFrequency();
-    if (this.form.value.name === null || this.form.value.dueDate === null || 
-      this.form.value.dueTime === null || this.form.value.frequency.length === 0) {
+    if (!this.form.value.name ||
+        !this.form.value.dueDate || 
+        !this.form.value.dueTime || 
+        this.repeat && (!this.form.value.dayWeekMonth || this.form.value.frequency.length === 0)) {
       return;
     };
+
     this.formActive = false;
     console.log(this.form.value);
     // send data to back end
     await this.globals.createTask(this.form);
     // get all tasks from backend again
-    // GlobalsService.getDailyTasks(3, 6, 2022);
+    // this.globals.getDailyTasks(3, 6, 2022);
     this.globals.getAllTasks("");
-    this.form.reset();
+    this.formReset();
   }
 
 }
