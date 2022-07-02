@@ -84,6 +84,12 @@ reschedule tasks.
    - backend - get all task groups created by user
    - Test creating task groups (with possible start and end dates) containing a
      set of tasks and set colors and icons for them
+     
+## Spikes
+
+- The connection between the frontend part and the backend part including the user information with respect to logging in and registering
+- The adjustment of team members' work status after the Reading Week
+
 
 ## Team Capacity
 
