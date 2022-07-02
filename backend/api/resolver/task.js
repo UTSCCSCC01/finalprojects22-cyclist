@@ -101,9 +101,8 @@ module.exports = {
             let todayDate = args.month+"/"+args.day+"/"+args.year;
             let yesterday = new Date(todayDate);
             yesterday.setDate(yesterday.getDate()-1);
-            let month = yesterday.getMonth()+1;
-            let yesterdayTask = await Task.find({hierarchy:"daily", day:yesterday.getDate(), month:yesterday.getMonth()+1, 
-            year:yesterday.getFullYear(), creater: ObjectId(req.userId),isRepeat:false});
+            // let yesterdayTask = await Task.find({hierarchy:"daily", day:yesterday.getDate(), month:yesterday.getMonth()+1, 
+            // year:yesterday.getFullYear(), creater: ObjectId(req.userId),isRepeat:false});
             let repeatTask = await Task.find({hierarchy:"daily", creater: ObjectId(req.userId),isRepeat:true});
             repeatTask.forEach(function(task){
                 if(task.dayWeekMonth === "day"){
@@ -127,7 +126,7 @@ module.exports = {
                     }
                 }
             });
-            dailyTask = yesterdayTask.concat(dailyTask);
+            // dailyTask = yesterdayTask.concat(dailyTask);
             return dailyTask;
         } catch(err){
             throw err;
