@@ -9,8 +9,6 @@ import { GlobalsService } from '../globals.service';
 })
 export class LogInComponent implements OnInit {
 
-  loggedin: boolean = false;
-
   constructor(
     private fb: FormBuilder,
     public globals: GlobalsService
@@ -18,12 +16,24 @@ export class LogInComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // if already logged in
+    this.globals.loadUser();
+    this.loadSession();
   }
 
   form: FormGroup = this.fb.group({
     email: [null],
     password: [null]
   });
+
+  loadSession() {
+    if (this.globals.isAuthenticated()) {
+      this.globals.loggedIn = true;
+      this.globals.getAllTasks("");
+    } else {
+      this.globals.resetUser();
+    }
+  }
 
   async login() {
     // console.log(this.cookie.get('user'));
@@ -33,8 +43,6 @@ export class LogInComponent implements OnInit {
     // after we have logged in we can continue
     // console.log("login: ");
     // console.log(this.globals.getUser());
-    if (this.globals.isAuthenticated()) {
-      this.loggedin = true;
-    }
+    this.loadSession();
   }
 }

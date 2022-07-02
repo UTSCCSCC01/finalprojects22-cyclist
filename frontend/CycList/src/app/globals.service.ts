@@ -7,6 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class GlobalsService {
 
+  public loggedIn: boolean = false;
+
   public tasks = [
     {
       content: "",
@@ -18,17 +20,29 @@ export class GlobalsService {
     }
   ];
 
-  private user = {
-    userId: "",
-    email: "",
-    nickName: "",
-    token: ""
-  };
+  private user: any = {};
   
-  constructor(private cookie: CookieService) { }
+  constructor(private cookie: CookieService) {
+    // this.resetUser();
+  }
 
   public getToken() {
-    return JSON.parse(this.cookie.get("user")).token;
+    // return JSON.parse(this.cookie.get('user')).token;
+    return this.user.token;
+  }
+
+  public resetUser() {
+    this.user = '';
+  //   this.user = {
+  //     userId: "",
+  //     email: "",
+  //     nickName: "",
+  //     token: ""
+  //   };
+  }
+
+  public loadUser() {
+    this.user = JSON.parse(this.cookie.get('user'));
   }
 
   public setUser(user: any) {
@@ -45,7 +59,14 @@ export class GlobalsService {
 
   // check if the user is Authenticated (signed in)
   public isAuthenticated() {
-    return this.user.userId !== "";
+    // return this.user.userId !== "";
+    return this.cookie.check("user");
+  }
+
+  public logout() {
+    this.resetUser();
+    this.cookie.delete('user');
+    this.loggedIn = false;
   }
 
   public async login(form: FormGroup) {
@@ -97,8 +118,10 @@ export class GlobalsService {
       console.log(err)
     });
 
-    // since we awaited the fetch, we have the data now and set it in the cookie
-    this.cookie.set('user', JSON.stringify(this.getUser()));
+    if (this.getUser().token !== undefined) {
+      // since we awaited the fetch, we have the data now and set it in the cookie
+      this.cookie.set('user', JSON.stringify(this.getUser()));
+    }
   }
 
 
