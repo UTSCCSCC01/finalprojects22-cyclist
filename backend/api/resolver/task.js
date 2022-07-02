@@ -104,6 +104,7 @@ module.exports = {
             // let yesterdayTask = await Task.find({hierarchy:"daily", day:yesterday.getDate(), month:yesterday.getMonth()+1, 
             // year:yesterday.getFullYear(), creater: ObjectId(req.userId),isRepeat:false});
             let repeatTask = await Task.find({hierarchy:"daily", creater: ObjectId(req.userId),isRepeat:true});
+
             repeatTask.forEach(function(task){
                 if(task.dayWeekMonth === "day"){
                     let taskDate = task.month+"/"+task.day+"/"+task.year;
