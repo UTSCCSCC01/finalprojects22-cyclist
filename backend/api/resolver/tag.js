@@ -25,6 +25,7 @@ module.exports = {
             throw err;
         }
     },
+    // return all tags the user has
     getAllTag: async (args,req) =>{
         // if(!req.isAuth){
         //     throw new Error("User not authenticated");
@@ -35,5 +36,21 @@ module.exports = {
         }catch(err){
             throw err;
         }
-    }
+    },
+    // return single tag info of the given tagId
+    getTag: async (args,req) =>{
+        // if(!req.isAuth){
+        //     throw new Error("User not authenticated");
+        // }
+        try{
+            let tag = await Tag.findById(args.tagId);
+            console.log(tag.creater);
+            if(tag.creater.valueOf() !== "6297e22dab2c042c8dd6effb"){
+                throw new Error("You are not tag creater");
+            }
+            return tag;
+        }catch(err){
+            throw err;
+        }
+    },
 }

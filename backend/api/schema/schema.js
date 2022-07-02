@@ -63,6 +63,7 @@ type RootQuery {
     getSingleTask(id: ID!): task
     getAllTask(type: String):[task!]
     getAllTag(id: ID):[tag]
+    getTag(tagId:ID):tag
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
