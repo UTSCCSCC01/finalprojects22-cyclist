@@ -84,43 +84,6 @@ $font-size-add-task: 2.7em;
   }
 }
 
-input,
-textarea,
-select {
-  color: $color-grey;
-  border: none;
-  border-radius: 0.5em;
-  padding: 0.3em 0.5em;
-  /* color: white; */
-  margin: 0.2em;
-  /* width: 100; */
-  background-color: rgba(125, 125, 125, 0.069);
-  // box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
-  font-size: small;
-  
-  &::placeholder {
-    color: $color-grey;
-  }
-
-  &:focus {
-    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
-    outline: none;
-  }
-
-  &#task {
-    font-size: medium;
-  }
-
-  &[type="number"] {
-    width: 4em;
-  }
-}
-textarea {
-  background-color: $bg;
-  resize: none;
-  height: 3em;
-}
-
 .task-check {
   width: 1em;
   height: 1em;

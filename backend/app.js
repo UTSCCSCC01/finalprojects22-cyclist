@@ -4,7 +4,7 @@ const {graphqlHTTP} = require("express-graphql");
 const mongoose = require("mongoose");
 const mySchema = require("./api/schema/schema");
 const myResolver = require("./api/resolver/resolver");
-// const auth = require("./api/auth");
+const auth = require("./api/auth");
 let app = Express();
 
 // const cors = require('cors');
@@ -21,7 +21,7 @@ app.use((req,res,next) =>{
     }
     next();
 });
-// app.use(auth);
+app.use(auth);
 app.use("/graphql", graphqlHTTP({
     schema: mySchema,
     rootValue: myResolver,
