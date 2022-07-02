@@ -20,10 +20,13 @@ export class GlobalsService {
 
   private static tags = [
     {
+      _id: "",
       creater: "",
       name: "",
-      color: "0",
-      icon: "0",
+      color: 0,
+      icon: 0,
+      totalExpectedTime: 0,
+      totalActualTime: 0
     }
   ];
 
@@ -240,16 +243,18 @@ export class GlobalsService {
     return GlobalsService.tags;
   }
 
-  static getAllTags(tagID: string) {
-    console.log("TAG ID " + tagID)
+  static getAllTags(userID: string) {
     const body = {
       query:`
       query {
-        getAllTag(id: ${tagID}){
+        getAllTag(id: "${userID}"){
+          _id
           creater
           name
           color
           icon
+          totalExpectedTime
+          totalActualTime
         }
       }
       `
@@ -282,9 +287,6 @@ export class GlobalsService {
       }else{
         GlobalsService.tags = data.data.getAllTag;
         console.log(GlobalsService.tags);
-
-        // GlobalsService.tasks = data.data.getDailyTask;
-        // console.log(GlobalsService.tasks);
       }
     })
     .catch(err =>{
@@ -292,4 +294,62 @@ export class GlobalsService {
     });
   }
 
+
+  static getTag(tagID: string) {
+
+    if (tagID) {
+      console.log(tagID)
+      const body = {
+        query:`
+        query {
+          getTag(tagId: "${tagID}"){
+            _id
+            creater
+            name
+            color
+            icon
+            totalExpectedTime
+            totalActualTime
+          }
+        }
+        `
+      }
+      let err = false;
+      let backenderr = false;
+      fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json'
+      }
+      })
+      .then(res =>{
+        if(res.status !== 200 && res.status !== 201){
+          err = true;
+          if(res.status === 400){
+            backenderr = true;
+          }
+        }
+        return res.json();
+      })
+      .then(data =>{
+        if(err){
+          if(backenderr){
+            console.log("Something wrong with server, please contact to admin");
+          }else{
+            console.log("** " + data.errors[0].message + " **");
+          }
+        }else{
+          GlobalsService.tags = [data.data.getTag];
+          console.log(GlobalsService.tags);
+          // return data.data.getTag;
+        }
+      })
+      .catch(err =>{
+        console.log(err)
+      });
+    } else {
+      console.log("Tag ID is null")
+    }
+  } 
 }

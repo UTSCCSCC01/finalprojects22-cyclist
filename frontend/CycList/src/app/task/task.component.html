@@ -1,16 +1,17 @@
-<!-- <div *ngFor="let task of tasks"> {{ task.content }} </div> -->
+<div class="task">
+    <div class="date-one">
 
-<!-- <div class="container-1"> -->
-  <div class="task">
-      <div class="date-one">
-
+      <div *ngIf="tagID">
         <div class="task" *ngFor="let tag of tags">
-          <div class="square-icon"></div>
+          <div *ngIf="tag._id == tagID" [ngClass]="(tag.color == 0) ? 'square-icon-blue' : 'square-icon-green'"></div>
         </div>
-          <div id="task-text" >{{ name }}</div>
-        
-          <!-- This is a <b>task</b> for SCHOOL that is <b>over due</b> so it needs to be rescheduled. -->
       </div>
-      <div id="task-time">{{ startTime}}: {{ year}}-{{ month }}-{{ day }}</div>
-  </div>
-<!-- </div> -->
+      <div *ngIf="!tagID">
+        <div class="task">
+          <div class="square-icon-red"></div>
+        </div>
+      </div>
+        <div id="task-text" >{{ name }}</div>
+    </div>
+    <div id="task-time">{{ startTime}}: {{ year}}-{{ month }}-{{ day }}</div>
+</div>
