@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalsService } from '../globals.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -11,7 +12,8 @@ export class LogInComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    public globals: GlobalsService
+    public globals: GlobalsService,
+    private router: Router
     ) {
   }
 
@@ -29,6 +31,7 @@ export class LogInComponent implements OnInit {
   loadSession() {
     if (this.globals.isAuthenticated()) {
       this.globals.loggedIn = true;
+      this.router.navigate(['/', 'app-dashboard']);
       this.globals.getAllTasks("");
     } else {
       this.globals.resetUser();
