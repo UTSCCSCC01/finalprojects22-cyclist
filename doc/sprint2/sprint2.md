@@ -6,6 +6,16 @@ Discord
 
 ## Goal of sprint 2
 
+For Sprint2, the frontend team will focus on implementing more features for the
+app, the backend team will focus on adding more fields into the database more
+features, the QA team will focus on testing whether all the user stories our
+team want to complete in sprint2 works well. Our team will focus on completing
+user stories CYC-46, CYC-47, CYC-58, CYC-59, CYC-32, CYC-35 and CYC-62. At the
+end of Sprint2, we want to have a web app for users to see the task groups in
+the side bar, Daily Log, Monthly Log and Future Log and switch between each
+view, can add tasks and see them show on the corresponded views and be able to
+reschedule tasks.
+
 ## User Stories
 
 1. (CYC-46): As a user, I want to register an account with my email account (7
@@ -51,22 +61,22 @@ Discord
    - backend- create a function to create a repeated task in database
    - Test setting a task to be repeated regularly with a unique signifier
 
-9.  (CYC-35): As a user, I want to create task groups (with possible start and
-    end dates) containing a set of tasks and set colors and icons for them so
-    that I can have a better visual representation of related tasks.
+7. (CYC-35): As a user, I want to create task groups (with possible start and
+   end dates) containing a set of tasks and set colors and icons for them so
+   that I can have a better visual representation of related tasks.
 
-    - backend - create a function to create a new task group in database, saving the
-      relevant information
-    - frontend - create side bar that houses the task groups
-    - frontend - add task group input field in add tasks form
-    - backend - allow user to choose a tag when create a new task
-    - backend - get all task groups created by user
-    - Test creating task groups (with possible start and end dates) containing a set
-      of tasks and set colors and icons for them
+   - backend - create a function to create a new task group in database, saving
+     the relevant information
+   - frontend - create side bar that houses the task groups
+   - frontend - add task group input field in add tasks form
+   - backend - allow user to choose a tag when create a new task
+   - backend - get all task groups created by user
+   - Test creating task groups (with possible start and end dates) containing a
+     set of tasks and set colors and icons for them
 
 ## Team Capacity
 
-   50 hours
+50 hours
 
 ## Participants
 
@@ -77,5 +87,3 @@ Discord
 - Andrew D’Amario
 - Yi Hai Xiao (Ricky)
 - Kexin Zhai (Maxine)
-
-assest 
