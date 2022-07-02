@@ -24,7 +24,7 @@ module.exports = {
                 achievement:[]
             });
             const result = await newUser.save();
-            const token = jwt.sign({userId: result.id, email:result.email}, 'cyclist secret', {
+            const token = jwt.sign({userId: result.id, email:result.email}, 'my token secret', {
                 expiresIn:'1h'
             });
             return {
