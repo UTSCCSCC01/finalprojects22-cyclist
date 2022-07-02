@@ -11,9 +11,9 @@
 
 ##  CRC
 
-![CRC Card](./assest/sprint1%20system%20design.png)
+![CRC Card](./asset/sprint1%20system%20design.png)
 
 ## System Architecture Design
 
-![system architecture](./assest/system%20architecture.png)
+![system architecture](./asset/system%20architecture.png)
 
