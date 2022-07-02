@@ -13,6 +13,8 @@ import { MonthlyLogComponent } from './monthly-log/monthly-log.component';
 import { DailyLogComponent } from './daily-log/daily-log.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GlobalsService } from './globals.service';
+import { LogInComponent } from './log-in/log-in.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { GlobalsService } from './globals.service';
     MonthlyLogComponent,
     DailyLogComponent,
     DashboardComponent,
+    LogInComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,9 @@ import { GlobalsService } from './globals.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [GlobalsService],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
