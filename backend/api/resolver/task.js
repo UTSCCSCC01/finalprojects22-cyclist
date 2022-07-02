@@ -97,14 +97,14 @@ module.exports = {
                 throw new Error("User not authenticated");
             }
             let dailyTask = await Task.find({hierarchy:"daily", day:args.day, month:args.month, 
-            year:args.year, creater: ObjectId("6297e22dab2c042c8dd6effb"),isRepeat:false});
+            year:args.year, creater: ObjectId(req.userId),isRepeat:false});
             let todayDate = args.month+"/"+args.day+"/"+args.year;
             let yesterday = new Date(todayDate);
             yesterday.setDate(yesterday.getDate()-1);
             let month = yesterday.getMonth()+1;
             let yesterdayTask = await Task.find({hierarchy:"daily", day:yesterday.getDate(), month:yesterday.getMonth()+1, 
-            year:yesterday.getFullYear(), creater: ObjectId("6297e22dab2c042c8dd6effb"),isRepeat:false});
-            let repeatTask = await Task.find({hierarchy:"daily", creater: ObjectId("6297e22dab2c042c8dd6effb"),isRepeat:true});
+            year:yesterday.getFullYear(), creater: ObjectId(req.userId),isRepeat:false});
+            let repeatTask = await Task.find({hierarchy:"daily", creater: ObjectId(req.userId),isRepeat:true});
             repeatTask.forEach(function(task){
                 if(task.dayWeekMonth === "day"){
                     let taskDate = task.month+"/"+task.day+"/"+task.year;
@@ -120,8 +120,9 @@ module.exports = {
                         dailyTask.unshift(task);
                     }
                 }else if (task.dayWeekMonth === "month"){
-                    let today = new Date(todayDate).getDate().toString();
-                    if(task.frequency.includes(today)){
+                    let today = new Date(todayDate).getDate();
+                    let frequency = parseInt(task.frequency);
+                    if(frequency === today){
                         dailyTask.unshift(task);
                     }
                 }
