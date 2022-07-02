@@ -50,7 +50,7 @@ export class AddTaskComponent implements OnInit {
   setRepeatFrequency() {
     if (this.form.value.dayWeekMonth === 'week') {
       let res = "";
-      let t = [this.Su, this.Mo, this.Tu, this.We, this.Th, this.Fr, this.Sa];
+      let t = [this.Mo, this.Tu, this.We, this.Th, this.Fr, this.Sa, this.Su];
       for (let i = 1; i < 8; i++) {
         if (t[i-1]) res += i;
       }
