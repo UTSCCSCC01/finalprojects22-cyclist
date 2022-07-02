@@ -354,7 +354,7 @@ export class GlobalsService {
     const body = {
       query:`
       mutation {
-        createTask(hierarchy:"daily",date:"${form.value.dueDate}",repeat:"single", content:"${form.value.description}",name:"${form.value.name}", startTime:"${form.value.dueTime}"){
+        createTask(hierarchy:"daily",date:"${form.value.dueDate}",repeat:${form.value.isRepeat}, content:"${form.value.description}",name:"${form.value.name}", startTime:"${form.value.dueTime}", frequency:"${form.value.frequency}", dayWeekMonth:"${form.value.dayWeekMonth}"){
           content
           startTime
           day

@@ -9,10 +9,22 @@ module.exports = {
             let dwm;
             let fre;
             let repeatStartDay;
-            let year = parseInt(args.date.split("-")[0]);
-            let month = parseInt(args.date.split("-")[1]);
-            let day = parseInt(args.date.split("-")[2]);
-            if(args.repeat === "single"){
+            let year;
+            let month = 0;
+            let day = 0;
+            if(args.hierarchy === "future"){
+                year = parseInt(args.date.split("-")[0]);
+            }else if(args.hierarchy === "monthly"){
+                year = parseInt(args.date.split("-")[0]);
+                month = parseInt(args.date.split("-")[1]);
+            }else if(args.hierarchy === "daily"){
+                year = parseInt(args.date.split("-")[0]);
+                month = parseInt(args.date.split("-")[1]);
+                day = parseInt(args.date.split("-")[2]);
+            }else{
+                throw new Error("Invalid hierarchy");
+            }
+            if(!args.repeat){
                 dwm = null;
                 fre = null;
                 repeatStartDay = null;
@@ -33,7 +45,7 @@ module.exports = {
                 expectedDuration: 0,
                 actualDuration: 0,
                 start: new Date().toISOString(),
-                repeatOrSingle: args.repeat,
+                isRepeat: args.repeat,
                 dayWeekMonth: dwm,
                 frequency: fre,
                 repeatStartDay: repeatStartDay,
@@ -65,7 +77,7 @@ module.exports = {
                 if(task.creater.valueOf() !== req.userId){
                     throw new Error("you are not creater");
                 }
-                if(task.repeatOrSingle === "single" && task.difficulty !== [] ){
+                if(!task.isRepeat && task.difficulty !== [] ){
                     throw new Error("Task has already been rated!");
                 }
                 const newRate = {
@@ -85,14 +97,14 @@ module.exports = {
                 throw new Error("User not authenticated");
             }
             let dailyTask = await Task.find({hierarchy:"daily", day:args.day, month:args.month, 
-            year:args.year, creater: ObjectId(req.userId),repeatOrSingle:"single"});
+            year:args.year, creater: ObjectId(req.userId),isRepeat:false});
             let todayDate = args.month+"/"+args.day+"/"+args.year;
             let yesterday = new Date(todayDate);
             yesterday.setDate(yesterday.getDate()-1);
-            // let month = yesterday.getMonth()+1;
             // let yesterdayTask = await Task.find({hierarchy:"daily", day:yesterday.getDate(), month:yesterday.getMonth()+1, 
-            // year:yesterday.getFullYear(), creater: ObjectId(req.userId),repeatOrSingle:"single"});
-            let repeatTask = await Task.find({hierarchy:"daily", creater: ObjectId(req.userId),repeatOrSingle:"repeat"});
+            // year:yesterday.getFullYear(), creater: ObjectId(req.userId),isRepeat:false});
+            let repeatTask = await Task.find({hierarchy:"daily", creater: ObjectId(req.userId),isRepeat:true});
+
             repeatTask.forEach(function(task){
                 if(task.dayWeekMonth === "day"){
                     let taskDate = task.month+"/"+task.day+"/"+task.year;
