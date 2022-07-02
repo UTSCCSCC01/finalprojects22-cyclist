@@ -89,9 +89,9 @@ module.exports = {
             let todayDate = args.month+"/"+args.day+"/"+args.year;
             let yesterday = new Date(todayDate);
             yesterday.setDate(yesterday.getDate()-1);
-            let month = yesterday.getMonth()+1;
-            let yesterdayTask = await Task.find({hierarchy:"daily", day:yesterday.getDate(), month:yesterday.getMonth()+1, 
-            year:yesterday.getFullYear(), creater: ObjectId(req.userId),repeatOrSingle:"single"});
+            // let month = yesterday.getMonth()+1;
+            // let yesterdayTask = await Task.find({hierarchy:"daily", day:yesterday.getDate(), month:yesterday.getMonth()+1, 
+            // year:yesterday.getFullYear(), creater: ObjectId(req.userId),repeatOrSingle:"single"});
             let repeatTask = await Task.find({hierarchy:"daily", creater: ObjectId(req.userId),repeatOrSingle:"repeat"});
             repeatTask.forEach(function(task){
                 if(task.dayWeekMonth === "day"){
@@ -108,13 +108,14 @@ module.exports = {
                         dailyTask.unshift(task);
                     }
                 }else if (task.dayWeekMonth === "month"){
-                    let today = new Date(todayDate).getDate().toString();
-                    if(task.frequency.includes(today)){
+                    let today = new Date(todayDate).getDate();
+                    let frequency = parseInt(task.frequency);
+                    if(frequency === today){
                         dailyTask.unshift(task);
                     }
                 }
             });
-            dailyTask = yesterdayTask.concat(dailyTask);
+            // dailyTask = yesterdayTask.concat(dailyTask);
             return dailyTask;
         } catch(err){
             throw err;
