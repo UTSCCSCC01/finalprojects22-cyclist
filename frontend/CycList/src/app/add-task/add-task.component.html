@@ -15,7 +15,7 @@
     </div>
     <div>
       Due: 
-      <input type="date" id="dueDate" required formControlName="dueDate"/>
+      <input type="date" required formControlName="dueDate"/>
       <input type="time" required formControlName="dueTime"/>
     </div>
     <!-- <div>
@@ -33,10 +33,11 @@
     <div>
       Repeat: 
       <input (change)="repeatCheck($event)" type="checkbox" formControlName="repeat"/>  
+      <div (click)="setRepeatFrequency()">show</div>
       <span *ngIf="repeat">
         every
         <span *ngIf="form.value.dayWeekMonth === 'day'">
-          <input type="number" min="1" formControlName="frequency"/>
+          <input type="number" min="1" required formControlName="frequency"/>
           th
         </span>
         <span *ngIf="form.value.dayWeekMonth === 'week'">
@@ -48,7 +49,7 @@
           <div class="btn circ" [ngClass]="{'toggled': Fr}" (click)="Fr = !Fr">F</div>
           <div class="btn circ" [ngClass]="{'toggled': Sa}" (click)="Sa = !Sa">S</div>
         </span>
-        <select formControlName="dayWeekMonth">
+        <select required formControlName="dayWeekMonth">
           <option>day</option>
           <option>week</option>
           <option>month</option>

@@ -37,8 +37,20 @@ export class AddTaskComponent implements OnInit {
 
   setRepeatFrequency() {
     if (this.form.value.dayWeekMonth === 'week') {
-      
-    }    
+      let res = "";
+      let t = [this.Su, this.Mo, this.Tu, this.We, this.Th, this.Fr, this.Sa];
+      for (let i = 1; i < 8; i++) {
+        if (t[i-1]) res += i;
+      }
+      this.form.value.frequency = res;
+      // console.log(res);
+    } else if (this.form.value.dayWeekMonth === 'month') {
+      this.form.value.frequency = this.form.value.dueDate.slice(8,10);
+    } else if (this.form.value.dayWeekMonth === 'day') {
+      this.form.value.frequency = this.form.value.frequency.toString();
+    }
+
+    console.log(this.form.value.frequency);
   }
 
   repeatCheck(event: any) {
@@ -78,7 +90,10 @@ export class AddTaskComponent implements OnInit {
   });
 
   submitForm() {
-    if (this.form.value.name === null || this.form.value.dueDate === null || this.form.value.dueTime === null ) {
+    // set frequency
+    this.setRepeatFrequency();
+    if (this.form.value.name === null || this.form.value.dueDate === null || 
+      this.form.value.dueTime === null || this.form.value.frequency.length === 0) {
       return;
     };
     this.formActive = false;
