@@ -20,7 +20,8 @@ export class AddTaskComponent implements OnInit {
   Sa = false;
   
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public globals: GlobalsService
     ) {
   }
 
@@ -89,7 +90,7 @@ export class AddTaskComponent implements OnInit {
                             // Ideas: file (image), url
   });
 
-  submitForm() {
+  async submitForm() {
     // set frequency
     this.setRepeatFrequency();
     if (this.form.value.name === null || this.form.value.dueDate === null || 
@@ -97,12 +98,12 @@ export class AddTaskComponent implements OnInit {
       return;
     };
     this.formActive = false;
-    console.log(this.form.value)
+    console.log(this.form.value);
     // send data to back end
-    GlobalsService.createTask(this.form);
+    await this.globals.createTask(this.form);
     // get all tasks from backend again
     // GlobalsService.getDailyTasks(3, 6, 2022);
-    GlobalsService.getAllTasks("");
+    this.globals.getAllTasks("");
     this.form.reset();
   }
 

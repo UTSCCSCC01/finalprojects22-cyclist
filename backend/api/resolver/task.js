@@ -1,10 +1,10 @@
 const Task = require("../../database/task");
 const ObjectId = require('mongodb').ObjectId;
 module.exports = {
-    createTask: async args => {
-        // if(!req.isAuth){
-        //     throw new Error("User not authenticated");
-        // }
+    createTask: async (args,req) => {
+        if(!req.isAuth){
+            throw new Error("User not authenticated");
+        }
         try{
             let dwm;
             let fre;
@@ -35,7 +35,7 @@ module.exports = {
                 repeatStartDay = new Date(date).toISOString();
             }
             const newTask = new Task({
-                creater: "6297e22dab2c042c8dd6effb",
+                creater: req.userId,
                 name: args.name,
                 day: day,
                 month: month,
@@ -65,16 +65,16 @@ module.exports = {
             throw err;
         }
     },
-    rateDifficulty: async args =>{
+    rateDifficulty: async (args,req) =>{
         try{
-            // if(!req.isAuth){
-            //     throw new Error("User not authenticated");
-            // }
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
                 let task = await Task.findById(args.id);
                 if(!task){
                     throw new Error("task not found");
                 }
-                if(task.creater.valueOf() !== "6297e22dab2c042c8dd6effb"){
+                if(task.creater.valueOf() !== req.userId){
                     throw new Error("you are not creater");
                 }
                 if(!task.isRepeat && task.difficulty !== [] ){
@@ -91,11 +91,11 @@ module.exports = {
             throw err;
         }
     },
-    getDailyTask: async args=>{
+    getDailyTask: async (args,req)=>{
         try{
-            // if(!req.isAuth){
-            //     throw new Error("User not authenticated");
-            // }
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
             let dailyTask = await Task.find({hierarchy:"daily", day:args.day, month:args.month, 
             year:args.year, creater: ObjectId("6297e22dab2c042c8dd6effb"),isRepeat:false});
             let todayDate = args.month+"/"+args.day+"/"+args.year;
@@ -132,59 +132,59 @@ module.exports = {
             throw err;
         }
     },
-    getMonthTask: async args=>{
+    getMonthTask: async (args,req)=>{
         try{
-            // if(!req.isAuth){
-            //     throw new Error("User not authenticated");
-            // }
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
             let monthTask = await Task.find({hierarchy:"monthly", month:args.month, 
-            year:args.year, creater: ObjectId("6297e22dab2c042c8dd6effb")});
+            year:args.year, creater: ObjectId(req.userId)});
             return monthTask;
         } catch(err){
             throw err;
         }
     },
-    getFutureTask: async args=>{
+    getFutureTask: async (args,req)=>{
         try{
-            // if(!req.isAuth){
-            //     throw new Error("User not authenticated");
-            // }
-            let futureTask = await Task.find({hierarchy:"future", creater: ObjectId("6297e22dab2c042c8dd6effb")});
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            let futureTask = await Task.find({hierarchy:"future", creater: ObjectId(req.userId)});
             return futureTask;
         } catch(err){
             throw err;
         }
     },
-    markSignifier: async args=>{
+    markSignifier: async (args,req)=>{
         try{
-            // if(!req.isAuth){
-            //     throw new Error("User not authenticated");
-            // }
-            let task = await Task.find({_id:ObjectId(args.id), creater: ObjectId("6297e22dab2c042c8dd6effb")});
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            let task = await Task.find({_id:ObjectId(args.id), creater: ObjectId(req.userId)});
             console.log(task);
             return "done";
         } catch(err){
             throw err;
         }
     },
-    getSingleTask: async args=>{
+    getSingleTask: async (args,req)=>{
         try{
-            // if(!req.isAuth){
-            //     throw new Error("User not authenticated");
-            // }
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
             let task = await Task.findById(args.id);
             return task;
         } catch(err){
             throw err;
         }
     },
-    getAllTask: async args=>{
+    getAllTask: async (args,req)=>{
         try{
-            // if(!req.isAuth){
-            //     throw new Error("User not authenticated");
-            // }
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
             // if(args.type == "all")
-            let task = await Task.find({creater: ObjectId("6297e22dab2c042c8dd6effb")});
+            let task = await Task.find({creater: ObjectId(req.userId)});
             return task;
         } catch(err){
             throw err;
