@@ -69,6 +69,7 @@ $radius-menu: 1em;
 $radius-btn: 0.7em;
 
 // heights
+$height-top-bar: 3em;
 
 // size
 
@@ -91,6 +92,7 @@ html, body {
   bottom: 0;
   background-color: $bg;
   color: $fg;
+  overflow: hidden;
 }
 
 .btn {
@@ -157,13 +159,27 @@ textarea {
   display: flex;
   align-items: stretch;
   color: $fg;
-  overflow: hidden;
   padding: $pd-main-view;
+  position: absolute;
+  top: $height-top-bar + 2 * $pd-top-bar;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: auto;
   
   & > :not(app-side-bar) {
     align-items: stretch;
     flex: 1;
   }
+}
+
+// TODO: make side bar not scroll
+// side bar
+.side-bar {
+  // position: absolute;
+  // top: $height-top-bar + 2 * $pd-top-bar;
+  // left: 0;
+  // overflow: auto;
 }
 // .main-view > router-outlet {
 //   flex: 1;
@@ -178,7 +194,10 @@ router-outlet {
 
 app-dashboard, app-daily-log, app-monthly-log, app-future-log {
   padding: $pd-view calc($pd-view / 4) $pd-view $pd-view;
-
+  
+  & > * {
+    padding-bottom: 1em;
+  }
 }
 
 // app-daily-log {
