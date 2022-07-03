@@ -4,7 +4,7 @@
 
 <div class="menu" [class.active]="formActive" #addTask>
   <!-- <form #addTaskForm="ngForm" (ngSubmit)="submitForm(addTaskForm.value)" > -->
-  <form [formGroup]="form">
+  <form (ngSubmit)="submitForm()" [formGroup]="form">
     <div>
       <!-- <select id="signifier" formControlName="signifier">
         <option>task</option>
@@ -15,7 +15,7 @@
     </div>
     <div>
       Due: 
-      <input type="date" id="dueDate" required formControlName="dueDate"/>
+      <input type="date" required formControlName="dueDate"/>
       <input type="time" required formControlName="dueTime"/>
     </div>
     <!-- <div>
@@ -30,18 +30,39 @@
       <input type="date" placeholder="enter" formControlName="reminder"/>  
       <input type="time" formControlName="reminderTime"/>
     </div> -->
-    <!-- <div>
+    <div>
       Repeat: 
-      <input type="checkbox" formControlName="repeat"/>  
-       every: 
-      <input type="number" min="1" formControlName="frequency"/>  
-      <select id="repeat-cycle" formControlName="dayWeekMonthYear">
+      <input (change)="repeatCheck($event)" type="checkbox" formControlName="isRepeat"/>  
+      <span *ngIf="repeat">
+        every
+        <span *ngIf="form.value.dayWeekMonth === 'day'">
+          <input type="number" min="1" required formControlName="frequency"/>
+          th
+        </span>
+        <span *ngIf="form.value.dayWeekMonth === 'week'">
+          <div class="btn circ" [ngClass]="{'toggled': Su}" (click)="Su = !Su">S</div>
+          <div class="btn circ" [ngClass]="{'toggled': Mo}" (click)="Mo = !Mo">M</div>
+          <div class="btn circ" [ngClass]="{'toggled': Tu}" (click)="Tu = !Tu">T</div>
+          <div class="btn circ" [ngClass]="{'toggled': We}" (click)="We = !We">W</div>
+          <div class="btn circ" [ngClass]="{'toggled': Th}" (click)="Th = !Th">T</div>
+          <div class="btn circ" [ngClass]="{'toggled': Fr}" (click)="Fr = !Fr">F</div>
+          <div class="btn circ" [ngClass]="{'toggled': Sa}" (click)="Sa = !Sa">S</div>
+        </span>
+        <select required formControlName="dayWeekMonth">
+          <option>day</option>
+          <option>week</option>
+          <option>month</option>
+        </select>
+        <!-- <span *ngIf="form.value.dayWeekMonth === 'month'">
+        </span> -->
+      </span>
+      <!-- <select id="repeat-cycle" formControlName="dayWeekMonthYear">
         <option>day(s)</option>
         <option>week(s)</option>
         <option>month(s)</option>
         <option>year(s)</option>
-      </select>
-    </div> -->
+      </select> -->
+    </div>
     <!-- <div>
       Group: 
       <select id="group" formControlName="group">
@@ -69,6 +90,25 @@
     <!-- <div>
       TODO: add mood
     </div> -->
+
+    <!-- <label>
+      <input type="radio" name="taskGroup" id="schoolTaskGroup" value="62bb3b92e1345c823df5add5" required/>
+      School
+    </label>
+
+    <label>
+      <input type="radio" name="taskGroup" id="workTaskGroup" value="62bb3bb902135e0b572fa33b"/>
+      Work
+    </label> -->
+
+    <span>
+      Tag: 
+      <select formControlName="tagID">
+        <option value="62bb3b92e1345c823df5add5">School</option>
+        <option value="62bb3bb902135e0b572fa33b">Work</option>
+      </select>
+    </span>
+
     <textarea type="text" id="description" placeholder="Description" formControlName="description"></textarea>
   </form>
   <button type="submit" class="add-task btn submit" (click)="submitForm()"></button>

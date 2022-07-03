@@ -11,6 +11,7 @@ type authdata{
     userId: ID!
     email: String!
     nickName: String!
+    token: String!
 }
 type liteTask{
     _id: ID!
@@ -33,7 +34,7 @@ type task{
     expectedDuration: Float
     actualDuration: Float
     start: String
-    repeatOrSingle: String
+    isRepeat: Boolean
     dayWeekMonth: String
     frequency: String
     repeatStartDay: String
@@ -46,6 +47,15 @@ type task{
     mood: [mood]
     location: String
 }
+type tag{
+    _id: ID!
+    creater: ID!
+    name: String
+    color: Int
+    icon: Int
+    totalExpectedTime: Float
+    totalActualTime: Float
+}
 type RootQuery {
     emailLogin(email: String!, password: String!): authdata!
     getDailyTask(day: Int!, month: Int!, year:Int!): [task!]
@@ -53,12 +63,17 @@ type RootQuery {
     getFutureTask(year: Int): [task!]
     getSingleTask(id: ID!): task
     getAllTask(type: String):[task!]
+    getAllTag(id: ID):[tag]
+    getTag(tagId:ID):tag
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
-    createTask(hierarchy: String!, date: String!, repeat: String, dayWeekMonth: String, frequency: String, content:String!, startTime: String, expectedDuration: Int, name:String!): task
+    createTask(hierarchy: String!, date: String!, repeat: Boolean, dayWeekMonth: String, 
+        frequency: String, content:String!, startTime: String, expectedDuration: Int, 
+        name:String!, tagID: ID): task
     rateDifficulty(id: ID!, score: Float!): String
     markSignifier(id: ID!, field: String, value: String): String!
+    createTag(name:String!, color:Int!): tag
 }
 schema {
     query: RootQuery

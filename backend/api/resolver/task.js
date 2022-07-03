@@ -9,10 +9,30 @@ module.exports = {
             let dwm;
             let fre;
             let repeatStartDay;
-            let year = parseInt(args.date.split("-")[0]);
-            let month = parseInt(args.date.split("-")[1]);
-            let day = parseInt(args.date.split("-")[2]);
-            if(args.repeat === "single"){
+            let year;
+            let month = 0;
+            let day = 0;
+            console.log(args.tag);
+            let tag;
+            if(args.tag){
+                tag = args.tag
+                console.log(tag);
+            }else{
+                tag = null;
+            }
+            if(args.hierarchy === "future"){
+                year = parseInt(args.date.split("-")[0]);
+            }else if(args.hierarchy === "monthly"){
+                year = parseInt(args.date.split("-")[0]);
+                month = parseInt(args.date.split("-")[1]);
+            }else if(args.hierarchy === "daily"){
+                year = parseInt(args.date.split("-")[0]);
+                month = parseInt(args.date.split("-")[1]);
+                day = parseInt(args.date.split("-")[2]);
+            }else{
+                throw new Error("Invalid hierarchy");
+            }
+            if(!args.repeat){
                 dwm = null;
                 fre = null;
                 repeatStartDay = null;
@@ -33,12 +53,12 @@ module.exports = {
                 expectedDuration: 0,
                 actualDuration: 0,
                 start: new Date().toISOString(),
-                repeatOrSingle: args.repeat,
+                isRepeat: args.repeat,
                 dayWeekMonth: dwm,
                 frequency: fre,
                 repeatStartDay: repeatStartDay,
                 content: args.content,
-                tag: null,
+                tag: tag,
                 important: false,
                 identity: "parent",
                 subTask:[],
@@ -65,7 +85,7 @@ module.exports = {
                 if(task.creater.valueOf() !== "6297e22dab2c042c8dd6effb"){
                     throw new Error("you are not creater");
                 }
-                if(task.repeatOrSingle === "single" && task.difficulty !== [] ){
+                if(!task.isRepeat && task.difficulty !== [] ){
                     throw new Error("Task has already been rated!");
                 }
                 const newRate = {
@@ -108,13 +128,14 @@ module.exports = {
                         dailyTask.unshift(task);
                     }
                 }else if (task.dayWeekMonth === "month"){
-                    let today = new Date(todayDate).getDate().toString();
-                    if(task.frequency.includes(today)){
+                    let today = new Date(todayDate).getDate();
+                    let frequency = parseInt(task.frequency);
+                    if(frequency === today){
                         dailyTask.unshift(task);
                     }
                 }
             });
-            dailyTask = yesterdayTask.concat(dailyTask);
+            // dailyTask = yesterdayTask.concat(dailyTask);
             return dailyTask;
         } catch(err){
             throw err;
