@@ -12,6 +12,14 @@ module.exports = {
             let year;
             let month = 0;
             let day = 0;
+            console.log(args.tag);
+            let tag;
+            if(args.tag){
+                tag = args.tag
+                console.log(tag);
+            }else{
+                tag = null;
+            }
             if(args.hierarchy === "future"){
                 year = parseInt(args.date.split("-")[0]);
             }else if(args.hierarchy === "monthly"){
@@ -50,7 +58,7 @@ module.exports = {
                 frequency: fre,
                 repeatStartDay: repeatStartDay,
                 content: args.content,
-                tag: args.tagID,
+                tag: tag,
                 important: false,
                 identity: "parent",
                 subTask:[],
