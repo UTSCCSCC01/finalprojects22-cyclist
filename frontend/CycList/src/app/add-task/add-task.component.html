@@ -30,7 +30,7 @@
       <input type="date" placeholder="enter" formControlName="reminder"/>  
       <input type="time" formControlName="reminderTime"/>
     </div> -->
-    <div>
+    <div *ngIf="globals.curLog === 'daily'">
       Repeat: 
       <input (change)="repeatCheck($event)" type="checkbox" formControlName="isRepeat"/>  
       <span *ngIf="repeat">
