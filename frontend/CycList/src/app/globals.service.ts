@@ -377,7 +377,7 @@ export class GlobalsService {
   public async getMonthlyLogTasks() {
     // TODO: Actually update for Monthly Log
     let date = new Date();
-    await this.getMonthlyTasks(date.getMonth(), date.getFullYear());
+    await this.getMonthlyTasks(date.getMonth()+1, date.getFullYear());
     this.monthlyTasks = this.getTasks().slice();
   }
   public async getMonthlyTasks(month: number, year: number) {
@@ -385,7 +385,14 @@ export class GlobalsService {
       query:`
       query {
         getMonthTask(month: ${month}, year: ${year}){
+          _id
           content
+          name
+          day
+          month
+          year
+          startTime
+          tag
         }
       }
       `
