@@ -85,7 +85,7 @@ export class GlobalsService {
     this.getDashboardTasks();
     this.getNDailyTasks();
     this.getFutureLogTasks();
-    // TODO: Add update for Monthly Log
+    this.getMonthlyLogTasks();
     this.getAllTags(this.getUser().userId);
   }
 
@@ -627,7 +627,8 @@ export class GlobalsService {
       method: 'POST',
       body: JSON.stringify(body),
       headers:{
-        "Content-Type": 'application/json'
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
       }
       })
       .then(res =>{
