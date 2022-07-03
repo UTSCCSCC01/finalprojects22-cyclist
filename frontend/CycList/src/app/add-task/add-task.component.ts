@@ -85,7 +85,7 @@ export class AddTaskComponent implements OnInit {
 
     expectedDuration: [null],  // pointless because we have start and due/end unless this is an AI value
 
-    isRepeat: [null],         // maybe just repeat true of false
+    isRepeat: false,         // maybe just repeat true of false
     frequency: "",
     dayWeekMonth: [null],   // add year?
     // repeatStartDay: [null],     // only in backend
