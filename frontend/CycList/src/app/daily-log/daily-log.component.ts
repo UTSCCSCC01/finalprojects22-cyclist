@@ -13,7 +13,6 @@ export class DailyLogComponent implements OnInit {
 
   async ngOnInit() {
     this.globals.getNDailyTasks();
-    this.globals.curLog = "daily";
   }
 
 }

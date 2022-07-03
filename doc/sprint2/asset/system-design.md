@@ -11,9 +11,7 @@ include-before:
 
 \newpage
 
-#  CRC
-
-## Backend
+##  CRC
 
 ### Class name: app.js
 
@@ -96,77 +94,6 @@ Responsibility: provide the implementations of each function related to tag in s
 Collaborator: database/tag.js, resolver.js, schema.js
 
 }
-
-
-
-## Frontend
-
-### Component: app.component
-
-Responsibility: contain the entire app (all its components)
-
-Collaborator: globals.service
-
-### Component: globals.service
-
-Responsibility: provides global service for methods and variables used by all components throughout the app
-
-Collaborator: N/A
-
-### Component: add-task.component
-
-Responsibility: enables users to add tasks
-
-Collaborator: globals.service
-
-### Component: daily-log.component
-
-Responsibility: allow users to view their tasks due within the current week
-
-Collaborator: globals.service, task.component
-
-### Component: dashboard.component
-
-Responsibility: allow users to view all their tasks in an overview with the timeline
-
-Collaborator: globals.service, task.component
-
-### Component: future-log.component
-
-Responsibility: allow users to view their tasks to be done in the future
-
-Collaborator: globals.service, task.component
-
-### Component: log-in.component
-
-Responsibility: allow users to login to their accounts or create new accounts
-
-Collaborator: globals.service
-
-### Component: monthly-log.component
-
-Responsibility: allow users to view their tasks due within the current month
-
-Collaborator: globals.service, task.component
-
-### Component: side-bar.component
-
-Responsibility: allow users to navigate between the dashboard, daily, monthly, and future logs 
-
-Collaborator: globals.service, daily-log.component, monthly-log.component, future-log.component
-
-### Component: task.component
-
-Responsibility: provides the format that tasks will be displayed with
-
-Collaborator: globals.service
-
-### Component: top-bar.component
-
-Responsibility: provides header bar for the app with app name and logout button
-
-Collaborator: globals.service
-
 
 \newpage
 

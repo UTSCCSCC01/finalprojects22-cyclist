@@ -8,8 +8,6 @@ import { CookieService } from 'ngx-cookie-service';
 export class GlobalsService {
 
   public loggedIn: boolean = false;
-  public curLog = "daily";
-
 
   public tasks = [
     {
@@ -497,7 +495,7 @@ export class GlobalsService {
     const body = {
       query:`
       mutation {
-        createTask(hierarchy:"${this.curLog}",date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.description}",name:"${value.name}", startTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
+        createTask(hierarchy:"daily",date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.description}",name:"${value.name}", startTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
           content
           startTime
           day
