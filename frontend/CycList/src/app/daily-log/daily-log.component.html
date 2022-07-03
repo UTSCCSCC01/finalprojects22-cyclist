@@ -1,7 +1,18 @@
 <div class="daily-log-task-container">
-  <h1>To Do</h1>
+  <h1>Daily Log</h1>
   <hr class="daily-log-underline">
-  <app-task></app-task>
-  <app-task></app-task>
-  <app-task></app-task>
+
+  <div class="tasks">
+    <div class="day" *ngFor = "let day of globals.dailyTasks; index as i">
+      <h2>{{globals.nDates[i].toDateString()}}</h2>
+
+      <div class="task" *ngFor = "let task of day">
+        <app-task [name]=task.name [startTime]=task.startTime [year]=task.year [month]=task.month [day]=task.day></app-task>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="task" *ngFor="let task of globals.tasks">
+    <div class="name">{{ task.name }}</div><div>{{ task.startTime}}: {{ task.year}}-{{ task.month }}-{{ task.day }}</div>
+  </div> -->
 </div>

@@ -50,6 +50,7 @@ $color-grey: #808397;
 $color-lightgrey: #bcbeca;
 $color-grey-trans: #6a6d8027;
 $color-lightgrey-trans: #9a9cac09;
+$color-mediumgrey-trans: rgba(125, 125, 125, 0.069);
 $color-light: #f1f3f6;
 $color-white: white;
 $color-blue: rgb(18, 95, 202);
@@ -65,8 +66,10 @@ $shadow-menu: 0px 0px 90px rgba(0, 0, 0, 0.16);
 // radii
 $radius-circle: 100%;
 $radius-menu: 1em;
+$radius-btn: 0.7em;
 
 // heights
+$height-top-bar: 3em;
 
 // size
 
@@ -89,12 +92,14 @@ html, body {
   bottom: 0;
   background-color: $bg;
   color: $fg;
+  overflow: hidden;
 }
 
 .btn {
   // user-select: none;
   transition: all 0.2s;
   box-shadow: $shadow-medium;
+  user-select: none;
 
   &:hover {
     transform: translateY(-1);
@@ -103,6 +108,59 @@ html, body {
   &:active {
     box-shadow: $shadow-medium-active;
   }
+
+  &.circ {
+    background-color: $color-lightgrey-trans;
+    border-radius: 100%;
+    padding: 0.2em;
+    margin: 0.2em;
+    width: 1.4em;
+    height: 1.4em;
+    display: inline-block;
+    text-align: center;
+
+    &.toggled {
+      background-color: $color-blue;
+      color: $bg;
+    }
+  }
+}
+
+input,
+textarea,
+select {
+  color: $color-grey;
+  border: none;
+  border-radius: 0.5em;
+  padding: 0.3em 0.5em;
+  /* color: white; */
+  margin: 0.2em;
+  /* width: 100; */
+  background-color: $color-mediumgrey-trans;
+  // box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
+  font-size: small;
+  
+  &::placeholder {
+    color: $color-grey;
+  }
+
+  &:focus {
+    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
+    outline: none;
+  }
+
+  &#task {
+    font-size: medium;
+  }
+
+  &[type="number"] {
+    width: 4em;
+  }
+}
+textarea {
+  background-color: $bg;
+  resize: none;
+  height: 3em;
 }
 
 .menu {
@@ -118,13 +176,27 @@ html, body {
   display: flex;
   align-items: stretch;
   color: $fg;
-  overflow: hidden;
   padding: $pd-main-view;
+  position: absolute;
+  top: $height-top-bar + 2 * $pd-top-bar;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: auto;
   
   & > :not(app-side-bar) {
     align-items: stretch;
     flex: 1;
   }
+}
+
+// TODO: make side bar not scroll
+// side bar
+.side-bar {
+  // position: absolute;
+  // top: $height-top-bar + 2 * $pd-top-bar;
+  // left: 0;
+  // overflow: auto;
 }
 // .main-view > router-outlet {
 //   flex: 1;
@@ -139,7 +211,10 @@ router-outlet {
 
 app-dashboard, app-daily-log, app-monthly-log, app-future-log {
   padding: $pd-view calc($pd-view / 4) $pd-view $pd-view;
-
+  
+  & > * {
+    padding-bottom: 1em;
+  }
 }
 
 // app-daily-log {
@@ -149,7 +224,7 @@ app-dashboard, app-daily-log, app-monthly-log, app-future-log {
 // }
 
 .hidden {
-  display: none;
+  display: none!important;
 }
 
 // -------------------------------

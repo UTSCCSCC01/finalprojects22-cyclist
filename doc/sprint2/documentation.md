@@ -73,6 +73,9 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - name: String
   - date: String
   - startTime: String
+  - repeat: Boolean
+  - dayWeekMonth: String
+  - frequency: String
 - Expected Response:
   - 200 OK
     - create successfully
@@ -83,10 +86,37 @@ Since we are using graphQL as our api, it behaves little different from REST:
 
 ## getDailyTask
 
-- Description: user can get their tasks for the given date, tasks include this day’s daily task, unfinished daily tasks from the day before this day, and repeated tasks on this day.
+- Description: user can get their tasks for the given date, tasks include this day’s daily task and repeated tasks on this day.
 - Body Parameters:
   - day: Int
   - month: Int
+  - year: Int
+- Expected Response:
+  - 200 OK
+    - get all required tasks
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+## getMonthTask
+
+- Description: user can get their monthly tasks for the given month.
+- Body Parameters:
+  - month: Int
+  - year: Int
+- Expected Response:
+  - 200 OK
+    - get all required tasks
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+## getFutureTask
+
+- Description: user can get their future tasks for the given year.
+- Body Parameters:
   - year: Int
 - Expected Response:
   - 200 OK
@@ -122,6 +152,57 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - 500 Input error
     - Invalid argument type.
 
+## getAllTag
+- Description:return all tags the user has currently.
+- Body Parameters:
+  - id: String //This doesn’t matter since we will use token in the next sprint, for now it can be any string
+- Expected Response:
+  - 200 OK
+    - get all tags
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+## getTag
+- Description:return the tag details for the given tagId.
+- Body Parameters:
+  - tagId: the tag id
+- Expected Response:
+  - 200 OK
+    - return the details
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+## createUser
+- Description: to create a user in database and return its token.
+- Body Parameters:
+  - email: String
+  - nickName: String
+  - password: String
+- Expected Response:
+  - 200 OK
+    - create a new user and return token
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+## emailLogin
+- Description:  to allow user log in their account and return a token. 
+- Body Parameters:
+  - email: String
+  - password: String
+- Expected Response:
+  - 200 OK
+    - return the token
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
 # Database Structure
 
 ## Task
@@ -143,3 +224,11 @@ Since we are using graphQL as our api, it behaves little different from REST:
 - email: String
 - password: String
 
+
+## Tag
+- creator: ID
+- name: String
+- color: Int
+- icon: Int
+- totalExpectedTime: Int
+- totalActualTime: Ine
