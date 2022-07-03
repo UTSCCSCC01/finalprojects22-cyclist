@@ -7,13 +7,11 @@ import { GlobalsService } from '../globals.service';
   styleUrls: ['./monthly-log.component.scss']
 })
 export class MonthlyLogComponent implements OnInit {
-  tasks;
   month;
   monthName;
   
-  constructor(
-    ) {
-    this.tasks = GlobalsService.getTasks();
+  constructor(public globals: GlobalsService) {
+    this.globals.getMonthlyLogTasks();
 
     let today = new Date();
     this.month = today.getMonth() + 1
@@ -28,10 +26,6 @@ export class MonthlyLogComponent implements OnInit {
   
 
   ngOnInit(): void {
-    setInterval(() => { 
-      GlobalsService.getMonthlyTasks(this.month, 2022);
-      this.tasks = GlobalsService.getTasks(); 
-    }, 2000);
   }
 
   refreshTasks() {

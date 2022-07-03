@@ -4,7 +4,7 @@
 
   <div class="tasks">
     <div class="tasks">
-      <div class="task" *ngFor="let task of tasks">
+      <div class="task" *ngFor="let task of globals.monthlyTasks">
         <app-task [name]=task.name [startTime]=task.startTime [year]=task.year [month]=task.month [day]=task.day></app-task>
       </div>
     </div>
