@@ -7,22 +7,27 @@
 
 - [System Design](#system-design)
 - [Table of Content](#table-of-content)
-  - [CRC](#crc)
+- [CRC](#crc)
+  - [Backend](#backend)
     - [Class name: app.js](#class-name-appjs)
     - [Class name: user.js](#class-name-userjs)
     - [Class name: task.js](#class-name-taskjs)
     - [Class name: tag.js](#class-name-tagjs)
-    - [Class name: auth.js](#class-name-authjs)
     - [Class name: schema.js](#class-name-schemajs)
+    - [Class name: auth.js](#class-name-authjs)
     - [Class name: resolver.js](#class-name-resolverjs)
     - [Class name: user.js](#class-name-userjs-1)
     - [Class name: task.js](#class-name-taskjs-1)
     - [Class name: tag.js](#class-name-tagjs-1)
-  - [System Architecture Design](#system-architecture-design)
+  - [Frontend](#frontend)
+    - [Component: app.component](#component-appcomponent)
+- [System Architecture Design](#system-architecture-design)
 
 
 
-##  CRC
+#  CRC
+
+## Backend
 
 ### Class name: app.js
 
@@ -107,7 +112,79 @@ Collaborator: database/tag.js, resolver.js, schema.js
 }
 
 
-## System Architecture Design
+
+## Frontend
+
+### Component: app.component
+
+Responsibility: contain the entire app (all its components)
+
+Collaborator: globals.service
+
+### Component: globals.service
+
+Responsibility: provides global service for methods and variables used by all components throughout the app
+
+Collaborator: N/A
+
+### Component: add-task.component
+
+Responsibility: enables users to add tasks
+
+Collaborator: globals.service
+
+### Component: daily-log.component
+
+Responsibility: allow users to view their tasks due within the current week
+
+Collaborator: globals.service, task.component
+
+### Component: dashboard.component
+
+Responsibility: allow users to view all their tasks in an overview with the timeline
+
+Collaborator: globals.service, task.component
+
+### Component: future-log.component
+
+Responsibility: allow users to view their tasks to be done in the future
+
+Collaborator: globals.service, task.component
+
+### Component: log-in.component
+
+Responsibility: allow users to login to their accounts or create new accounts
+
+Collaborator: globals.service
+
+### Component: monthly-log.component
+
+Responsibility: allow users to view their tasks due within the current month
+
+Collaborator: globals.service, task.component
+
+### Component: side-bar.component
+
+Responsibility: allow users to navigate between the dashboard, daily, monthly, and future logs 
+
+Collaborator: globals.service, daily-log.component, monthly-log.component, future-log.component
+
+### Component: task.component
+
+Responsibility: provides the format that tasks will be displayed with
+
+Collaborator: globals.service
+
+### Component: top-bar.component
+
+Responsibility: provides header bar for the app with app name and logout button
+
+Collaborator: globals.service
+
+
+
+# System Architecture Design
+
 Architecture: we use Three-tiered architecture where Tier 1 is our frontend server(using Angular), Tier 2 is our backend server(using Graphql) and Tier 3 is mongodb cloud service
 
 

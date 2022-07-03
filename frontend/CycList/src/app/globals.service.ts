@@ -85,7 +85,7 @@ export class GlobalsService {
     this.getDashboardTasks();
     this.getNDailyTasks();
     this.getFutureLogTasks();
-    // TODO: Add update for Monthly Log
+    this.getMonthlyLogTasks();
     this.getAllTags(this.getUser().userId);
   }
 
@@ -372,6 +372,58 @@ export class GlobalsService {
     });
   }
 
+  public async getMonthlyLogTasks() {
+    // TODO: Actually update for Monthly Log
+    let date = new Date();
+    await this.getMonthlyTasks(date.getMonth(), date.getFullYear());
+    this.monthlyTasks = this.getTasks().slice();
+  }
+  public async getMonthlyTasks(month: number, year: number) {
+    const body = {
+      query:`
+      query {
+        getMonthTask(month: ${month}, year: ${year}){
+          content
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        this.setTasks(data.data.getMonthTask);
+        // console.log(this.getTasks());
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
+
   public async getFutureLogTasks() {
     // TODO: Actually update for Future Log
     await this.getFutureTasks((new Date()).getFullYear());
@@ -575,7 +627,8 @@ export class GlobalsService {
       method: 'POST',
       body: JSON.stringify(body),
       headers:{
-        "Content-Type": 'application/json'
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
       }
       })
       .then(res =>{

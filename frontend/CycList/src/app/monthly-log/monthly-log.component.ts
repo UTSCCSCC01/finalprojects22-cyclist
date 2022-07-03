@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-monthly-log',
@@ -6,10 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./monthly-log.component.scss']
 })
 export class MonthlyLogComponent implements OnInit {
+  month;
+  monthName;
+  
+  constructor(public globals: GlobalsService) {
+    this.globals.getMonthlyLogTasks();
 
-  constructor() { }
+    let today = new Date();
+    this.month = today.getMonth() + 1
+
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    this.monthName = monthNames[this.month - 1];
+  }
+  
+  
 
   async ngOnInit() {
+  }
+
+  refreshTasks() {
   }
 
 }
