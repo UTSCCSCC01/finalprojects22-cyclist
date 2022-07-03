@@ -9,12 +9,9 @@ import { GlobalsService } from '../globals.service';
 })
 export class DailyLogComponent implements OnInit {
 
-  numDates = 6;   // TODO: dependency injection!?
-
   constructor(public globals: GlobalsService) {}
 
   async ngOnInit() {
-    this.globals.setNDates();
     this.globals.getNDailyTasks();
   }
 

@@ -16,7 +16,20 @@ export class GlobalsService {
       day: "__",
       month: "__",
       year: "____",
-      startTime: "00:00"
+      startTime: "00:00",
+      tag: ""
+    }
+  ];
+
+  public tags = [
+    {
+      _id: "",
+      creater: "",
+      name: "",
+      color: 0,
+      icon: 0,
+      totalExpectedTime: 0,
+      totalActualTime: 0
     }
   ];
 
@@ -62,9 +75,18 @@ export class GlobalsService {
         day: "__",
         month: "__",
         year: "____",
-        startTime: "00:00"
+        startTime: "00:00",
+        tag: ""
       }
     ];
+  }
+
+  public refresh() {
+    this.getDashboardTasks();
+    this.getNDailyTasks();
+    this.getFutureLogTasks();
+    this.getMonthlyLogTasks();
+    this.getAllTags(this.getUser().userId);
   }
 
   public loadUser() {
@@ -77,7 +99,7 @@ export class GlobalsService {
   }
 
   public setTasks(tasks: any) {
-    this.tasks = tasks;
+    if (tasks) this.tasks = tasks;
   }
 
   // TODO: update when go to a new day
@@ -109,6 +131,10 @@ export class GlobalsService {
     this.resetUser();
     this.cookie.delete('user');
     this.loggedIn = false;
+    this.dashboardTasks = [];
+    this.dailyTasks = [];
+    this.monthlyTasks = [];
+    this.futureTasks = [];
   }
 
   public async register(form: FormGroup) {
@@ -238,6 +264,7 @@ export class GlobalsService {
           month
           year
           startTime
+          tag
         }
       }
       `
@@ -288,7 +315,7 @@ export class GlobalsService {
 
       this.dailyTasks[i] = this.getTasks().slice();
       // console.log(this.dailyTasks[i]);
-    }    
+    }
     // console.log(this.dailyTasks);
   }
   public async getDailyTasks(day: number, month: number, year: number) {
@@ -304,6 +331,7 @@ export class GlobalsService {
           month
           year
           startTime
+          tag
         }
       }
       `
@@ -344,9 +372,61 @@ export class GlobalsService {
     });
   }
 
+  public async getMonthlyLogTasks() {
+    // TODO: Actually update for Monthly Log
+    let date = new Date();
+    await this.getMonthlyTasks(date.getMonth(), date.getFullYear());
+    this.monthlyTasks = this.getTasks().slice();
+  }
+  public async getMonthlyTasks(month: number, year: number) {
+    const body = {
+      query:`
+      query {
+        getMonthTask(month: ${month}, year: ${year}){
+          content
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        this.setTasks(data.data.getMonthTask);
+        // console.log(this.getTasks());
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
+
   public async getFutureLogTasks() {
     // TODO: Actually update for Future Log
-    this.getFutureTasks((new Date()).getFullYear());
+    await this.getFutureTasks((new Date()).getFullYear());
     this.futureTasks = this.getTasks().slice();
   }
   public async getFutureTasks(year: number) {
@@ -363,6 +443,7 @@ export class GlobalsService {
           month
           year
           startTime
+          tag
         }
       }
       `
@@ -402,18 +483,25 @@ export class GlobalsService {
     });
   }
 
-  public async createTask(form: FormGroup) {
+  public async createTask(value: any) {
+
+    // let taskGroup = (document.querySelector('input[name="taskGroup"]:checked') as HTMLInputElement).value;
+    // console.log("TASK GROUP " + taskGroup);
+
+    console.log(value);
+
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
     const body = {
       query:`
       mutation {
-        createTask(hierarchy:"daily",date:"${form.value.dueDate}",repeat:${form.value.isRepeat}, content:"${form.value.description}",name:"${form.value.name}", startTime:"${form.value.dueTime}", frequency:"${form.value.frequency}", dayWeekMonth:"${form.value.dayWeekMonth}"){
+        createTask(hierarchy:"daily",date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.description}",name:"${value.name}", startTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
           content
           startTime
           day
           month
           year
+          tag
         }
       }
       `
@@ -446,15 +534,130 @@ export class GlobalsService {
         }
       }else{
         // all g!
-        console.log(form);
-        this.getDashboardTasks();
-        this.getNDailyTasks();
-        this.getFutureLogTasks();
-        // TODO: Add update for Monthly Log
+        this.refresh();
       }
     })
     .catch(err =>{
       console.log(err)
     });
   }
+
+  public getTags() {
+    return this.tags;
+  }
+
+  public setTags(tags: any) {
+    this.tags = tags;
+  }
+
+  public async getAllTags(userID: string) {
+    const body = {
+      query:`
+      query {
+        getAllTag(id: "${userID}"){
+          _id
+          creater
+          name
+          color
+          icon
+          totalExpectedTime
+          totalActualTime
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json'
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        this.setTags(data.data.getAllTag);
+        console.log(this.getTags());
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
+
+
+  public async getTag(tagID: string) {
+
+    if (tagID) {
+      console.log(tagID)
+      const body = {
+        query:`
+        query {
+          getTag(tagId: "${tagID}"){
+            _id
+            creater
+            name
+            color
+            icon
+            totalExpectedTime
+            totalActualTime
+          }
+        }
+        `
+      }
+      let err = false;
+      let backenderr = false;
+      await fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
+      }
+      })
+      .then(res =>{
+        if(res.status !== 200 && res.status !== 201){
+          err = true;
+          if(res.status === 400){
+            backenderr = true;
+          }
+        }
+        return res.json();
+      })
+      .then(data =>{
+        if(err){
+          if(backenderr){
+            console.log("Something wrong with server, please contact to admin");
+          }else{
+            console.log("** " + data.errors[0].message + " **");
+          }
+        }else{
+          this.setTags([data.data.getTag]);
+          console.log(this.getTags());
+          // return data.data.getTag;
+        }
+      })
+      .catch(err =>{
+        console.log(err)
+      });
+    } else {
+      console.log("Tag ID is null")
+    }
+  } 
 }

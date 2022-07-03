@@ -36,7 +36,7 @@ export class LogInComponent implements OnInit {
     if (this.globals.isAuthenticated()) {
       this.globals.loggedIn = true;
       this.router.navigate(['/', 'app-dashboard']);
-      this.globals.getAllTasks("");
+      this.globals.refresh();
     } else {
       this.globals.resetUser();
     }

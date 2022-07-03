@@ -90,6 +90,25 @@
     <!-- <div>
       TODO: add mood
     </div> -->
+
+    <!-- <label>
+      <input type="radio" name="taskGroup" id="schoolTaskGroup" value="62bb3b92e1345c823df5add5" required/>
+      School
+    </label>
+
+    <label>
+      <input type="radio" name="taskGroup" id="workTaskGroup" value="62bb3bb902135e0b572fa33b"/>
+      Work
+    </label> -->
+
+    <span>
+      Tag: 
+      <select formControlName="tagID">
+        <option value="62bb3b92e1345c823df5add5">School</option>
+        <option value="62bb3bb902135e0b572fa33b">Work</option>
+      </select>
+    </span>
+
     <textarea type="text" id="description" placeholder="Description" formControlName="description"></textarea>
   </form>
   <button type="submit" class="add-task btn submit" (click)="submitForm()"></button>
