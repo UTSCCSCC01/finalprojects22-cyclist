@@ -1,26 +1,15 @@
-# System Design
-
-**CSCC01 Summer 2022 CycList**
+---
+title:
+  - CSCC01 Summer 2022 System Design
+author:
+  - CycList
+date: Jun 30, 2022
+toc: true
+include-before:
+- '`\newpage{}`{=latex}'
+---
 
 \newpage
-# Table of Content
-
-- [System Design](#system-design)
-- [Table of Content](#table-of-content)
-  - [CRC](#crc)
-    - [Class name: app.js](#class-name-appjs)
-    - [Class name: user.js](#class-name-userjs)
-    - [Class name: task.js](#class-name-taskjs)
-    - [Class name: tag.js](#class-name-tagjs)
-    - [Class name: auth.js](#class-name-authjs)
-    - [Class name: schema.js](#class-name-schemajs)
-    - [Class name: resolver.js](#class-name-resolverjs)
-    - [Class name: user.js](#class-name-userjs-1)
-    - [Class name: task.js](#class-name-taskjs-1)
-    - [Class name: tag.js](#class-name-tagjs-1)
-  - [System Architecture Design](#system-architecture-design)
-
-
 
 ##  CRC
 
@@ -106,10 +95,9 @@ Collaborator: database/tag.js, resolver.js, schema.js
 
 }
 
+\newpage
 
-## System Architecture Design
+# System Architecture Design
 Architecture: we use Three-tiered architecture where Tier 1 is our frontend server(using Angular), Tier 2 is our backend server(using Graphql) and Tier 3 is mongodb cloud service
 
-
-![system architecture](./asset/sys%20archi.png)
-
+![system architecture](./sys-archi.png)
