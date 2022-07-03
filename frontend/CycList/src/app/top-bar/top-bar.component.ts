@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -8,9 +7,10 @@ import { GlobalsService } from '../globals.service';
 })
 export class TopBarComponent implements OnInit {
 
-  constructor(public globals: GlobalsService) { }
+  constructor() { }
 
   ngOnInit(): void {
+
   }
 
   notify() {

@@ -50,7 +50,6 @@ $color-grey: #808397;
 $color-lightgrey: #bcbeca;
 $color-grey-trans: #6a6d8027;
 $color-lightgrey-trans: #9a9cac09;
-$color-mediumgrey-trans: rgba(125, 125, 125, 0.069);
 $color-light: #f1f3f6;
 $color-white: white;
 $color-blue: rgb(18, 95, 202);
@@ -66,7 +65,6 @@ $shadow-menu: 0px 0px 90px rgba(0, 0, 0, 0.16);
 // radii
 $radius-circle: 100%;
 $radius-menu: 1em;
-$radius-btn: 0.7em;
 
 // heights
 $height-top-bar: 3em;
@@ -124,43 +122,6 @@ html, body {
       color: $bg;
     }
   }
-}
-
-input,
-textarea,
-select {
-  color: $color-grey;
-  border: none;
-  border-radius: 0.5em;
-  padding: 0.3em 0.5em;
-  /* color: white; */
-  margin: 0.2em;
-  /* width: 100; */
-  background-color: $color-mediumgrey-trans;
-  // box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
-  font-size: small;
-  
-  &::placeholder {
-    color: $color-grey;
-  }
-
-  &:focus {
-    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
-    outline: none;
-  }
-
-  &#task {
-    font-size: medium;
-  }
-
-  &[type="number"] {
-    width: 4em;
-  }
-}
-textarea {
-  background-color: $bg;
-  resize: none;
-  height: 3em;
 }
 
 .menu {
@@ -224,7 +185,7 @@ app-dashboard, app-daily-log, app-monthly-log, app-future-log {
 // }
 
 .hidden {
-  display: none!important;
+  display: none;
 }
 
 // -------------------------------

@@ -50,14 +50,13 @@ module.exports = {
         //     {email:args.email},
         //     {$set:{status:"login"}}
         // );
-        const token = jwt.sign({userId: user.id, email:user.email}, 'my token secret', {
-            expiresIn:'1h'
-        });
+        // const token = jwt.sign({userId: user.id, email:user.email}, 'my token secret', {
+        //     expiresIn:'1h'
+        // });
         return {
-            userId: user.id,
-            email: user.email,
-            nickName: user.nickName,
-            token: token,
+            userId: result.id,
+            email: result.email,
+            nickName: result.nickName,
         }
     },
     // logout: async (args,req) =>{
