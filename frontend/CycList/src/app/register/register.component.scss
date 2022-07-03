@@ -1,0 +1,51 @@
+.overlayer{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    backdrop-filter:blur(30px);
+    background-color: rgba(0, 0, 0, 0.212);
+}
+
+.button{
+    background-color: rgba(211,211,211,0.5);
+    color:black;
+    border:none;
+    width:8%;
+    align-items: center;
+}
+.button:hover{
+    background:blue;
+    color:white;
+}
+
+.complete-register{
+    padding:30px;
+    text-align: center;
+    margin-top: 115px;
+}
+
+.circle{
+    background: rgba(211,211,211,0.5);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-left: 44%;
+    margin-bottom: 30px;
+    
+}
+
+.complete-register .register{
+    padding:10px;
+}
+
+.complete-register input[type="text"]{
+    background-color:rgba(211,211,211,0.5);
+    border-radius: 5px;
+    width: 30%;
+    border-color:rgba(211,211,211,0.5);
+}
+
+
+
