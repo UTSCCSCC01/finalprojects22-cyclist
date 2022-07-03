@@ -13,7 +13,7 @@ module.exports = async (req,res,next) =>{
     }
     let Token;
     try{
-        Token = jwt.verify(token, 'cyclist secret');
+        Token = jwt.verify(token, 'my token secret');
     }catch (err){
         req.isAuth = false;
         return next();
