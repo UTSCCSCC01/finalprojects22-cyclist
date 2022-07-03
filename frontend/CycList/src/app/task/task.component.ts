@@ -8,8 +8,6 @@ import { GlobalsService } from '../globals.service';
 })
 export class TaskComponent {
 
-  tags;
-
   @Input() 
   name: string = "";
 
@@ -29,7 +27,7 @@ export class TaskComponent {
   tagID: string = "";
 
   constructor(public globals: GlobalsService) { 
-    this.tags = this.globals.getTags();
+    // this.tags = this.globals.getTags();
     // this.taskTag = GlobalsService.getTag(this.tagID);
     
     // if (this.tagID) {

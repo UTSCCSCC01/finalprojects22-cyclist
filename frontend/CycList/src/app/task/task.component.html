@@ -1,13 +1,12 @@
 <div class="task">
     <div class="date-one">
-
       <div *ngIf="tagID">
-        <div class="task" *ngFor="let tag of tags">
+        <div *ngFor="let tag of globals.tags">
           <div *ngIf="tag._id == tagID" [ngClass]="(tag.color == 0) ? 'square-icon-blue' : 'square-icon-green'"></div>
         </div>
       </div>
       <div *ngIf="!tagID">
-        <div class="task">
+        <div>
           <div class="square-icon-red"></div>
         </div>
       </div>

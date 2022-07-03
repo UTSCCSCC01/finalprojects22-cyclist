@@ -29,7 +29,7 @@ export class LogInComponent implements OnInit {
   loadSession() {
     if (this.globals.isAuthenticated()) {
       this.globals.loggedIn = true;
-      this.globals.getAllTasks("");
+      this.globals.refresh();
     } else {
       this.globals.resetUser();
     }

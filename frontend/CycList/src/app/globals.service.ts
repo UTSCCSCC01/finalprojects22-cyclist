@@ -21,7 +21,7 @@ export class GlobalsService {
     }
   ];
 
-  private tags = [
+  public tags = [
     {
       _id: "",
       creater: "",
@@ -81,6 +81,14 @@ export class GlobalsService {
     ];
   }
 
+  public refresh() {
+    this.getDashboardTasks();
+    this.getNDailyTasks();
+    this.getFutureLogTasks();
+    // TODO: Add update for Monthly Log
+    this.getAllTags(this.getUser().userId);
+  }
+
   public loadUser() {
     if (this.cookie.check('user'))
       this.user = JSON.parse(this.cookie.get('user'));
@@ -123,6 +131,10 @@ export class GlobalsService {
     this.resetUser();
     this.cookie.delete('user');
     this.loggedIn = false;
+    this.dashboardTasks = [];
+    this.dailyTasks = [];
+    this.monthlyTasks = [];
+    this.futureTasks = [];
   }
 
   public async login(form: FormGroup) {
@@ -249,7 +261,7 @@ export class GlobalsService {
 
       this.dailyTasks[i] = this.getTasks().slice();
       // console.log(this.dailyTasks[i]);
-    }    
+    }
     // console.log(this.dailyTasks);
   }
   public async getDailyTasks(day: number, month: number, year: number) {
@@ -265,6 +277,7 @@ export class GlobalsService {
           month
           year
           startTime
+          tag
         }
       }
       `
@@ -307,7 +320,7 @@ export class GlobalsService {
 
   public async getFutureLogTasks() {
     // TODO: Actually update for Future Log
-    this.getFutureTasks((new Date()).getFullYear());
+    await this.getFutureTasks((new Date()).getFullYear());
     this.futureTasks = this.getTasks().slice();
   }
   public async getFutureTasks(year: number) {
@@ -364,17 +377,19 @@ export class GlobalsService {
     });
   }
 
-  public async createTask(form: FormGroup) {
+  public async createTask(value: any) {
 
-    let taskGroup = (document.querySelector('input[name="taskGroup"]:checked') as HTMLInputElement).value;
-    console.log("TASK GROUP " + taskGroup);
+    // let taskGroup = (document.querySelector('input[name="taskGroup"]:checked') as HTMLInputElement).value;
+    // console.log("TASK GROUP " + taskGroup);
+
+    console.log(value);
 
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
     const body = {
       query:`
       mutation {
-        createTask(hierarchy:"daily",date:"${form.value.dueDate}",repeat:${form.value.isRepeat}, content:"${form.value.description}",name:"${form.value.name}", startTime:"${form.value.dueTime}", frequency:"${form.value.frequency}", dayWeekMonth:"${form.value.dayWeekMonth}"){
+        createTask(hierarchy:"daily",date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.description}",name:"${value.name}", startTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
           content
           startTime
           day
@@ -413,11 +428,7 @@ export class GlobalsService {
         }
       }else{
         // all g!
-        console.log(form);
-        this.getDashboardTasks();
-        this.getNDailyTasks();
-        this.getFutureLogTasks();
-        // TODO: Add update for Monthly Log
+        this.refresh();
       }
     })
     .catch(err =>{
