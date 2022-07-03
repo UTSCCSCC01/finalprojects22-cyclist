@@ -12,6 +12,7 @@ export class FutureLogComponent implements OnInit {
   
   async ngOnInit() {
     this.globals.getFutureLogTasks();
+    this.globals.curLog = "future";
   }
 
 }

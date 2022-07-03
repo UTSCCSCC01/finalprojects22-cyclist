@@ -11,8 +11,6 @@ export class MonthlyLogComponent implements OnInit {
   monthName;
   
   constructor(public globals: GlobalsService) {
-    this.globals.getMonthlyLogTasks();
-
     let today = new Date();
     this.month = today.getMonth() + 1
 
@@ -26,6 +24,8 @@ export class MonthlyLogComponent implements OnInit {
   
 
   async ngOnInit() {
+    this.globals.getMonthlyLogTasks();
+    this.globals.curLog = "monthly";
   }
 
   refreshTasks() {
