@@ -15,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GlobalsService } from './globals.service';
 import { LogInComponent } from './log-in/log-in.component';
 import { CookieService } from 'ngx-cookie-service';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CookieService } from 'ngx-cookie-service';
     DailyLogComponent,
     DashboardComponent,
     LogInComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
