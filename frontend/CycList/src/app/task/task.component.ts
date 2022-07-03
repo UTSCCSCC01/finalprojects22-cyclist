@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-task',
@@ -22,7 +23,23 @@ export class TaskComponent {
   @Input() 
   day: string = "";
 
-  constructor() { }
+  @Input()
+  tagID: string = "";
+
+  constructor(public globals: GlobalsService) { 
+    // this.tags = this.globals.getTags();
+    // this.taskTag = GlobalsService.getTag(this.tagID);
+    
+    // if (this.tagID) {
+    //   GlobalsService.getTag(this.tagID);
+    //   this.taskTag = GlobalsService.getTags();
+
+    //   console.log("TASK TAG")
+    //   console.log(this.taskTag);
+    //   console.log("END TASK TAG")
+    // } 
+
+  }
   // constructor(private dailyView: DailyViewComponent) { }
 
 

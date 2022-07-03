@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalsService } from '../globals.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -9,9 +10,12 @@ import { GlobalsService } from '../globals.service';
 })
 export class LogInComponent implements OnInit {
 
+  registering: boolean = false;
+
   constructor(
     private fb: FormBuilder,
-    public globals: GlobalsService
+    public globals: GlobalsService,
+    private router: Router
     ) {
   }
 
@@ -22,17 +26,25 @@ export class LogInComponent implements OnInit {
   }
 
   form: FormGroup = this.fb.group({
+    name: [null],
     email: [null],
-    password: [null]
+    password: [null],
+    confirmPassword: [null]
   });
 
   loadSession() {
     if (this.globals.isAuthenticated()) {
       this.globals.loggedIn = true;
-      this.globals.getAllTasks("");
+      this.router.navigate(['/', 'app-dashboard']);
+      this.globals.refresh();
     } else {
       this.globals.resetUser();
     }
+  }
+
+  submit() {
+    if (this.registering) this.register();
+    else this.login();
   }
 
   async login() {
@@ -43,6 +55,15 @@ export class LogInComponent implements OnInit {
     // after we have logged in we can continue
     // console.log("login: ");
     // console.log(this.globals.getUser());
+    this.loadSession();
+  }
+
+  async register() {
+    console.log(this.form);
+    if (!this.form.value.name || !this.form.value.email || 
+        !this.form.value.password || !this.form.value.confirmPassword ||
+        this.form.value.password !== this.form.value.confirmPassword) return;
+    await this.globals.register(this.form);
     this.loadSession();
   }
 }

@@ -25,7 +25,7 @@ export class MonthlyLogComponent implements OnInit {
   
   
 
-  ngOnInit(): void {
+  async ngOnInit() {
   }
 
   refreshTasks() {

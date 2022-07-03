@@ -1,15 +1,15 @@
 @import "../../styles.scss";
 
-.task {
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
+// .task {
+//   display: flex;
+//   align-items: stretch;
+//   justify-content: space-between;
 
-  & > .name {
-    flex: 1;
-  }
-  & > :not(.name) {
-    color: $color-lightgrey;
-  }
+//   & > .name {
+//     flex: 1;
+//   }
+//   & > :not(.name) {
+//     color: $color-lightgrey;
+//   }
 
-}
+// }
