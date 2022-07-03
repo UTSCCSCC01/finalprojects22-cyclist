@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   
   async ngOnInit() {
     this.globals.getDashboardTasks();
+    this.globals.curLog = "daily";
   }
 
 }
