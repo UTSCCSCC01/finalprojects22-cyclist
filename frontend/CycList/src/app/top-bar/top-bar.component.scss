@@ -15,6 +15,7 @@ $shadow-top-bar: $shadow-huge;
     color: $fg-top-bar;
     padding: $pd-top-bar;
     display: flex;
+    align-items: center;
     padding-right: 2%;
 }
 
@@ -30,4 +31,11 @@ $shadow-top-bar: $shadow-huge;
 
 .spacer {
     flex: 1;
+}
+
+.btn {
+  border-radius: $radius-btn;
+  background-color: $color-grey-trans;
+  padding: 0.5em;
+  line-height: 1em;
 }
