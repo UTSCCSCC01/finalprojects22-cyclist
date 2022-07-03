@@ -68,7 +68,7 @@ type RootQuery {
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
-    createTask(hierarchy: String!, date: String!, repeat: String, dayWeekMonth: String, 
+    createTask(hierarchy: String!, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String!, startTime: String, expectedDuration: Int, 
         name:String!, tagID: ID): task
     rateDifficulty(id: ID!, score: Float!): String

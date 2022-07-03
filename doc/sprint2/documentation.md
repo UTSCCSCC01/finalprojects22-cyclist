@@ -9,11 +9,11 @@
     - [public loggedIn: boolean](#public-loggedin-boolean)
     - [public tasks](#public-tasks)
     - [public nDays: number](#public-ndays-number)
-    - [public nDates: Date[]](#public-ndates-date)
-    - [public dashboardTasks: any[]](#public-dashboardtasks-any)
-    - [public dailyTasks: any[]](#public-dailytasks-any)
-    - [public monthlyTasks: any[]](#public-monthlytasks-any)
-    - [public futureTasks: any[]](#public-futuretasks-any)
+    - [public nDates: Date\[\]](#public-ndates-date)
+    - [public dashboardTasks: any\[\]](#public-dashboardtasks-any)
+    - [public dailyTasks: any\[\]](#public-dailytasks-any)
+    - [public monthlyTasks: any\[\]](#public-monthlytasks-any)
+    - [public futureTasks: any\[\]](#public-futuretasks-any)
   - [public loadUser()](#public-loaduser)
   - [public isAuthenticated()](#public-isauthenticated)
   - [public logout()](#public-logout)
@@ -26,22 +26,6 @@
   - [public async getFutureLogTasks()](#public-async-getfuturelogtasks)
   - [public async getFutureTasks(year: number)](#public-async-getfuturetasksyear-number)
   - [public async createTask(form: FormGroup)](#public-async-createtaskform-formgroup)
-- [Backend Documentation](#backend-documentation)
-  - [createTask](#createtask)
-  - [getDailyTask](#getdailytask)
-  - [getMonthTask](#getmonthtask)
-  - [getFutureTask](#getfuturetask)
-  - [getSingleTask](#getsingletask)
-  - [getAllTask](#getalltask)
-  - [getAllTag](#getalltag)
-  - [getTag](#gettag)
-  - [createUser](#createuser)
-  - [emailLogin](#emaillogin)
-- [Database Structure](#database-structure)
-  - [Task](#task)
-  - [User](#user)
-  - [Tag](#tag)
-
 - [Backend Documentation](#backend-documentation)
   - [createTask](#createtask)
   - [getDailyTask](#getdailytask)
@@ -85,8 +69,7 @@
 ### Frontend Structure
 - Each frontend component is separated into Angular components:
   - Main app layout: `app`
-  - Log in: `log-in`
-  - Register: `register` 
+  - Log in: `log-in` 
   - Add tasks: `add-task`
   - Task views: `dashboard`, `daily-log`, `monthly-log`, `future-log`
   - Navigation: `top-bar`, `side-bar`
