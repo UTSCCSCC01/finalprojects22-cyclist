@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalsService {
-  test: string = "hello";
-  private static tasks = [
+
+  public loggedIn: boolean = false;
+
+  public tasks = [
     {
       content: "",
       name: "loading ...",
@@ -17,13 +20,160 @@ export class GlobalsService {
     }
   ];
 
-  constructor() { }
+  public nDays: number = 7;
+  public nDates: Date[] = [];
 
-  static getTasks() {
-    return GlobalsService.tasks;
+  public dashboardTasks: any[] = [];
+  public dailyTasks: any[] = [];
+  public monthlyTasks: any[] = [];
+  public futureTasks: any[] = [];
+
+  private user: any = {};
+  
+  constructor(private cookie: CookieService) {
+    // this.resetUser();
   }
 
-  static getAllTasks(type: string) {
+  public getToken() {
+    // return JSON.parse(this.cookie.get('user')).token;
+    return this.user.token;
+  }
+
+  public resetUser() {
+    this.user = '';
+  //   this.user = {
+  //     userId: "",
+  //     email: "",
+  //     nickName: "",
+  //     token: ""
+  //   };
+  }
+
+  /**
+   * reset the value of `this.tasks` to default value. 
+   * This is to solve the problem that switching between pages briefly show 
+   * tasks from the previous page.
+   */
+  public resetTasks() {
+    this.tasks = [
+      {
+        content: "",
+        name: "loading ...",
+        day: "__",
+        month: "__",
+        year: "____",
+        startTime: "00:00"
+      }
+    ];
+  }
+
+  public loadUser() {
+    if (this.cookie.check('user'))
+      this.user = JSON.parse(this.cookie.get('user'));
+  }
+
+  public setUser(user: any) {
+    this.user = user;
+  }
+
+  public setTasks(tasks: any) {
+    this.tasks = tasks;
+  }
+
+  // TODO: update when go to a new day
+  public setNDates() {
+    //get the upcomming `this.numDates` dates
+    let today = new Date();
+
+    for (let i = 0; i < this.nDays; i++) {
+      this.nDates[i] = new Date();
+      this.nDates[i].setDate(today.getDate() + i);
+    }
+  }
+
+  public getUser() {
+    return this.user;
+  }
+
+  public getTasks() {
+    return this.tasks;
+  }
+
+  // check if the user is Authenticated (signed in)
+  public isAuthenticated() {
+    // return this.user.userId !== "";
+    return this.cookie.check("user");
+  }
+
+  public logout() {
+    this.resetUser();
+    this.cookie.delete('user');
+    this.loggedIn = false;
+  }
+
+  public async login(form: FormGroup) {
+    const body = {
+      query:`
+      query {
+        emailLogin(email: "${form.value.email}", password: "${form.value.password}"){
+          userId
+          email
+          nickName
+          token
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json'
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{ 
+        // all g!        
+        this.setUser(data.data.emailLogin);
+        // console.log(cookie.get('user'));
+        // cookie.set('user', data);
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+
+    if (this.getUser().token !== undefined) {
+      // since we awaited the fetch, we have the data now and set it in the cookie
+      this.cookie.set('user', JSON.stringify(this.getUser()));
+    }
+  }
+
+  public async getDashboardTasks() {
+    // TODO: actual update for Dashboard
+    await this.getAllTasks("");
+    this.dashboardTasks = this.getTasks().slice();
+  }
+  public async getAllTasks(type: string) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
     const body = {
       query:`
       query {
@@ -40,11 +190,12 @@ export class GlobalsService {
     }
     let err = false;
     let backenderr = false;
-    fetch("http://localhost:3000/graphql", {
+    await fetch("http://localhost:3000/graphql", {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
-      "Content-Type": 'application/json'
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
     }
     })
     .then(res =>{
@@ -64,8 +215,8 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        GlobalsService.tasks = data.data.getAllTask;
-        console.log(GlobalsService.tasks);
+        this.setTasks(data.data.getAllTask);
+        // console.log(this.tasks);
       }
     })
     .catch(err =>{
@@ -73,23 +224,44 @@ export class GlobalsService {
     });
   }
 
-  static getDailyTasks(day: number, month: number, year: number) {
+  public async getNDailyTasks() {
+    //get each day's tasks
+    for(let i = 0; i < this.nDays; i++) {
+      await this.getDailyTasks(this.nDates[i].getDate(), this.nDates[i].getMonth() + 1, this.nDates[i].getFullYear());
+      // console.log(this.nDates[i].getDate());
+      // console.log(this.nDates[i].getMonth() + 1);
+      // console.log(this.nDates[i].getFullYear());
+
+      this.dailyTasks[i] = this.getTasks().slice();
+      // console.log(this.dailyTasks[i]);
+    }    
+    // console.log(this.dailyTasks);
+  }
+  public async getDailyTasks(day: number, month: number, year: number) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
     const body = {
       query:`
       query {
         getDailyTask(day: ${day}, month: ${month}, year: ${year}){
           content
+          name
+          day
+          month
+          year
+          startTime
         }
       }
       `
     }
     let err = false;
     let backenderr = false;
-    fetch("http://localhost:3000/graphql", {
+    await fetch("http://localhost:3000/graphql", {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
-      "Content-Type": 'application/json'
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
     }
     })
     .then(res =>{
@@ -109,8 +281,8 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        GlobalsService.tasks = data.data.getDailyTask;
-        console.log(GlobalsService.tasks);
+        this.setTasks(data.data.getDailyTask);
+        // console.log(this.tasks);  // [DEBUG]
       }
     })
     .catch(err =>{
@@ -118,7 +290,13 @@ export class GlobalsService {
     });
   }
 
-  static getMonthlyTasks(month: number, year: number) {
+  public async getMonthlyLogTasks() {
+    // TODO: Actually update for Monthly Log
+    let date = new Date();
+    await this.getMonthlyTasks(date.getMonth(), date.getFullYear());
+    this.monthlyTasks = this.getTasks().slice();
+  }
+  public async getMonthlyTasks(month: number, year: number) {
     const body = {
       query:`
       query {
@@ -130,11 +308,12 @@ export class GlobalsService {
     }
     let err = false;
     let backenderr = false;
-    fetch("http://localhost:3000/graphql", {
+    await fetch("http://localhost:3000/graphql", {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
-      "Content-Type": 'application/json'
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
     }
     })
     .then(res =>{
@@ -154,8 +333,8 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        GlobalsService.tasks = data.data.getMonthTask;
-        console.log(GlobalsService.tasks);
+        this.setTasks(data.data.getMonthTask);
+        // console.log(this.getTasks());
       }
     })
     .catch(err =>{
@@ -163,7 +342,14 @@ export class GlobalsService {
     });
   }
 
-  static getFutureTasks(year: number) {
+  public async getFutureLogTasks() {
+    // TODO: Actually update for Future Log
+    await this.getFutureTasks((new Date()).getFullYear());
+    this.futureTasks = this.getTasks().slice();
+  }
+  public async getFutureTasks(year: number) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
     const body = {
       query:`
       query {
@@ -181,11 +367,12 @@ export class GlobalsService {
     }
     let err = false;
     let backenderr = false;
-    fetch("http://localhost:3000/graphql", {
+    await fetch("http://localhost:3000/graphql", {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
-      "Content-Type": 'application/json'
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
     }
     })
     .then(res =>{
@@ -205,8 +392,7 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        GlobalsService.tasks = data.data.getFutureTask;
-        console.log(GlobalsService.tasks);
+        this.setTasks(data.data.getFutureTask);
       }
     })
     .catch(err =>{
@@ -214,11 +400,13 @@ export class GlobalsService {
     });
   }
 
-  static createTask(form: FormGroup) {
+  public async createTask(form: FormGroup) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
     const body = {
       query:`
       mutation {
-        createTask(hierarchy:"daily",date:"${form.value.dueDate}",repeat:"single", content:"${form.value.description}",name:"${form.value.name}", startTime:"${form.value.dueTime}"){
+        createTask(hierarchy:"daily",date:"${form.value.dueDate}",repeat:${form.value.isRepeat}, content:"${form.value.description}",name:"${form.value.name}", startTime:"${form.value.dueTime}", frequency:"${form.value.frequency}", dayWeekMonth:"${form.value.dayWeekMonth}"){
           content
           startTime
           day
@@ -230,11 +418,12 @@ export class GlobalsService {
     }
     let err = false;
     let backenderr = false;
-    fetch("http://localhost:3000/graphql", {
+    await fetch("http://localhost:3000/graphql", {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
-      "Content-Type": 'application/json'
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
     }
     })
     .then(res =>{
@@ -256,8 +445,10 @@ export class GlobalsService {
       }else{
         // all g!
         console.log(form);
-        // refresh, ISN'T WORKING THOUGH
-        GlobalsService.getAllTasks("");
+        this.getDashboardTasks();
+        this.getNDailyTasks();
+        this.getFutureLogTasks();
+        // TODO: Add update for Monthly Log
       }
     })
     .catch(err =>{

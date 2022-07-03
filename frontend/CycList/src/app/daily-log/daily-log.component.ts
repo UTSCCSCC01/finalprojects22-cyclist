@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
+import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-daily-log',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DailyLogComponent implements OnInit {
 
-  constructor() { }
+  numDates = 6;   // TODO: dependency injection!?
 
-  ngOnInit(): void {
+  constructor(public globals: GlobalsService) {}
+
+  async ngOnInit() {
+    this.globals.setNDates();
+    this.globals.getNDailyTasks();
   }
 
 }

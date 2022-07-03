@@ -27,7 +27,6 @@ export class TaskComponent {
 
 
   ngOnInit(): void {
-    // console.log();
   }
 
 }
