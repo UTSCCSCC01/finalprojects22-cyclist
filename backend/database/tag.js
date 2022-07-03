@@ -10,7 +10,7 @@ const tagSchema = new Schema({
         required: true,
     },
     color:{
-        type: String,
+        type: Number,
         required: true,
     },
     icon:{

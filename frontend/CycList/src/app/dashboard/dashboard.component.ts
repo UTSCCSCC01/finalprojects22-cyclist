@@ -10,7 +10,7 @@ export class DashboardComponent implements OnInit {
   
   constructor(public globals: GlobalsService) {}
   
-  ngOnInit(): void {
+  async ngOnInit() {
     this.globals.getDashboardTasks();
   }
 

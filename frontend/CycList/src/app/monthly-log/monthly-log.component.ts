@@ -9,7 +9,7 @@ export class MonthlyLogComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
   }
 
 }

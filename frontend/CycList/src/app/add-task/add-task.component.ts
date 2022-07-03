@@ -62,13 +62,14 @@ export class AddTaskComponent implements OnInit {
       this.form.value.frequency = this.form.value.frequency.toString();
     }
 
-    console.log(this.form.value.frequency);
+    // console.log(this.form.value.frequency);
   }
 
   repeatCheck(event: any) {
     this.repeat = event.target.checked;
     this.form.value.frequency = [null];
     this.form.value.dayWeekMonth = [null];
+    // console.log(this.form.value);
   }
   // @ViewChild("addTask") addTask: ElementRef<HTMLElement>;
 
@@ -89,7 +90,7 @@ export class AddTaskComponent implements OnInit {
     dayWeekMonth: [null],   // add year?
     // repeatStartDay: [null],     // only in backend
 
-    group: [null],                // maybe just call tag, group, was this what was meant????????
+    tagID: [null],                // maybe just call tag, group, was this what was meant????????
     priority: [null],         // maybe like options: ! !! or !!!    
     mood: [null],
     location: [null],
@@ -113,7 +114,7 @@ export class AddTaskComponent implements OnInit {
     this.formActive = false;
     console.log(this.form.value);
     // send data to back end
-    await this.globals.createTask(this.form);
+    await this.globals.createTask(this.form.value);
     this.formReset();
     this.form.reset();
   }
