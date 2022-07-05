@@ -37,6 +37,10 @@ export class AddTaskComponent implements OnInit {
     this.Fr = false;
     this.Sa = false;
     this.form.reset();
+    this.form.patchValue({
+      frequency: "",
+      isRepeat: false,  
+    });
   }
 
   addTaskForm() {
@@ -67,8 +71,10 @@ export class AddTaskComponent implements OnInit {
 
   repeatCheck(event: any) {
     this.repeat = event.target.checked;
-    this.form.value.frequency = [null];
-    this.form.value.dayWeekMonth = [null];
+    this.form.patchValue({
+      frequency: "",
+      dayWeekMonth: [null],  
+    });
     // console.log(this.form.value);
   }
   // @ViewChild("addTask") addTask: ElementRef<HTMLElement>;
@@ -112,11 +118,10 @@ export class AddTaskComponent implements OnInit {
     };
 
     this.formActive = false;
-    console.log(this.form.value);
+    // console.log(this.form);
     // send data to back end
     await this.globals.createTask(this.form.value);
     this.formReset();
-    this.form.reset();
   }
 
 }
