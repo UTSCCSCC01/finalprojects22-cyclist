@@ -12,13 +12,11 @@ module.exports = {
             let year;
             let month = 0;
             let day = 0;
-            console.log(args.tag);
             let tag;
-            if(args.tag){
-                tag = args.tag
-                console.log(tag);
-            }else{
+            if(args.tagID === "null"){
                 tag = null;
+            }else{
+                tag = args.tagID;
             }
             if(args.hierarchy === "future"){
                 year = parseInt(args.date.split("-")[0]);
