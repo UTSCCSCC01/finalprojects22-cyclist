@@ -1,4 +1,4 @@
-<div class="task" (click)="addTaskForm()">
+<div class="task">
     <div class="date-one">
       <div *ngIf="tagID">
         <div *ngFor="let tag of globals.tags">
@@ -12,5 +12,9 @@
       </div>
         <div id="task-text">{{ name }}</div>
     </div>
-    <div id="task-time">{{ startTime}}: {{ year}}-{{ month }}-{{ day }}</div>
+    <div class="right-aligned">
+      <button class="btn edit" (click)="addTaskForm()">e</button>
+      <button class="btn del">x</button>
+      <div id="task-time">{{ startTime}}: {{ year}}-{{ month }}-{{ day }}</div>
+    </div>
 </div>
