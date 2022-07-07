@@ -16,8 +16,8 @@ module.exports = {
             let tag;
             let color;
             if(args.tagID === "null"){
-                tag = null;
-                color = null;
+                tag = "";
+                color = "";
             }else{
                 tag = args.tagID;
                 let tagInfo = await Tag.findById(args.tagID);
