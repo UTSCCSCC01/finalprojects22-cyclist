@@ -6,8 +6,17 @@
   border-color: $color-grey-trans;
 }
 
+.future-log-task-container {
+  height: 94%;
+}
+
+.future-log-calendar-container {
+  height: 100%;
+}
+
 header, .row {
   display: flex;  /* aligns all child elements (flex items) in a row */
+  height: 33%;
 }
 
 .col {
