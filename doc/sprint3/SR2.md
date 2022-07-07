@@ -1,37 +1,35 @@
-# sprint 1 Retrospective
+# sprint 2 Retrospective
 
-Jun 20, 2022. Discord
+July 7 , 2022. Discord
 
 ### What are practices that you should continue during next sprint
 
 - Good branch management
 - Informative and meaningful commit messages.
+- Having global services to increase code reusability
+- Took advantage of JIRA planning tools.
 
 ### What are some new practices that you might want to use during next sprint
 
 - Better communication
-- The person who is assigned a task should also be responsible to update JIRA,
-  document code, and any files related to the task.
-- Update JIRA more frequently
 - Set standard to our work.
   - Format of the documentation, files, documentation.md
 - More precise description of tasks and subtasks.
-- More meeting for frontend.
-  - Keep everyone updated.
+- Start early
 
 ### What are (if any) harmful practices that you should stop using during next sprint
 
 - Finish a lot of things in the final stage
+- Didn't start early
+- didn't have a clear plan at the beginning.
 
 ### What was your best/worst experience during sprint 1
-
 - Best:
-  - Frontend: everyone does their parts well and completed them on time.
-  - Github Discord bot works really well.
-  - Team Discord is well organized.
+  - Delivered a working app under pressure. 
 - Worst:
-  - Learning Angular.
   - Busy or cramming at the end of the sprint
+  - Our team was heavily relying on a few people in development
+  - Merging conflicts.
 
 ## Participants
 
