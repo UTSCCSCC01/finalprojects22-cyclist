@@ -437,6 +437,7 @@ export class GlobalsService {
     // TODO: Actually update for Future Log
     await this.getFutureTasks((new Date()).getFullYear());
     this.futureTasks = this.getTasks().slice();
+    console.log(this.futureTasks)
   }
   public async getFutureTasks(year: number) {
     // if user is not Authenticated (signed in), don't let them
@@ -451,7 +452,6 @@ export class GlobalsService {
           day
           month
           year
-          startTime
           tag
         }
       }
