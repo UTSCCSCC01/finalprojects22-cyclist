@@ -40,6 +40,7 @@ type task{
     repeatStartDay: String
     content: String
     tag: ID
+    color: String
     important: Boolean
     identity: String
     subTask: [liteTask]
@@ -51,7 +52,7 @@ type tag{
     _id: ID!
     creater: ID!
     name: String
-    color: Int
+    color: String
     icon: Int
     totalExpectedTime: Float
     totalActualTime: Float
@@ -73,7 +74,7 @@ type RootMutation {
         name:String!, tagID: ID): task
     rateDifficulty(id: ID!, score: Float!): String
     markSignifier(id: ID!, field: String, value: String): String!
-    createTag(name:String!, color:Int!): tag
+    createTag(name:String!, color:String): tag
 }
 schema {
     query: RootQuery
