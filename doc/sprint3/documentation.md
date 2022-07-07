@@ -1,4 +1,5 @@
 - [Installation](#installation)
+- [Implementation Details](#implementation-details)
 - [Set up](#set-up)
   - [Frontend](#frontend)
     - [Frontend Structure](#frontend-structure)
@@ -9,11 +10,11 @@
     - [public loggedIn: boolean](#public-loggedin-boolean)
     - [public tasks](#public-tasks)
     - [public nDays: number](#public-ndays-number)
-    - [public nDates: Date\[\]](#public-ndates-date)
-    - [public dashboardTasks: any\[\]](#public-dashboardtasks-any)
-    - [public dailyTasks: any\[\]](#public-dailytasks-any)
-    - [public monthlyTasks: any\[\]](#public-monthlytasks-any)
-    - [public futureTasks: any\[\]](#public-futuretasks-any)
+    - [public nDates: Date[]](#public-ndates-date)
+    - [public dashboardTasks: any[]](#public-dashboardtasks-any)
+    - [public dailyTasks: any[]](#public-dailytasks-any)
+    - [public monthlyTasks: any[]](#public-monthlytasks-any)
+    - [public futureTasks: any[]](#public-futuretasks-any)
   - [public loadUser()](#public-loaduser)
   - [public isAuthenticated()](#public-isauthenticated)
   - [public logout()](#public-logout)
@@ -50,6 +51,8 @@
   - Node.js 
   - express.js
   - Database: MongoDB Atlas
+
+# Implementation Details
 
 # Set up
 
