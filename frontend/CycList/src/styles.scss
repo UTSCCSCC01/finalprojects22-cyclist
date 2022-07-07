@@ -51,10 +51,27 @@ $color-lightgrey: #bcbeca;
 $color-grey-trans: #6a6d8027;
 $color-lightgrey-trans: #9a9cac09;
 $color-mediumgrey-trans: rgba(125, 125, 125, 0.069);
-$color-light: #f1f3f6;
 $color-white: white;
-$color-blue: rgb(18, 95, 202);
-$color-green: rgb(18, 202, 165);
+$color-light: #f1f3f6;
+$color-ui-blue: rgb(18, 95, 202);
+$color-ui-green: rgb(18, 202, 165);
+
+$color-red: #ff979782;
+$color-red-trans: transparentize($color-red, 0.18);
+$color-orange: #fbbb7f82;
+$color-orange-trans: transparentize($color-orange, 0.18);
+$color-yellow: #d8db3e82;
+$color-yellow-trans: transparentize($color-yellow, 0.18);
+$color-green: #7af7a482;
+$color-green-trans: transparentize($color-green, 0.18);
+$color-blue: #53b7ff82;
+$color-blue-trans: transparentize($color-blue, 0.18);
+$color-purple: #bb91ff82;
+$color-purple-trans: transparentize($color-purple, 0.18);
+$color-pink: #ff91ff82;
+$color-pink-trans: transparentize($color-pink, 0.18);
+$color-brown: #c5ab9582;
+$color-brown-trans: transparentize($color-brown, 0.18);
 
 // shadows
 $shadow-huge: 0px 12px 25px rgba(0,0,0,0.21);
@@ -98,6 +115,50 @@ $pd-side-bar: 1em;
   background-color: rgba(131, 131, 131, 0.199);
 }
 
+// colors
+.signifier, .tag {
+  &.red {
+    border-color: $color-red;
+    background: $color-red-trans;
+  }
+  
+  &.orange {
+    border-color: $color-orange;
+    background: $color-orange-trans;
+  }
+  
+  &.yellow {
+    border-color: $color-yellow;
+    background: $color-yellow-trans;
+  }
+  
+  &.green {
+    border-color: $color-green;
+    background: $color-green-trans;
+  }
+  
+  &.blue {
+    border-color: $color-blue;
+    background: $color-blue-trans;
+  }
+  
+  &.purple {
+    border-color: $color-purple;
+    background: $color-purple-trans;
+  }
+  
+  &.pink {
+    border-color: $color-pink;
+    background: $color-pink-trans;
+  }
+
+  &.brown {
+    border-color: $color-brown;
+    background: $color-brown-trans;
+  }  
+}
+
+
 // main CSS
 html, body {
   padding: 0;
@@ -137,7 +198,7 @@ html, body {
     text-align: center;
 
     &.toggled {
-      background-color: $color-blue;
+      background-color: $color-ui-blue;
       color: $bg;
     }
   }
@@ -244,6 +305,26 @@ app-dashboard, app-daily-log, app-monthly-log, app-future-log {
 
 .hidden {
   display: none!important;
+}
+
+// future and monthly log task display
+.future-log-task-container, .monthly-log-task-container {
+
+  & .task {
+    padding: 0.2em 0.4em!important;
+  }
+  & .task-head {
+    font-size: 0.8em;
+  }
+
+  & .signifier {
+    width: 10px!important;
+    height: 10px!important;
+    border-radius: 100%!important;
+  }
+  & #task-time {
+    display: none;
+  } 
 }
 
 // -------------------------------

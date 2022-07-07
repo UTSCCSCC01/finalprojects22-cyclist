@@ -1,6 +1,6 @@
 @import "../../styles.scss";
 
-$color-add-task: $color-green;
+$color-add-task: $color-ui-green;
 $shadow-add-task: $shadow-medium;
 $radius-add-task: $radius-circle;
 $size-add-task: 1.289em;
@@ -45,7 +45,7 @@ $font-size-add-task: 2.7em;
   }
 
   &.submit {
-    background-color: $color-blue;
+    background-color: $color-ui-blue;
     &::after {
       content: "✓";
       font-family: $font-UI;
