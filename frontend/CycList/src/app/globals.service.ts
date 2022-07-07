@@ -602,7 +602,6 @@ export class GlobalsService {
         }
       }else{
         this.setTags(data.data.getAllTag);
-        console.log(this.getTags());
       }
     })
     .catch(err =>{
@@ -614,7 +613,6 @@ export class GlobalsService {
   public async getTag(tagID: string) {
 
     if (tagID) {
-      console.log(tagID)
       const body = {
         query:`
         query {
