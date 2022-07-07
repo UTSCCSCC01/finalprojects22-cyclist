@@ -28,7 +28,7 @@ export class GlobalsService {
       _id: "",
       creater: "",
       name: "",
-      color: 0,
+      color: "",
       icon: 0,
       totalExpectedTime: 0,
       totalActualTime: 0
@@ -88,7 +88,7 @@ export class GlobalsService {
     this.getNDailyTasks();
     this.getFutureLogTasks();
     this.getMonthlyLogTasks();
-    this.getAllTags(this.getUser().userId);
+    this.getAllTags();
   }
 
   public loadUser() {
@@ -437,6 +437,7 @@ export class GlobalsService {
     // TODO: Actually update for Future Log
     await this.getFutureTasks((new Date()).getFullYear());
     this.futureTasks = this.getTasks().slice();
+    console.log("getFutureLogTasks");
     console.log(this.futureTasks)
   }
   public async getFutureTasks(year: number) {
@@ -559,11 +560,13 @@ export class GlobalsService {
     this.tags = tags;
   }
 
-  public async getAllTags(userID: string) {
+  public async getAllTags() {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
     const body = {
       query:`
       query {
-        getAllTag(id: "${userID}"){
+        getAllTag(id: "${this.getUser().userID}"){
           _id
           creater
           name
@@ -611,7 +614,8 @@ export class GlobalsService {
 
 
   public async getTag(tagID: string) {
-
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
     if (tagID) {
       const body = {
         query:`
