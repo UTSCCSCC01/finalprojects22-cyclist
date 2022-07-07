@@ -7,7 +7,7 @@
       <h2>{{globals.nDates[i].toDateString()}}</h2>
 
       <div class="task" *ngFor = "let task of day">
-        <app-task [name]=task.name [startTime]=task.startTime [year]=task.year [month]=task.month [day]=task.day></app-task>
+        <app-task [name]=task.name [startTime]=task.startTime [year]=task.year [month]=task.month [day]=task.day [tagID]=task.tag></app-task>
       </div>
     </div>
   </div>

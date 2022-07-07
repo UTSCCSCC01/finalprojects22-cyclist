@@ -39,6 +39,13 @@ export class TaskComponent {
     //   console.log("END TASK TAG")
     // } 
 
+    // set timeout for notification
+    // TODO: add task dueTime and dueDate
+    // TODO: add notifications
+    // TODO: add tags and class=tag.color
+    // time = this.year
+    // setTimeout(function(){alert("It's 10am!")}, (new Date('2022-07-05 22:14'))-(new Date()))
+
   }
   // constructor(private dailyView: DailyViewComponent) { }
 
