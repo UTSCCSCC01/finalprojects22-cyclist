@@ -13,10 +13,17 @@ module.exports = {
             let month = 0;
             let day = 0;
             let tag;
+            let color;
             if(args.tagID === "null"){
                 tag = null;
+                color = null;
             }else{
                 tag = args.tagID;
+                let tagInfo = await Tag.findById(args.tagId);
+                if(tag.creater.valueOf() !== req.userId){
+                    throw new Error("You are not tag creater");
+                }
+                color = tagInfo.color;
             }
             if(args.hierarchy === "monthly" || args.hierarchy === "future"){
                 year = parseInt(args.date.split("-")[0]);
@@ -55,6 +62,7 @@ module.exports = {
                 repeatStartDay: repeatStartDay,
                 content: args.content,
                 tag: tag,
+                color: color,
                 important: false,
                 identity: "parent",
                 subTask:[],

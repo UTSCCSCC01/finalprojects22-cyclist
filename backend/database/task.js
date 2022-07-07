@@ -58,6 +58,9 @@ const taskSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref:'Tag',
     },
+    color:{
+        type: String,
+    },
     important:{
         type: Boolean,
     },
