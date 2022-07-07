@@ -46,4 +46,14 @@ export class TaskComponent {
   ngOnInit(): void {
   }
 
+  addTaskForm() {
+    this.globals.form.patchValue({name: this.name});
+    this.globals.form.patchValue({startTime: this.startTime});
+    this.globals.form.patchValue({year: this.year});
+    this.globals.form.patchValue({month: this.month});
+    this.globals.form.patchValue({day: this.day});
+    this.globals.form.patchValue({tagID: this.tagID});
+    this.globals.taskFormActive = true;
+  }
+  
 }
