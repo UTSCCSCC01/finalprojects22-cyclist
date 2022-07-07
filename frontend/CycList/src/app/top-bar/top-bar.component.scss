@@ -1,6 +1,6 @@
 @import "../../styles.scss";
 
-$bg-top-bar: $color-dark;
+$bg-top-bar: transparentize(darken($color-dark,2), 0.2);
 $fg-top-bar: $color-light;
 $shadow-top-bar: $shadow-huge;
 
@@ -17,7 +17,8 @@ $shadow-top-bar: $shadow-huge;
     display: flex;
     align-items: center;
     padding-right: 2%;
-}
+    backdrop-filter: blur(18px);
+  }
 
 .top-bar-elem {
     margin-left: 2%;

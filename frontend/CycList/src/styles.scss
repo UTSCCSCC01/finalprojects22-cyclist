@@ -81,6 +81,23 @@ $pd-side-bar: 1em;
 
 // -------------------------------
 
+::-webkit-scrollbar {
+  background-color: rgba(131, 131, 131, 0.043);
+  border-radius: 0.2em;
+  width: 0.4em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(131, 131, 131, 0.154);
+  border: 0.1em solid transparent;
+  border-radius: 0.2em;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(131, 131, 131, 0.199);
+}
+
 // main CSS
 html, body {
   padding: 0;
@@ -178,7 +195,9 @@ textarea {
   color: $fg;
   padding: $pd-main-view;
   position: absolute;
-  top: $height-top-bar + 2 * $pd-top-bar;
+  top: 0;
+  padding-top: $height-top-bar + 2 * $pd-top-bar + $pd-main-view;
+  // top: $height-top-bar + 2 * $pd-top-bar;
   bottom: 0;
   right: 0;
   left: 0;
