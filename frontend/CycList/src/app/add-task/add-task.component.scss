@@ -3,17 +3,17 @@
 $color-add-task: $color-ui-green;
 $shadow-add-task: $shadow-medium;
 $radius-add-task: $radius-circle;
-$size-add-task: 1.289em;
-$line-height-add-task: 1.289em;
-$font-size-add-task: 2.7em;
+$size-add-task: 0.9em;
+// $line-height-add-task: 1.289em;
+$font-size-add-task: 3.1em;
 
 
 .add-task {
   margin: 0.2em;
-  overflow: hidden;
-  text-align: center;
-  border-radius: $radius-add-task;
-  background-color: $color-add-task;
+  // overflow: hidden;
+  // text-align: center;
+  // border-radius: $radius-add-task;
+  // background-color: $color-add-task;
   color: $fg-alt;
   font-family: $font-UI;
   position: absolute;
@@ -22,23 +22,23 @@ $font-size-add-task: 2.7em;
   width: $size-add-task;
   height: $size-add-task;
   font-size: $font-size-add-task;
-  line-height: $line-height-add-task;
+  // line-height: $line-height-add-task;
   transition: all 200ms ease-in-out;
   border: none;
-
   
   &.add {
-    width: 0.9em;
-    height: 0.9em;
-    font-size: 3.5em;
-    line-height: 0.3em;
-    padding: 0.1em 0.1em 0.13em 0.1em;
-    transition: all 200ms ease-in-out;
+    // width: 1.4em;
+    // height: 1.4em;
+    // font-size: 3.5em;
+    // line-height: 0.3em;
+    // padding: 0.1em 0.1em 0.13em 0.1em;
+    background-color: $color-add-task;
+    font-family: $font-UI-mono;
     transform: scale(0);
-    &::after {
-      content: "+";
-      font-family: $font-UI-mono;
-    }
+    // &::after {
+    //   content: "+";
+    //   font-family: $font-UI-mono;
+    // }
     &.active {
       transform: scale(1);
     }
@@ -46,10 +46,13 @@ $font-size-add-task: 2.7em;
 
   &.submit {
     background-color: $color-ui-blue;
-    &::after {
-      content: "✓";
-      font-family: $font-UI;
-    }
+    font-family: $font-UI;
+    padding: 0.6em;
+    margin: 0.14em;
+    // &::after {
+    //   content: "✓";
+    //   font-family: $font-UI;
+    // }
   }
 }
 
@@ -97,4 +100,10 @@ $font-size-add-task: 2.7em;
   left: 0;
   bottom: 0;
   background-color: transparent;
+}
+
+.btn.circ.day {
+  width: 1.7em;
+  height: 1.7em;
+  margin: 0 0.2em;
 }

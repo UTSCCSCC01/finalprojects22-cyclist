@@ -1,4 +1,4 @@
-<button class="add-task btn add" [class.active]="!formActive" (click)="addTaskForm()"></button>
+<button class="add-task btn circ add" [class.active]="!formActive" (click)="addTaskForm()"><div>+</div></button>
 
 <div class="overlay" [class.hidden]="!formActive" (click)="overlay()"></div>
 
@@ -40,13 +40,13 @@
           th
         </span>
         <span *ngIf="form.value.dayWeekMonth === 'week'">
-          <div class="btn circ" [ngClass]="{'toggled': Su}" (click)="Su = !Su">S</div>
-          <div class="btn circ" [ngClass]="{'toggled': Mo}" (click)="Mo = !Mo">M</div>
-          <div class="btn circ" [ngClass]="{'toggled': Tu}" (click)="Tu = !Tu">T</div>
-          <div class="btn circ" [ngClass]="{'toggled': We}" (click)="We = !We">W</div>
-          <div class="btn circ" [ngClass]="{'toggled': Th}" (click)="Th = !Th">T</div>
-          <div class="btn circ" [ngClass]="{'toggled': Fr}" (click)="Fr = !Fr">F</div>
-          <div class="btn circ" [ngClass]="{'toggled': Sa}" (click)="Sa = !Sa">S</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Su}" (click)="Su = !Su">S</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Mo}" (click)="Mo = !Mo">M</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Tu}" (click)="Tu = !Tu">T</div>
+          <div class="btn circ day" [ngClass]="{'toggled': We}" (click)="We = !We">W</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Th}" (click)="Th = !Th">T</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Fr}" (click)="Fr = !Fr">F</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Sa}" (click)="Sa = !Sa">S</div>
         </span>
         <select required formControlName="dayWeekMonth">
           <option>day</option>
@@ -111,5 +111,5 @@
 
     <textarea type="text" id="description" placeholder="Description" formControlName="description"></textarea>
   </form>
-  <button type="submit" class="add-task btn submit" (click)="submitForm()"></button>
+  <button type="submit" class="add-task btn circ submit" (click)="submitForm()"><div>✓</div></button>
 </div>
