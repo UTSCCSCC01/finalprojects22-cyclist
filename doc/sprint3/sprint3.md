@@ -1,6 +1,6 @@
 # Sprint 2
 
-JUN 20, 2022
+JUL 7, 2022
 
 Discord
 
@@ -18,82 +18,41 @@ reschedule tasks.
 
 ## User Stories
 
-1. (CYC-46): As a user, I want to register an account with my email account so that 
-   I can use the app from where I left off.(7 hrs)
-   
-   - frontend - email, username?, password, confirm password inputs
-   - implement backend function for creating user
-   - Test registering a user.
-   - frontend - create account button
-   
-2. (CYC-47): As a user, I want to log in to my account so that I can use the app
-   from where I left off.
-   
-   - frontend - username & password inputs
-   - frontend - login button
-   - backend - verify user and generate token, also provide logout function
-   - frontend - link to register account
-   - backend - update all other functions by using token to get userid
-   - Test logging in as a user
-   
-3. (CYC-58): As a user, I want to view my tasks on the daily view page, which
-   displays tasks in the next 7 days so that it is easy for me to check the 
-   tasks in the following complete week.
-   
-   - frontend - one section for each of the next 6/7 dates displayed in grid
-     labeled with their corresponding dates
-   - frontend - create task rendering template, including: task icon, title
-   - backend- create a relative function to return a list of tasks the user need
-     todo on the given date
-   - Test scheduled viewing tasks on the daily view page
-   
-4. (CYC-59): As a user, I want to view my tasks on a monthly log, as a list, so
-   that I remember to schedule them later.
-   
-   - frontend - display the current month and year
-   - frontend - present list of tasks planned for this month
-   - backend- create a relative function to return a list of tasks the user need
-     to do in the given month
-   - Test viewing scheduled tasks on a monthly log
-   
-5. (CYC-62): As a user, I want to view my list of unscheduled tasks on a future
-   log, so that I remember to schedule them later.
-   
-   - frontend - present list of tasks with no planned date or month
-   - backend- create a relative function to return a list of tasks the user have
-     for future time
-   - Test viewing the list of unscheduled tasks on a future log
-   
-6. (CYC-31): As a user, I want to set a task to be repeated regularly (like
-   every Monday, the task will have a unique signifier) so that it is convenient
-   to create the same tasks for different days.
-
-   - frontend - create repeat task button, and implement its functions.
-   - backend- create a function to create a repeated task in database
-   - Test setting a task to be repeated regularly with a unique signifier
-
-7. (CYC-35): As a user, I want to create task groups (with possible start and
-   end dates) containing a set of tasks and set colors and icons for them so
-   that I can have a better visual representation of related tasks.
-
-   - backend - create a function to create a new task group in database, saving
-     the relevant information
-   - frontend - create side bar that houses the task groups
-   - frontend - add task group input field in add tasks form
-   - backend - allow user to choose a tag when create a new task
-   - backend - get all task groups created by user
-   - Test creating task groups (with possible start and end dates) containing a
-     set of tasks and set colors and icons for them
-     
-## Spikes
-
-- The connection between the frontend part and the backend part including the user information with respect to logging in and registering
-- The adjustment of team members' work status after the Reading Week
-
+- CYC-30: modify task
+  - CYC-153: add pencil button beside each task to edit
+  - CYC-154: clicking a task brings up edit page
+  - CYC-108: create backend functions up update task
+- CYC-33: signifiers / actions on the tasks
+  - CYC-103: incomplete task, note
+  - CYC-104: display symbol on the left of the task depending on the task’s type
+  - CYC-100: create backend function to store and update type of signifier
+  - CYC-116: complete, abandoned????
+  - CYC-117: move task to daily, monthly, and future log
+- CYC-128: housekeeping / wrapping up sprint 2
+  - CYC-130: daily log should display in grid layout
+  - CYC-136: daily log should be able to scroll
+  - CYC-131: monthly log add calendar on left hand side
+  - CYC-132: monthly log: drag and drop tasks into days
+  - CYC-133: monthly log: display monthly tasks on the right hand side of the screen
+  - CYC-138: future log: display all months of the year in grid layout
+  - CYC-139: future log: display tasks planned for each month under the month title
+  - CYC-137: add task: make add task interface prettier
+  - CYC-141: tag: display all user's tags on the left menu
+  - CYC-142: tag: add tag
+  - CYC-147:  top menu bar: display the user name after successful log in
+- CYC-129: debug sprint 2
+  - CYC-134: monthly log: add task has too much fields
+  - CYC-135: side bar: indicate which page the user is on
+  - CYC-140: future log: add task has too many fields.
+  - CYC-143: add a button to toggle dark mode
+  - CYC-144: display appropriate error messages for failed login and register
+  - CYC-145: (fixed) Tags are always displayed as the default tag color (red box)
+  - CYC-146: (fixed) daily log doesn't display tasks on that day
+  - CYC-148: (needs confirmation) tasks displayed on Daily log is not in chronological order
+- CYC-152: notification before start / end date of a task
 
 ## Team Capacity
 
-50 hours
 
 ## Participants
 
