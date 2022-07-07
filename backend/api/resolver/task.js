@@ -21,7 +21,7 @@ module.exports = {
             }else{
                 tag = args.tagID;
                 let tagInfo = await Tag.findById(args.tagId);
-                if(tag.creater.valueOf() !== req.userId){
+                if(tagInfo.creater.valueOf() !== req.userId){
                     throw new Error("You are not tag creater");
                 }
                 color = tagInfo.color;
