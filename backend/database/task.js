@@ -25,7 +25,11 @@ const taskSchema = new Schema({
         required: true,
     },
     // am/pm
-    startTime:{
+    dueTime:{
+        type: String,
+    },
+    // iso string combined day month year and dueTime
+    dueDate:{
         type: String,
     },
     expectedDuration:{

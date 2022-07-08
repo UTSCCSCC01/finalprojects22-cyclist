@@ -289,7 +289,7 @@ export class GlobalsService {
           day
           month
           year
-          startTime
+          dueTime
           tag
           color
         }
@@ -356,7 +356,7 @@ export class GlobalsService {
           day
           month
           year
-          startTime
+          dueTime
           tag
           color
         }
@@ -415,7 +415,7 @@ export class GlobalsService {
           day
           month
           year
-          startTime
+          dueTime
           tag
           color
         }
@@ -529,7 +529,7 @@ export class GlobalsService {
     const body = {
       query:`
       mutation {
-        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.description}",name:"${value.name}", startTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
+        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.description}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
           content
           dueTime
           day

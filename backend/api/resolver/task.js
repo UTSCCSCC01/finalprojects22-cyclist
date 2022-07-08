@@ -11,12 +11,12 @@ module.exports = {
             let fre;
             let repeatStartDay;
             let year;
-            let month = 0;
+            let month;
             let day = 0;
             let tag;
             let color;
-            if(args.tagID === "null"){
-                tag = "";
+            if(args.tagID === ""){
+                tag = null;
                 color = "";
             }else{
                 tag = args.tagID;
@@ -26,15 +26,10 @@ module.exports = {
                 }
                 color = tagInfo.color;
             }
-            if(args.hierarchy === "monthly" || args.hierarchy === "future"){
-                year = parseInt(args.date.split("-")[0]);
-                month = parseInt(args.date.split("-")[1]);
-            }else if(args.hierarchy === "daily"){
-                year = parseInt(args.date.split("-")[0]);
-                month = parseInt(args.date.split("-")[1]);
-                day = parseInt(args.date.split("-")[2]);
-            }else{
-                throw new Error("Invalid hierarchy");
+            year = args.date.split("-")[0];
+            month = args.date.split("-")[1];
+            if(args.date.split("-").length === 3){
+                day = args.date.split("-")[2];
             }
             if(!args.repeat){
                 dwm = null;
@@ -52,8 +47,9 @@ module.exports = {
                 day: day,
                 month: month,
                 year: year,
-                hierarchy: args.hierarchy,
-                startTime: args.startTime,
+                hierarchy: "daily",
+                dueTime: args.dueTime,
+                dueDate: args.date,
                 expectedDuration: 0,
                 actualDuration: 0,
                 start: new Date().toISOString(),
@@ -73,6 +69,7 @@ module.exports = {
                 location:null,
             })
             const result = await newTask.save();
+            console.log(result);
             return result;
         } catch(err){
             throw err;
@@ -109,14 +106,14 @@ module.exports = {
             if(!req.isAuth){
                 throw new Error("User not authenticated");
             }
-            let dailyTask = await Task.find({hierarchy:"daily", day:args.day, month:args.month, 
+            let dailyTask = await Task.find({day:args.day, month:args.month, 
             year:args.year, creater: ObjectId(req.userId),isRepeat:false});
             let todayDate = args.month+"/"+args.day+"/"+args.year;
             let yesterday = new Date(todayDate);
             yesterday.setDate(yesterday.getDate()-1);
             // let yesterdayTask = await Task.find({hierarchy:"daily", day:yesterday.getDate(), month:yesterday.getMonth()+1, 
             // year:yesterday.getFullYear(), creater: ObjectId(req.userId),isRepeat:false});
-            let repeatTask = await Task.find({hierarchy:"daily", creater: ObjectId(req.userId),isRepeat:true});
+            let repeatTask = await Task.find({creater: ObjectId(req.userId),isRepeat:true});
 
             repeatTask.forEach(function(task){
                 if(task.dayWeekMonth === "day"){
@@ -151,7 +148,7 @@ module.exports = {
             if(!req.isAuth){
                 throw new Error("User not authenticated");
             }
-            let monthTask = await Task.find({hierarchy:"monthly", month:args.month, 
+            let monthTask = await Task.find({day:0, month:args.month, 
             year:args.year, creater: ObjectId(req.userId)});
             return monthTask;
         } catch(err){
@@ -163,7 +160,7 @@ module.exports = {
             if(!req.isAuth){
                 throw new Error("User not authenticated");
             }
-            let futureTask = await Task.find({hierarchy:"future", creater: ObjectId(req.userId)});
+            let futureTask = await Task.find({creater: ObjectId(req.userId)});
             return futureTask;
         } catch(err){
             throw err;
@@ -204,4 +201,12 @@ module.exports = {
             throw err;
         }
     },
+    test: async args=>{
+        try{
+            await Task.deleteMany({ year: 2022 });
+            return "done";
+        } catch(err){
+            throw err;
+        }
+    }
 }
