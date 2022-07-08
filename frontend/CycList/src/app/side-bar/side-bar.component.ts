@@ -33,13 +33,20 @@ export class SideBarComponent implements OnInit {
     color: [null]
   });
 
-  submitForm() {
-    
+  async submitForm() {
+    if (!this.form.value.name || !this.form.value.color) return;
+
+    this.addTagMenu = false;
+    await this.globals.createTag(this.form.value);
+    this.form.reset();
   }
 
+  // TODO: toggle viewing certain groups
   // switchView(this) {
   //   document.querySelector(".switch-views a")?.classList.remove("selected");
   //   this.classList.add("selected");
   // }
+
+  // TODO: delete groups
 
 }

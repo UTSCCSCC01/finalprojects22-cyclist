@@ -24,7 +24,7 @@ export class TaskComponent {
   day: string = "";
 
   @Input()
-  tagID: string = "";
+  color: string = "";
 
   constructor(public globals: GlobalsService) { 
     // this.tags = this.globals.getTags();
