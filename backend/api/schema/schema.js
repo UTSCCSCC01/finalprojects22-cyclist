@@ -71,7 +71,7 @@ type RootMutation {
     createTask(hierarchy: String!, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String!, startTime: String, expectedDuration: Int, 
         name:String!, tagID: ID): task
-    rateDifficulty(id: ID!, score: Float!): String
+    deleteTask(id:ID!): String
     markSignifier(id: ID!, field: String, value: String): String!
     createTag(name:String!, color:Int!): tag
 }

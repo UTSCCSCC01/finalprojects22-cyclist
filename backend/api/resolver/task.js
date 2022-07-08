@@ -192,9 +192,26 @@ module.exports = {
             if(!req.isAuth){
                 throw new Error("User not authenticated");
             }
-            // if(args.type == "all")
             let task = await Task.find({creater: ObjectId(req.userId)});
             return task;
+        } catch(err){
+            throw err;
+        }
+    },
+    deleteTask: async (args,req)=>{
+        try{
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            let task = await Task.findById(args.id);
+            if(!task){
+                throw new Error("task not found");
+            }
+            if(task.creater.valueOf() !== req.userId){
+                throw new Error("you are not creater");
+            }
+            await Task.deleteOne({_id: ObjectId(args.id)});
+            return "done";
         } catch(err){
             throw err;
         }
