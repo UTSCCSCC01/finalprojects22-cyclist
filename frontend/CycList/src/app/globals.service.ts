@@ -1,88 +1,25 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+// import { Time } from './time';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalsService {
+    
+  constructor(
+    private cookie: CookieService
+  ) {}
 
-  public loggedIn: boolean = false;
+
+
+
+
+  /***************/
+  /* Navigation  */
+  /***************/
   public curLog = "daily";
-
-
-  public tasks = [
-    {
-      content: "",
-      name: "loading ...",
-      day: "__",
-      month: "__",
-      year: "____",
-      startTime: "00:00",
-      tag: ""
-    }
-  ];
-
-  public tags = [
-    {
-      _id: "",
-      creater: "",
-      name: "",
-      color: "",
-      icon: 0,
-      totalExpectedTime: 0,
-      totalActualTime: 0
-    }
-  ];
-
-  public nDays: number = 7;
-  public nDates: Date[] = [];
-
-  public dashboardTasks: any[] = [];
-  public dailyTasks: any[] = [];
-  public monthlyTasks: any[] = [];
-  public futureTasks: any[] = [];
-
-  private user: any = {};
-  
-  constructor(private cookie: CookieService) {
-    // this.resetUser();
-  }
-
-  public getToken() {
-    // return JSON.parse(this.cookie.get('user')).token;
-    return this.user.token;
-  }
-
-  public resetUser() {
-    this.user = '';
-  //   this.user = {
-  //     userId: "",
-  //     email: "",
-  //     nickName: "",
-  //     token: ""
-  //   };
-  }
-
-  /**
-   * reset the value of `this.tasks` to default value. 
-   * This is to solve the problem that switching between pages briefly show 
-   * tasks from the previous page.
-   */
-  public resetTasks() {
-    this.tasks = [
-      {
-        content: "",
-        name: "loading ...",
-        day: "__",
-        month: "__",
-        year: "____",
-        startTime: "00:00",
-        tag: ""
-      }
-    ];
-  }
-
   public refresh() {
     this.getDashboardTasks();
     this.getNDailyTasks();
@@ -91,54 +28,82 @@ export class GlobalsService {
     this.getAllTags();
   }
 
-  public loadUser() {
-    if (this.cookie.check('user'))
-      this.user = JSON.parse(this.cookie.get('user'));
-  }
 
-  public setUser(user: any) {
-    this.user = user;
-  }
 
-  public setTasks(tasks: any) {
-    if (tasks) this.tasks = tasks;
-  }
 
-  // TODO: update when go to a new day
+
+
+  /***************/
+  /* Time        */
+  /***************/
+  public now: any;
+  public oneYear: any;
+  public oneMonth: any;
+  public minYear: any;
+  public maxYear: any;
+  public minMonth: any;
+  public maxMonth: any;
+  public nDays: number = 7;
+  public nDates: Date[] = [];
+  public setAppTime() {
+    this.now = new Date();
+    this.oneYear = new Date(this.now.getFullYear() + 1, this.now.getMonth(), this.now.getDay());
+    this.oneMonth = new Date(this.now.getFullYear(), this.now.getMonth() + 1, this.now.getDay());
+    this.minYear = this.now.toISOString().slice(0,10);
+    this.maxYear = this.oneYear.toISOString().slice(0,10);
+    this.minMonth = this.now.toISOString().slice(0,7);
+    this.maxMonth = this.oneYear.toISOString().slice(0,7);
+    this.setNDates();
+    // TODO: update when go to a new day
+  }
   public setNDates() {
     //get the upcomming `this.numDates` dates
     let today = new Date();
-
     for (let i = 0; i < this.nDays; i++) {
       this.nDates[i] = new Date();
       this.nDates[i].setDate(today.getDate() + i);
     }
   }
 
+
+
+
+
+
+
+  /***************/
+  /* Login       */
+  /***************/
+  private user: any = {};
+  //   this.user = {
+  //     userId: "",
+  //     email: "",
+  //     nickName: "",
+  //     token: ""
+  //   };
+  public loggedIn: boolean = false;
+  public loginError = "";
+  public getToken() {
+    return this.user.token;
+  }
+  public resetUser() {
+    this.user = '';
+  }
+  public loadUser() {
+    if (this.cookie.check('user'))
+      this.user = JSON.parse(this.cookie.get('user'));
+  }
+  public setUser(user: any) {
+    this.user = user;
+  }
   public getUser() {
     return this.user;
   }
-
-  public getTasks() {
-    return this.tasks;
-  }
-
-  // check if the user is Authenticated (signed in)
   public isAuthenticated() {
+    // check if the user is Authenticated (signed in)
     // return this.user.userId !== "";
     return this.cookie.check("user");
   }
-
-  public logout() {
-    this.resetUser();
-    this.cookie.delete('user');
-    this.loggedIn = false;
-    this.dashboardTasks = [];
-    this.dailyTasks = [];
-    this.monthlyTasks = [];
-    this.futureTasks = [];
-  }
-
   public async register(form: FormGroup) {
     const body = {
       query:`
@@ -185,6 +150,7 @@ export class GlobalsService {
       }
     })
     .catch(err =>{
+      // 
       console.log(err)
     });
 
@@ -247,7 +213,65 @@ export class GlobalsService {
       this.cookie.set('user', JSON.stringify(this.getUser()));
     }
   }
+  public logout() {
+    this.resetUser();
+    this.cookie.delete('user');
+    this.loggedIn = false;
+    this.dashboardTasks = [];
+    this.dailyTasks = [];
+    this.monthlyTasks = [];
+    this.futureTasks = [];
+  }
 
+
+
+
+
+
+
+
+  /***************/
+  /* Tasks       */
+  /***************/
+  public tasks = [
+    {
+      content: "",
+      name: "loading ...",
+      day: "__",
+      month: "__",
+      year: "____",
+      startTime: "00:00",
+      tag: ""
+    }
+  ];
+  public dashboardTasks: any[] = [];
+  public dailyTasks: any[] = [];
+  public monthlyTasks: any[] = [];
+  public futureTasks: any[] = [];
+  /**
+   * reset the value of `this.tasks` to default value. 
+   * This is to solve the problem that switching between pages briefly show 
+   * tasks from the previous page.
+   */
+  public resetTasks() {
+    this.tasks = [
+      {
+        content: "",
+        name: "loading ...",
+        day: "__",
+        month: "__",
+        year: "____",
+        startTime: "00:00",
+        tag: ""
+      }
+    ];
+  }
+  public setTasks(tasks: any) {
+    if (tasks) this.tasks = tasks;
+  }
+  public getTasks() {
+    return this.tasks;
+  }
   public async getDashboardTasks() {
     // TODO: actual update for Dashboard
     await this.getAllTasks("");
@@ -267,6 +291,7 @@ export class GlobalsService {
           year
           startTime
           tag
+          color
         }
       }
       `
@@ -306,7 +331,6 @@ export class GlobalsService {
       console.log(err)
     });
   }
-
   public async getNDailyTasks() {
     //get each day's tasks
     for(let i = 0; i < this.nDays; i++) {
@@ -334,6 +358,7 @@ export class GlobalsService {
           year
           startTime
           tag
+          color
         }
       }
       `
@@ -373,7 +398,6 @@ export class GlobalsService {
       console.log(err)
     });
   }
-
   public async getMonthlyLogTasks() {
     // TODO: Actually update for Monthly Log
     let date = new Date();
@@ -393,6 +417,7 @@ export class GlobalsService {
           year
           startTime
           tag
+          color
         }
       }
       `
@@ -432,7 +457,6 @@ export class GlobalsService {
       console.log(err)
     });
   }
-
   public async getFutureLogTasks() {
     // TODO: Actually update for Future Log
     await this.getFutureTasks((new Date()).getFullYear());
@@ -454,6 +478,7 @@ export class GlobalsService {
           month
           year
           tag
+          color
         }
       }
       `
@@ -492,7 +517,6 @@ export class GlobalsService {
       console.log(err)
     });
   }
-
   public async createTask(value: any) {
 
     // let taskGroup = (document.querySelector('input[name="taskGroup"]:checked') as HTMLInputElement).value;
@@ -505,9 +529,9 @@ export class GlobalsService {
     const body = {
       query:`
       mutation {
-        createTask(hierarchy:"${this.curLog}",date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.description}",name:"${value.name}", startTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
+        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.description}",name:"${value.name}", startTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
           content
-          startTime
+          dueTime
           day
           month
           year
@@ -552,14 +576,33 @@ export class GlobalsService {
     });
   }
 
+
+
+
+
+
+
+
+  /***************/
+  /* Tags        */
+  /***************/
+  public tags = [
+    {
+      _id: "",
+      creater: "",
+      name: "",
+      color: "",
+      icon: 0,
+      totalExpectedTime: 0,
+      totalActualTime: 0
+    }
+  ];
   public getTags() {
     return this.tags;
   }
-
   public setTags(tags: any) {
     this.tags = tags;
   }
-
   public async getAllTags() {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
@@ -584,7 +627,8 @@ export class GlobalsService {
     method: 'POST',
     body: JSON.stringify(body),
     headers:{
-      "Content-Type": 'application/json'
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
     }
     })
     .then(res =>{
@@ -611,8 +655,6 @@ export class GlobalsService {
       console.log(err)
     });
   }
-
-
   public async getTag(tagID: string) {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
@@ -670,5 +712,65 @@ export class GlobalsService {
     } else {
       console.log("Tag ID is null")
     }
-  } 
+  }
+  public async createTag(value: any) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query:`
+      mutation {
+        createTag(name:"${value.name}", color:"${value.color}"){
+          _id
+          creater
+          name
+          color
+          icon
+          totalExpectedTime
+          totalActualTime
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        // all g!
+        this.getAllTags();
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
+
+
+
+
+
+
+
 }
