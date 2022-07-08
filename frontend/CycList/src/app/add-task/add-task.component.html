@@ -14,14 +14,22 @@
       <input type="text" id="task" placeholder="New Task" required formControlName="name"/>
     </div>
     <div>
-      Due: 
-      <input type="date" required formControlName="dueDate"/>
-      <input type="time" required formControlName="dueTime"/>
+      Schedule: 
+      <input (change)="schedule = !schedule" type="checkbox"/>  
+       Due: 
+      <div *ngIf="schedule">
+        <input type="date" min="{{globals.minYear}}" max="{{globals.maxYear}}" required formControlName="tempDueDate"/>
+        <input type="time" formControlName="dueTime"/>
+      </div>
+      <div *ngIf="!schedule">
+        <input type="month" min="{{globals.minMonth}}" max="{{globals.maxMonth}}" required formControlName="tempDueMonth"/>
+      </div>  
     </div>
+
     <!-- <div>
       Start: 
       TODO: put an "add start" because its optional
-      <input type="date" id="startDate" formControlName="startDate"/>  
+      <input type="date" id="startDate" formControlName="startDate"/>
       <input type="time" formControlName="startTime"/>
     </div> -->
     <!-- <div>
@@ -102,10 +110,12 @@
     </label> -->
 
     <span>
-      Tag: 
+      Tag:
       <select formControlName="tagID">
-        <option value="62bb3b92e1345c823df5add5">School</option>
-        <option value="62bb3bb902135e0b572fa33b">Work</option>
+        <option value=""></option>
+        <option *ngFor="let tag of globals.tags" [ngValue]="tag._id">
+          {{ tag.name }}
+        </option>
       </select>
     </span>
 
