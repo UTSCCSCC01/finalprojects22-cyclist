@@ -97,7 +97,7 @@ True if a user is logged in.
 
 ### public tasks
 
-An array of task JSON objects, with attributes: content, name, day, month, year, startTime. `tasks` is used as a temporary variable to house the results of functions in class `GlobalsService`.
+An array of task JSON objects, with attributes: content, name, day, month, year, dueTime. `tasks` is used as a temporary variable to house the results of functions in class `GlobalsService`.
 
 Getter function: public getTasks()
 Setter function: public setTasks(tasks: any)
@@ -239,7 +239,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - content: String
   - name: String
   - date: String
-  - startTime: String
+  - dueTime: String
   - repeat: Boolean
   - dayWeekMonth: String
   - frequency: String

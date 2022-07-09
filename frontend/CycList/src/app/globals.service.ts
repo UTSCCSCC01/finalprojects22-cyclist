@@ -234,20 +234,37 @@ export class GlobalsService {
   /* Tasks       */
   /***************/
   public tasks = [
-    {
-      content: "",
-      name: "loading ...",
-      day: "__",
-      month: "__",
-      year: "____",
-      startTime: "00:00",
-      tag: ""
-    }
+    // {
+    //   content: "",
+    //   name: "loading ...",
+    //   day: "__",
+    //   month: "__",
+    //   year: "____",
+    //   dueTime: "00:00",
+    //   tag: ""
+    // }
   ];
   public dashboardTasks: any[] = [];
   public dailyTasks: any[] = [];
   public monthlyTasks: any[] = [];
   public futureTasks: any[] = [];
+  public query(command: string, args: string) {
+    return `
+    query {
+      ${command}(${args}){
+        content
+        name
+        day
+        month
+        year
+        dueDate
+        dueTime
+        tag
+        color
+      }
+    }
+    `
+  }
   /**
    * reset the value of `this.tasks` to default value. 
    * This is to solve the problem that switching between pages briefly show 
@@ -255,15 +272,15 @@ export class GlobalsService {
    */
   public resetTasks() {
     this.tasks = [
-      {
-        content: "",
-        name: "loading ...",
-        day: "__",
-        month: "__",
-        year: "____",
-        startTime: "00:00",
-        tag: ""
-      }
+      // {
+      //   content: "",
+      //   name: "loading ...",
+      //   day: "__",
+      //   month: "__",
+      //   year: "____",
+      //   dueTime: "00:00",
+      //   tag: ""
+      // }
     ];
   }
   public setTasks(tasks: any) {
@@ -281,20 +298,8 @@ export class GlobalsService {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
     const body = {
-      query:`
-      query {
-        getAllTask(type: "${type}"){
-          content
-          name
-          day
-          month
-          year
-          dueTime
-          tag
-          color
-        }
-      }
-      `
+      query: this.query(`getAllTask`, `type: "${type}"`)
+
     }
     let err = false;
     let backenderr = false;

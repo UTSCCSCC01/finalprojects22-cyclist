@@ -7,12 +7,12 @@
       <h2>{{globals.nDates[i].toDateString()}}</h2>
 
       <div *ngFor = "let task of day">
-        <app-task [name]=task.name [startTime]=task.startTime [year]=task.year [month]=task.month [day]=task.day [color]=task.color></app-task>
+        <app-task [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
       </div>
     </div>
   </div>
 
   <!-- <div class="task" *ngFor="let task of globals.tasks">
-    <div class="name">{{ task.name }}</div><div>{{ task.startTime}}: {{ task.year}}-{{ task.month }}-{{ task.day }}</div>
+    <div class="name">{{ task.name }}</div><div>{{ task.dueTime}}: {{ task.year}}-{{ task.month }}-{{ task.day }}</div>
   </div> -->
 </div>

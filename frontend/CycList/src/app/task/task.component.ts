@@ -12,7 +12,10 @@ export class TaskComponent {
   name: string = "";
 
   @Input() 
-  startTime: string = "";
+  dueTime: string = "";
+
+  @Input() 
+  dueDate: string = "";
 
   @Input() 
   year: string = "";

@@ -3,6 +3,6 @@
   <hr class="monthly-log-underline">
 
   <div *ngFor="let task of globals.monthlyTasks">
-    <app-task [name]=task.name [startTime]=task.startTime [year]=task.year [month]=task.month [day]=task.day [color]=task.color></app-task>
+    <app-task [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
   </div>
 </div>
