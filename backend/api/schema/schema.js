@@ -62,6 +62,7 @@ type RootQuery {
     emailLogin(email: String!, password: String!): authdata!
     getDailyTask(day: Int!, month: Int!, year:Int!): [task!]
     getMonthTask(month: Int!, year: Int!): [task!]
+    getMonthTaskNoDay(month: Int!, year: Int!): [task!]
     getFutureTask(year: Int): [task!]
     getSingleTask(id: ID!): task
     getAllTask(type: String):[task!]
