@@ -23,6 +23,9 @@ $shadow-top-bar: $shadow-huge;
 .top-bar-elem {
     margin-left: 2%;
     text-decoration: none; 
+    position: absolute;
+    top: 20px;
+    right: 45px;
 }
 
 .top-bar-elem:visited { 
@@ -39,4 +42,14 @@ $shadow-top-bar: $shadow-huge;
   background-color: $color-grey-trans;
   padding: 0.5em;
   line-height: 1em;
+  position:relative;
+  bottom:10px;
+}
+
+.title{
+  position:relative;
+  bottom:100px;
+  top:0;
+  right:0;
+  left:5px;
 }
