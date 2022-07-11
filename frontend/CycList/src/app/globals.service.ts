@@ -43,7 +43,7 @@ export class GlobalsService {
   public maxYear: any;
   public minMonth: any;
   public maxMonth: any;
-  public nDays: number = 7;
+  public nDays: number = 6;
   public nDates: Date[] = [];
   public setAppTime() {
     this.now = new Date();

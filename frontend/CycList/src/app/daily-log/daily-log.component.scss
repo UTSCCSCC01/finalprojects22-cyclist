@@ -1,7 +1,12 @@
 @import "../../styles.scss";
 
-.daily-log-task-container {
+@media screen {
+  
+}
+
+.daily-log-page-container {
   // width: 100%;
+  height: 80%;
 }
 
 .daily-log-underline {
@@ -13,6 +18,32 @@
   border-color: $color-grey-trans;
 }
 
-.daily-tasks {
-  display: flex;
+.daily-log-day-container {
+  height: 100%;
+
+  @media screen and (min-width: 640px)and (max-width: 1080px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 1fr;
+    grid-gap: 1em;
+  }
+  
+  @media screen and (min-width: 1080px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    grid-gap: 1em;
+  }
 }
+
+.day {
+  min-height: 150px;
+  max-height: 300px;
+}
+
+.daily-log-task-container {
+  position: relative;
+  max-height: 70%;
+  overflow: scroll;
+}
+

@@ -107,10 +107,13 @@ module.exports = {
                 throw new Error("User not authenticated");
             }
             let dailyTask = await Task.find({day:args.day, month:args.month, 
-            year:args.year, creater: ObjectId(req.userId),isRepeat:false});
-            let todayDate = args.month+"/"+args.day+"/"+args.year;
-            let yesterday = new Date(todayDate);
-            yesterday.setDate(yesterday.getDate()-1);
+            year:args.year, creater: ObjectId(req.userId),isRepeat:false, dueTime:{$ne:""}}).sort({dueTime:1});
+            let noTimeTask = await Task.find({day:args.day, month:args.month, 
+                year:args.year, creater: ObjectId(req.userId),isRepeat:false, dueTime:""});
+            dailyTask = dailyTask.concat(noTimeTask);
+            // let todayDate = args.month+"/"+args.day+"/"+args.year;
+            // let yesterday = new Date(todayDate);
+            // yesterday.setDate(yesterday.getDate()-1);
             // let yesterdayTask = await Task.find({hierarchy:"daily", day:yesterday.getDate(), month:yesterday.getMonth()+1, 
             // year:yesterday.getFullYear(), creater: ObjectId(req.userId),isRepeat:false});
             let repeatTask = await Task.find({creater: ObjectId(req.userId),isRepeat:true});
@@ -144,6 +147,22 @@ module.exports = {
         }
     },
     getMonthTask: async (args,req)=>{
+        try{
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            let monthTask = await Task.find({day:{$gt:0}, month:args.month, 
+                year:args.year, creater: ObjectId(req.userId)}).sort({day:1});
+            let noday = await Task.find({day:0, month:args.month, 
+            year:args.year, creater: ObjectId(req.userId)});
+            console.log(noday);
+            monthTask = monthTask.concat(noday);
+            return monthTask;
+        } catch(err){
+            throw err;
+        }
+    },
+    getMonthTaskNoDay: async (args,req)=>{
         try{
             if(!req.isAuth){
                 throw new Error("User not authenticated");

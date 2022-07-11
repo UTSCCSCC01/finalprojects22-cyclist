@@ -1,14 +1,17 @@
-<div class="daily-log-task-container">
+<div class="daily-log-page-container">
   <h1>Daily Log</h1>
   <hr class="daily-log-underline">
 
-  <div>
+  <div class="daily-log-day-container">
     <div class="day" *ngFor = "let day of globals.dailyTasks; index as i">
       <h2>{{globals.nDates[i].toDateString()}}</h2>
 
-      <div *ngFor = "let task of day">
-        <app-task [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+      <div class = "daily-log-task-container">
+        <div *ngFor = "let task of day">
+          <app-task [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+        </div>
       </div>
+
     </div>
   </div>
 
