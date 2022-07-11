@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Source+Code+Pro&display=swap');
+@import url('https://rsms.me/inter/inter.css');
 
 /*****************/
 /* All Variables */
@@ -254,6 +255,9 @@ textarea {
   box-shadow: $shadow-menu;
 }
 
+.submit {
+  font-family: $font-UI;
+}
 // main view
 .main-view {
   display: flex;
