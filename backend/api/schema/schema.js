@@ -77,7 +77,7 @@ type RootMutation {
     rateDifficulty(id: ID!, score: Float!): String
     markSignifier(id: ID!, field: String, value: String): String!
     createTag(name:String!, color:String): tag
-    test(field: String): String
+    test(day: Int!, month: Int!, year:Int!): [task!]
 }
 schema {
     query: RootQuery
