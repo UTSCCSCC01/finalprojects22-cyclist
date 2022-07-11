@@ -56,6 +56,8 @@ $color-mediumgrey-trans: rgba(125, 125, 125, 0.069);
 $color-white: white;
 $color-light: #f1f3f6;
 $color-ui-blue: rgb(18, 95, 202);
+$color-ui-medblue: rgb(110, 161, 233);
+$color-ui-lightblue: rgb(168, 197, 237);
 $color-ui-green: rgb(18, 202, 165);
 
 $color-red: #ff979782;
@@ -218,6 +220,7 @@ select {
   border-radius: 0.5em;
   padding: 0.3em 0.5em;
   /* color: white; */
+  border: 2px solid transparent;
   margin: 0.2em;
   /* width: 100; */
   background-color: $color-mediumgrey-trans;
@@ -228,9 +231,19 @@ select {
     color: $color-grey;
   }
 
-  &:focus {
-    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
+  &:focus:not(.btn) {
     outline: none;
+    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
+    border: 2px solid $color-ui-medblue;
+  }
+
+  &:hover.btn {
+    background-color: $color-ui-lightblue;
+  }
+
+  &:active.btn {
+    background-color: $color-ui-medblue;
+    color: $color-light;
   }
 
   &#task {
