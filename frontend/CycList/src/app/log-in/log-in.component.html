@@ -39,5 +39,10 @@
         Already have an account? <a class ="register" (click)="registering = false">LOGIN</a>
       </p>
     </div>  
+
+
+    <div *ngIf="this.globals.getEm()">
+      <h2>Welcome{{ this.globals.getEm() }}!</h2>
+    </div>
   </div>
 </div>

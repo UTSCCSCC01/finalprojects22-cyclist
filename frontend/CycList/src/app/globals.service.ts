@@ -99,6 +99,15 @@ export class GlobalsService {
   public getUser() {
     return this.user;
   }
+
+
+  getEm() {
+    return this.em;
+  }
+  setEm(value: any) {
+    this.em = value;
+  }
+
   public isAuthenticated() {
     // check if the user is Authenticated (signed in)
     // return this.user.userId !== "";
@@ -194,8 +203,12 @@ export class GlobalsService {
       if(err){
         if(backenderr){
           console.log("Something wrong with server, please contact to admin");
+          this.setEm("Something wrong with server, please contact to admin");
+          // this.em = "Something wrong with server, please contact to admin";
         }else{
           console.log("** " + data.errors[0].message + " **");
+          this.setEm("** " + data.errors[0].message + " **");
+          // this.em = "** " + data.errors[0].message + " **";
         }
       }else{ 
         // all g!        
@@ -205,6 +218,8 @@ export class GlobalsService {
       }
     })
     .catch(err =>{
+      // this.em = "" + err;
+      this.setEm("" + err);
       console.log(err)
     });
 
@@ -248,6 +263,10 @@ export class GlobalsService {
   public dailyTasks: any[] = [];
   public monthlyTasks: any[] = [];
   public futureTasks: any[] = [];
+
+
+  public em: string = "";
+
   public query(command: string, args: string) {
     return `
     query {

@@ -4,114 +4,128 @@
   <section class="future-log-calendar-container">
     <div class="row">
       <div class="col">
-        <h3>January</h3>
-        <hr class="future-log-underline">
+        <div class="future-log-calendar-title-container">
+          <h3 class="future-log-calendar-title">{{ this.monthNames[this.month] }}</h3>
+          <hr class="future-log-underline">
+        </div>
         <div class="tasks">
           <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 1" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+            <app-task *ngIf="(task.month === ((this.month + 1) % 12)) || ((task.month === 12) && ((this.month + 1) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
           </div>
         </div>
       </div>
       <div class="col">
-        <h3>February</h3>
-        <hr class="future-log-underline">
+        <div class="future-log-calendar-title-container">
+          <h3 class="future-log-calendar-title">{{ this.monthNames[(this.month + 1) % 12] }}</h3>
+          <hr class="future-log-underline">
+        </div>
         <div class="tasks">
           <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 2" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+            <app-task *ngIf="(task.month === ((this.month + 2) % 12)) || ((task.month === 12) && ((this.month + 2) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
           </div>
         </div>
       </div>
       <div class="col">
-        <h3>March</h3>
-        <hr class="future-log-underline">
+        <div class="future-log-calendar-title-container">
+          <h3 class="future-log-calendar-title">{{ this.monthNames[(this.month + 2) % 12] }}</h3>
+          <hr class="future-log-underline">
+        </div>
         <div class="tasks">
           <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 3" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+            <app-task *ngIf="(task.month === ((this.month + 3) % 12)) || ((task.month === 12) && ((this.month + 3) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
           </div>
         </div>
       </div>
       <div class="col">
-        <h3>April</h3>
-        <hr class="future-log-underline">
-        <div class="tasks">
-          <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 4" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
-          </div>
+        <div class="future-log-calendar-title-container">
+          <h3 class="future-log-calendar-title">{{ this.monthNames[(this.month + 3) % 12] }}</h3>
+          <hr class="future-log-underline">
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <h3>May</h3>
-        <hr class="future-log-underline">
         <div class="tasks">
           <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 5" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <h3>June</h3>
-        <hr class="future-log-underline">
-        <div class="tasks">
-          <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 6" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <h3>July</h3>
-        <hr class="future-log-underline">
-        <div class="tasks">
-          <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 7" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <h3>August</h3>
-        <hr class="future-log-underline">
-        <div class="tasks">
-          <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 8" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+            <app-task *ngIf="(task.month === ((this.month + 4) % 12)) || ((task.month === 12) && ((this.month + 4) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <h3>September</h3>
-        <hr class="future-log-underline">
+        <div class="future-log-calendar-title-container">
+          <h3 class="future-log-calendar-title">{{ this.monthNames[(this.month + 4) % 12] }}</h3>
+          <hr class="future-log-underline">
+        </div>
         <div class="tasks">
           <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 9" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+            <app-task *ngIf="(task.month === ((this.month + 5) % 12)) || ((task.month === 12) && ((this.month + 5) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
           </div>
         </div>
       </div>
       <div class="col">
-        <h3>October</h3>
-        <hr class="future-log-underline">
+        <div class="future-log-calendar-title-container">
+          <h3 class="future-log-calendar-title">{{ this.monthNames[(this.month + 5) % 12] }}</h3>
+          <hr class="future-log-underline">
+        </div>
         <div class="tasks">
           <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 10" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+            <app-task *ngIf="(task.month === ((this.month + 6) % 12)) || ((task.month === 12) && ((this.month + 6) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
           </div>
         </div>
       </div>
       <div class="col">
-        <h3>November</h3>
-        <hr class="future-log-underline">
+        <div class="future-log-calendar-title-container">
+          <h3 class="future-log-calendar-title">{{ this.monthNames[(this.month + 6) % 12] }}</h3>
+          <hr class="future-log-underline">
+        </div>
         <div class="tasks">
           <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 11" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+            <app-task *ngIf="(task.month === ((this.month + 7) % 12)) || ((task.month === 12) && ((this.month + 7) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
           </div>
         </div>
       </div>
       <div class="col">
-        <h3>December</h3>
+        <h3 class="future-log-calendar-title">{{ this.monthNames[(this.month + 7) % 12] }}</h3>
         <hr class="future-log-underline">
         <div class="tasks">
           <div *ngFor="let task of globals.futureTasks">
-            <app-task *ngIf="task.month === 12" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+            <app-task *ngIf="(task.month === ((this.month + 8) % 12)) || ((task.month === 12) && ((this.month + 8) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h3 class="future-log-calendar-title">{{ this.monthNames[(this.month + 8) % 12] }}</h3>
+        <hr class="future-log-underline">
+        <div class="tasks">
+          <div *ngFor="let task of globals.futureTasks">
+            <app-task *ngIf="(task.month === ((this.month + 9) % 12)) || ((task.month === 12) && ((this.month + 9) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <h3 class="future-log-calendar-title">{{ this.monthNames[(this.month + 9) % 12] }}</h3>
+        <hr class="future-log-underline">
+        <div class="tasks">
+          <div *ngFor="let task of globals.futureTasks">
+            <app-task *ngIf="(task.month === ((this.month + 10) % 12)) || ((task.month === 12) && ((this.month + 10) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <h3 class="future-log-calendar-title">{{ this.monthNames[(this.month + 10) % 12] }}</h3>
+        <hr class="future-log-underline">
+        <div class="tasks">
+          <div *ngFor="let task of globals.futureTasks">
+            <app-task *ngIf="(task.month === ((this.month + 11) % 12)) || ((task.month === 12) && ((this.month + 11) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <h3 class="future-log-calendar-title">{{ this.monthNames[(this.month + 11) % 12] }}</h3>
+        <hr class="future-log-underline">
+        <div class="tasks">
+          <div *ngFor="let task of globals.futureTasks">
+            <app-task *ngIf="(task.month === ((this.month + 12) % 12)) || ((task.month === 12) && ((this.month + 12) === 12))" [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
           </div>
         </div>
       </div>
