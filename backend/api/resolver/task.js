@@ -110,8 +110,7 @@ module.exports = {
             year:args.year, creater: ObjectId(req.userId),isRepeat:false, dueTime:{$ne:""}}).sort({dueTime:1});
             let noTimeTask = await Task.find({day:args.day, month:args.month, 
                 year:args.year, creater: ObjectId(req.userId),isRepeat:false, dueTime:""});
-            dailyTask = dailyTask.concat(noTimeTask);
-            // let todayDate = args.month+"/"+args.day+"/"+args.year;
+            let todayDate = args.month+"/"+args.day+"/"+args.year;
             // let yesterday = new Date(todayDate);
             // yesterday.setDate(yesterday.getDate()-1);
             // let yesterdayTask = await Task.find({hierarchy:"daily", day:yesterday.getDate(), month:yesterday.getMonth()+1, 
@@ -123,23 +122,57 @@ module.exports = {
                     let taskDate = task.month+"/"+task.day+"/"+task.year;
                     let taskDay = new Date(taskDate);
                     let today = new Date(todayDate);
-                    let days = Math.floor((today.getTime()-taskDay.getTime())/ (1000*3600*24));
-                    if((days % parseInt(task.frequency)) === 0){
-                        dailyTask.unshift(task);
+                    if(today.getTime()-taskDay.getTime() >= 0){
+                        let days = Math.floor((today.getTime()-taskDay.getTime())/ (1000*3600*24));
+                        if((days % parseInt(task.frequency)) === 0){
+                            if(task.dueTime === "null" || task.dueTime=== ""){
+                                noTimeTask.push(task)
+                            }else{
+                                for(var i=0; i<dailyTask.length; i++){
+                                    if(dailyTask[i].dueTime > task.dueTime){
+                                        dailyTask.splice(i,0,task);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }else if(task.dayWeekMonth === "week"){
-                    let today = new Date(todayDate).getDay().toString();
-                    if(task.frequency.includes(today)){
-                        dailyTask.unshift(task);
+                    if(today.getTime()-taskDay.getTime() >= 0){
+                        let today = new Date(todayDate).getDay().toString();
+                        if(task.frequency.includes(today)){
+                            if(task.dueTime === "null" || task.dueTime=== ""){
+                                noTimeTask.push(task)
+                            }else{
+                                for(var i=0; i<dailyTask.length; i++){
+                                    if(dailyTask[i].dueTime > task.dueTime){
+                                        dailyTask.splice(i,0,task);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }else if (task.dayWeekMonth === "month"){
-                    let today = new Date(todayDate).getDate();
-                    let frequency = parseInt(task.frequency);
-                    if(frequency === today){
-                        dailyTask.unshift(task);
+                    if(today.getTime()-taskDay.getTime() >= 0){
+                        let today = new Date(todayDate).getDate();
+                        let frequency = parseInt(task.frequency);
+                        if(frequency === today){
+                            if(task.dueTime === "null" || task.dueTime=== ""){
+                                noTimeTask.push(task)
+                            }else{
+                                for(var i=0; i<dailyTask.length; i++){
+                                    if(dailyTask[i].dueTime > task.dueTime){
+                                        dailyTask.splice(i,0,task);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             });
+            dailyTask = dailyTask.concat(noTimeTask);
             // dailyTask = yesterdayTask.concat(dailyTask);
             return dailyTask;
         } catch(err){
@@ -221,9 +254,52 @@ module.exports = {
         }
     },
     test: async args=>{
+        // try{
+        //     await Task.deleteMany({ year: 2022 });
+        //     return "done";
+        // } catch(err){
+        //     throw err;
+        // }
         try{
-            await Task.deleteMany({ year: 2022 });
-            return "done";
+            // if(!req.isAuth){
+            //     throw new Error("User not authenticated");
+            // }
+            let dailyTask = await Task.find({day:args.day, month:args.month, 
+            year:args.year, creater: ObjectId("62b4a2421115bad92e1b5efd"),isRepeat:false, dueTime:{$ne:""}}).sort({dueTime:1});
+            let noTimeTask = await Task.find({day:args.day, month:args.month, 
+                year:args.year, creater: ObjectId("62b4a2421115bad92e1b5efd"),isRepeat:false, dueTime:""});
+            dailyTask = dailyTask.concat(noTimeTask);
+            let todayDate = args.month+"/"+args.day+"/"+args.year;
+            // let yesterday = new Date(todayDate);
+            // yesterday.setDate(yesterday.getDate()-1);
+            // let yesterdayTask = await Task.find({hierarchy:"daily", day:yesterday.getDate(), month:yesterday.getMonth()+1, 
+            // year:yesterday.getFullYear(), creater: ObjectId(req.userId),isRepeat:false});
+            let repeatTask = await Task.find({creater: ObjectId("62b4a2421115bad92e1b5efd"),isRepeat:true});
+
+            repeatTask.forEach(function(task){
+                if(task.dayWeekMonth === "day"){
+                    let taskDate = task.month+"/"+task.day+"/"+task.year;
+                    let taskDay = new Date(taskDate);
+                    let today = new Date(todayDate);
+                    let days = Math.floor((today.getTime()-taskDay.getTime())/ (1000*3600*24));
+                    if((days % parseInt(task.frequency)) === 0){
+                        dailyTask.push(task);
+                    }
+                }else if(task.dayWeekMonth === "week"){
+                    let today = new Date(todayDate).getDay().toString();
+                    if(task.frequency.includes(today)){
+                        dailyTask.push(task);
+                    }
+                }else if (task.dayWeekMonth === "month"){
+                    let today = new Date(todayDate).getDate();
+                    let frequency = parseInt(task.frequency);
+                    if(frequency === today){
+                        dailyTask.push(task);
+                    }
+                }
+            });
+            // dailyTask = yesterdayTask.concat(dailyTask);
+            return dailyTask;
         } catch(err){
             throw err;
         }
