@@ -15,6 +15,7 @@ module.exports = {
             let day = 0;
             let tag;
             let color;
+            let time;
             if(args.tagID === ""){
                 tag = null;
                 color = "";
@@ -41,6 +42,10 @@ module.exports = {
                 let date = month+"/"+day+"/"+year;
                 repeatStartDay = new Date(date).toISOString();
             }
+            time = args.dueTime;
+            if(args.dueTime === "null"){
+                time = "";
+            }
             const newTask = new Task({
                 creater: req.userId,
                 name: args.name,
@@ -48,7 +53,7 @@ module.exports = {
                 month: month,
                 year: year,
                 hierarchy: "daily",
-                dueTime: args.dueTime,
+                dueTime: time,
                 dueDate: args.date,
                 expectedDuration: 0,
                 actualDuration: 0,
