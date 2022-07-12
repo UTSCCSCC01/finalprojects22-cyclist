@@ -9,6 +9,7 @@ export class GlobalsService {
 
   public loggedIn: boolean = false;
   public curLog = "daily";
+  public em: string ="";
 
 
   public tasks = [
@@ -123,6 +124,15 @@ export class GlobalsService {
     return this.tasks;
   }
 
+  public setErr(em: any) {
+    this.em = em;
+  }
+
+  public getErr() {
+    return this.em;
+  }
+
+
   // check if the user is Authenticated (signed in)
   public isAuthenticated() {
     // return this.user.userId !== "";
@@ -174,8 +184,10 @@ export class GlobalsService {
       if(err){
         if(backenderr){
           console.log("Something wrong with server, please contact to admin");
+          this.setErr("Something wrong with server, please contact to admin");
         }else{
           console.log("** " + data.errors[0].message + " **");
+          this.setErr("** " + data.errors[0].message + " **");
         }
       }else{ 
         // all g!        
@@ -228,8 +240,10 @@ export class GlobalsService {
       if(err){
         if(backenderr){
           console.log("Something wrong with server, please contact to admin");
+          this.setErr("Something wrong with server, please contact to admin");
         }else{
           console.log("** " + data.errors[0].message + " **");
+          this.setErr("** " + data.errors[0].message + " **");
         }
       }else{ 
         // all g!        
