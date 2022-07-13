@@ -75,7 +75,6 @@ module.exports = {
                 location:null,
             })
             const result = await newTask.save();
-            console.log(result);
             return result;
         } catch(err){
             throw err;
@@ -196,11 +195,12 @@ module.exports = {
             if(!req.isAuth){
                 throw new Error("User not authenticated");
             }
-            let monthTask = await Task.find({day:{$gt:0}, month:args.month, 
+            let day = new Date();
+            let monthTask = await Task.find({day:{$gt:day.getDate()+5}, month:args.month, 
                 year:args.year, creater: ObjectId(req.userId)}).sort({day:1});
-            let noday = await Task.find({day:0, month:args.month, 
-            year:args.year, creater: ObjectId(req.userId)});
-            monthTask = monthTask.concat(noday);
+            // let noday = await Task.find({day:0, month:args.month, 
+            // year:args.year, creater: ObjectId(req.userId)});
+            // monthTask = monthTask.concat(noday);
             return monthTask;
         } catch(err){
             throw err;
