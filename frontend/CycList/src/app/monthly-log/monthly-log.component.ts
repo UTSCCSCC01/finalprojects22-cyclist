@@ -11,6 +11,8 @@ export class MonthlyLogComponent implements OnInit {
   monthName: string;
   allDaysInMonth: Date[];
   rowsInCalendar: number;
+  days: any[] = [];
+  weekDaysName: string[];
 
   constructor(public globals: GlobalsService) {
     this.month = new Date().getMonth() + 1;
@@ -20,6 +22,26 @@ export class MonthlyLogComponent implements OnInit {
       new Date().getFullYear()
     );
     this.rowsInCalendar = Math.ceil(this.allDaysInMonth.length / 7);
+    this.getAllDays();
+    this.weekDaysName = this.getWeekDays();
+  }
+
+  getAllDays = () => {
+    for (let i = 0; i < this.allDaysInMonth.length; i++) {
+      this.days[i] = this.allDaysInMonth[i].getDate();
+    }
+    return this.days;
+  };
+
+  getWeekDays() {
+    var baseDate = this.allDaysInMonth;
+    var weekDays = [];
+    for (let i = 0; i < this.allDaysInMonth.length; i++) {
+      weekDays.push(
+        baseDate[i].toLocaleDateString('default', { weekday: 'short' })
+      );
+    }
+    return weekDays;
   }
 
   getDaysInMonth = (month: number, year: number) =>
