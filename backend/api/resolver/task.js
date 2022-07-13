@@ -1,6 +1,7 @@
 const Task = require("../../database/task");
 const Tag = require("../../database/tag");
 const ObjectId = require('mongodb').ObjectId;
+//62b4a2421115bad92e1b5efd
 module.exports = {
     createTask: async (args,req) => {
         if(!req.isAuth){
@@ -199,7 +200,6 @@ module.exports = {
                 year:args.year, creater: ObjectId(req.userId)}).sort({day:1});
             let noday = await Task.find({day:0, month:args.month, 
             year:args.year, creater: ObjectId(req.userId)});
-            console.log(noday);
             monthTask = monthTask.concat(noday);
             return monthTask;
         } catch(err){
@@ -223,8 +223,17 @@ module.exports = {
             if(!req.isAuth){
                 throw new Error("User not authenticated");
             }
-            let futureTask = await Task.find({creater: ObjectId(req.userId)});
-            return futureTask;
+            let allTasks = [];
+            var day = new Date();
+            day.setDate(1);
+            for(let i=1; i<13;i++){
+                day.setMonth(day.getMonth()+1);
+                let futureTask = await Task.find({month:day.getMonth()+1, 
+                    year:day.getFullYear(), creater: ObjectId(req.userId)}).sort({day:1});
+                allTasks = allTasks.concat(futureTask);
+
+            }
+            return allTasks;
         } catch(err){
             throw err;
         }
