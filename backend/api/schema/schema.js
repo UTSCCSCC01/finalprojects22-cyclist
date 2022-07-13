@@ -74,6 +74,10 @@ type RootMutation {
     deleteTask(id:ID!): String
     markSignifier(id: ID!, field: String, value: String): String!
     createTag(name:String!, color:Int!): tag
+    modifyTask(taskId: ID!, date: String!, repeat: Boolean, dayWeekMonth: String, 
+        frequency: String, content:String!, dueTime: String, expectedDuration: Int, 
+        name:String!, tagID: ID): task
+
 }
 schema {
     query: RootQuery
