@@ -143,6 +143,9 @@ module.exports = {
                         }
                     }
                 }else if(task.dayWeekMonth === "week"){
+                    let taskDate = task.month+"/"+task.day+"/"+task.year;
+                    let taskDay = new Date(taskDate);
+                    let today = new Date(todayDate);
                     if(today.getTime()-taskDay.getTime() >= 0){
                         let today = new Date(todayDate).getDay().toString();
                         if(task.frequency.includes(today)){
@@ -159,6 +162,9 @@ module.exports = {
                         }
                     }
                 }else if (task.dayWeekMonth === "month"){
+                    let taskDate = task.month+"/"+task.day+"/"+task.year;
+                    let taskDay = new Date(taskDate);
+                    let today = new Date(todayDate);
                     if(today.getTime()-taskDay.getTime() >= 0){
                         let today = new Date(todayDate).getDate();
                         let frequency = parseInt(task.frequency);
