@@ -61,6 +61,12 @@ const taskSchema = new Schema({
     important:{
         type: Boolean,
     },
+    completed:{
+        type: Boolean,
+    },
+    abandoned:{
+        type: Boolean,
+    },
     // parent or subtask
     identity:{
         type: String,

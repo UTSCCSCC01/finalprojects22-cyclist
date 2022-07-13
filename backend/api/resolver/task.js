@@ -40,6 +40,8 @@ module.exports = {
                 content: args.content,
                 tag: null,
                 important: false,
+                completed:false,
+                abandoned:false,
                 identity: "parent",
                 subTask:[],
                 parentTask: null,
@@ -143,21 +145,20 @@ module.exports = {
             throw err;
         }
     },
-    markSignifier: async args=>{
+    markSignifier: async (args, req)=>{
         try{
-            // if(!req.isAuth){
-            //     throw new Error("User not authenticated");
-            // }
-            let task = await Task.find({_id:ObjectId(args.id), creater: ObjectId("6297e22dab2c042c8dd6effb")});
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            //62b4a2421115bad92e1b5efd   user
+            //62ce5122c58dd1afa145534c   task
+            let task = await Task.find({_id:ObjectId(args.id), creater: ObjectId(req.userId)});
             if(task.length === 0){
                 throw new Error("wrong task id");
             }
-            if(!['daily','monthly','future', 'complete','abandon'].includes(args.value)){
-                throw new Error("Not valid input");
-            }
             await Task.updateOne(
                 {_id: args.id},
-                {$set:{hierarchy:args.value}}
+                {$set:{important:args.important, completed:args.completed, abandoned:args.abandoned}}
             );
             task = await Task.findById(args.id);
             return task;

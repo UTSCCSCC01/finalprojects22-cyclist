@@ -40,6 +40,8 @@ type task{
     content: String
     tag: ID
     important: Boolean
+    completed: Boolean
+    abandoned: Boolean
     identity: String
     subTask: [liteTask]
     parentTask: liteTask
@@ -58,7 +60,7 @@ type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
     createTask(hierarchy: String!, date: String!, repeat: String, dayWeekMonth: String, frequency: String, content:String!, startTime: String, expectedDuration: Int, name:String!): task
     rateDifficulty(id: ID!, score: Float!): String
-    markSignifier(id: ID!, value: String): task
+    markSignifier(id: ID!, important:Boolean, completed:Boolean, abandoned:Boolean): task
 }
 schema {
     query: RootQuery
