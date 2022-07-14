@@ -30,19 +30,19 @@ Under database folder:
 
 Responsibility: set up a database for user in mongodb, provide a connection to mongodb
 
-Collaborator: api/resolver/user.js
+Collaborator: 
 
 ### Class name: task.js
 
 Responsibility: set up a database for task in mongodb, provide a connection to mongodb
 
-Collaborator: api/resolver/task.js
+Collaborator: 
 
 ### Class name: tag.js
 
 Responsibility: set up a database for tag(task group) in mongodb, provide a connection to mongodb
 
-Collaborator: api/resolver/tag.js
+Collaborator: 
 
 }
 
@@ -55,7 +55,7 @@ Under schema folder:
 
 Responsibility: provide all functions name the backend currently have, include arguments and  their type for each function, also provide the return type for each function.
 
-Collaborator: app.js, resolver.js
+Collaborator:
 
 }
 
@@ -64,7 +64,7 @@ Collaborator: app.js, resolver.js
 
 Responsibility: verify the token given from frontend, once verified, extract user id from this token and provide this user id for further action in backend
 
-Collaborator: app.js
+Collaborator:
 
 
 Under api/resolver folder
@@ -75,25 +75,25 @@ Under api/resolver folder
 
 Responsibility: collect all function implementations that tag.js, task.js and user.js provide, so it can be used in app.js to solve each request. It should contain all functions which are listed in schema.js
 
-Collaborator: api/resolver/task.js, api/resolver/user.js, api/resolver/tag.js, app.js, schema.js
+Collaborator: api/resolver/task.js, api/resolver/user.js, api/resolver/tag.js
 
 ### Class name: user.js
 
 Responsibility: provide the implementations of each function related to user in schema.js, follow the functions’ format and provide all implementations to resolver.js
 
-Collaborator: database/user.js, resolver.js, schema.js 
+Collaborator: database/user.js, database/tag.js, auth.js
 
 ### Class name: task.js
 
 Responsibility: provide the implementations of each function related to task in schema.js, follow the functions’ format and provide all implementations to resolver.js
 
-Collaborator: database/task.js, resolver.js, schema.js 
+Collaborator: database/task.js, database/user.js, auth.js
 
 ### Class name: tag.js
 
 Responsibility: provide the implementations of each function related to tag in schema.js, follow the functions’ format and provide all implementations to resolver.js
 
-Collaborator: database/tag.js, resolver.js, schema.js
+Collaborator: database/tag.js, database/user.js, auth.js
 
 }
 
