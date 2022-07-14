@@ -1,6 +1,6 @@
 <div class="signin-overlay" [ngClass]="{'hidden': globals.loggedIn}">
   <div class="signin">
-    <div class="circle"></div>
+    <!-- <div class="circle"></div> -->
     <form class="complete-log-in" (ngSubmit)="submit()" [formGroup]="form">
       <input
         [ngClass]="{'hidden': !registering}"
@@ -39,5 +39,10 @@
         Already have an account? <a class ="register" (click)="registering = false">LOGIN</a>
       </p>
     </div>  
+
+
+    <div *ngIf="this.globals.getEm()">
+      <h2>Welcome{{ this.globals.getEm() }}!</h2>
+    </div>
   </div>
 </div>

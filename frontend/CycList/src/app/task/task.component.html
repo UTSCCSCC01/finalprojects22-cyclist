@@ -1,16 +1,7 @@
 <div class="task">
-    <div class="date-one">
-      <div *ngIf="tagID">
-        <div *ngFor="let tag of globals.tags">
-          <div *ngIf="tag._id == tagID" [ngClass]="(tag.color == 0) ? 'square-icon-blue' : 'square-icon-green'"></div>
-        </div>
-      </div>
-      <div *ngIf="!tagID">
-        <div>
-          <div class="square-icon-red"></div>
-        </div>
-      </div>
-        <div id="task-text" >{{ name }}</div>
+    <div class="task-head">
+      <div class="signifier" [ngClass]="color"></div>
+      <div id="task-text" >{{ name }}</div>
     </div>
-    <div id="task-time">{{ startTime}}: {{ year}}-{{ month }}-{{ day }}</div>
+    <div id="task-time"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
 </div>
