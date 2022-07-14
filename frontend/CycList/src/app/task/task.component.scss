@@ -40,8 +40,6 @@ $radius-task: calc($radius-todo + $pd-task / 1.3);
   flex: none;
   /* left: 618px; */
   /* top: 512.13px; */
-  background: $color-lightgrey-trans;
-  border: 2px solid $color-grey-trans;
   border-radius: $radius-todo;
   transition: all 0.2s;
 

@@ -15,9 +15,12 @@ $radius-switch: 1.2em;
   display: flex;
   flex-direction: column;
   padding: 0.1em;
+  white-space: nowrap;
 
   .active{
-    background-color: darkolivegreen;
+    box-shadow: inset $shadow-small;
+    background-clip: padding-box;
+    background-color: $bg-alt;
   }
   
   & a {
@@ -58,12 +61,7 @@ $radius-switch: 1.2em;
       padding: 0 0.5em;
       margin: 0.5em 0 0 0;
       border-radius: $radius-switch;
-      border: $bd-switch solid $color-grey-trans;
-
-      &.red {
-        background-color: #FFA4A445;
-        border-color: #FFA4A4;
-      }
+      // border: $bd-switch solid $color-grey-trans;
     }
   }
 }
