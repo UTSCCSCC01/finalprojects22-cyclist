@@ -16,7 +16,7 @@ $shadow-top-bar: $shadow-huge;
     padding: $pd-top-bar;
     display: flex;
     align-items: center;
-    padding-right: 2%;
+    padding: 0.2em 0.5em;
     backdrop-filter: blur(18px);
   }
 
@@ -38,18 +38,20 @@ $shadow-top-bar: $shadow-huge;
 }
 
 .btn {
-  border-radius: $radius-btn;
-  background-color: $color-grey-trans;
+  // border-radius: $radius-btn;
+  // background-color: $color-grey-trans;
   padding: 0.5em;
   line-height: 1em;
-  position:relative;
-  bottom:10px;
+  // position: relative;
+  // bottom:10px;
 }
 
 .title{
-  position:relative;
-  bottom:100px;
-  top:0;
-  right:0;
-  left:5px;
+  padding: 0 0.5em;
+  margin: 0 0.2em;
+  // position:relative;
+  // bottom:100px;
+  // top:0;
+  // right:0;
+  // left:5px;
 }
