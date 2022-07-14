@@ -59,7 +59,6 @@ experience.
 - CYC-129: debug sprint 2
   - CYC-135: side bar: indicate which page the user is on
   - CYC-140: future log: add task has too many fields.
-  - CYC-143: add a button to toggle dark mode
   - CYC-144: display appropriate error messages for failed login and register
   - CYC-145: (fixed) Tags are always displayed as the default tag color (red
     box)
