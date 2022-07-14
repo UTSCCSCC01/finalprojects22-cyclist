@@ -20,6 +20,7 @@ export class GlobalsService {
   /* Navigation  */
   /***************/
   public curLog = "daily";
+  public em: string ="";
   public refresh() {
     this.getDashboardTasks();
     this.getNDailyTasks();
@@ -101,12 +102,14 @@ export class GlobalsService {
   }
 
 
-  getEm() {
+  public setErr(em: any) {
+    this.em = em;
+  }
+
+  public getErr() {
     return this.em;
   }
-  setEm(value: any) {
-    this.em = value;
-  }
+
 
   public isAuthenticated() {
     // check if the user is Authenticated (signed in)
@@ -148,8 +151,10 @@ export class GlobalsService {
       if(err){
         if(backenderr){
           console.log("Something wrong with server, please contact to admin");
+          this.setErr("Something wrong with server, please contact to admin");
         }else{
           console.log("** " + data.errors[0].message + " **");
+          this.setErr("** " + data.errors[0].message + " **");
         }
       }else{ 
         // all g!        
@@ -203,12 +208,10 @@ export class GlobalsService {
       if(err){
         if(backenderr){
           console.log("Something wrong with server, please contact to admin");
-          this.setEm("Something wrong with server, please contact to admin");
-          // this.em = "Something wrong with server, please contact to admin";
+          this.setErr("Something wrong with server, please contact to admin");
         }else{
           console.log("** " + data.errors[0].message + " **");
-          this.setEm("** " + data.errors[0].message + " **");
-          // this.em = "** " + data.errors[0].message + " **";
+          this.setErr("** " + data.errors[0].message + " **");
         }
       }else{ 
         // all g!        

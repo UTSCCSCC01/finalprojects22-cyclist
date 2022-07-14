@@ -1,7 +1,7 @@
 <div class="signin-overlay" [ngClass]="{'hidden': globals.loggedIn}">
   <div class="signin">
     <!-- <div class="circle"></div> -->
-    <form class="complete-log-in" (ngSubmit)="submit()" [formGroup]="form">
+    <form class="complete-log-in" (ngSubmit)="submit()" [formGroup]="form" novalidate>
       <input
         [ngClass]="{'hidden': !registering}"
         type="text"
@@ -9,18 +9,27 @@
         formControlName="name"
         required
       />
+      <div class = “missing-error” *ngIf="!form.controls['name'].valid && (form.controls['name'].dirty || form.controls['name'].touched)">
+        <div *ngIf="form.controls['name'].errors"> Please enter name</div>
+      </div>
       <input
         type="text"
         placeholder="Email"
         formControlName="email"
         required
       />
+      <div class = “missing-error” *ngIf="!form.controls['email'].valid && (form.controls['email'].dirty || form.controls['email'].touched)">
+        <div *ngIf="form.controls['email'].errors"> Please enter email</div>
+      </div>
       <input
         type="password"
         placeholder="Password"
         formControlName="password"
         required
       />
+      <div class = “missing-error” *ngIf="!form.controls['password'].valid && (form.controls['password'].dirty || form.controls['password'].touched)">
+        <div *ngIf="form.controls['password'].errors"> Please enter password</div>
+      </div>
       <input
         [ngClass]="{'hidden': !registering}"
         type="password"
@@ -28,6 +37,12 @@
         formControlName="confirmPassword"
         required
       />
+      <div class = “missing-error” *ngIf="!form.controls['confirmPassword'].valid && (form.controls['confirmPassword'].dirty || form.controls['confirmPassword'].touched)">
+        <div *ngIf="form.controls['confirmPassword'].errors"> Please confirm password</div>
+      </div>
+      <div *ngIf="this.form.value.password !== this.form.value.confirmPassword">
+        <p>Passwords don't match</p>
+      </div>
       <input [ngClass]="{'hidden': registering}" class="btn" type="submit" value="Login"/>
       <input [ngClass]="{'hidden': !registering}" class="btn" type="submit" value="Register"/>
     </form>
@@ -38,11 +53,9 @@
       <p class = "words" [ngClass]="{'hidden': !registering}">
         Already have an account? <a class ="register" (click)="registering = false">LOGIN</a>
       </p>
-    </div>  
-
-
-    <div *ngIf="this.globals.getEm()">
-      <h2>Welcome{{ this.globals.getEm() }}!</h2>
     </div>
+    <div *ngIf="this.globals.getErr()">
+      <p class="err">{{ this.globals.getErr() }}!</p>
+    </div>  
   </div>
 </div>

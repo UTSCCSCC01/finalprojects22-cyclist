@@ -16,6 +16,10 @@ $radius-switch: 1.2em;
   flex-direction: column;
   padding: 0.1em;
 
+  .active{
+    background-color: darkolivegreen;
+  }
+  
   & a {
     // font-family: $font-UI;
     text-align: center;
