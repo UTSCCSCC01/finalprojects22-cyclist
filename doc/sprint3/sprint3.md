@@ -19,10 +19,10 @@ experience.
 - CYC-30: modify task
   - CYC-153: add pencil button beside each task to edit
   - CYC-154: clicking a task brings up edit page
-  - CYC-108: create backend functions up update task
+  - CYC-108: create backend functions update task
   - CYC-171: backend - provide a function to delete task
   - CYC-162: frontend - the pencil button should be visible only when hovering
-    over on a task
+    over on a task 
 - CYC-33: signifiers / actions on the tasks
   - CYC-104: display symbol on the left of the task depending on the task’s type
   - CYC-110: backend- create a relative function to update different
@@ -34,7 +34,6 @@ experience.
   - CYC-130: daily log should display in grid layout
   - CYC-136: daily log should be able to scroll
   - CYC-131: monthly log add calendar on left hand side
-  - CYC-132: monthly log: drag and drop tasks into days
   - CYC-133: monthly log: display monthly tasks on the right hand side of the
     screen
   - CYC-138: future log: display all months of the year in grid layout
