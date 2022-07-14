@@ -29,6 +29,16 @@ export class TaskComponent {
   @Input()
   color: string = "";
 
+  // vvv Signifiers: completed, important, abandoned
+  @Input()
+  completed: Boolean = false;
+
+  @Input()
+  important: Boolean = false;
+
+  @Input()
+  abandoned: Boolean = false;
+
   constructor(public globals: GlobalsService) { 
     // this.tags = this.globals.getTags();
     // this.taskTag = GlobalsService.getTag(this.tagID);

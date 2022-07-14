@@ -34,10 +34,13 @@ $radius-task: calc($radius-todo + $pd-task / 1.3);
 }
 
 .signifier {
+  position: relative;
   box-sizing: border-box;
-  width: 18px;
+  width: 32px;
   height: 18px;
-  flex: none;
+
+  display: flex;
+  align-items: center;
   /* left: 618px; */
   /* top: 512.13px; */
   background: $color-lightgrey-trans;
@@ -51,4 +54,23 @@ $radius-task: calc($radius-todo + $pd-task / 1.3);
   &:active {
     box-shadow: inset $shadow-medium;
   }
+}
+
+.important {
+  position: absolute;
+  left: 2px;
+}
+
+.incomplete {
+  position: absolute;
+  left: 16px;
+}
+
+.completed {
+  position: absolute;
+  left: 14px;
+}
+
+.abandoned {
+  text-decoration: line-through;
 }

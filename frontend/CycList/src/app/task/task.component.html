@@ -1,7 +1,11 @@
 <div class="task">
     <div class="task-head">
-      <div class="signifier" [ngClass]="color"></div>
-      <div id="task-text" >{{ name }}</div>
+      <div class="signifier" [ngClass]="color">
+        <span class="important" *ngIf="important">★</span>
+        <span class="incomplete" *ngIf="!completed">●</span>
+        <span class="completed" *ngIf="completed">🞬</span>
+      </div>
+      <div id="task-text" [ngClass]="{abandoned: abandoned}">{{ name }}</div>
     </div>
     <div id="task-time"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
 </div>
