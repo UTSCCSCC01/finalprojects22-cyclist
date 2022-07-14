@@ -1,6 +1,8 @@
 <div class="top-bar">
   <!-- top-bar works!
   <span (click)="notify()">click me</span> -->
-  <a class="top-bar-elem" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">CycList</a>
+  <p class = "title"> CycList</p>
+  <a class="top-bar-elem" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">{{ this.globals.getUser().nickName }}</a>
   <div class="spacer"></div>
+  <div class="btn" (click)="globals.logout()">Logout</div>
 </div>

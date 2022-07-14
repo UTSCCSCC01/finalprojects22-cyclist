@@ -24,13 +24,14 @@ module.exports = {
                 achievement:[]
             });
             const result = await newUser.save();
-            // const token = jwt.sign({userId: result.id, email:result.email}, 'my token secret', {
-            //     expiresIn:'1h'
-            // });
+            const token = jwt.sign({userId: result.id, email:result.email}, 'my token secret', {
+                expiresIn:'1h'
+            });
             return {
                 userId: result.id,
                 email: result.email,
                 nickName: result.nickName,
+                token: token,
             }
         } catch (err) {
             throw err;
@@ -49,13 +50,14 @@ module.exports = {
         //     {email:args.email},
         //     {$set:{status:"login"}}
         // );
-        // const token = jwt.sign({userId: user.id, email:user.email}, 'my token secret', {
-        //     expiresIn:'1h'
-        // });
+        const token = jwt.sign({userId: user.id, email:user.email}, 'my token secret', {
+            expiresIn:'1h'
+        });
         return {
-            userId: result.id,
-            email: result.email,
-            nickName: result.nickName,
+            userId: user.id,
+            email: user.email,
+            nickName: user.nickName,
+            token: token,
         }
     },
     // logout: async (args,req) =>{

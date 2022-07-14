@@ -1,1 +1,23 @@
-<div>monthly-log works!</div>
+<div class="monthly-log-task-container">
+  <h1>{{ monthName }}</h1>
+  <hr class="monthly-log-underline" />
+
+  <div class="split-view">
+    <div class="left">
+      <h2>Calendar</h2>
+      {{days}}
+      {{weekDaysName}}
+    </div>
+    <div class="right">
+      <h2>Unscheduled Tasks</h2>
+      <div *ngFor="let task of globals.monthlyTasks">
+          <app-task
+            [name]="task.name"
+            [dueTime]="task.dueTime"
+            [dueDate]="task.dueDate"
+            [color]="task.color"
+          ></app-task>
+      </div>
+    </div>
+  </div>
+</div>

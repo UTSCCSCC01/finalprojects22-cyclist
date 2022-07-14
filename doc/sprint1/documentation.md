@@ -1,6 +1,7 @@
 - [Installation](#installation)
 - [Set up](#set-up)
   - [Frontend](#frontend)
+    - [Frontend Structure](#frontend-structure)
   - [Backend](#backend)
   - [Database](#database)
 - [Backend Documentation](#backend-documentation)
@@ -72,7 +73,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - content: String
   - name: String
   - date: String
-  - startTime: String
+  - dueTime: String
 - Expected Response:
   - 200 OK
     - create successfully

@@ -19,6 +19,10 @@ Jun 20, 2022. Discord
 - More meeting for frontend.
   - Keep everyone updated.
 
+### What are (if any) harmful practices that you should stop using during next sprint
+
+- Finish a lot of things in the final stage
+
 ### What was your best/worst experience during sprint 1
 
 - Best:

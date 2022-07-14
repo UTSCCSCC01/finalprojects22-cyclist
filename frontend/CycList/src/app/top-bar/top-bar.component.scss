@@ -1,9 +1,8 @@
 @import "../../styles.scss";
 
-$bg-top-bar: $color-dark;
+$bg-top-bar: transparentize(darken($color-dark,2), 0.2);
 $fg-top-bar: $color-light;
 $shadow-top-bar: $shadow-huge;
-$height-top-bar: 3em;
 
 
 .top-bar {
@@ -16,12 +15,17 @@ $height-top-bar: 3em;
     color: $fg-top-bar;
     padding: $pd-top-bar;
     display: flex;
+    align-items: center;
     padding-right: 2%;
-}
+    backdrop-filter: blur(18px);
+  }
 
 .top-bar-elem {
     margin-left: 2%;
     text-decoration: none; 
+    position: absolute;
+    top: 20px;
+    right: 45px;
 }
 
 .top-bar-elem:visited { 
@@ -31,4 +35,21 @@ $height-top-bar: 3em;
 
 .spacer {
     flex: 1;
+}
+
+.btn {
+  border-radius: $radius-btn;
+  background-color: $color-grey-trans;
+  padding: 0.5em;
+  line-height: 1em;
+  position:relative;
+  bottom:10px;
+}
+
+.title{
+  position:relative;
+  bottom:100px;
+  top:0;
+  right:0;
+  left:5px;
 }

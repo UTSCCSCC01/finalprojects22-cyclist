@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { GlobalsService } from './globals.service';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,9 @@ import { FormGroup } from '@angular/forms';
 export class AppComponent {
   title = 'CycList';
 
+  constructor(public globals: GlobalsService) {}
+
+  ngOnInit(): void {
+    this.globals.setAppTime();
+  }
 }

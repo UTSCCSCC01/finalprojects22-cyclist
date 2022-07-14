@@ -1,16 +1,46 @@
 - [Installation](#installation)
 - [Set up](#set-up)
   - [Frontend](#frontend)
+    - [Frontend Structure](#frontend-structure)
   - [Backend](#backend)
   - [Database](#database)
+- [Frontend GlobalsService Documentation](#frontend-globalsservice-documentation)
+  - [Fields](#fields)
+    - [public loggedIn: boolean](#public-loggedin-boolean)
+    - [public tasks](#public-tasks)
+    - [public nDays: number](#public-ndays-number)
+    - [public nDates: Date\[\]](#public-ndates-date)
+    - [public dashboardTasks: any\[\]](#public-dashboardtasks-any)
+    - [public dailyTasks: any\[\]](#public-dailytasks-any)
+    - [public monthlyTasks: any\[\]](#public-monthlytasks-any)
+    - [public futureTasks: any\[\]](#public-futuretasks-any)
+  - [public loadUser()](#public-loaduser)
+  - [public isAuthenticated()](#public-isauthenticated)
+  - [public logout()](#public-logout)
+  - [public async register(form: FormGroup)](#public-async-registerform-formgroup)
+  - [public async login(form: FormGroup)](#public-async-loginform-formgroup)
+  - [public async getDashboardTasks()](#public-async-getdashboardtasks)
+  - [public async getAllTasks(type: string)](#public-async-getalltaskstype-string)
+  - [public async getNDailyTasks()](#public-async-getndailytasks)
+  - [public async getDailyTasks(day: number, month: number, year: number)](#public-async-getdailytasksday-number-month-number-year-number)
+  - [public async getFutureLogTasks()](#public-async-getfuturelogtasks)
+  - [public async getFutureTasks(year: number)](#public-async-getfuturetasksyear-number)
+  - [public async createTask(form: FormGroup)](#public-async-createtaskform-formgroup)
 - [Backend Documentation](#backend-documentation)
   - [createTask](#createtask)
   - [getDailyTask](#getdailytask)
+  - [getMonthTask](#getmonthtask)
+  - [getFutureTask](#getfuturetask)
   - [getSingleTask](#getsingletask)
   - [getAllTask](#getalltask)
+  - [getAllTag](#getalltag)
+  - [getTag](#gettag)
+  - [createUser](#createuser)
+  - [emailLogin](#emaillogin)
 - [Database Structure](#database-structure)
   - [Task](#task)
   - [User](#user)
+  - [Tag](#tag)
 
 
 
@@ -37,14 +67,15 @@
 2. Run `npm start` under this folder to run Angular app. Now the app will be running at `http://localhost:4200/`.
 
 ### Frontend Structure
-- Each frontend component is separated into Angular components: 
+- Each frontend component is separated into Angular components:
   - Main app layout: `app`
+  - Log in: `log-in` 
   - Add tasks: `add-task`
   - Task views: `dashboard`, `daily-log`, `monthly-log`, `future-log`
   - Navigation: `top-bar`, `side-bar`
   - Task format: `task`
 - Main styles and SASS variables are in `styles.scss` and can be imported and used by components.
-- Global variables and methods are in `globals` service and can be imported and used by components.
+- Global variables and methods are in `globals` service and can be imported and used by components (details [below](#frontend-documentation)).
 
 ## Backend
 1. Enter the backend directory `cd backend`.
@@ -53,6 +84,142 @@
 
 ## Database
 - Since we are using a cloud service, there is no need to install MongoDB.
+
+
+# Frontend GlobalsService Documentation
+The class GlobalsService is a singleton class that provides each Angular component with helper functions. The following are fields of GlobalsService.
+
+## Fields
+
+### public loggedIn: boolean 
+
+True if a user is logged in.
+
+### public tasks
+
+An array of task JSON objects, with attributes: content, name, day, month, year, dueTime. `tasks` is used as a temporary variable to house the results of functions in class `GlobalsService`.
+
+Getter function: public getTasks()
+Setter function: public setTasks(tasks: any)
+Initialize function: public resetTasks() to default task with not meaningful attributes.
+
+### public nDays: number
+
+The number of days to display on daily log.
+
+### public nDates: Date[]
+
+Array of dates with length `nDays`, containing dates of the next `nDays` days, including today.
+
+setter setNDates(): initializes
+
+### public dashboardTasks: any[]
+
+Array of tasks containing the tasks to be displayed on the dashboard.
+
+### public dailyTasks: any[]
+
+Array of tasks containing the tasks to be displayed on the daily log page.
+
+### public monthlyTasks: any[]
+
+Array of tasks containing the tasks to be displayed on the monthly log page.
+
+### public futureTasks: any[]
+
+Array of tasks containing the tasks to be displayed on the future log page.
+
+## public loadUser()
+
+- Description: Load user information from cookie at login, into `user`
+- Body Parameters: None
+- Expected Response: None
+
+## public isAuthenticated()
+
+- Description: check if the user is Authenticated (signed in)
+- Body Parameters: None
+- Expected Response: 
+  - True if user is authenticated
+  - False otherwise
+
+## public logout()
+
+- Description: log the user out and remove all information about the user 
+- Body Parameters: None
+- Expected Response: None
+
+## public async register(form: FormGroup)
+
+- Description: Register the user to the database from their input in the registration form.
+- Body Parameters: 
+  - form: FormGroup - the form the user fills to register
+- Expected Response:
+  - the result from server
+
+## public async login(form: FormGroup)
+
+- Description: verify user login attempt and add user info to appropriate fields.
+- Body Parameters:
+  - form: FormGroup - user's input to the login
+- Expected Response:
+  - if login attempt is successful, user information is added to appropriate fields and user is welcomed to use the application.
+  - if not, user is not added and not be granted access to application.
+
+## public async getDashboardTasks()
+
+- Description: store all the user's tasks into field `dashboardTasks` as an array of tasks, for dashboard component to use and display.
+- Body Parameters: None
+- Expected Response:
+  - field `dashboardTasks` houses all the user's tasks, empty array if user has no tasks.
+
+## public async getAllTasks(type: string)
+
+- Description: query all user's tasks to field `tasks` as an array of tasks.
+- Body Parameters: 
+  - type: string - the type of tasks to query
+- Expected Response:
+  - field `tasks` houses all the user's tasks, empty array if user has no tasks.
+
+## public async getNDailyTasks()
+
+- Description: store all the user's tasks for the next `nDays` days into field `dailyTasks` as a 2D array of tasks, for daily-log component to use and display.
+- Body Parameters: None
+- Expected Response:
+  - field `dailyTasks` houses all the user's tasks for the next `nDays` days, empty array if user has no tasks.
+
+## public async getDailyTasks(day: number, month: number, year: number)
+
+- Description: query all user's tasks to field `tasks` that fall under the specified date, as an array of tasks.
+- Body Parameters:
+  - day: number - the day of the specified date
+  - month: number - teh month of the specified date
+  - year: number - the 4 digit year of the specified date
+- Expected Response:
+  - field `tasks` houses all the user's tasks for the specified date, empty array if user has no tasks.
+
+## public async getFutureLogTasks()
+
+- Description: store all the user's tasks with hierarchy "future" into field `futureTasks` as a 2D array of tasks, for future-log component to use and display.
+- Body Parameters: None
+- Expected Response:
+  - field `futureTasks` houses all the user's tasks with hierarchy "future", empty array if user has no tasks.
+
+## public async getFutureTasks(year: number)
+
+- Description: query all user's tasks to field `tasks` with hierarchy "future" within the specified year, as an array of tasks.
+- Body Parameters: 
+  - year: number - the 4 digit year of the targeted year
+- Expected Response:
+  - field `tasks` houses all the user's tasks with hierarchy "future", empty array if user has no tasks.
+
+## public async createTask(form: FormGroup)
+
+- Description: create tasks for the user, and update tasks on dashboard, daily-log, and future-log.
+- Body Parameters: 
+  - form: FormGroup - the task input form the user filled to input task
+- Expected Response:
+  - the result of creating task from the server.
 
 
 # Backend Documentation
@@ -72,7 +239,10 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - content: String
   - name: String
   - date: String
-  - startTime: String
+  - dueTime: String
+  - repeat: Boolean
+  - dayWeekMonth: String
+  - frequency: String
 - Expected Response:
   - 200 OK
     - create successfully
@@ -83,10 +253,37 @@ Since we are using graphQL as our api, it behaves little different from REST:
 
 ## getDailyTask
 
-- Description: user can get their tasks for the given date, tasks include this day’s daily task, unfinished daily tasks from the day before this day, and repeated tasks on this day.
+- Description: user can get their tasks for the given date, tasks include this day’s daily task and repeated tasks on this day.
 - Body Parameters:
   - day: Int
   - month: Int
+  - year: Int
+- Expected Response:
+  - 200 OK
+    - get all required tasks
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+## getMonthTask
+
+- Description: user can get their monthly tasks for the given month.
+- Body Parameters:
+  - month: Int
+  - year: Int
+- Expected Response:
+  - 200 OK
+    - get all required tasks
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+## getFutureTask
+
+- Description: user can get their future tasks for the given year.
+- Body Parameters:
   - year: Int
 - Expected Response:
   - 200 OK
@@ -122,6 +319,57 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - 500 Input error
     - Invalid argument type.
 
+## getAllTag
+- Description:return all tags the user has currently.
+- Body Parameters:
+  - id: String //This doesn’t matter since we will use token in the next sprint, for now it can be any string
+- Expected Response:
+  - 200 OK
+    - get all tags
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+## getTag
+- Description:return the tag details for the given tagId.
+- Body Parameters:
+  - tagId: the tag id
+- Expected Response:
+  - 200 OK
+    - return the details
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+## createUser
+- Description: to create a user in database and return its token.
+- Body Parameters:
+  - email: String
+  - nickName: String
+  - password: String
+- Expected Response:
+  - 200 OK
+    - create a new user and return token
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+## emailLogin
+- Description:  to allow user log in their account and return a token. 
+- Body Parameters:
+  - email: String
+  - password: String
+- Expected Response:
+  - 200 OK
+    - return the token
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
 # Database Structure
 
 ## Task
@@ -143,3 +391,11 @@ Since we are using graphQL as our api, it behaves little different from REST:
 - email: String
 - password: String
 
+
+## Tag
+- creator: ID
+- name: String
+- color: Int
+- icon: Int
+- totalExpectedTime: Int
+- totalActualTime: Ine
