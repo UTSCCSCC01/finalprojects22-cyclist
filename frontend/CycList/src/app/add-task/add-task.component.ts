@@ -17,7 +17,8 @@ export class AddTaskComponent implements OnInit {
   Th = false;
   Fr = false;
   Sa = false;  
-  
+  schedule = false;
+
   constructor(
     private fb: FormBuilder,
     public globals: GlobalsService
@@ -40,6 +41,7 @@ export class AddTaskComponent implements OnInit {
     this.form.patchValue({
       frequency: "",
       isRepeat: false,  
+      tagID: "",
     });
   }
 
@@ -65,15 +67,26 @@ export class AddTaskComponent implements OnInit {
     } else if (this.form.value.dayWeekMonth === 'day') {
       this.form.value.frequency = this.form.value.frequency.toString();
     }
+  }
 
-    // console.log(this.form.value.frequency);
+  setDueTime() {
+    if (this.schedule) {
+      this.form.patchValue({
+        dueDate: this.form.value.tempDueDate
+      });
+    } else {
+      this.form.patchValue({
+        dueDate: this.form.value.tempDueMonth,
+        dueTime: [null]
+      });
+    }
   }
 
   repeatCheck(event: any) {
     this.repeat = event.target.checked;
     this.form.patchValue({
       frequency: "",
-      dayWeekMonth: [null],  
+      dayWeekMonth: [null],
     });
     // console.log(this.form.value);
   }
@@ -84,7 +97,9 @@ export class AddTaskComponent implements OnInit {
     description: [null],
     signifier: [null],          // maybe just call it type????????
     content: [null],
-    dueDate: [null],            // please merge     day: Int month: Int year: Int
+    tempDueMonth: [null],      // temps for me to get info
+    tempDueDate: [null],
+    dueDate: [null],
     dueTime: [null],
     startDate: [null],
     startTime: [null],
@@ -96,7 +111,7 @@ export class AddTaskComponent implements OnInit {
     dayWeekMonth: [null],   // add year?
     // repeatStartDay: [null],     // only in backend
 
-    tagID: [null],                // maybe just call tag, group, was this what was meant????????
+    tagID: "",                // maybe just call tag, group, was this what was meant????????
     priority: [null],         // maybe like options: ! !! or !!!    
     mood: [null],
     location: [null],
@@ -110,15 +125,16 @@ export class AddTaskComponent implements OnInit {
 
   async submitForm() {
     this.setRepeatFrequency();
+    this.setDueTime();
     if (!this.form.value.name ||
-        !this.form.value.dueDate || 
-        !this.form.value.dueTime || 
+        this.schedule && !this.form.value.tempDueDate || 
+        !this.schedule && !this.form.value.tempDueMonth || 
         this.repeat && (!this.form.value.dayWeekMonth || this.form.value.frequency.length === 0)) {
       return;
     };
 
     this.formActive = false;
-    // console.log(this.form);
+    console.log(this.form);
     // send data to back end
     await this.globals.createTask(this.form.value);
     this.formReset();

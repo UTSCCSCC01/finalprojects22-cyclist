@@ -5,3 +5,47 @@
   border-style: solid;
   border-color: $color-grey-trans;
 }
+
+.col {
+  padding: 0 0.2em;
+  overflow: auto;
+}
+
+.tasks {
+  // overflow: auto;
+  // height: max-content;
+}
+
+.future-log-task-container {
+  height: 94%;
+}
+
+.future-log-calendar-container {
+  height: 98%;
+  padding-bottom: 2em;
+  margin-top: 2%;
+}
+
+.future-log-calendar-title-container {
+  top: 0;
+  position: sticky;
+  background-color: var(--bg);
+}
+
+.future-log-calendar-title {
+  margin-top: 0%;
+}
+
+header, .row {
+  display: flex;  /* aligns all child elements (flex items) in a row */
+  height: 33%;
+}
+
+// .future-log-month-underline {
+//   width: 95%;
+//   margin-left: 0;
+// }
+
+.col {
+  flex: 1;        /* distributes space on the line equally among items */
+}

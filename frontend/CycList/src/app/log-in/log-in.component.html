@@ -1,6 +1,6 @@
 <div class="signin-overlay" [ngClass]="{'hidden': globals.loggedIn}">
   <div class="signin">
-    <div class="circle"></div>
+    <!-- <div class="circle"></div> -->
     <form class="complete-log-in" (ngSubmit)="submit()" [formGroup]="form" novalidate>
       <input
         [ngClass]="{'hidden': !registering}"
@@ -56,6 +56,6 @@
     </div>
     <div *ngIf="this.globals.getErr()">
       <p class="err">{{ this.globals.getErr() }}!</p>
-    </div>
+    </div>  
   </div>
 </div>

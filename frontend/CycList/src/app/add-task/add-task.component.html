@@ -1,4 +1,4 @@
-<button class="add-task btn add" [class.active]="!formActive" (click)="addTaskForm()"></button>
+<button class="add-task btn circ add" [class.active]="!formActive" (click)="addTaskForm()"><div>+</div></button>
 
 <div class="overlay" [class.hidden]="!formActive" (click)="overlay()"></div>
 
@@ -14,15 +14,23 @@
       <input type="text" id="task" placeholder="New Task" required formControlName="name"/>
     </div>
     <div>
-      Due: 
-      <input type="date" required formControlName="dueDate"/>
-      <input type="time" required formControlName="dueTime"/>
+      Schedule: 
+      <input (change)="schedule = !schedule" type="checkbox"/>  
+       Due: 
+      <div *ngIf="schedule">
+        <input type="date" min="{{globals.minYear}}" max="{{globals.maxYear}}" required formControlName="tempDueDate"/>
+        <input type="time" formControlName="dueTime"/>
+      </div>
+      <div *ngIf="!schedule">
+        <input type="month" min="{{globals.minMonth}}" max="{{globals.maxMonth}}" required formControlName="tempDueMonth"/>
+      </div>  
     </div>
+
     <!-- <div>
       Start: 
       TODO: put an "add start" because its optional
-      <input type="date" id="startDate" formControlName="startDate"/>  
-      <input type="time" formControlName="startTime"/>
+      <input type="date" id="startDate" formControlName="startDate"/>
+      <input type="time" formControlName="dueTime"/>
     </div> -->
     <!-- <div>
       TODO: add as many reminders as they would like
@@ -40,13 +48,13 @@
           th
         </span>
         <span *ngIf="form.value.dayWeekMonth === 'week'">
-          <div class="btn circ" [ngClass]="{'toggled': Su}" (click)="Su = !Su">S</div>
-          <div class="btn circ" [ngClass]="{'toggled': Mo}" (click)="Mo = !Mo">M</div>
-          <div class="btn circ" [ngClass]="{'toggled': Tu}" (click)="Tu = !Tu">T</div>
-          <div class="btn circ" [ngClass]="{'toggled': We}" (click)="We = !We">W</div>
-          <div class="btn circ" [ngClass]="{'toggled': Th}" (click)="Th = !Th">T</div>
-          <div class="btn circ" [ngClass]="{'toggled': Fr}" (click)="Fr = !Fr">F</div>
-          <div class="btn circ" [ngClass]="{'toggled': Sa}" (click)="Sa = !Sa">S</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Su}" (click)="Su = !Su">S</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Mo}" (click)="Mo = !Mo">M</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Tu}" (click)="Tu = !Tu">T</div>
+          <div class="btn circ day" [ngClass]="{'toggled': We}" (click)="We = !We">W</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Th}" (click)="Th = !Th">T</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Fr}" (click)="Fr = !Fr">F</div>
+          <div class="btn circ day" [ngClass]="{'toggled': Sa}" (click)="Sa = !Sa">S</div>
         </span>
         <select required formControlName="dayWeekMonth">
           <option>day</option>
@@ -102,14 +110,16 @@
     </label> -->
 
     <span>
-      Tag: 
+      Tag:
       <select formControlName="tagID">
-        <option value="62bb3b92e1345c823df5add5">School</option>
-        <option value="62bb3bb902135e0b572fa33b">Work</option>
+        <option value=""></option>
+        <option *ngFor="let tag of globals.tags" [ngValue]="tag._id">
+          {{ tag.name }}
+        </option>
       </select>
     </span>
 
     <textarea type="text" id="description" placeholder="Description" formControlName="description"></textarea>
   </form>
-  <button type="submit" class="add-task btn submit" (click)="submitForm()"></button>
+  <button type="submit" class="add-task btn circ submit" (click)="submitForm()"><div>✓</div></button>
 </div>

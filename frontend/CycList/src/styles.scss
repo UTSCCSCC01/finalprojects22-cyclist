@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Source+Code+Pro&display=swap');
+@import url('https://rsms.me/inter/inter.css');
 
 /*****************/
 /* All Variables */
@@ -40,7 +42,7 @@ $fg-alt: var(--fg-alt);
 $font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-mono: 'Source Code Pro', monospace;
 $font-UI-mono: 'Source Code Pro';
-$font-UI: 'IBM Plex Sans', sans-serif;
+$font-UI: 'Inter', 'IBM Plex Sans', sans-serif;
 
 // colours
 
@@ -51,10 +53,29 @@ $color-lightgrey: #bcbeca;
 $color-grey-trans: #6a6d8027;
 $color-lightgrey-trans: #9a9cac09;
 $color-mediumgrey-trans: rgba(125, 125, 125, 0.069);
-$color-light: #f1f3f6;
 $color-white: white;
-$color-blue: rgb(18, 95, 202);
-$color-green: rgb(18, 202, 165);
+$color-light: #f1f3f6;
+$color-ui-blue: rgb(18, 95, 202);
+$color-ui-medblue: rgb(110, 161, 233);
+$color-ui-lightblue: rgb(168, 197, 237);
+$color-ui-green: rgb(18, 202, 165);
+
+$color-red: #ff979782;
+$color-red-trans: transparentize($color-red, 0.18);
+$color-orange: #fbbb7f82;
+$color-orange-trans: transparentize($color-orange, 0.18);
+$color-yellow: #d8db3e82;
+$color-yellow-trans: transparentize($color-yellow, 0.18);
+$color-green: #7af7a482;
+$color-green-trans: transparentize($color-green, 0.18);
+$color-blue: #53b7ff82;
+$color-blue-trans: transparentize($color-blue, 0.18);
+$color-purple: #bb91ff82;
+$color-purple-trans: transparentize($color-purple, 0.18);
+$color-pink: #ff91ff82;
+$color-pink-trans: transparentize($color-pink, 0.18);
+$color-brown: #c5ab9582;
+$color-brown-trans: transparentize($color-brown, 0.18);
 
 // shadows
 $shadow-huge: 0px 12px 25px rgba(0,0,0,0.21);
@@ -80,6 +101,68 @@ $pd-view: 1.5em;
 $pd-side-bar: 1em;
 
 // -------------------------------
+
+::-webkit-scrollbar {
+  background-color: rgba(131, 131, 131, 0.043);
+  border-radius: 0.2em;
+  width: 0.4em;
+  height: 0.4em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(131, 131, 131, 0.154);
+  border: 0.1em solid transparent;
+  border-radius: 0.2em;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(131, 131, 131, 0.199);
+}
+
+// colors
+.signifier, .tag {
+  &.red {
+    border-color: $color-red;
+    background: $color-red-trans;
+  }
+  
+  &.orange {
+    border-color: $color-orange;
+    background: $color-orange-trans;
+  }
+  
+  &.yellow {
+    border-color: $color-yellow;
+    background: $color-yellow-trans;
+  }
+  
+  &.green {
+    border-color: $color-green;
+    background: $color-green-trans;
+  }
+  
+  &.blue {
+    border-color: $color-blue;
+    background: $color-blue-trans;
+  }
+  
+  &.purple {
+    border-color: $color-purple;
+    background: $color-purple-trans;
+  }
+  
+  &.pink {
+    border-color: $color-pink;
+    background: $color-pink-trans;
+  }
+
+  &.brown {
+    border-color: $color-brown;
+    background: $color-brown-trans;
+  }  
+}
+
 
 // main CSS
 html, body {
@@ -112,15 +195,18 @@ html, body {
   &.circ {
     background-color: $color-lightgrey-trans;
     border-radius: 100%;
-    padding: 0.2em;
-    margin: 0.2em;
-    width: 1.4em;
-    height: 1.4em;
-    display: inline-block;
-    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    // padding: 0.2em;
+    // margin: 0.2em;
+    // width: 1.4em;
+    // height: 1.4em;
+    // display: inline-block;
+    // text-align: center;
 
     &.toggled {
-      background-color: $color-blue;
+      background-color: $color-ui-blue;
       color: $bg;
     }
   }
@@ -134,6 +220,7 @@ select {
   border-radius: 0.5em;
   padding: 0.3em 0.5em;
   /* color: white; */
+  border: 2px solid transparent;
   margin: 0.2em;
   /* width: 100; */
   background-color: $color-mediumgrey-trans;
@@ -144,9 +231,19 @@ select {
     color: $color-grey;
   }
 
-  &:focus {
-    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
+  &:focus:not(.btn) {
     outline: none;
+    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
+    border: 2px solid $color-ui-medblue;
+  }
+
+  &:hover.btn {
+    background-color: $color-ui-lightblue;
+  }
+
+  &:active.btn {
+    background-color: $color-ui-medblue;
+    color: $color-light;
   }
 
   &#task {
@@ -171,6 +268,9 @@ textarea {
   box-shadow: $shadow-menu;
 }
 
+.submit {
+  font-family: $font-UI;
+}
 // main view
 .main-view {
   display: flex;
@@ -178,7 +278,9 @@ textarea {
   color: $fg;
   padding: $pd-main-view;
   position: absolute;
-  top: $height-top-bar + 2 * $pd-top-bar;
+  top: 0;
+  padding-top: $height-top-bar + 2 * $pd-top-bar + $pd-main-view;
+  // top: $height-top-bar + 2 * $pd-top-bar;
   bottom: 0;
   right: 0;
   left: 0;
@@ -225,6 +327,26 @@ app-dashboard, app-daily-log, app-monthly-log, app-future-log {
 
 .hidden {
   display: none!important;
+}
+
+// future and monthly log task display
+.future-log-task-container, .monthly-log-task-container {
+
+  & .task {
+    padding: 0.2em 0.4em!important;
+  }
+  & .task-head {
+    font-size: 0.8em;
+  }
+
+  & .signifier {
+    width: 10px!important;
+    height: 10px!important;
+    border-radius: 100%!important;
+  }
+  & #task-time {
+    display: none;
+  } 
 }
 
 // -------------------------------
