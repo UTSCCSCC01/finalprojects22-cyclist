@@ -9,28 +9,37 @@ import { GlobalsService } from '../globals.service';
 export class TaskComponent {
 
   @Input() 
+  _id: string = "";
+
+  @Input() 
   name: string = "";
+
+  @Input() 
+  content: string = "";
+
+  @Input() 
+  schedule: string = "";
 
   @Input() 
   dueTime: string = "";
 
   @Input() 
-  dueDate: string = "";
+  isRepeat: string = "";
 
   @Input() 
-  year: string = "";
-
-  @Input() 
-  month: string = "";
-
-  @Input() 
-  day: string = "";
+  tag: string = "";
 
   @Input()
   color: string = "";
 
   @Input()
-  isRepeat: string = "";
+  dayWeekMonth: string = "";
+
+  @Input() 
+  dueDate: string = "";
+
+  @Input() 
+  frequency: string = "";
 
   constructor(public globals: GlobalsService) { 
     // this.tags = this.globals.getTags();
@@ -60,13 +69,37 @@ export class TaskComponent {
   }
 
   addTaskForm() {
+    this.globals.form.patchValue({_id: this._id});
     this.globals.form.patchValue({name: this.name});
+    this.globals.form.patchValue({content: this.content});
+    this.globals.form.patchValue({schedule: this.schedule});
     this.globals.form.patchValue({dueTime: this.dueTime});
-    this.globals.form.patchValue({year: this.year});
-    this.globals.form.patchValue({month: this.month});
-    this.globals.form.patchValue({day: this.day});
     this.globals.form.patchValue({isRepeat: this.isRepeat});
+    this.globals.form.patchValue({tagID: this.tag});
     this.globals.form.patchValue({color: this.color});
+    this.globals.form.patchValue({dayWeekMonth: this.dayWeekMonth});
+    
+    if(this.schedule){
+      this.globals.form.patchValue({tempDueDate: this.dueDate});
+    }else{
+      this.globals.form.patchValue({tempDueMonth: this.dueDate});
+    }
+    
+    //testing below
+    //this.globals.form.patchValue({isRepeat: true});
+    //this.frequency = "136";
+    //this.globals.form.patchValue({dayWeekMonth: 'week'});
+    //this.dayWeekMonth = 'week'
+
+    if(this.dayWeekMonth === 'day'){
+      this.globals.form.patchValue({frequency: parseInt(this.frequency)});
+    }else if(this.dayWeekMonth === 'week'){
+      for (let i = 0; i < this.frequency.length; i++) {
+        this.globals.taskFormWeek[parseInt((this.frequency)[i])-1] = true;
+        console.log(((this.frequency)[i]));
+      }
+    }
+
     this.globals.taskFormActive = true;
 
     // load directly:
