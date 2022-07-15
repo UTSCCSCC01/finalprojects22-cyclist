@@ -1,3 +1,4 @@
+const { async } = require("jshint/src/prod-params");
 const Task = require("../../database/task");
 const Tag = require("../../database/tag");
 const ObjectId = require('mongodb').ObjectId;
@@ -82,6 +83,70 @@ module.exports = {
             throw err;
         }
     },
+    modifyTask: async (args, req) => {
+        if(!req.isAuth){
+            throw new Error("User not authenticated");
+        }
+        try{
+            let dwm;
+            let fre;
+            let repeatStartDay;
+            let year;
+            let month;
+            let day = 0;
+            let tag;
+            let color;
+            let time;
+            let task = await Task.find({_id:ObjectId(args.id), creater: ObjectId(req.userId)});
+            if(task.length === 0){
+                throw new Error("wrong task id or task is not created by you");
+            }
+            if(args.tagID === ""){
+                tag = null;
+                color = "";
+            }else{
+                tag = args.tagID;
+                let tagInfo = await Tag.findById(args.tagID);
+                if(!tagInfo){
+                    throw new Error("No such tag");
+                }
+                if(tagInfo.creater.valueOf() !== req.userId){
+                    throw new Error("You are not tag creater");
+                }
+                color = tagInfo.color;
+            }
+            year = args.date.split("-")[0];
+            month = args.date.split("-")[1];
+            if(args.date.split("-").length === 3){
+                day = args.date.split("-")[2];
+            }
+            if(!args.repeat){
+                dwm = null;
+                fre = null;
+                repeatStartDay = null;
+            }else{
+                dwm = args.dayWeekMonth;
+                fre = args.frequency;
+                let date = month+"/"+day+"/"+year;
+                repeatStartDay = new Date(date).toISOString();
+            }
+            time = args.dueTime;
+            if(args.dueTime === "null"){
+                time = "";
+            }
+            await Task.updateOne(
+                {_id: args.taskId},
+                {$set:{name:args.name, day:day, month: month, year: year, 
+                    dueTime: time, dueDate: args.date,isRepeat: args.repeat,
+                    dayWeekMonth: dwm,frequency: fre,repeatStartDay: repeatStartDay,
+                    content: args.content, tag: tag, color: color,}}
+            );
+            task = await Task.findById(args.taskId);
+            return task;
+        } catch(err){
+            throw err;
+        }
+    },  
     rateDifficulty: async (args,req) =>{
         try{
             if(!req.isAuth){
@@ -268,9 +333,26 @@ module.exports = {
             if(!req.isAuth){
                 throw new Error("User not authenticated");
             }
-            // if(args.type == "all")
             let task = await Task.find({creater: ObjectId(req.userId)});
             return task;
+        } catch(err){
+            throw err;
+        }
+    },
+    deleteTask: async (args,req)=>{
+        try{
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            let task = await Task.findById(args.id);
+            if(!task){
+                throw new Error("task not found");
+            }
+            if(task.creater.valueOf() !== req.userId){
+                throw new Error("you are not creater");
+            }
+            await Task.deleteOne({_id: ObjectId(args.id)});
+            return "done";
         } catch(err){
             throw err;
         }

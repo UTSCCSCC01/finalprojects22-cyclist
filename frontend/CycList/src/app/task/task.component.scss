@@ -18,6 +18,15 @@ $radius-task: calc($radius-todo + $pd-task / 1.3);
   }
 }
 
+.right-aligned {
+  display: flex;
+  //padding: $pd-task;
+  transition: all ease-in-out 200ms;
+  //border-radius: $radius-task;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #task-text, #task-time {
   padding-right: 0.7em;
   padding-left: 0.7em;
@@ -43,8 +52,6 @@ $radius-task: calc($radius-todo + $pd-task / 1.3);
   align-items: center;
   /* left: 618px; */
   /* top: 512.13px; */
-  background: $color-lightgrey-trans;
-  border: 2px solid $color-grey-trans;
   border-radius: $radius-todo;
   transition: all 0.2s;
 
@@ -106,3 +113,14 @@ $radius-task: calc($radius-todo + $pd-task / 1.3);
 .abandoned {
   text-decoration: line-through;
 }
+.btn {
+  padding-left: 5px;
+  padding-right: 5px;
+  opacity: 0.0;
+  transition: all ease-in-out 200ms;
+}
+
+.task:hover .btn {
+  opacity: 1.0;
+}
+

@@ -7,7 +7,7 @@
   </div>
   <div class="side-section">
     <div class="tags">
-      Groups:<div class="btn circ add-tag" (click)="addTag()"><div>+</div></div>
+      Groups:<div class="btn flat circ add-tag" (click)="addTag()"><div>+</div></div>
       <div *ngIf="addTagMenu">
         <form class="popup" (ngSubmit)="submitForm()" [formGroup]="form">
           <input type="text" placeholder="New Tag" required formControlName="name"/>
@@ -22,12 +22,14 @@
               <option>pink</option>
               <option>brown</option>
             </select>
-            <div type="submit" class="btn circ add-tag" (click)="submitForm()"><div>✓</div></div>
+            <div type="submit" class="btn flat circ add-tag" (click)="submitForm()"><div>✓</div></div>
           </div>
         </form>
       </div>
-      <div *ngFor="let tag of globals.tags">
-        <div class="tag" [ngClass]="tag.color" (click)="selectTag(tag._id)">{{ tag.name }}</div>
+      <div *ngIf="globals.tags.length > 0">
+        <div *ngFor="let tag of globals.tags">
+          <div class="tag" [ngClass]="tag.color" (click)="selectTag(tag._id)">{{ tag.name }}</div>
+        </div>
       </div>
     </div>
   </div>

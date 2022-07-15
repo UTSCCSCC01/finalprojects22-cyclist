@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 // import { Time } from './time';
 
@@ -7,10 +7,57 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class GlobalsService {
-    
   constructor(
+    private fb: FormBuilder,
     private cookie: CookieService
-  ) {}
+    ) {
+  }
+
+
+
+
+
+  
+  /***************/
+  /* Add Task    */
+  /***************/
+  public taskFormActive: boolean = false;
+  form: FormGroup = this.fb.group({
+    _id: [null],
+    name: [null],
+    description: [null],
+    signifier: [null],          // maybe just call it type????????
+    content: [null],
+    tempDueMonth: [null],      // temps for me to get info, if scheduling or not
+    tempDueDate: [null],
+    dueDate: [null],            // please merge     day: Int month: Int year: Int
+    dueTime: [null],
+    startDate: [null],
+    startTime: [null],
+
+    expectedDuration: [null],  // pointless because we have start and due/end unless this is an AI value
+
+    isRepeat: false,         // maybe just repeat true of false
+    frequency: "",
+    dayWeekMonth: [null],   // add year?
+    // repeatStartDay: [null],     // only in backend
+
+    tagID: "",                // maybe just call tag, group, was this what was meant????????
+    priority: [null],         // maybe like options: ! !! or !!!    
+    mood: [null],
+    location: [null],
+    interests: [null],        // ?????????
+
+    reminders: [null],      // TODO: need to be able to have multiple so maybe an array of 
+    collaborations: [null]  // TODO: add friends that you will do that job with
+
+                            // Ideas: file (image), url
+  });
+
+
+  
+
+
 
 
 
@@ -20,6 +67,7 @@ export class GlobalsService {
   /* Navigation  */
   /***************/
   public curLog = "daily";
+  public colorMode = "auto";
   public refresh() {
     this.getDashboardTasks();
     this.getNDailyTasks();
@@ -27,6 +75,28 @@ export class GlobalsService {
     this.getMonthlyLogTasks();
     this.getAllTags();
   }
+
+
+
+
+
+
+
+
+
+  /*********************/
+  /* Error / Messages  */
+  /*********************/
+  public em: string = "";
+  public setErr(em: any) {
+    this.em = em;
+  }
+  public getErr() {
+    return this.em;
+  }
+
+
+
 
 
 
@@ -99,15 +169,6 @@ export class GlobalsService {
   public getUser() {
     return this.user;
   }
-
-
-  getEm() {
-    return this.em;
-  }
-  setEm(value: any) {
-    this.em = value;
-  }
-
   public isAuthenticated() {
     // check if the user is Authenticated (signed in)
     // return this.user.userId !== "";
@@ -148,8 +209,10 @@ export class GlobalsService {
       if(err){
         if(backenderr){
           console.log("Something wrong with server, please contact to admin");
+          this.setErr("Something wrong with server, please contact to admin");
         }else{
           console.log("** " + data.errors[0].message + " **");
+          this.setErr("** " + data.errors[0].message + " **");
         }
       }else{ 
         // all g!        
@@ -203,12 +266,10 @@ export class GlobalsService {
       if(err){
         if(backenderr){
           console.log("Something wrong with server, please contact to admin");
-          this.setEm("Something wrong with server, please contact to admin");
-          // this.em = "Something wrong with server, please contact to admin";
+          this.setErr("Something wrong with server, please contact to admin");
         }else{
           console.log("** " + data.errors[0].message + " **");
-          this.setEm("** " + data.errors[0].message + " **");
-          // this.em = "** " + data.errors[0].message + " **";
+          this.setErr("** " + data.errors[0].message + " **");
         }
       }else{ 
         // all g!        
@@ -219,7 +280,7 @@ export class GlobalsService {
     })
     .catch(err =>{
       // this.em = "" + err;
-      this.setEm("" + err);
+      this.setErr("" + err);
       console.log(err)
     });
 
@@ -263,23 +324,35 @@ export class GlobalsService {
   public dailyTasks: any[] = [];
   public monthlyTasks: any[] = [];
   public futureTasks: any[] = [];
-
-
-  public em: string = "";
-
   public query(command: string, args: string) {
     return `
     query {
       ${command}(${args}){
-        content
+        _id
+        creater
         name
         day
         month
         year
-        dueDate
+        hierarchy
         dueTime
+        dueDate
+        expectedDuration
+        actualDuration
+        start
+        isRepeat
+        dayWeekMonth
+        frequency
+        repeatStartDay
+        content
         tag
         color
+        important
+        identity
+        subTask
+        parentTask
+        mood
+        location
       }
     }
     `
@@ -318,7 +391,6 @@ export class GlobalsService {
     if (!this.isAuthenticated()) return;
     const body = {
       query: this.query(`getAllTask`, `type: "${type}"`)
-
     }
     let err = false;
     let backenderr = false;
@@ -548,10 +620,9 @@ export class GlobalsService {
 
     console.log(value);
 
-    // if user is not Authenticated (signed in), don't let them
-    if (!this.isAuthenticated()) return;
-    const body = {
-      query:`
+    let query = "";
+    if (!value._id) {
+      query = `
       mutation {
         createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.description}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
           content
@@ -563,6 +634,18 @@ export class GlobalsService {
         }
       }
       `
+    } else {
+      query = `
+      mutation {
+        MODIFY TASK
+      }
+      `
+    }
+
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query: query,
     }
     let err = false;
     let backenderr = false;

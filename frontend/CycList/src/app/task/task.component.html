@@ -25,5 +25,9 @@
 
       <div id="task-text" [ngClass]="{abandoned: abandoned}">{{ name }}</div>
     </div>
-    <div id="task-time"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
+    <div class="right-aligned">
+      <button class="btn edit" (click)="addTaskForm()">e</button>
+      <button class="btn del">x</button>
+      <div id="task-time"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
+    </div>
 </div>
