@@ -67,22 +67,21 @@ export class AddTaskComponent implements OnInit {
   }
 
   async submitForm() {
-    this.setRepeatFrequency();
-    this.setDueTime();
     console.log(this.globals.form.value);
     if (!this.globals.form.value.name ||
         this.globals.form.value.schedule && !this.globals.form.value.tempDueDate || 
         !this.globals.form.value.schedule && !this.globals.form.value.tempDueMonth ||
         this.globals.form.value.isRepeat && (
+          !this.globals.form.value.schedule ||
+          (this.globals.form.value.schedule && !this.globals.form.value.dueTime) ||
           !this.globals.form.value.dayWeekMonth || 
-          (this.globals.form.value.frequency.length === 0 && this.globals.form.value.dayWeekMonth !== 'month') ||
-          (this.globals.form.value.dayWeekMonth === 'month' && !this.globals.form.value.schedule) ||
-          !this.globals.form.value.schedule || 
-          (this.globals.form.value.schedule && !this.globals.form.value.dueTime)
+          (this.globals.form.value.dayWeekMonth === 'day' && this.globals.form.value.frequency === 0)
           )
         ) {
       return;
     };
+    this.setRepeatFrequency();
+    this.setDueTime();
 
     this.globals.taskFormActive = false;
     console.log(this.globals.form.value);
