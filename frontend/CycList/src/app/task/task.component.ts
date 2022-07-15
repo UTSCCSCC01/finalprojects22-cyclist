@@ -50,19 +50,16 @@ export class TaskComponent {
   toggleSigCompleted() {
     this.completed = !this.completed;
     this.globals.markSignifier(this.id, this.important, this.completed, this.abandoned);
-    // TODO: re-render tasks.
   }
 
   toggleSigImportant() {
     this.important = !this.important;
     this.globals.markSignifier(this.id, this.important, this.completed, this.abandoned);
-    // TODO: re-render tasks.
   }
   
   toggleSigAbandoned() {
     this.abandoned = !this.abandoned;
     this.globals.markSignifier(this.id, this.important, this.completed, this.abandoned);
-    // TODO: re-render tasks.
   }
 
   constructor(public globals: GlobalsService) { 

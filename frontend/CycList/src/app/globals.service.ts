@@ -879,7 +879,15 @@ export class GlobalsService {
   }
 
 
-
+  /**
+   * Update a specified task's signifiers to any desired value.
+   * @param id (string) The id of the task of which to mark the signifiers for.
+   * @param important (Boolean) true: the task should be marked as important
+   * @param completed (Boolean) true: the task should be marked as completed
+   * @param abandoned (Boolean) true: the task should be marked as abandoned
+   * @returns `0`: if the task's signifier is marked successfully.
+   *          `null`: if there was an error attempting to mark the task's signifiers.
+   */
   public async markSignifier(id: string, important: Boolean, completed: Boolean, abandoned: Boolean) {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
@@ -923,13 +931,17 @@ export class GlobalsService {
       if(err){
         if(backenderr){
           console.log("Something wrong with server, please contact to admin");
+          return;
         }else{
           console.log("** " + data.errors[0].message + " **");
+          return;
         }
       }else{
-        // all g!
-        // TODO: update logs
-        console.log("Success!");
+        // all good!
+        return 0;
+        /* TODO: update logs after marking signifiers.
+         * This doesn't seem necessary, as the frontend re-renders the signifiers
+         * immediately after the signifier is chosen.*/
       }
     })
     .catch(err =>{
