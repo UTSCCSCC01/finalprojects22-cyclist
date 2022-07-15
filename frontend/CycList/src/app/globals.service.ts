@@ -104,7 +104,13 @@ export class GlobalsService {
         let time = (new Date(task.dueDate+' '+task.dueTime)).getTime()-(new Date()).getTime();
         if (time > 0) {
           // console.log(task.dueDate+' '+task.dueTime);
-          setTimeout(function(){alert(task.name)},time);
+          setTimeout(function(){
+            const options = {
+              body: 'due: '+task.dueDate+' '+task.dueTime,
+              icon: "../assets/list.png"
+            }
+            new Notification(task.name, options);        
+          },time);
         }
       }
     }
