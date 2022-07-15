@@ -229,8 +229,6 @@ export class GlobalsService {
       }
     })
     .catch(err =>{
-      // this.em = "" + err;
-      this.setErr("" + err);
       console.log(err)
     });
 
@@ -274,6 +272,8 @@ export class GlobalsService {
   public dailyTasks: any[] = [];
   public monthlyTasks: any[] = [];
   public futureTasks: any[] = [];
+
+
   public query(command: string, args: string) {
     return `
     query {
