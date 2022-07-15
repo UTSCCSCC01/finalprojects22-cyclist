@@ -9,7 +9,9 @@
 
       <div class = "daily-log-task-container">
         <div *ngFor = "let task of day">
-          <app-task [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color></app-task>
+          <app-task [id]=task._id [name]=task.name [dueTime]=task.dueTime [dueDate]=task.dueDate [color]=task.color 
+                    [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
+          </app-task>
         </div>
       </div>
 

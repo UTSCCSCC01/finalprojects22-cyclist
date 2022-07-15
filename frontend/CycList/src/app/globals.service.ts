@@ -447,6 +447,7 @@ export class GlobalsService {
       query:`
       query {
         getDailyTask(day: ${day}, month: ${month}, year: ${year}){
+          _id
           content
           name
           day
@@ -455,6 +456,9 @@ export class GlobalsService {
           dueTime
           tag
           color
+          important
+          completed
+          abandoned
         }
       }
       `
@@ -876,6 +880,62 @@ export class GlobalsService {
 
 
 
+  public async markSignifier(id: string, important: Boolean, completed: Boolean, abandoned: Boolean) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+
+    const body = {
+      query:`
+      mutation {
+          markSignifier(id:"${id}", important:${important}, completed:${completed}, abandoned:${abandoned}){
+            _id
+            creater
+            name
+            color
+            important
+            completed
+            abandoned
+          }
+        }
+      `
+    }
+
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
+      }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        // all g!
+        // TODO: update logs
+        console.log("Success!");
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
 
 
 

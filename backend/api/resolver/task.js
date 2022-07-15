@@ -305,18 +305,6 @@ module.exports = {
             throw err;
         }
     },
-    markSignifier: async (args,req)=>{
-        try{
-            if(!req.isAuth){
-                throw new Error("User not authenticated");
-            }
-            let task = await Task.find({_id:ObjectId(args.id), creater: ObjectId(req.userId)});
-            console.log(task);
-            return "done";
-        } catch(err){
-            throw err;
-        }
-    },
     getSingleTask: async (args,req)=>{
         try{
             if(!req.isAuth){

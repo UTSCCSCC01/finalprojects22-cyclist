@@ -7,7 +7,9 @@ import { GlobalsService } from '../globals.service';
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent {
-
+  @Input()
+  id: string = "";
+  
   @Input() 
   name: string = "";
 
@@ -34,7 +36,7 @@ export class TaskComponent {
   completed: Boolean = false;
 
   @Input()
-  important: Boolean = true;
+  important: Boolean = false;
 
   @Input()
   abandoned: Boolean = false;
@@ -47,17 +49,20 @@ export class TaskComponent {
 
   toggleSigCompleted() {
     this.completed = !this.completed;
-    // TODO: update task in the backend
+    this.globals.markSignifier(this.id, this.important, this.completed, this.abandoned);
+    // TODO: re-render tasks.
   }
 
   toggleSigImportant() {
     this.important = !this.important;
-    // TODO: update task in the backend
+    this.globals.markSignifier(this.id, this.important, this.completed, this.abandoned);
+    // TODO: re-render tasks.
   }
   
   toggleSigAbandoned() {
     this.abandoned = !this.abandoned;
-    // TODO: update task in the backend
+    this.globals.markSignifier(this.id, this.important, this.completed, this.abandoned);
+    // TODO: re-render tasks.
   }
 
   constructor(public globals: GlobalsService) { 
