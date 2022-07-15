@@ -15,6 +15,7 @@
   --bg-alt-trans: #eaebef50;
   --bg: #f1f3f6; //$color-light;
   --fg: #313443;  //$color-darker;
+  --menu: white; //$color-white;
   // --variant: 'light';
 }
 
@@ -27,6 +28,7 @@
     --bg-alt-trans: #30324150;
     --bg: #2b2d3a;//#313443 //$color-darker;
     --fg: #acaeb8; //$color-light;
+    --menu: #3f4252; //$color-dark;
     // --variant: 'dark';
   }
 }
@@ -39,6 +41,7 @@
   --bg-alt-trans: #30324150;
   --bg: #2b2d3a;//#313443 //$color-darker;
   --fg: #acaeb8; //$color-light;
+  --menu: #3f4252; //$color-dark;
   // --variant: 'dark';
 }
 #root.light, #root.light * {
@@ -48,6 +51,7 @@
   --bg-alt-trans: #eaebef50;
   --bg: #f1f3f6; //$color-light;
   --fg: #313443; //;  //$color-darker;
+  --menu: white; //$color-white;
   // --variant: 'light';
 }
 
@@ -59,6 +63,7 @@ $fg-alt: var(--fg-alt);
 $bg-alt: var(--bg-alt);
 $bg-alt-trans: var(--bg-alt-trans);
 $fg-opp: var(--fg-opp);
+$menu: var(--menu);
 // $bg: if($variant == 'light', #f1f3f6, #343434);
 // $fg: if($variant == 'dark', #f1f3f6, #343434);
 
@@ -86,6 +91,9 @@ $color-ui-blue: rgb(18, 95, 202);
 $color-ui-medblue: rgba(10, 112, 255, 0.294);
 $color-ui-lightblue: rgba(60, 141, 255, 0.275);
 $color-ui-green: rgb(18, 202, 165);
+$color-ui-red: rgba(236, 98, 98, 0.496);
+$color-ui-red-trans: transparentize($color-ui-red, 0.3);
+$color-ui-darkred-trans: darken($color-ui-red-trans, 10);
 
 $color-input: #6d718410;
 

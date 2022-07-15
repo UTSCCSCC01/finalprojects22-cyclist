@@ -7,30 +7,70 @@ import { GlobalsService } from '../globals.service';
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent {
+  @Input() 
+  _id: string = "";
 
   @Input() 
   name: string = "";
 
   @Input() 
+  content: string = "";
+
+  @Input() 
+  schedule: string = "";
+
+  @Input() 
   dueTime: string = "";
 
   @Input() 
-  dueDate: string = "";
+  isRepeat: string = "";
 
   @Input() 
-  year: string = "";
-
-  @Input() 
-  month: string = "";
-
-  @Input() 
-  day: string = "";
+  tag: string = "";
 
   @Input()
   color: string = "";
 
   @Input()
-  isRepeat: string = "";
+  dayWeekMonth: string = "";
+
+  @Input() 
+  dueDate: string = "";
+
+  @Input() 
+  frequency: string = "";
+
+  // vvv Signifiers: completed, important, abandoned
+  @Input()
+  completed: Boolean = false;
+
+  @Input()
+  important: Boolean = false;
+
+  @Input()
+  abandoned: Boolean = false;
+
+  sigMenuOpened : Boolean = false;
+
+  toggleSigMenu() {
+    this.sigMenuOpened = !this.sigMenuOpened;
+  }
+
+  toggleSigCompleted() {
+    this.completed = !this.completed;
+    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+  }
+
+  toggleSigImportant() {
+    this.important = !this.important;
+    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+  }
+  
+  toggleSigAbandoned() {
+    this.abandoned = !this.abandoned;
+    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+  }
+
 
   constructor(public globals: GlobalsService) { 
     // this.tags = this.globals.getTags();
@@ -60,13 +100,41 @@ export class TaskComponent {
   }
 
   addTaskForm() {
+    // make sure form is cleared before editing
+    this.globals.formReset();
+    this.globals.form.patchValue({_id: this._id});
     this.globals.form.patchValue({name: this.name});
+    this.globals.form.patchValue({content: this.content});
+    this.globals.form.patchValue({schedule: this.schedule});
     this.globals.form.patchValue({dueTime: this.dueTime});
-    this.globals.form.patchValue({year: this.year});
-    this.globals.form.patchValue({month: this.month});
-    this.globals.form.patchValue({day: this.day});
     this.globals.form.patchValue({isRepeat: this.isRepeat});
+    this.globals.form.patchValue({tagID: this.tag});
     this.globals.form.patchValue({color: this.color});
+    this.globals.form.patchValue({dayWeekMonth: this.dayWeekMonth});
+    
+    if(this.schedule){
+      this.globals.form.patchValue({tempDueDate: this.dueDate});
+    }else{
+      this.globals.form.patchValue({tempDueMonth: this.dueDate});
+    }
+    
+    //testing below
+    //this.globals.form.patchValue({isRepeat: true});
+    //this.frequency = "136";
+    //this.globals.form.patchValue({dayWeekMonth: 'week'});
+    //this.dayWeekMonth = 'week'
+
+    if(this.dayWeekMonth === 'day'){
+      this.globals.form.patchValue({frequency: parseInt(this.frequency)});
+    }else if(this.dayWeekMonth === 'week'){
+      for (let i = 0; i < this.frequency.length; i++) {
+        this.globals.taskFormWeek[parseInt((this.frequency)[i])-1] = true;
+        // console.log(((this.frequency)[i]));
+      }
+    }
+
+    // console.log(this.globals.form.value);
+    // console.log(this.globals.taskFormWeek);
     this.globals.taskFormActive = true;
 
     // load directly:
@@ -88,6 +156,10 @@ export class TaskComponent {
           // 'week' => parse string into taskFormWeek array
           // 'day' => put int value into frequency
 
+  }
+
+  deleteTask() {
+    this.globals.deleteTask(this._id);
   }
   
 }

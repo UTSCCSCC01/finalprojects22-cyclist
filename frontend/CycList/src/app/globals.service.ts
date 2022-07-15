@@ -260,8 +260,6 @@ export class GlobalsService {
       }
     })
     .catch(err =>{
-      // this.em = "" + err;
-      this.setErr("" + err);
       console.log(err)
     });
 
@@ -308,7 +306,7 @@ export class GlobalsService {
     name: null,
     // description: null,
     // signifier: null,          // maybe just call it type????????
-    content: null,
+    content: "",
     schedule: false,
     dueDate: null,            // please merge     day: Int month: Int year: Int
     dueTime: null,
@@ -336,10 +334,22 @@ export class GlobalsService {
     tempDueMonth: null,
     tempDueDate: null,
   });
+  public formReset() {
+    this.taskFormWeek = [false, false, false, false, false, false, false];
+    this.form.reset();
+    this.form.patchValue({
+      frequency: "",
+      isRepeat: false,
+      tagID: "",
+      content: ""
+    });
+  }
   public dashboardTasks: any[] = [];
   public dailyTasks: any[] = [];
   public monthlyTasks: any[] = [];
   public futureTasks: any[] = [];
+
+
   public query(command: string, args: string) {
     return `
     query {
@@ -358,6 +368,9 @@ export class GlobalsService {
         dayWeekMonth
         tag
         color
+        completed
+        important
+        abandoned
       }
     }
     `
@@ -551,8 +564,8 @@ export class GlobalsService {
     // TODO: Actually update for Future Log
     await this.getFutureTasks((new Date()).getFullYear());
     this.futureTasks = this.getTasks().slice();
-    console.log("getFutureLogTasks");
-    console.log(this.futureTasks)
+    // console.log("getFutureLogTasks");
+    // console.log(this.futureTasks)
   }
   public async getFutureTasks(year: number) {
     // if user is not Authenticated (signed in), don't let them
@@ -613,7 +626,7 @@ export class GlobalsService {
     } else {
       query = `
       mutation {
-        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}",schedule:${value.schedule}){
+        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}"){
           name
         }
       }
@@ -660,7 +673,51 @@ export class GlobalsService {
       console.log(err)
     });
   }
-
+  public async deleteTask(id: string) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query: `
+      mutation {
+        deleteTask(id:"${id}")
+      }
+      `,
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        // all g!
+        this.refresh();
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
 
 
 
@@ -853,7 +910,75 @@ export class GlobalsService {
   }
 
 
+  /**
+   * Update a specified task's signifiers to any desired value.
+   * @param id (string) The id of the task of which to mark the signifiers for.
+   * @param important (Boolean) true: the task should be marked as important
+   * @param completed (Boolean) true: the task should be marked as completed
+   * @param abandoned (Boolean) true: the task should be marked as abandoned
+   * @returns `0`: if the task's signifier is marked successfully.
+   *          `null`: if there was an error attempting to mark the task's signifiers.
+   */
+  public async markSignifier(id: string, important: Boolean, completed: Boolean, abandoned: Boolean) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
 
+    const body = {
+      query:`
+      mutation {
+          markSignifier(id:"${id}", important:${important}, completed:${completed}, abandoned:${abandoned}){
+            _id
+            creater
+            name
+            color
+            important
+            completed
+            abandoned
+          }
+        }
+      `
+    }
+
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
+      }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+          return;
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+          return;
+        }
+      }else{
+        // all good!
+        return 0;
+        /* TODO: update logs after marking signifiers.
+         * This doesn't seem necessary, as the frontend re-renders the signifiers
+         * immediately after the signifier is chosen.*/
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
 
 
 

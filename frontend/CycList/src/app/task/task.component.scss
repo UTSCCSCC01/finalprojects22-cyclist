@@ -23,8 +23,9 @@ $radius-task: calc($radius-todo + $pd-task / 1.3);
   //padding: $pd-task;
   transition: all ease-in-out 200ms;
   //border-radius: $radius-task;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  
 }
 
 #task-text, #task-time {
@@ -43,10 +44,13 @@ $radius-task: calc($radius-todo + $pd-task / 1.3);
 }
 
 .signifier {
+  position: relative;
   box-sizing: border-box;
-  width: 18px;
+  width: 32px;
   height: 18px;
-  flex: none;
+
+  display: flex;
+  align-items: center;
   /* left: 618px; */
   /* top: 512.13px; */
   border-radius: $radius-todo;
@@ -60,14 +64,93 @@ $radius-task: calc($radius-todo + $pd-task / 1.3);
   }
 }
 
-.btn {
-  padding-left: 5px;
-  padding-right: 5px;
-  opacity: 0.0;
-  transition: all ease-in-out 200ms;
+.signifier-button {
+  position: inherit;
+  height: inherit;
+  width: inherit;
+  z-index: 1;
+  opacity: 0;
 }
 
-.task:hover .btn {
-  opacity: 1.0;
+.signifier-menu {
+  position: absolute;
+  top: 18px;
+  height: auto;
+  width: auto;
+  padding: 0.4em;
+  background-color: $menu;
+  box-shadow: $shadow-medium;
+  border-radius: 0.5em;
+  z-index: 2;
 }
+
+.signifier-menu-item > *{
+  padding: 0.2em;
+}
+
+.signifier-choice {
+  left: 18px;
+}
+
+
+/*
+ * vvv symbols and text styles for signifiers
+ */
+.important {
+  position: absolute;
+  left: 2px;
+}
+
+.incomplete {
+  position: absolute;
+  left: 16px;
+}
+
+.completed {
+  position: absolute;
+  left: 14px;
+}
+
+.abandoned {
+  text-decoration: line-through;
+}
+.btn {
+  // padding-left: 5px;
+  // padding-right: 5px;
+  padding: 0.2em;
+  opacity: 0.0;
+  transition: all ease-in-out 200ms;
+  width: 1em;
+  height: 1em;
+  margin: -0.2em 0.1em;
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: $font-UI;
+
+  &.edit {
+    border: 2px solid $color-grey-trans;
+    color: $color-grey;
+  }
+
+  .task:hover & {
+    opacity: 1.0;
+  }
+
+  &.del {
+    border: 2px solid $color-ui-red;
+    background-color: $color-ui-red-trans;
+    color: $color-ui-red;
+    &:hover {
+      background-color: $color-ui-red;
+      color: $color-grey;
+    }
+    &:active {
+      background-color: $color-ui-darkred-trans;
+    }
+  }
+  
+}
+
 
