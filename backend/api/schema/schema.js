@@ -30,7 +30,8 @@ type task{
     month: Int
     year: Int
     hierarchy: String
-    startTime: String
+    dueTime: String
+    dueDate: String
     expectedDuration: Float
     actualDuration: Float
     start: String
@@ -40,6 +41,7 @@ type task{
     repeatStartDay: String
     content: String
     tag: ID
+    color: String
     important: Boolean
     identity: String
     subTask: [liteTask]
@@ -51,7 +53,7 @@ type tag{
     _id: ID!
     creater: ID!
     name: String
-    color: Int
+    color: String
     icon: Int
     totalExpectedTime: Float
     totalActualTime: Float
@@ -60,6 +62,7 @@ type RootQuery {
     emailLogin(email: String!, password: String!): authdata!
     getDailyTask(day: Int!, month: Int!, year:Int!): [task!]
     getMonthTask(month: Int!, year: Int!): [task!]
+    getMonthTaskNoDay(month: Int!, year: Int!): [task!]
     getFutureTask(year: Int): [task!]
     getSingleTask(id: ID!): task
     getAllTask(type: String):[task!]
@@ -68,16 +71,16 @@ type RootQuery {
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
-    createTask(hierarchy: String!, date: String!, repeat: Boolean, dayWeekMonth: String, 
-        frequency: String, content:String!, startTime: String, expectedDuration: Int, 
+    createTask(hierarchy: String, date: String!, repeat: Boolean, dayWeekMonth: String, 
+        frequency: String, content:String!, dueTime: String, expectedDuration: Int, 
         name:String!, tagID: ID): task
     deleteTask(id:ID!): String
     markSignifier(id: ID!, field: String, value: String): String!
-    createTag(name:String!, color:Int!): tag
     modifyTask(taskId: ID!, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String!, dueTime: String, expectedDuration: Int, 
         name:String!, tagID: ID): task
-
+    createTag(name:String!, color:String): tag
+    test(day: Int!, month: Int!, year:Int!): [task!]
 }
 schema {
     query: RootQuery

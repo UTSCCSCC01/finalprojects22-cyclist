@@ -12,6 +12,9 @@ module.exports = {
             if (user) {
                 throw new Error("User with email "+ args.email+" already exists");
             }
+            if(!validator.isStrongPassword(args.password)){
+                throw new Error("password too weak, password should be more than(include) 8 characters with at least 1 UpperLetter, LowerLetter, number and symbol")
+            }
             const pass = await bcrypt.hash(args.password, 12);
             const newUser = new User({
                 nickName: args.nickName,

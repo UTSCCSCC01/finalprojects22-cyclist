@@ -13,6 +13,6 @@ export class AppComponent {
   constructor(public globals: GlobalsService) {}
 
   ngOnInit(): void {
-    this.globals.setNDates();
+    this.globals.setAppTime();
   }
 }

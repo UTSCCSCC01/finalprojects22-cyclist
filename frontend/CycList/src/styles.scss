@@ -1,36 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Source+Code+Pro&display=swap');
+@import url('https://rsms.me/inter/inter.css');
 
 /*****************/
 /* All Variables */
 /*****************/
 
 // Automatic Darkmode and Lightmode with system settings:
-
 // light mode
-:root {
-  --fg-alt: white; //$color-white;
+#root.auto, #root.auto * {
+  --fg-opp: white; //$color-white;
+  --fg-alt: #808397;
   --bg-alt: #eaebef;
+  --bg-alt-trans: #eaebef50;
   --bg: #f1f3f6; //$color-light;
   --fg: #313443;  //$color-darker;
   // --variant: 'light';
 }
-// dark mode
+
 @media (prefers-color-scheme: dark) {
-  :root {
-    --fg-alt: #3f4252; //$color-dark;
-    --bg-alt: #373949;
-    --bg: #313443; //$color-darker;
+  // dark mode
+  #root.auto, #root.auto * {
+    --fg-opp: #3f4252; //$color-dark;
+    --fg-alt: #bcbeca;
+    --bg-alt: #292b39;
+    --bg-alt-trans: #30324150;
+    --bg: #2b2d3a;//#313443 //$color-darker;
     --fg: #acaeb8; //$color-light;
     // --variant: 'dark';
   }
+}
+
+// manual mode overrides
+#root.dark, #root.dark * {
+  --fg-opp: #3f4252; //$color-dark;
+  --fg-alt: #bcbeca;
+  --bg-alt: #292b39;
+  --bg-alt-trans: #30324150;
+  --bg: #2b2d3a;//#313443 //$color-darker;
+  --fg: #acaeb8; //$color-light;
+  // --variant: 'dark';
+}
+#root.light, #root.light * {
+  --fg-opp: white; //$color-white;
+  --fg-alt: #808397;
+  --bg-alt: #eaebef;
+  --bg-alt-trans: #eaebef50;
+  --bg: #f1f3f6; //$color-light;
+  --fg: #313443; //;  //$color-darker;
+  // --variant: 'light';
 }
 
 // $variant: var(--variant);
 // main
 $bg: var(--bg);
 $fg: var(--fg);
-$bg-alt: var(--bg-alt);
 $fg-alt: var(--fg-alt);
+$bg-alt: var(--bg-alt);
+$bg-alt-trans: var(--bg-alt-trans);
+$fg-opp: var(--fg-opp);
 // $bg: if($variant == 'light', #f1f3f6, #343434);
 // $fg: if($variant == 'dark', #f1f3f6, #343434);
 
@@ -40,7 +68,7 @@ $fg-alt: var(--fg-alt);
 $font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-mono: 'Source Code Pro', monospace;
 $font-UI-mono: 'Source Code Pro';
-$font-UI: 'IBM Plex Sans', sans-serif;
+$font-UI: 'Inter', 'IBM Plex Sans', sans-serif;
 
 // colours
 
@@ -48,16 +76,39 @@ $color-darker: #313443;
 $color-dark: #3f4252;
 $color-grey: #808397;
 $color-lightgrey: #bcbeca;
-$color-grey-trans: #6a6d8027;
 $color-lightgrey-trans: #9a9cac09;
-$color-mediumgrey-trans: rgba(125, 125, 125, 0.069);
-$color-light: #f1f3f6;
+$color-grey-trans: #888ba227;
+$color-mediumgrey-trans: #6f718227;
+$color-darkgrey-trans: #17181b27;
 $color-white: white;
-$color-blue: rgb(18, 95, 202);
-$color-green: rgb(18, 202, 165);
+$color-light: #f1f3f6;
+$color-ui-blue: rgb(18, 95, 202);
+$color-ui-medblue: rgba(10, 112, 255, 0.294);
+$color-ui-lightblue: rgba(60, 141, 255, 0.275);
+$color-ui-green: rgb(18, 202, 165);
+
+$color-input: #6d718410;
+
+$color-red: #ff979782;
+$color-red-trans: transparentize($color-red, 0.18);
+$color-orange: #fbbb7f82;
+$color-orange-trans: transparentize($color-orange, 0.18);
+$color-yellow: #d8db3e82;
+$color-yellow-trans: transparentize($color-yellow, 0.18);
+$color-green: #7af7a482;
+$color-green-trans: transparentize($color-green, 0.18);
+$color-blue: #53b7ff82;
+$color-blue-trans: transparentize($color-blue, 0.18);
+$color-purple: #bb91ff82;
+$color-purple-trans: transparentize($color-purple, 0.18);
+$color-pink: #ff91ff82;
+$color-pink-trans: transparentize($color-pink, 0.18);
+$color-brown: #c5ab9582;
+$color-brown-trans: transparentize($color-brown, 0.18);
 
 // shadows
 $shadow-huge: 0px 12px 25px rgba(0,0,0,0.21);
+$shadow-small: 0px 1px 5px rgba(0,0,0,0.15);
 $shadow-medium: 1px 2px 7px rgba(0,0,0,0.15);
 $shadow-medium-hover: 2px 3px 9px rgba(0,0,0,0.19);
 $shadow-medium-active: 1px 1px 4px rgba(0,0,0,0.15);
@@ -81,6 +132,75 @@ $pd-side-bar: 1em;
 
 // -------------------------------
 
+::-webkit-scrollbar {
+  background-color: rgba(131, 131, 131, 0.043);
+  border-radius: 0.2em;
+  width: 0.4em;
+  height: 0.4em;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: rgba(131, 131, 131, 0.043);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(131, 131, 131, 0.154);
+  border: 0.1em solid transparent;
+  border-radius: 0.2em;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(131, 131, 131, 0.199);
+}
+
+// colors
+.signifier, .tag {
+  background: $color-lightgrey-trans;
+  border: 2px solid $color-grey-trans;
+
+  &.red {
+    border-color: $color-red;
+    background: $color-red-trans;
+  }
+  
+  &.orange {
+    border-color: $color-orange;
+    background: $color-orange-trans;
+  }
+  
+  &.yellow {
+    border-color: $color-yellow;
+    background: $color-yellow-trans;
+  }
+  
+  &.green {
+    border-color: $color-green;
+    background: $color-green-trans;
+  }
+  
+  &.blue {
+    border-color: $color-blue;
+    background: $color-blue-trans;
+  }
+  
+  &.purple {
+    border-color: $color-purple;
+    background: $color-purple-trans;
+  }
+  
+  &.pink {
+    border-color: $color-pink;
+    background: $color-pink-trans;
+  }
+
+  &.brown {
+    border-color: $color-brown;
+    background: $color-brown-trans;
+  }  
+}
+
+
 // main CSS
 html, body {
   padding: 0;
@@ -90,16 +210,29 @@ html, body {
   right: 0;
   top: 0;
   bottom: 0;
+  overflow: hidden;
+}
+
+#root {
   background-color: $bg;
   color: $fg;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   overflow: hidden;
 }
 
 .btn {
   // user-select: none;
+  border-radius: $radius-btn;
   transition: all 0.2s;
   box-shadow: $shadow-medium;
   user-select: none;
+  margin: 0 0.2em;
 
   &:hover {
     transform: translateY(-1);
@@ -112,18 +245,40 @@ html, body {
   &.circ {
     background-color: $color-lightgrey-trans;
     border-radius: 100%;
-    padding: 0.2em;
-    margin: 0.2em;
-    width: 1.4em;
-    height: 1.4em;
-    display: inline-block;
-    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    // padding: 0.2em;
+    // margin: 0.2em;
+    // width: 1.4em;
+    // height: 1.4em;
+    // display: inline-block;
+    // text-align: center;
 
     &.toggled {
-      background-color: $color-blue;
+      background-color: $color-ui-blue;
       color: $bg;
     }
   }
+
+  &.flat {
+    // background-color: $color-mediumgrey-trans;
+    box-shadow: none;
+    background-clip: padding-box;
+
+    &:hover {
+      background-color: $color-grey-trans;
+    }
+    &:active {
+      background-color: $color-darkgrey-trans;
+    }
+  }
+}
+
+img {
+  width: 1em;
+  height: 1em;
+  padding: 0.5em;
 }
 
 input,
@@ -134,9 +289,10 @@ select {
   border-radius: 0.5em;
   padding: 0.3em 0.5em;
   /* color: white; */
+  border: 2px solid transparent;
   margin: 0.2em;
   /* width: 100; */
-  background-color: $color-mediumgrey-trans;
+  background-color: $color-input;
   // box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
   font-size: small;
   
@@ -144,9 +300,21 @@ select {
     color: $color-grey;
   }
 
-  &:focus {
-    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
+  &:focus:not(.btn) {
     outline: none;
+    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
+    border: 2px solid $color-ui-medblue;
+    background-color: $color-grey-trans;
+  }
+
+  &:hover.btn {
+    background-color: $color-ui-lightblue;
+    color: $fg;
+  }
+
+  &:active.btn {
+    background-color: $color-ui-medblue;
+    color: $fg;
   }
 
   &#task {
@@ -158,7 +326,6 @@ select {
   }
 }
 textarea {
-  background-color: $bg;
   resize: none;
   height: 3em;
 }
@@ -171,6 +338,9 @@ textarea {
   box-shadow: $shadow-menu;
 }
 
+.submit {
+  font-family: $font-UI;
+}
 // main view
 .main-view {
   display: flex;
@@ -178,7 +348,9 @@ textarea {
   color: $fg;
   padding: $pd-main-view;
   position: absolute;
-  top: $height-top-bar + 2 * $pd-top-bar;
+  top: 0;
+  padding-top: $height-top-bar + 2 * $pd-top-bar + $pd-main-view;
+  // top: $height-top-bar + 2 * $pd-top-bar;
   bottom: 0;
   right: 0;
   left: 0;
@@ -225,6 +397,26 @@ app-dashboard, app-daily-log, app-monthly-log, app-future-log {
 
 .hidden {
   display: none!important;
+}
+
+// future and monthly log task display
+.future-log-task-container, .monthly-log-task-container {
+
+  & .task {
+    padding: 0.2em 0.4em!important;
+  }
+  & .task-head {
+    font-size: 0.8em;
+  }
+
+  & .signifier {
+    width: 10px!important;
+    height: 10px!important;
+    border-radius: 100%!important;
+  }
+  & #task-time {
+    display: none;
+  } 
 }
 
 // -------------------------------

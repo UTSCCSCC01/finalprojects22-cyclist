@@ -1,8 +1,36 @@
 <div class="side-bar">
-  <div class="switch-views">
+  <div class="side-section">
     <a routerLink="/app-dashboard" routerLinkActive="active" ariaCurrentWhenActive="page">Dashboard</a>
     <a routerLink="/app-daily-log" routerLinkActive="active" ariaCurrentWhenActive="page">Daily Log</a>
     <a routerLink="/app-monthly-log" routerLinkActive="active" ariaCurrentWhenActive="page">Monthly Log</a>  
     <a routerLink="/app-future-log" routerLinkActive="active" ariaCurrentWhenActive="page">Future Log</a>  
+  </div>
+  <div class="side-section">
+    <div class="tags">
+      Groups:<div class="btn flat circ add-tag" (click)="addTag()"><div>+</div></div>
+      <div *ngIf="addTagMenu">
+        <form class="popup" (ngSubmit)="submitForm()" [formGroup]="form">
+          <input type="text" placeholder="New Tag" required formControlName="name"/>
+          <div>
+            <select required formControlName="color">
+              <option>red</option>
+              <option>orange</option>
+              <option>yellow</option>
+              <option>green</option>
+              <option>blue</option>
+              <option>purple</option>
+              <option>pink</option>
+              <option>brown</option>
+            </select>
+            <div type="submit" class="btn flat circ add-tag" (click)="submitForm()"><div>✓</div></div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="globals.tags.length > 0">
+        <div *ngFor="let tag of globals.tags">
+          <div class="tag" [ngClass]="tag.color" (click)="selectTag(tag._id)">{{ tag.name }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -17,7 +17,8 @@ export class AddTaskComponent implements OnInit {
   Th = false;
   Fr = false;
   Sa = false;  
-  
+  schedule = false;
+
   constructor(
     private fb: FormBuilder,
     public globals: GlobalsService
@@ -37,6 +38,11 @@ export class AddTaskComponent implements OnInit {
     this.Fr = false;
     this.Sa = false;
     this.globals.form.reset();
+    this.globals.form.patchValue({
+      frequency: "",
+      isRepeat: false,  
+      tagID: "",
+    });
   }
 
   addTaskForm() {
@@ -62,23 +68,38 @@ export class AddTaskComponent implements OnInit {
     } else if (this.globals.form.value.dayWeekMonth === 'day') {
       this.globals.form.value.frequency = this.globals.form.value.frequency.toString();
     }
+  }
 
-    // console.log(this.form.value.frequency);
+  setDueTime() {
+    if (this.schedule) {
+      this.globals.form.patchValue({
+        dueDate: this.globals.form.value.tempDueDate
+      });
+    } else {
+      this.globals.form.patchValue({
+        dueDate: this.globals.form.value.tempDueMonth,
+        dueTime: [null]
+      });
+    }
   }
 
   repeatCheck(event: any) {
     this.repeat = event.target.checked;
-    this.globals.form.value.frequency = [null];
-    this.globals.form.value.dayWeekMonth = [null];
+    this.globals.form.patchValue({
+      frequency: "",
+      dayWeekMonth: [null],
+    });
     // console.log(this.form.value);
   }
   // @ViewChild("addTask") addTask: ElementRef<HTMLElement>;
 
+
   async submitForm() {
     this.setRepeatFrequency();
+    this.setDueTime();
     if (!this.globals.form.value.name ||
-        !this.globals.form.value.dueDate || 
-        !this.globals.form.value.dueTime || 
+        this.schedule && !this.globals.form.value.tempDueDate || 
+        !this.schedule && !this.globals.form.value.tempDueMonth || 
         this.repeat && (!this.globals.form.value.dayWeekMonth || this.globals.form.value.frequency.length === 0)) {
       return;
     };
@@ -88,7 +109,6 @@ export class AddTaskComponent implements OnInit {
     // send data to back end
     await this.globals.createTask(this.globals.form.value);
     this.formReset();
-    this.globals.form.reset();
   }
 
 }

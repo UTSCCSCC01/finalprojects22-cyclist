@@ -12,7 +12,10 @@ export class TaskComponent {
   name: string = "";
 
   @Input() 
-  startTime: string = "";
+  dueTime: string = "";
+
+  @Input() 
+  dueDate: string = "";
 
   @Input() 
   year: string = "";
@@ -24,7 +27,7 @@ export class TaskComponent {
   day: string = "";
 
   @Input()
-  tagID: string = "";
+  color: string = "";
 
   constructor(public globals: GlobalsService) { 
     // this.tags = this.globals.getTags();
@@ -38,6 +41,13 @@ export class TaskComponent {
     //   console.log(this.taskTag);
     //   console.log("END TASK TAG")
     // } 
+
+    // set timeout for notification
+    // TODO: add task dueTime and dueDate
+    // TODO: add notifications
+    // TODO: add tags and class=tag.color
+    // time = this.year
+    // setTimeout(function(){alert("It's 10am!")}, (new Date('2022-07-05 22:14'))-(new Date()))
 
   }
   // constructor(private dailyView: DailyViewComponent) { }
