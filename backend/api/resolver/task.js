@@ -18,7 +18,7 @@ module.exports = {
             let tag;
             let color;
             let time;
-            if(args.tagID === ""){
+            if(args.tagID === "" || args.tagID === "null"){
                 tag = null;
                 color = "";
             }else{
@@ -100,7 +100,7 @@ module.exports = {
             if(task.length === 0){
                 throw new Error("wrong task id or task is not created by you");
             }
-            if(args.tagID === ""){
+            if(args.tagID === ""|| args.tagID === "null"){
                 tag = null;
                 color = "";
             }else{
