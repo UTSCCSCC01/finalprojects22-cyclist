@@ -29,6 +29,7 @@ type task{
     day: Int
     month: Int
     year: Int
+    schedule: Boolean
     hierarchy: String
     dueTime: String
     dueDate: String
@@ -73,12 +74,12 @@ type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
     createTask(hierarchy: String, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String!, dueTime: String, expectedDuration: Int, 
-        name:String!, tagID: ID): task
+        name:String!, tagID: ID, schedule: Boolean): task
     deleteTask(id:ID!): String
     markSignifier(id: ID!, field: String, value: String): String!
     modifyTask(taskId: ID!, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String!, dueTime: String, expectedDuration: Int, 
-        name:String!, tagID: ID): task
+        name:String!, tagID: ID, schedule: Boolean): task
     createTag(name:String!, color:String): tag
     test(day: Int!, month: Int!, year:Int!): [task!]
 }

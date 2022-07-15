@@ -54,6 +54,7 @@ module.exports = {
                 day: day,
                 month: month,
                 year: year,
+                schedule: args.schedule,
                 hierarchy: "daily",
                 dueTime: time,
                 dueDate: args.date,
@@ -137,7 +138,7 @@ module.exports = {
                 {$set:{name:args.name, day:day, month: month, year: year, 
                     dueTime: time, dueDate: args.date,isRepeat: args.repeat,
                     dayWeekMonth: dwm,frequency: fre,repeatStartDay: repeatStartDay,
-                    content: args.content, tag: tag, color: color,}}
+                    content: args.content, tag: tag, color: color,schedule:args.schedule}}
             );
             task = await Task.findById(args.taskId);
             return task;
