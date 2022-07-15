@@ -37,11 +37,19 @@ $shadow-top-bar: $shadow-huge;
     flex: 1;
 }
 
-.btn {
+.btn.flat {
   // border-radius: $radius-btn;
-  // background-color: $color-grey-trans;
+  background-color: #ffffff0b;
   padding: 0.5em;
   line-height: 1em;
+
+  &:hover {
+    background-color: #ffffff14;
+  }
+
+  &:active {
+    background-color: #00000014;
+  }
   // position: relative;
   // bottom:10px;
 }

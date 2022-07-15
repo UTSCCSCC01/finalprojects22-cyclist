@@ -9,19 +9,23 @@
 // Automatic Darkmode and Lightmode with system settings:
 // light mode
 #root.auto, #root.auto * {
-  --fg-alt: white; //$color-white;
+  --fg-opp: white; //$color-white;
+  --fg-alt: #808397;
   --bg-alt: #eaebef;
+  --bg-alt-trans: #eaebef50;
   --bg: #f1f3f6; //$color-light;
   --fg: #313443;  //$color-darker;
   // --variant: 'light';
 }
 
 @media (prefers-color-scheme: dark) {
-// dark mode
-#root.auto, #root.auto * {
-    --fg-alt: #3f4252; //$color-dark;
-    --bg-alt: #303241;
-    --bg: #313443; //$color-darker;
+  // dark mode
+  #root.auto, #root.auto * {
+    --fg-opp: #3f4252; //$color-dark;
+    --fg-alt: #bcbeca;
+    --bg-alt: #292b39;
+    --bg-alt-trans: #30324150;
+    --bg: #2b2d3a;//#313443 //$color-darker;
     --fg: #acaeb8; //$color-light;
     // --variant: 'dark';
   }
@@ -29,15 +33,19 @@
 
 // manual mode overrides
 #root.dark, #root.dark * {
-  --fg-alt: #3f4252; //$color-dark;
-  --bg-alt: #303241;
-  --bg: #313443; //$color-darker;
+  --fg-opp: #3f4252; //$color-dark;
+  --fg-alt: #bcbeca;
+  --bg-alt: #292b39;
+  --bg-alt-trans: #30324150;
+  --bg: #2b2d3a;//#313443 //$color-darker;
   --fg: #acaeb8; //$color-light;
   // --variant: 'dark';
 }
 #root.light, #root.light * {
-  --fg-alt: white; //$color-white;
+  --fg-opp: white; //$color-white;
+  --fg-alt: #808397;
   --bg-alt: #eaebef;
+  --bg-alt-trans: #eaebef50;
   --bg: #f1f3f6; //$color-light;
   --fg: #313443; //;  //$color-darker;
   // --variant: 'light';
@@ -47,8 +55,10 @@
 // main
 $bg: var(--bg);
 $fg: var(--fg);
-$bg-alt: var(--bg-alt);
 $fg-alt: var(--fg-alt);
+$bg-alt: var(--bg-alt);
+$bg-alt-trans: var(--bg-alt-trans);
+$fg-opp: var(--fg-opp);
 // $bg: if($variant == 'light', #f1f3f6, #343434);
 // $fg: if($variant == 'dark', #f1f3f6, #343434);
 
@@ -73,11 +83,11 @@ $color-darkgrey-trans: #17181b27;
 $color-white: white;
 $color-light: #f1f3f6;
 $color-ui-blue: rgb(18, 95, 202);
-$color-ui-medblue: rgb(110, 161, 233);
-$color-ui-lightblue: rgb(168, 197, 237);
+$color-ui-medblue: rgba(10, 112, 255, 0.294);
+$color-ui-lightblue: rgba(60, 141, 255, 0.275);
 $color-ui-green: rgb(18, 202, 165);
 
-$color-input: #77788312;
+$color-input: #6d718410;
 
 $color-red: #ff979782;
 $color-red-trans: transparentize($color-red, 0.18);
@@ -252,8 +262,9 @@ html, body {
   }
 
   &.flat {
-    background-color: $color-mediumgrey-trans;
+    // background-color: $color-mediumgrey-trans;
     box-shadow: none;
+    background-clip: padding-box;
 
     &:hover {
       background-color: $color-grey-trans;
@@ -293,15 +304,17 @@ select {
     outline: none;
     box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.04);
     border: 2px solid $color-ui-medblue;
+    background-color: $color-grey-trans;
   }
 
   &:hover.btn {
     background-color: $color-ui-lightblue;
+    color: $fg;
   }
 
   &:active.btn {
     background-color: $color-ui-medblue;
-    color: $color-light;
+    color: $fg;
   }
 
   &#task {
@@ -313,7 +326,6 @@ select {
   }
 }
 textarea {
-  background-color: $bg;
   resize: none;
   height: 3em;
 }

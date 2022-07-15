@@ -8,7 +8,12 @@ $radius-switch: 1.2em;
   // position: absolute;
   // top: $height-top-bar + 2 * $pd-top-bar;
   // left: 0;
+  user-select: none;
   color: $color-grey;
+  
+  & .tag {
+    color: $fg-alt;
+  }
 }
 
 .side-section {
