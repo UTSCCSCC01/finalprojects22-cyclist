@@ -452,6 +452,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
 - day:int
 - month:int
 - year:int
+- schedule:Boolean //whether this task has a specific day when it was created
 - hierarchy:String //we update this field, all task should be daily right now
 - dueTime:String //the due time of this task
 - dueDate:String //in the format of 2022-07-01
