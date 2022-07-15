@@ -18,19 +18,9 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
-  formReset() {
-    this.globals.taskFormWeek = [false, false, false, false, false, false, false];
-    this.globals.form.reset();
-    this.globals.form.patchValue({
-      frequency: "",
-      isRepeat: false,
-      tagID: "",
-    });
-  }
 
   addTaskForm() {
-    // this.formReset();
+    this.globals.formReset();
     this.globals.taskFormActive = true;
   }
 
@@ -44,12 +34,17 @@ export class AddTaskComponent implements OnInit {
       for (let i = 1; i < 8; i++) {
         if (this.globals.taskFormWeek[i-1]) res += i;
       }
-      this.globals.form.value.frequency = res;
-      // console.log(res);
+      this.globals.form.patchValue({
+        frequency: res
+      });
     } else if (this.globals.form.value.dayWeekMonth === 'month') {
-      this.globals.form.value.frequency = this.globals.form.value.dueDate.slice(8,10);
+      this.globals.form.patchValue({
+        frequency: this.globals.form.value.tempDueDate.slice(8,10)
+      });
     } else if (this.globals.form.value.dayWeekMonth === 'day') {
-      this.globals.form.value.frequency = this.globals.form.value.frequency.toString();
+      this.globals.form.patchValue({
+        frequency: this.globals.form.value.frequency.toString()
+      });
     }
   }
 
@@ -73,7 +68,6 @@ export class AddTaskComponent implements OnInit {
         !this.globals.form.value.schedule && !this.globals.form.value.tempDueMonth ||
         this.globals.form.value.isRepeat && (
           !this.globals.form.value.schedule ||
-          (this.globals.form.value.schedule && !this.globals.form.value.dueTime) ||
           !this.globals.form.value.dayWeekMonth || 
           (this.globals.form.value.dayWeekMonth === 'day' && this.globals.form.value.frequency === 0)
           )
@@ -84,10 +78,10 @@ export class AddTaskComponent implements OnInit {
     this.setDueTime();
 
     this.globals.taskFormActive = false;
-    console.log(this.globals.form.value);
+    // console.log(this.globals.form.value);
     // send data to back end
     await this.globals.createModifyTask(this.globals.form.value);
-    this.formReset();
+    this.globals.formReset();
   }
 
 }

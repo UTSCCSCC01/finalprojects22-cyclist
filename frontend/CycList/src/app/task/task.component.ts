@@ -69,9 +69,10 @@ export class TaskComponent {
   }
 
   addTaskForm() {
+    // make sure form is cleared before editing
+    this.globals.formReset();
     this.globals.form.patchValue({_id: this._id});
     this.globals.form.patchValue({name: this.name});
-    this.globals.form.patchValue({content: this.content});
     this.globals.form.patchValue({schedule: this.schedule});
     this.globals.form.patchValue({dueTime: this.dueTime});
     this.globals.form.patchValue({isRepeat: this.isRepeat});
@@ -100,6 +101,8 @@ export class TaskComponent {
       }
     }
 
+    console.log(this.globals.form.value);
+    console.log(this.globals.taskFormWeek);
     this.globals.taskFormActive = true;
 
     // load directly:
@@ -120,6 +123,10 @@ export class TaskComponent {
           // null or 'month' => do nothing
           // 'week' => parse string into taskFormWeek array
           // 'day' => put int value into frequency
+
+  }
+
+  deleteTask() {
 
   }
   

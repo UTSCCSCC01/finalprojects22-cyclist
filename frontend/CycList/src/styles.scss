@@ -86,6 +86,9 @@ $color-ui-blue: rgb(18, 95, 202);
 $color-ui-medblue: rgba(10, 112, 255, 0.294);
 $color-ui-lightblue: rgba(60, 141, 255, 0.275);
 $color-ui-green: rgb(18, 202, 165);
+$color-ui-red: rgba(236, 98, 98, 0.496);
+$color-ui-red-trans: transparentize($color-ui-red, 0.3);
+$color-ui-darkred-trans: darken($color-ui-red-trans, 10);
 
 $color-input: #6d718410;
 

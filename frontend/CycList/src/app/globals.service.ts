@@ -286,7 +286,7 @@ export class GlobalsService {
     name: null,
     // description: null,
     // signifier: null,          // maybe just call it type????????
-    content: null,
+    content: "",
     schedule: false,
     dueDate: null,            // please merge     day: Int month: Int year: Int
     dueTime: null,
@@ -314,6 +314,16 @@ export class GlobalsService {
     tempDueMonth: null,
     tempDueDate: null,
   });
+  public formReset() {
+    this.taskFormWeek = [false, false, false, false, false, false, false];
+    this.form.reset();
+    this.form.patchValue({
+      frequency: "",
+      isRepeat: false,
+      tagID: "",
+      content: ""
+    });
+  }
   public dashboardTasks: any[] = [];
   public dailyTasks: any[] = [];
   public monthlyTasks: any[] = [];
@@ -590,7 +600,7 @@ export class GlobalsService {
     } else {
       query = `
       mutation {
-        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}",schedule:${value.schedule}){
+        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}"){
           name
         }
       }
