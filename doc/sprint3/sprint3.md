@@ -71,8 +71,8 @@ experience.
 
 ## Spikes
 
-Fixing bugs that we left in the previous sprints and doing some updates to improve the current functions
-Adjusting the meeting time and starting this sprint early to make work more efficient
+- Fixing bugs that we left in the previous sprints and doing some updates to improve the current functions
+- Adjusting the meeting time and starting this sprint early to make work more efficient
 
 ## Participants
 
