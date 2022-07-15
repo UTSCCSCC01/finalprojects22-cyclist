@@ -18,6 +18,7 @@ module.exports = {
             let tag;
             let color;
             let time;
+            let schedule;
             if(args.tagID === "" || args.tagID === "null"){
                 tag = null;
                 color = "";
@@ -31,8 +32,10 @@ module.exports = {
             }
             year = args.date.split("-")[0];
             month = args.date.split("-")[1];
+            schedule = false;
             if(args.date.split("-").length === 3){
                 day = args.date.split("-")[2];
+                schedule = true;
             }
             if(!args.repeat){
                 dwm = null;
@@ -54,7 +57,7 @@ module.exports = {
                 day: day,
                 month: month,
                 year: year,
-                schedule: args.schedule,
+                schedule: schedule,
                 hierarchy: "daily",
                 dueTime: time,
                 dueDate: args.date,
@@ -96,6 +99,7 @@ module.exports = {
             let tag;
             let color;
             let time;
+            let schedule;
             let task = await Task.find({_id:ObjectId(args.id), creater: ObjectId(req.userId)});
             if(task.length === 0){
                 throw new Error("wrong task id or task is not created by you");
@@ -116,8 +120,10 @@ module.exports = {
             }
             year = args.date.split("-")[0];
             month = args.date.split("-")[1];
+            schedule=false;
             if(args.date.split("-").length === 3){
                 day = args.date.split("-")[2];
+                schedule = true;
             }
             if(!args.repeat){
                 dwm = null;
@@ -138,7 +144,7 @@ module.exports = {
                 {$set:{name:args.name, day:day, month: month, year: year, 
                     dueTime: time, dueDate: args.date,isRepeat: args.repeat,
                     dayWeekMonth: dwm,frequency: fre,repeatStartDay: repeatStartDay,
-                    content: args.content, tag: tag, color: color,schedule:args.schedule}}
+                    content: args.content, tag: tag, color: color,schedule:schedule}}
             );
             task = await Task.findById(args.taskId);
             return task;
@@ -379,6 +385,7 @@ module.exports = {
             let tag;
             let color;
             let time;
+            let schedule
             if(args.tagID === "" || args.tagID === "null"){
                 tag = null;
                 color = "";
@@ -392,7 +399,9 @@ module.exports = {
             }
             year = args.date.split("-")[0];
             month = args.date.split("-")[1];
+            schedule = false;
             if(args.date.split("-").length === 3){
+                schedule = true;
                 day = args.date.split("-")[2];
             }
             if(!args.repeat){
@@ -415,7 +424,7 @@ module.exports = {
                 day: day,
                 month: month,
                 year: year,
-                schedule: args.schedule,
+                schedule: schedule,
                 hierarchy: "daily",
                 dueTime: time,
                 dueDate: args.date,

@@ -74,16 +74,16 @@ type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
     createTask(hierarchy: String, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String, dueTime: String, expectedDuration: Int, 
-        name:String!, tagID: ID, schedule: Boolean): task
+        name:String!, tagID: ID): task
     deleteTask(id:ID!): String
     markSignifier(id: ID!, field: String, value: String): String!
     modifyTask(taskId: ID!, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String!, dueTime: String, expectedDuration: Int, 
-        name:String!, tagID: ID, schedule: Boolean): task
+        name:String!, tagID: ID): task
     createTag(name:String!, color:String): tag
     test(hierarchy: String, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String!, dueTime: String, expectedDuration: Int, 
-        name:String!, tagID: ID, schedule: Boolean): task
+        name:String!, tagID: ID): task
 }
 schema {
     query: RootQuery
