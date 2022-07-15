@@ -7,24 +7,26 @@
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<style>
-</style>
-
-
-
-<div class="main-view">
-  <app-side-bar></app-side-bar>
-  <router-outlet></router-outlet>
+<div id="root" [ngClass]="globals.colorMode">
+  <style>
+  </style>
+  
+  
+  
+  <div class="main-view">
+    <app-side-bar></app-side-bar>
+    <router-outlet></router-outlet>
+  </div>
+  
+  <app-add-task></app-add-task>
+  
+  <!-- Toolbar -->
+  <app-top-bar></app-top-bar>
+  
+  <app-log-in></app-log-in>
+  
+  <!-- <app-view></app-view> -->
 </div>
-
-<app-add-task></app-add-task>
-
-<!-- Toolbar -->
-<app-top-bar></app-top-bar>
-
-<app-log-in></app-log-in>
-
-<!-- <app-view></app-view> -->
 
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

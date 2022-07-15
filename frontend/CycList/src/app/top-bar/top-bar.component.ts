@@ -17,4 +17,10 @@ export class TopBarComponent implements OnInit {
     console.log("ok here");
   } 
 
+  colorMode() {
+    if (this.globals.colorMode === "auto") this.globals.colorMode = "dark";
+    else if (this.globals.colorMode === "dark") this.globals.colorMode = "light";
+    else this.globals.colorMode = "auto";
+  }
+
 }

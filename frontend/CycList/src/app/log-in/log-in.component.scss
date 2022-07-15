@@ -7,7 +7,8 @@
     left:0;
     right:0;
     backdrop-filter:blur(30px);
-    background-color: rgba(0, 0, 0, 0.212);
+    background-color: $bg-alt-trans;
+    // background-color: rgba(0, 0, 0, 0.212);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -15,7 +16,7 @@
 }
 
 .btn {
-  background-color: $bg-alt;
+  // background-color: $bg-alt-trans;
 }
 // .button{
 //     background-color: rgba(211,211,211,0.5);

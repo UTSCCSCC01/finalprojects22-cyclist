@@ -20,7 +20,7 @@ export class GlobalsService {
   /* Navigation  */
   /***************/
   public curLog = "daily";
-  public em: string ="";
+  public colorMode = "auto";
   public refresh() {
     this.getDashboardTasks();
     this.getNDailyTasks();
@@ -28,6 +28,25 @@ export class GlobalsService {
     this.getMonthlyLogTasks();
     this.getAllTags();
   }
+
+
+
+
+
+
+  /*********************/
+  /* Error / Messages  */
+  /*********************/
+  public em: string = "";
+  public setErr(em: any) {
+    this.em = em;
+  }
+  public getErr() {
+    return this.em;
+  }
+
+
+
 
 
 
@@ -100,17 +119,6 @@ export class GlobalsService {
   public getUser() {
     return this.user;
   }
-
-
-  public setErr(em: any) {
-    this.em = em;
-  }
-
-  public getErr() {
-    return this.em;
-  }
-
-
   public isAuthenticated() {
     // check if the user is Authenticated (signed in)
     // return this.user.userId !== "";
@@ -221,7 +229,6 @@ export class GlobalsService {
       }
     })
     .catch(err =>{
-      // this.em = "" + err;
       console.log(err)
     });
 
@@ -265,7 +272,6 @@ export class GlobalsService {
   public dailyTasks: any[] = [];
   public monthlyTasks: any[] = [];
   public futureTasks: any[] = [];
-
 
 
   public query(command: string, args: string) {
