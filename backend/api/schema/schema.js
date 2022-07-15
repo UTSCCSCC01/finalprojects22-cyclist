@@ -78,11 +78,11 @@ type RootMutation {
     deleteTask(id:ID!): String
     markSignifier(id: ID!, field: String, value: String): String!
     modifyTask(taskId: ID!, date: String!, repeat: Boolean, dayWeekMonth: String, 
-        frequency: String, content:String!, dueTime: String, expectedDuration: Int, 
+        frequency: String, content:String, dueTime: String, expectedDuration: Int, 
         name:String!, tagID: ID): task
     createTag(name:String!, color:String): tag
     test(hierarchy: String, date: String!, repeat: Boolean, dayWeekMonth: String, 
-        frequency: String, content:String!, dueTime: String, expectedDuration: Int, 
+        frequency: String, content:String, dueTime: String, expectedDuration: Int, 
         name:String!, tagID: ID): task
 }
 schema {
