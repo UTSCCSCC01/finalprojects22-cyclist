@@ -222,7 +222,6 @@ export class GlobalsService {
     })
     .catch(err =>{
       // this.em = "" + err;
-      this.setEm("" + err);
       console.log(err)
     });
 
@@ -268,7 +267,6 @@ export class GlobalsService {
   public futureTasks: any[] = [];
 
 
-  public em: string = "";
 
   public query(command: string, args: string) {
     return `
