@@ -14,47 +14,6 @@ export class GlobalsService {
   }
 
 
-
-
-
-  
-  /***************/
-  /* Add Task    */
-  /***************/
-  public taskFormActive: boolean = false;
-  form: FormGroup = this.fb.group({
-    _id: [null],
-    name: [null],
-    description: [null],
-    signifier: [null],          // maybe just call it type????????
-    content: [null],
-    tempDueMonth: [null],      // temps for me to get info, if scheduling or not
-    tempDueDate: [null],
-    dueDate: [null],            // please merge     day: Int month: Int year: Int
-    dueTime: [null],
-    startDate: [null],
-    startTime: [null],
-
-    expectedDuration: [null],  // pointless because we have start and due/end unless this is an AI value
-
-    isRepeat: false,         // maybe just repeat true of false
-    frequency: "",
-    dayWeekMonth: [null],   // add year?
-    // repeatStartDay: [null],     // only in backend
-
-    tagID: "",                // maybe just call tag, group, was this what was meant????????
-    priority: [null],         // maybe like options: ! !! or !!!    
-    mood: [null],
-    location: [null],
-    interests: [null],        // ?????????
-
-    reminders: [null],      // TODO: need to be able to have multiple so maybe an array of 
-    collaborations: [null]  // TODO: add friends that you will do that job with
-
-                            // Ideas: file (image), url
-  });
-
-
   
 
 
@@ -68,12 +27,12 @@ export class GlobalsService {
   /***************/
   public curLog = "daily";
   public colorMode = "auto";
-  public refresh() {
+  public async refresh() {
+    this.getAllTags();
     this.getDashboardTasks();
     this.getNDailyTasks();
     this.getFutureLogTasks();
     this.getMonthlyLogTasks();
-    this.getAllTags();
   }
 
 
@@ -279,8 +238,6 @@ export class GlobalsService {
       }
     })
     .catch(err =>{
-      // this.em = "" + err;
-      this.setErr("" + err);
       console.log(err)
     });
 
@@ -320,42 +277,95 @@ export class GlobalsService {
     //   tag: ""
     // }
   ];
+  public taskFormActive: boolean = false;
+  public taskFormWeek = [false, false, false, false, false, false, false];
+  form: FormGroup = this.fb.group({
+    _id: null,
+    name: null,
+    // description: null,
+    // signifier: null,          // maybe just call it type????????
+    content: "",
+    schedule: false,
+    dueDate: null,            // please merge     day: Int month: Int year: Int
+    dueTime: null,
+    // startDate: null,
+    
+    // startTime: null,
+    // expectedDuration: null,  // pointless because we have start and due/end unless this is an AI value
+
+    isRepeat: false,         // maybe just repeat true of false
+    frequency: "",
+    dayWeekMonth: null,   // add year?
+    // repeatStartDay: null,     // only in backend
+
+    tagID: "",                // maybe just call tag, group, was this what was meant????????
+    // priority: null,         // maybe like options: ! !! or !!!    
+    // mood: null,
+    // location: null,
+    // interests: null,        // ?????????
+
+    // reminders: null,      // TODO: need to be able to have multiple so maybe an array of 
+    // collaborations: null  // TODO: add friends that you will do that job with
+
+                            // Ideas: file (image), url
+    // frontend fields that need to be parsed
+    tempDueMonth: null,
+    tempDueDate: null,
+  });
+  public formReset() {
+    this.taskFormWeek = [false, false, false, false, false, false, false];
+    this.form.reset();
+    this.form.patchValue({
+      frequency: "",
+      isRepeat: false,
+      tagID: "",
+      content: ""
+    });
+  }
   public dashboardTasks: any[] = [];
   public dailyTasks: any[] = [];
   public monthlyTasks: any[] = [];
   public futureTasks: any[] = [];
+
+
   public query(command: string, args: string) {
     return `
     query {
       ${command}(${args}){
         _id
-        creater
         name
+        content
         day
         month
         year
-        hierarchy
+        schedule
         dueTime
         dueDate
-        expectedDuration
-        actualDuration
-        start
         isRepeat
-        dayWeekMonth
         frequency
-        repeatStartDay
-        content
+        dayWeekMonth
         tag
         color
+        completed
         important
-        identity
-        subTask
-        parentTask
-        mood
-        location
+        abandoned
       }
     }
     `
+    // ones that are excluded:
+      // creater
+      // hierarchy
+      // expectedDuration
+      // actualDuration
+      // start
+      // repeatStartDay
+      // subTask
+      // parentTask
+      // identity
+      // mood
+      // location
+      // important
+
   }
   /**
    * reset the value of `this.tasks` to default value. 
@@ -385,6 +395,7 @@ export class GlobalsService {
     // TODO: actual update for Dashboard
     await this.getAllTasks("");
     this.dashboardTasks = this.getTasks().slice();
+    // console.log(this.dashboardTasks);
   }
   public async getAllTasks(type: string) {
     // if user is not Authenticated (signed in), don't let them
@@ -444,24 +455,7 @@ export class GlobalsService {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
     const body = {
-      query:`
-      query {
-        getDailyTask(day: ${day}, month: ${month}, year: ${year}){
-          _id
-          content
-          name
-          day
-          month
-          year
-          dueTime
-          tag
-          color
-          important
-          completed
-          abandoned
-        }
-      }
-      `
+      query: this.query(`getDailyTask`, `day: ${day}, month: ${month}, year: ${year}`)
     }
     let err = false;
     let backenderr = false;
@@ -506,21 +500,7 @@ export class GlobalsService {
   }
   public async getMonthlyTasks(month: number, year: number) {
     const body = {
-      query:`
-      query {
-        getMonthTask(month: ${month}, year: ${year}){
-          _id
-          content
-          name
-          day
-          month
-          year
-          dueTime
-          tag
-          color
-        }
-      }
-      `
+      query: this.query(`getMonthTask`, `month: ${month}, year: ${year}`)
     }
     let err = false;
     let backenderr = false;
@@ -561,27 +541,14 @@ export class GlobalsService {
     // TODO: Actually update for Future Log
     await this.getFutureTasks((new Date()).getFullYear());
     this.futureTasks = this.getTasks().slice();
-    console.log("getFutureLogTasks");
-    console.log(this.futureTasks)
+    // console.log("getFutureLogTasks");
+    // console.log(this.futureTasks)
   }
   public async getFutureTasks(year: number) {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
     const body = {
-      query:`
-      query {
-        getFutureTask(year: ${year}){
-          _id
-          content
-          name
-          day
-          month
-          year
-          tag
-          color
-        }
-      }
-      `
+      query: this.query(`getFutureTask`, `year: ${year}`)
     }
     let err = false;
     let backenderr = false;
@@ -617,31 +584,28 @@ export class GlobalsService {
       console.log(err)
     });
   }
-  public async createTask(value: any) {
+  public async createModifyTask(value: any) {
 
     // let taskGroup = (document.querySelector('input[name="taskGroup"]:checked') as HTMLInputElement).value;
     // console.log("TASK GROUP " + taskGroup);
 
-    console.log(value);
+    // console.log(value);
 
     let query = "";
     if (!value._id) {
       query = `
       mutation {
-        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.description}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
-          content
-          dueTime
-          day
-          month
-          year
-          tag
+        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.content}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
+          name
         }
       }
       `
     } else {
       query = `
       mutation {
-        MODIFY TASK
+        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}"){
+          name
+        }
       }
       `
     }
@@ -686,7 +650,51 @@ export class GlobalsService {
       console.log(err)
     });
   }
-
+  public async deleteTask(id: string) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query: `
+      mutation {
+        deleteTask(id:"${id}")
+      }
+      `,
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        // all g!
+        this.refresh();
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
 
 
 

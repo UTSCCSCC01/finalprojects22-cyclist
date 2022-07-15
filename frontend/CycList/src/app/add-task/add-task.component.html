@@ -15,13 +15,13 @@
     </div>
     <div>
       Schedule: 
-      <input (change)="schedule = !schedule" type="checkbox"/>  
+      <input (change)="globals.form.patchValue({ schedule: !globals.form.value.schedule })" type="checkbox" [checked]="globals.form.value.schedule"/>  
        Due: 
-      <div *ngIf="schedule">
+      <div *ngIf="globals.form.value.schedule">
         <input type="date" min="{{globals.minYear}}" max="{{globals.maxYear}}" required formControlName="tempDueDate"/>
         <input type="time" formControlName="dueTime"/>
       </div>
-      <div *ngIf="!schedule">
+      <div *ngIf="!globals.form.value.schedule">
         <input type="month" min="{{globals.minMonth}}" max="{{globals.maxMonth}}" required formControlName="tempDueMonth"/>
       </div>  
     </div>
@@ -40,21 +40,21 @@
     </div> -->
     <div *ngIf="globals.curLog === 'daily'">
       Repeat: 
-      <input (change)="repeatCheck($event)" type="checkbox" formControlName="isRepeat"/>  
-      <span *ngIf="repeat">
+      <input (change)="globals.form.patchValue({ isRepeat: !globals.form.value.isRepeat, frequency: '', dayWeekMonth: [null] })" type="checkbox" [checked]="globals.form.value.isRepeat"/>  
+      <span *ngIf="globals.form.value.isRepeat">
         every
         <span *ngIf="globals.form.value.dayWeekMonth === 'day'">
           <input type="number" min="1" required formControlName="frequency"/>
           th
         </span>
         <span *ngIf="globals.form.value.dayWeekMonth === 'week'">
-          <div class="btn circ day" [ngClass]="{'toggled': Su}" (click)="Su = !Su">S</div>
-          <div class="btn circ day" [ngClass]="{'toggled': Mo}" (click)="Mo = !Mo">M</div>
-          <div class="btn circ day" [ngClass]="{'toggled': Tu}" (click)="Tu = !Tu">T</div>
-          <div class="btn circ day" [ngClass]="{'toggled': We}" (click)="We = !We">W</div>
-          <div class="btn circ day" [ngClass]="{'toggled': Th}" (click)="Th = !Th">T</div>
-          <div class="btn circ day" [ngClass]="{'toggled': Fr}" (click)="Fr = !Fr">F</div>
-          <div class="btn circ day" [ngClass]="{'toggled': Sa}" (click)="Sa = !Sa">S</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[6]" (click)="globals.taskFormWeek[6] = !globals.taskFormWeek[6]">S</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[0]" (click)="globals.taskFormWeek[0] = !globals.taskFormWeek[0]">M</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[1]" (click)="globals.taskFormWeek[1] = !globals.taskFormWeek[1]">T</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[2]" (click)="globals.taskFormWeek[2] = !globals.taskFormWeek[2]">W</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[3]" (click)="globals.taskFormWeek[3] = !globals.taskFormWeek[3]">T</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[4]" (click)="globals.taskFormWeek[4] = !globals.taskFormWeek[4]">F</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[5]" (click)="globals.taskFormWeek[5] = !globals.taskFormWeek[5]">S</div>
         </span>
         <select required formControlName="dayWeekMonth">
           <option>day</option>
@@ -119,7 +119,7 @@
       </select>
     </span>
 
-    <textarea type="text" id="description" placeholder="Description" formControlName="description"></textarea>
+    <textarea type="text" id="description" placeholder="Description" formControlName="content"></textarea>
   </form>
   <button type="submit" class="add-task btn circ submit" (click)="submitForm()"><div>✓</div></button>
 </div>

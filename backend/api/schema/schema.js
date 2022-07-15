@@ -29,6 +29,7 @@ type task{
     day: Int
     month: Int
     year: Int
+    schedule: Boolean
     hierarchy: String
     dueTime: String
     dueDate: String
@@ -74,16 +75,18 @@ type RootQuery {
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
     createTask(hierarchy: String, date: String!, repeat: Boolean, dayWeekMonth: String, 
-        frequency: String, content:String!, dueTime: String, expectedDuration: Int, 
+        frequency: String, content:String, dueTime: String, expectedDuration: Int, 
         name:String!, tagID: ID): task
     rateDifficulty(id: ID!, score: Float!): String
     markSignifier(id: ID!, important:Boolean, completed:Boolean, abandoned:Boolean): task
     deleteTask(id:ID!): String
     modifyTask(taskId: ID!, date: String!, repeat: Boolean, dayWeekMonth: String, 
-        frequency: String, content:String!, dueTime: String, expectedDuration: Int, 
+        frequency: String, content:String, dueTime: String, expectedDuration: Int, 
         name:String!, tagID: ID): task
     createTag(name:String!, color:String): tag
-    test(day: Int!, month: Int!, year:Int!): [task!]
+    test(hierarchy: String, date: String!, repeat: Boolean, dayWeekMonth: String, 
+        frequency: String, content:String, dueTime: String, expectedDuration: Int, 
+        name:String!, tagID: ID): task
 }
 schema {
     query: RootQuery
