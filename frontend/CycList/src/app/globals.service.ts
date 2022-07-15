@@ -23,10 +23,13 @@ export class GlobalsService {
   /***************/
   public taskFormActive: boolean = false;
   form: FormGroup = this.fb.group({
+    _id: [null],
     name: [null],
     description: [null],
     signifier: [null],          // maybe just call it type????????
     content: [null],
+    tempDueMonth: [null],      // temps for me to get info, if scheduling or not
+    tempDueDate: [null],
     dueDate: [null],            // please merge     day: Int month: Int year: Int
     dueTime: [null],
     startDate: [null],
@@ -39,7 +42,7 @@ export class GlobalsService {
     dayWeekMonth: [null],   // add year?
     // repeatStartDay: [null],     // only in backend
 
-    tagID: [null],                // maybe just call tag, group, was this what was meant????????
+    tagID: "",                // maybe just call tag, group, was this what was meant????????
     priority: [null],         // maybe like options: ! !! or !!!    
     mood: [null],
     location: [null],
@@ -77,7 +80,7 @@ export class GlobalsService {
 
 
 
-  
+
 
 
 
@@ -325,15 +328,31 @@ export class GlobalsService {
     return `
     query {
       ${command}(${args}){
-        content
+        _id
+        creater
         name
         day
         month
         year
-        dueDate
+        hierarchy
         dueTime
+        dueDate
+        expectedDuration
+        actualDuration
+        start
+        isRepeat
+        dayWeekMonth
+        frequency
+        repeatStartDay
+        content
         tag
         color
+        important
+        identity
+        subTask
+        parentTask
+        mood
+        location
       }
     }
     `
@@ -372,7 +391,6 @@ export class GlobalsService {
     if (!this.isAuthenticated()) return;
     const body = {
       query: this.query(`getAllTask`, `type: "${type}"`)
-
     }
     let err = false;
     let backenderr = false;
@@ -602,10 +620,9 @@ export class GlobalsService {
 
     console.log(value);
 
-    // if user is not Authenticated (signed in), don't let them
-    if (!this.isAuthenticated()) return;
-    const body = {
-      query:`
+    let query = "";
+    if (!value._id) {
+      query = `
       mutation {
         createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.description}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
           content
@@ -617,6 +634,18 @@ export class GlobalsService {
         }
       }
       `
+    } else {
+      query = `
+      mutation {
+        MODIFY TASK
+      }
+      `
+    }
+
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query: query,
     }
     let err = false;
     let backenderr = false;
