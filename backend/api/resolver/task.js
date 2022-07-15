@@ -100,7 +100,7 @@ module.exports = {
             let color;
             let time;
             let schedule;
-            let task = await Task.find({_id:ObjectId(args.id), creater: ObjectId(req.userId)});
+            let task = await Task.find({_id:ObjectId(args.taskId), creater: ObjectId(req.userId)});
             if(task.length === 0){
                 throw new Error("wrong task id or task is not created by you");
             }
