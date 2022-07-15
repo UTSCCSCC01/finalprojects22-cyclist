@@ -15,6 +15,14 @@
 .left{
   width:50%;
   border-right: 2px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.days-weekdays{
+  writing-mode: vertical-rl;
+  text-orientation: upright;
 }
 
 .right{
