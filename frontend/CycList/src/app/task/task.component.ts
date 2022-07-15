@@ -29,6 +29,9 @@ export class TaskComponent {
   @Input()
   color: string = "";
 
+  @Input()
+  isRepeat: string = "";
+
   constructor(public globals: GlobalsService) { 
     // this.tags = this.globals.getTags();
     // this.taskTag = GlobalsService.getTag(this.tagID);
@@ -62,8 +65,29 @@ export class TaskComponent {
     this.globals.form.patchValue({year: this.year});
     this.globals.form.patchValue({month: this.month});
     this.globals.form.patchValue({day: this.day});
+    this.globals.form.patchValue({isRepeat: this.isRepeat});
     this.globals.form.patchValue({color: this.color});
     this.globals.taskFormActive = true;
+
+    // load directly:
+      // _id
+      // name
+      // content
+      // schedule
+      // dueTime
+      // isRepeat
+      // tag   => tagID
+      // color
+      // dayWeekMonth
+
+    // parse:
+      // dueDate  => tempDueDate if schedule is true, else => tempDueMonth
+      // frequency  => 
+        // if dayWeekMonth is
+          // null or 'month' => do nothing
+          // 'week' => parse string into taskFormWeek array
+          // 'day' => put int value into frequency
+
   }
   
 }

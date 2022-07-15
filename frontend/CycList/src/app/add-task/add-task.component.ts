@@ -9,15 +9,6 @@ import { GlobalsService } from '../globals.service';
 })
 export class AddTaskComponent implements OnInit {
   //formActive = false;
-  repeat = false;
-  Su = false;
-  Mo = false;
-  Tu = false;
-  We = false;
-  Th = false;
-  Fr = false;
-  Sa = false;  
-  schedule = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,24 +20,17 @@ export class AddTaskComponent implements OnInit {
   }
   
   formReset() {
-    this.repeat = false;
-    this.Su = false;
-    this.Mo = false;
-    this.Tu = false;
-    this.We = false;
-    this.Th = false;
-    this.Fr = false;
-    this.Sa = false;
+    this.globals.taskFormWeek = [false, false, false, false, false, false, false];
     this.globals.form.reset();
     this.globals.form.patchValue({
       frequency: "",
-      isRepeat: false,  
+      isRepeat: false,
       tagID: "",
     });
   }
 
   addTaskForm() {
-    this.globals.form.reset();
+    // this.formReset();
     this.globals.taskFormActive = true;
   }
 
@@ -57,9 +41,8 @@ export class AddTaskComponent implements OnInit {
   setRepeatFrequency() {
     if (this.globals.form.value.dayWeekMonth === 'week') {
       let res = "";
-      let t = [this.Mo, this.Tu, this.We, this.Th, this.Fr, this.Sa, this.Su];
       for (let i = 1; i < 8; i++) {
-        if (t[i-1]) res += i;
+        if (this.globals.taskFormWeek[i-1]) res += i;
       }
       this.globals.form.value.frequency = res;
       // console.log(res);
@@ -71,43 +54,40 @@ export class AddTaskComponent implements OnInit {
   }
 
   setDueTime() {
-    if (this.schedule) {
+    if (this.globals.form.value.schedule) {
       this.globals.form.patchValue({
         dueDate: this.globals.form.value.tempDueDate
       });
     } else {
       this.globals.form.patchValue({
         dueDate: this.globals.form.value.tempDueMonth,
-        dueTime: [null]
+        dueTime: null
       });
     }
   }
 
-  repeatCheck(event: any) {
-    this.repeat = event.target.checked;
-    this.globals.form.patchValue({
-      frequency: "",
-      dayWeekMonth: [null],
-    });
-    // console.log(this.form.value);
-  }
-  // @ViewChild("addTask") addTask: ElementRef<HTMLElement>;
-
-
   async submitForm() {
     this.setRepeatFrequency();
     this.setDueTime();
+    console.log(this.globals.form.value);
     if (!this.globals.form.value.name ||
-        this.schedule && !this.globals.form.value.tempDueDate || 
-        !this.schedule && !this.globals.form.value.tempDueMonth || 
-        this.repeat && (!this.globals.form.value.dayWeekMonth || this.globals.form.value.frequency.length === 0)) {
+        this.globals.form.value.schedule && !this.globals.form.value.tempDueDate || 
+        !this.globals.form.value.schedule && !this.globals.form.value.tempDueMonth ||
+        this.globals.form.value.isRepeat && (
+          !this.globals.form.value.dayWeekMonth || 
+          (this.globals.form.value.frequency.length === 0 && this.globals.form.value.dayWeekMonth !== 'month') ||
+          (this.globals.form.value.dayWeekMonth === 'month' && !this.globals.form.value.schedule) ||
+          !this.globals.form.value.schedule || 
+          (this.globals.form.value.schedule && !this.globals.form.value.dueTime)
+          )
+        ) {
       return;
     };
 
     this.globals.taskFormActive = false;
     console.log(this.globals.form.value);
     // send data to back end
-    await this.globals.createTask(this.globals.form.value);
+    await this.globals.createModifyTask(this.globals.form.value);
     this.formReset();
   }
 
