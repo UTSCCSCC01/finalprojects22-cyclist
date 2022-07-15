@@ -73,6 +73,7 @@ export class TaskComponent {
     this.globals.formReset();
     this.globals.form.patchValue({_id: this._id});
     this.globals.form.patchValue({name: this.name});
+    this.globals.form.patchValue({content: this.content});
     this.globals.form.patchValue({schedule: this.schedule});
     this.globals.form.patchValue({dueTime: this.dueTime});
     this.globals.form.patchValue({isRepeat: this.isRepeat});
