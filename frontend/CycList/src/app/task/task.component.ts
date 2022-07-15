@@ -7,7 +7,6 @@ import { GlobalsService } from '../globals.service';
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent {
-
   @Input() 
   _id: string = "";
 
@@ -40,6 +39,38 @@ export class TaskComponent {
 
   @Input() 
   frequency: string = "";
+
+  // vvv Signifiers: completed, important, abandoned
+  @Input()
+  completed: Boolean = false;
+
+  @Input()
+  important: Boolean = false;
+
+  @Input()
+  abandoned: Boolean = false;
+
+  sigMenuOpened : Boolean = false;
+
+  toggleSigMenu() {
+    this.sigMenuOpened = !this.sigMenuOpened;
+  }
+
+  toggleSigCompleted() {
+    this.completed = !this.completed;
+    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+  }
+
+  toggleSigImportant() {
+    this.important = !this.important;
+    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+  }
+  
+  toggleSigAbandoned() {
+    this.abandoned = !this.abandoned;
+    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+  }
+
 
   constructor(public globals: GlobalsService) { 
     // this.tags = this.globals.getTags();

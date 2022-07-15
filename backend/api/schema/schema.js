@@ -44,6 +44,8 @@ type task{
     tag: ID
     color: String
     important: Boolean
+    completed: Boolean
+    abandoned: Boolean
     identity: String
     subTask: [liteTask]
     parentTask: liteTask
@@ -75,8 +77,9 @@ type RootMutation {
     createTask(hierarchy: String, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String, dueTime: String, expectedDuration: Int, 
         name:String!, tagID: ID): task
+    rateDifficulty(id: ID!, score: Float!): String
+    markSignifier(id: ID!, important:Boolean, completed:Boolean, abandoned:Boolean): task
     deleteTask(id:ID!): String
-    markSignifier(id: ID!, field: String, value: String): String!
     modifyTask(taskId: ID!, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String, dueTime: String, expectedDuration: Int, 
         name:String!, tagID: ID): task

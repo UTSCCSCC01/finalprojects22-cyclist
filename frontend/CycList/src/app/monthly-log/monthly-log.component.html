@@ -13,20 +13,13 @@
     <div class="right">
       <h2>Unscheduled Tasks</h2>
       <div *ngFor="let task of globals.monthlyTasks">
-          <app-task
-            [_id]="task._id"
-            [name]="task.name"
-            [content]="task.content"
-            [schedule]="task.schedule"
-            [dueTime]="task.dueTime"
-            [isRepeat]="task.isRepeat"
-            [tag]="task.tag"
-            [color]="task.color"
-            [dayWeekMonth]="task.dayWeekMonth"
-            
-            [dueDate]="task.dueDate"
-            [frequency]="task.frequency"
-          ></app-task>
+        <app-task
+          [_id]="task._id" [name]="task.name" [content]="task.content" 
+          [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
+          [isRepeat]="task.isRepeat" [frequency]="task.frequency"
+          [tag]="task.tag" [color]="task.color" 
+          [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
+        </app-task>
       </div>
     </div>
   </div>

@@ -15,6 +15,7 @@
   --bg-alt-trans: #eaebef50;
   --bg: #f1f3f6; //$color-light;
   --fg: #313443;  //$color-darker;
+  --menu: white; //$color-white;
   // --variant: 'light';
 }
 
@@ -27,6 +28,7 @@
     --bg-alt-trans: #30324150;
     --bg: #2b2d3a;//#313443 //$color-darker;
     --fg: #acaeb8; //$color-light;
+    --menu: #3f4252; //$color-dark;
     // --variant: 'dark';
   }
 }
@@ -39,6 +41,7 @@
   --bg-alt-trans: #30324150;
   --bg: #2b2d3a;//#313443 //$color-darker;
   --fg: #acaeb8; //$color-light;
+  --menu: #3f4252; //$color-dark;
   // --variant: 'dark';
 }
 #root.light, #root.light * {
@@ -48,6 +51,7 @@
   --bg-alt-trans: #eaebef50;
   --bg: #f1f3f6; //$color-light;
   --fg: #313443; //;  //$color-darker;
+  --menu: white; //$color-white;
   // --variant: 'light';
 }
 
@@ -59,6 +63,7 @@ $fg-alt: var(--fg-alt);
 $bg-alt: var(--bg-alt);
 $bg-alt-trans: var(--bg-alt-trans);
 $fg-opp: var(--fg-opp);
+$menu: var(--menu);
 // $bg: if($variant == 'light', #f1f3f6, #343434);
 // $fg: if($variant == 'dark', #f1f3f6, #343434);
 

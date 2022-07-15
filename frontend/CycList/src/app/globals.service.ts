@@ -346,6 +346,9 @@ export class GlobalsService {
         dayWeekMonth
         tag
         color
+        completed
+        important
+        abandoned
       }
     }
     `
@@ -884,7 +887,75 @@ export class GlobalsService {
   }
 
 
+  /**
+   * Update a specified task's signifiers to any desired value.
+   * @param id (string) The id of the task of which to mark the signifiers for.
+   * @param important (Boolean) true: the task should be marked as important
+   * @param completed (Boolean) true: the task should be marked as completed
+   * @param abandoned (Boolean) true: the task should be marked as abandoned
+   * @returns `0`: if the task's signifier is marked successfully.
+   *          `null`: if there was an error attempting to mark the task's signifiers.
+   */
+  public async markSignifier(id: string, important: Boolean, completed: Boolean, abandoned: Boolean) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
 
+    const body = {
+      query:`
+      mutation {
+          markSignifier(id:"${id}", important:${important}, completed:${completed}, abandoned:${abandoned}){
+            _id
+            creater
+            name
+            color
+            important
+            completed
+            abandoned
+          }
+        }
+      `
+    }
+
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
+      }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+          return;
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+          return;
+        }
+      }else{
+        // all good!
+        return 0;
+        /* TODO: update logs after marking signifiers.
+         * This doesn't seem necessary, as the frontend re-renders the signifiers
+         * immediately after the signifier is chosen.*/
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
 
 
 

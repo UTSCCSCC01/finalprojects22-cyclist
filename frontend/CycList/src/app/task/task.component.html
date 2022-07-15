@@ -1,7 +1,29 @@
 <div class="task">
     <div class="task-head">
-      <div class="signifier" [ngClass]="color"></div>
-      <div id="task-text" >{{ name }}</div>
+      <div class="signifier" [ngClass]="color">
+        <div class="signifier-button" (click)="toggleSigMenu()"></div>
+
+        <div class="signifier-menu" *ngIf="sigMenuOpened">
+          <div class="signifier-menu-item">
+            <span class="signifier-checkmark" *ngIf="completed">✓</span>
+            <span class="signifier-choice" (click)="toggleSigCompleted()">completed</span>
+          </div>
+          <div class="signifier-menu-item">
+            <span class="signifier-checkmark" *ngIf="important">✓</span>
+            <span class="signifier-choice" (click)="toggleSigImportant()">important</span>
+          </div>
+          <div class="signifier-menu-item">
+            <span class="signifier-checkmark" *ngIf="abandoned">✓</span>
+            <span class="signifier-choice" (click)="toggleSigAbandoned()">abandon</span>
+          </div>
+        </div>
+
+        <span class="important" *ngIf="important">★</span>
+        <span class="incomplete" *ngIf="!completed">●</span>
+        <span class="completed" *ngIf="completed">🞬</span>
+      </div>
+
+      <div id="task-text" [ngClass]="{abandoned: abandoned}">{{ name }}</div>
     </div>
     <div class="right-aligned">
       <div class="btn flat circ edit" (click)="addTaskForm()"><div>✎</div></div>
