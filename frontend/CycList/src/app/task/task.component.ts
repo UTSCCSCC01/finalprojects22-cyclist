@@ -97,12 +97,12 @@ export class TaskComponent {
     }else if(this.dayWeekMonth === 'week'){
       for (let i = 0; i < this.frequency.length; i++) {
         this.globals.taskFormWeek[parseInt((this.frequency)[i])-1] = true;
-        console.log(((this.frequency)[i]));
+        // console.log(((this.frequency)[i]));
       }
     }
 
-    console.log(this.globals.form.value);
-    console.log(this.globals.taskFormWeek);
+    // console.log(this.globals.form.value);
+    // console.log(this.globals.taskFormWeek);
     this.globals.taskFormActive = true;
 
     // load directly:

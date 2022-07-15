@@ -62,7 +62,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   async submitForm() {
-    console.log(this.globals.form.value);
+    // console.log(this.globals.form.value);
     if (!this.globals.form.value.name ||
         this.globals.form.value.schedule && !this.globals.form.value.tempDueDate || 
         !this.globals.form.value.schedule && !this.globals.form.value.tempDueMonth ||

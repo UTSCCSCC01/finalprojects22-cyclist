@@ -392,7 +392,7 @@ export class GlobalsService {
     // TODO: actual update for Dashboard
     await this.getAllTasks("");
     this.dashboardTasks = this.getTasks().slice();
-    console.log(this.dashboardTasks);
+    // console.log(this.dashboardTasks);
   }
   public async getAllTasks(type: string) {
     // if user is not Authenticated (signed in), don't let them
@@ -538,8 +538,8 @@ export class GlobalsService {
     // TODO: Actually update for Future Log
     await this.getFutureTasks((new Date()).getFullYear());
     this.futureTasks = this.getTasks().slice();
-    console.log("getFutureLogTasks");
-    console.log(this.futureTasks)
+    // console.log("getFutureLogTasks");
+    // console.log(this.futureTasks)
   }
   public async getFutureTasks(year: number) {
     // if user is not Authenticated (signed in), don't let them
