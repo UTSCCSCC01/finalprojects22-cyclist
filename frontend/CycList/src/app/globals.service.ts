@@ -67,17 +67,18 @@ export class GlobalsService {
   /***************/
   public now: any;
   public oneYear: any;
-  public oneMonth: any;
+  // public oneMonth: any;
   public minYear: any;
   public maxYear: any;
   public minMonth: any;
   public maxMonth: any;
   public nDays: number = 6;
   public nDates: Date[] = [];
+  public notifications: string[] = [];
   public setAppTime() {
     this.now = new Date();
-    this.oneYear = new Date(this.now.getFullYear() + 1, this.now.getMonth(), this.now.getDay());
-    this.oneMonth = new Date(this.now.getFullYear(), this.now.getMonth() + 1, this.now.getDay());
+    this.oneYear = new Date(this.now.getFullYear() + 1, this.now.getMonth() + 2, 0); // we allow one year + one more month
+    // this.oneMonth = new Date(this.now.getFullYear(), this.now.getMonth() + 1, this.now.getDay());
     this.minYear = this.now.toISOString().slice(0,10);
     this.maxYear = this.oneYear.toISOString().slice(0,10);
     this.minMonth = this.now.toISOString().slice(0,7);
@@ -86,11 +87,26 @@ export class GlobalsService {
     // TODO: update when go to a new day
   }
   public setNDates() {
-    //get the upcomming `this.numDates` dates
+    //get the upcoming `this.numDates` dates
     let today = new Date();
     for (let i = 0; i < this.nDays; i++) {
       this.nDates[i] = new Date();
       this.nDates[i].setDate(today.getDate() + i);
+    }
+  }
+  public setNotifications() {
+    for (let task of this.dashboardTasks) {
+      console.log(task.dueTime);
+      if (task.dueTime && task.dueDate && !this.notifications.includes(task._id)) {
+        // only set the notification once
+        this.notifications.push(task._id);
+        // make sure it's not overdue
+        let time = (new Date(task.dueDate+' '+task.dueTime)).getTime()-(new Date()).getTime();
+        if (time > 0) {
+          // console.log(task.dueDate+' '+task.dueTime);
+          setTimeout(function(){alert(task.name)},time);
+        }
+      }
     }
   }
 
@@ -382,7 +398,8 @@ export class GlobalsService {
     // TODO: actual update for Dashboard
     await this.getAllTasks("");
     this.dashboardTasks = this.getTasks().slice();
-    console.log(this.dashboardTasks);
+    this.setNotifications();
+    // console.log(this.dashboardTasks);
   }
   public async getAllTasks(type: string) {
     // if user is not Authenticated (signed in), don't let them
