@@ -8,16 +8,7 @@ import { GlobalsService } from '../globals.service';
   styleUrls: ['./add-task.component.scss']
 })
 export class AddTaskComponent implements OnInit {
-  formActive = false;
-  repeat = false;
-  Su = false;
-  Mo = false;
-  Tu = false;
-  We = false;
-  Th = false;
-  Fr = false;
-  Sa = false;  
-  schedule = false;
+  //formActive = false;
 
   constructor(
     private fb: FormBuilder,
@@ -27,117 +18,70 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
-  formReset() {
-    this.repeat = false;
-    this.Su = false;
-    this.Mo = false;
-    this.Tu = false;
-    this.We = false;
-    this.Th = false;
-    this.Fr = false;
-    this.Sa = false;
-    this.form.reset();
-    this.form.patchValue({
-      frequency: "",
-      isRepeat: false,  
-      tagID: "",
-    });
-  }
 
   addTaskForm() {
-    this.formActive = true;
+    this.globals.formReset();
+    this.globals.taskFormActive = true;
   }
 
   overlay() {
-    this.formActive = false;
+    this.globals.taskFormActive = false;
   }
 
   setRepeatFrequency() {
-    if (this.form.value.dayWeekMonth === 'week') {
+    if (this.globals.form.value.dayWeekMonth === 'week') {
       let res = "";
-      let t = [this.Mo, this.Tu, this.We, this.Th, this.Fr, this.Sa, this.Su];
       for (let i = 1; i < 8; i++) {
-        if (t[i-1]) res += i;
+        if (this.globals.taskFormWeek[i-1]) res += i;
       }
-      this.form.value.frequency = res;
-      // console.log(res);
-    } else if (this.form.value.dayWeekMonth === 'month') {
-      this.form.value.frequency = this.form.value.dueDate.slice(8,10);
-    } else if (this.form.value.dayWeekMonth === 'day') {
-      this.form.value.frequency = this.form.value.frequency.toString();
+      this.globals.form.patchValue({
+        frequency: res
+      });
+    } else if (this.globals.form.value.dayWeekMonth === 'month') {
+      this.globals.form.patchValue({
+        frequency: this.globals.form.value.tempDueDate.slice(8,10)
+      });
+    } else if (this.globals.form.value.dayWeekMonth === 'day') {
+      this.globals.form.patchValue({
+        frequency: this.globals.form.value.frequency.toString()
+      });
     }
   }
 
   setDueTime() {
-    if (this.schedule) {
-      this.form.patchValue({
-        dueDate: this.form.value.tempDueDate
+    if (this.globals.form.value.schedule) {
+      this.globals.form.patchValue({
+        dueDate: this.globals.form.value.tempDueDate
       });
     } else {
-      this.form.patchValue({
-        dueDate: this.form.value.tempDueMonth,
-        dueTime: [null]
+      this.globals.form.patchValue({
+        dueDate: this.globals.form.value.tempDueMonth,
+        dueTime: null
       });
     }
   }
 
-  repeatCheck(event: any) {
-    this.repeat = event.target.checked;
-    this.form.patchValue({
-      frequency: "",
-      dayWeekMonth: [null],
-    });
-    // console.log(this.form.value);
-  }
-  // @ViewChild("addTask") addTask: ElementRef<HTMLElement>;
-
-  form: FormGroup = this.fb.group({
-    name: [null],
-    description: [null],
-    signifier: [null],          // maybe just call it type????????
-    content: [null],
-    tempDueMonth: [null],      // temps for me to get info
-    tempDueDate: [null],
-    dueDate: [null],
-    dueTime: [null],
-    startDate: [null],
-    startTime: [null],
-
-    expectedDuration: [null],  // pointless because we have start and due/end unless this is an AI value
-
-    isRepeat: false,         // maybe just repeat true of false
-    frequency: "",
-    dayWeekMonth: [null],   // add year?
-    // repeatStartDay: [null],     // only in backend
-
-    tagID: "",                // maybe just call tag, group, was this what was meant????????
-    priority: [null],         // maybe like options: ! !! or !!!    
-    mood: [null],
-    location: [null],
-    interests: [null],        // ?????????
-
-    reminders: [null],      // TODO: need to be able to have multiple so maybe an array of 
-    collaborations: [null]  // TODO: add friends that you will do that job with
-
-                            // Ideas: file (image), url
-  });
-
   async submitForm() {
-    this.setRepeatFrequency();
-    this.setDueTime();
-    if (!this.form.value.name ||
-        this.schedule && !this.form.value.tempDueDate || 
-        !this.schedule && !this.form.value.tempDueMonth || 
-        this.repeat && (!this.form.value.dayWeekMonth || this.form.value.frequency.length === 0)) {
+    // console.log(this.globals.form.value);
+    if (!this.globals.form.value.name ||
+        this.globals.form.value.schedule && !this.globals.form.value.tempDueDate || 
+        !this.globals.form.value.schedule && !this.globals.form.value.tempDueMonth ||
+        this.globals.form.value.isRepeat && (
+          !this.globals.form.value.schedule ||
+          !this.globals.form.value.dayWeekMonth || 
+          (this.globals.form.value.dayWeekMonth === 'day' && this.globals.form.value.frequency === 0)
+          )
+        ) {
       return;
     };
+    this.setRepeatFrequency();
+    this.setDueTime();
 
-    this.formActive = false;
-    console.log(this.form);
+    this.globals.taskFormActive = false;
+    // console.log(this.globals.form.value);
     // send data to back end
-    await this.globals.createTask(this.form.value);
-    this.formReset();
+    await this.globals.createModifyTask(this.globals.form.value);
+    this.globals.formReset();
   }
 
 }

@@ -19,10 +19,12 @@ const taskSchema = new Schema({
     year:{
         type: Number,
     },
+    schedule:{
+        type: Boolean,
+    },
     // daily, monthly, year
     hierarchy:{
         type: String,
-        required: true,
     },
     // am/pm
     dueTime:{
@@ -56,7 +58,6 @@ const taskSchema = new Schema({
     },
     content:{
         type: String,
-        required: true,
     },
     tag:{
         type: Schema.Types.ObjectId,

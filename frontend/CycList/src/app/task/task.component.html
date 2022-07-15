@@ -3,5 +3,9 @@
       <div class="signifier" [ngClass]="color"></div>
       <div id="task-text" >{{ name }}</div>
     </div>
-    <div id="task-time"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
+    <div class="right-aligned">
+      <div class="btn flat circ edit" (click)="addTaskForm()"><div>✎</div></div>
+      <div class="btn flat circ del" (click)="deleteTask()"><div>✗</div></div>
+      <div id="task-time"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
+    </div>
 </div>
