@@ -127,7 +127,7 @@ export class TaskComponent {
   }
 
   deleteTask() {
-
+    this.globals.deleteTask(this._id);
   }
   
 }
