@@ -34,10 +34,31 @@ export class TaskComponent {
   completed: Boolean = false;
 
   @Input()
-  important: Boolean = false;
+  important: Boolean = true;
 
   @Input()
   abandoned: Boolean = false;
+
+  sigMenuOpened : Boolean = false;
+
+  toggleSigMenu() {
+    this.sigMenuOpened = !this.sigMenuOpened;
+  }
+
+  toggleSigCompleted() {
+    this.completed = !this.completed;
+    // TODO: update task in the backend
+  }
+
+  toggleSigImportant() {
+    this.important = !this.important;
+    // TODO: update task in the backend
+  }
+  
+  toggleSigAbandoned() {
+    this.abandoned = !this.abandoned;
+    // TODO: update task in the backend
+  }
 
   constructor(public globals: GlobalsService) { 
     // this.tags = this.globals.getTags();

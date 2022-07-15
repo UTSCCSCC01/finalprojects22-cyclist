@@ -56,6 +56,38 @@ $radius-task: calc($radius-todo + $pd-task / 1.3);
   }
 }
 
+.signifier-button {
+  position: inherit;
+  height: inherit;
+  width: inherit;
+  background-color: aqua;
+  z-index: 1;
+  opacity: 0.3;
+}
+
+.signifier-menu {
+  position: absolute;
+  top: 18px;
+  height: auto;
+  width: auto;
+  padding: 0.4em;
+  background-color: white;
+  border-radius: 0.5em;
+  z-index: 2;
+}
+
+.signifier-menu-item > *{
+  padding: 0.2em;
+}
+
+.signifier-choice {
+  left: 18px;
+}
+
+
+/*
+ * vvv symbols and text styles for signifiers
+ */
 .important {
   position: absolute;
   left: 2px;
