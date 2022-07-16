@@ -2,17 +2,17 @@ const Tag = require("../../database/tag");
 const ObjectId = require('mongodb').ObjectId;
 module.exports = {
     createTag: async (args,req) =>{
-        // if(!req.isAuth){
-        //     throw new Error("User not authenticated");
-        // }
+        if(!req.isAuth){
+            throw new Error("User not authenticated");
+        }
         try{
-            let check = await Tag.find({creater: ObjectId("6297e22dab2c042c8dd6effb"),
+            let check = await Tag.find({creater: ObjectId(req.userId),
             $or:[{name:args.name}, {color:args.color}]});
             if(check.length !== 0){
                 throw new Error("User has a task group with same name/color, try another one");
             }
             let newTag = new Tag({
-                creater: "6297e22dab2c042c8dd6effb",
+                creater: req.userId,
                 name: args.name,
                 color: args.color,
                 icon:0,
@@ -27,11 +27,11 @@ module.exports = {
     },
     // return all tags the user has
     getAllTag: async (args,req) =>{
-        // if(!req.isAuth){
-        //     throw new Error("User not authenticated");
-        // }
+        if(!req.isAuth){
+            throw new Error("User not authenticated");
+        }
         try{
-            let tags = await Tag.find({creater: ObjectId("6297e22dab2c042c8dd6effb")});
+            let tags = await Tag.find({creater: ObjectId(req.userId)});
             return tags;
         }catch(err){
             throw err;
@@ -39,13 +39,12 @@ module.exports = {
     },
     // return single tag info of the given tagId
     getTag: async (args,req) =>{
-        // if(!req.isAuth){
-        //     throw new Error("User not authenticated");
-        // }
+        if(!req.isAuth){
+            throw new Error("User not authenticated");
+        }
         try{
             let tag = await Tag.findById(args.tagId);
-            console.log(tag.creater);
-            if(tag.creater.valueOf() !== "6297e22dab2c042c8dd6effb"){
+            if(tag.creater.valueOf() !== req.userId){
                 throw new Error("You are not tag creater");
             }
             return tag;

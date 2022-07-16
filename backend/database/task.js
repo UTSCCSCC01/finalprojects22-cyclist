@@ -19,13 +19,19 @@ const taskSchema = new Schema({
     year:{
         type: Number,
     },
+    schedule:{
+        type: Boolean,
+    },
     // daily, monthly, year
     hierarchy:{
         type: String,
-        required: true,
     },
     // am/pm
-    startTime:{
+    dueTime:{
+        type: String,
+    },
+    // iso string combined day month year and dueTime
+    dueDate:{
         type: String,
     },
     expectedDuration:{
@@ -52,13 +58,21 @@ const taskSchema = new Schema({
     },
     content:{
         type: String,
-        required: true,
     },
     tag:{
         type: Schema.Types.ObjectId,
         ref:'Tag',
     },
+    color:{
+        type: String,
+    },
     important:{
+        type: Boolean,
+    },
+    completed:{
+        type: Boolean,
+    },
+    abandoned:{
         type: Boolean,
     },
     // parent or subtask

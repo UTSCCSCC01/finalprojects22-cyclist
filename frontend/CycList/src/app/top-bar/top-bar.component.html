@@ -1,7 +1,17 @@
 <div class="top-bar">
   <!-- top-bar works!
   <span (click)="notify()">click me</span> -->
-  <a class="top-bar-elem" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">CycList</a>
+  <p class="title">CycList</p>
+  <!-- <a class="top-bar-elem" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page"></a> -->
   <div class="spacer"></div>
-  <div class="btn" (click)="globals.logout()">Logout</div>
+  <img class="btn flat" (click)="colorMode()" [src]="'../../assets/'+globals.colorMode+'.png'"/>
+  <div class="btn flat" (click)="globals.logout()">{{ this.globals.getUser().nickName }}: logout</div>
+
+  <!-- TODO: Add credits: -->
+  <!-- <a href="https://www.flaticon.com/free-icons/list" title="list icons">List icons created by Freepik - Flaticon</a> -->
+  <!-- <a href="https://www.flaticon.com/free-icons/list" title="list icons">List icons created by Chanut - Flaticon</a> -->
+  <!-- <a href="https://www.flaticon.com/free-icons/contrast" title="contrast icons">Contrast icons created by Smartline - Flaticon</a> -->
+  <!-- <a href="https://www.flaticon.com/free-icons/sun" title="sun icons">Sun icons created by GOFOX - Flaticon</a> -->
+  <!-- <a href="https://www.flaticon.com/free-icons/dark" title="dark icons">Dark icons created by adriansyah - Flaticon</a> -->
 </div>
+

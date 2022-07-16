@@ -1,7 +1,7 @@
 <div class="signin-overlay" [ngClass]="{'hidden': globals.loggedIn}">
   <div class="signin">
-    <div class="circle"></div>
-    <form class="complete-log-in" (ngSubmit)="submit()" [formGroup]="form">
+    <!-- <div class="circle"></div> -->
+    <form class="complete-log-in" (ngSubmit)="submit()" [formGroup]="form" novalidate>
       <input
         [ngClass]="{'hidden': !registering}"
         type="text"
@@ -33,11 +33,14 @@
     </form>
     <div class="notation">
       <p class = "words" [ngClass]="{'hidden': registering}">
-        Don't have an account? <a class ="register" (click)="registering = true">REGISTER</a>
+        Don't have an account? <a class ="register" (click)="registering = hideErrors('register')">REGISTER</a>
       </p>
       <p class = "words" [ngClass]="{'hidden': !registering}">
-        Already have an account? <a class ="register" (click)="registering = false">LOGIN</a>
+        Already have an account? <a class ="register" (click)="registering = hideErrors('login')">LOGIN</a>
       </p>
-    </div>  
+    </div>
+    <div  *ngIf="this.checkError(form)">
+      <p id="error-message-container" class="err">{{ this.errorMessage }}</p>
+    </div> 
   </div>
 </div>

@@ -10,9 +10,18 @@ import { GlobalsService } from './globals.service';
 export class AppComponent {
   title = 'CycList';
 
-  constructor(public globals: GlobalsService) {}
+  constructor(public globals: GlobalsService) {
+    if(Notification.permission !== 'granted') {
+      Notification.requestPermission();
+    }
+  }
 
   ngOnInit(): void {
-    this.globals.setNDates();
+    this.globals.setAppTime();
+    // const options = {
+    //   body: "other",
+    //   icon: "../assets/list.png"
+    // }
+    // let notification = new Notification('Send Notification!', options);
   }
 }

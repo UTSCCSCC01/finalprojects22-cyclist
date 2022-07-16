@@ -1,4 +1,5 @@
 - [Installation](#installation)
+- [Implementation Details](#implementation-details)
 - [Set up](#set-up)
   - [Frontend](#frontend)
     - [Frontend Structure](#frontend-structure)
@@ -7,13 +8,27 @@
 - [Frontend GlobalsService Documentation](#frontend-globalsservice-documentation)
   - [Fields](#fields)
     - [public loggedIn: boolean](#public-loggedin-boolean)
+    - [public colorMode: string]
+    - [public em: string]
+    - [public public now: any]
+    - [public oneYear: any]
+    - [public minYear: any]
+    - [public maxYear: any]
+    - [public minMonth: any]
+    - [public maxMonth: any]
+    - [public notifications: string[]
+    - [private user: any]
+    - [public loginError: string]
+    - [public taskFormActive: boolean]
+    - [public taskFormWeek: boolean[]]
+    - [form: Formgroup]
     - [public tasks](#public-tasks)
     - [public nDays: number](#public-ndays-number)
-    - [public nDates: Date\[\]](#public-ndates-date)
-    - [public dashboardTasks: any\[\]](#public-dashboardtasks-any)
-    - [public dailyTasks: any\[\]](#public-dailytasks-any)
-    - [public monthlyTasks: any\[\]](#public-monthlytasks-any)
-    - [public futureTasks: any\[\]](#public-futuretasks-any)
+    - [public nDates: Date[]](#public-ndates-date)
+    - [public dashboardTasks: any[]](#public-dashboardtasks-any)
+    - [public dailyTasks: any[]](#public-dailytasks-any)
+    - [public monthlyTasks: any[]](#public-monthlytasks-any)
+    - [public futureTasks: any[]](#public-futuretasks-any)
   - [public loadUser()](#public-loaduser)
   - [public isAuthenticated()](#public-isauthenticated)
   - [public logout()](#public-logout)
@@ -50,6 +65,8 @@
   - Node.js 
   - express.js
   - Database: MongoDB Atlas
+
+# Implementation Details
 
 # Set up
 
@@ -95,9 +112,68 @@ The class GlobalsService is a singleton class that provides each Angular compone
 
 True if a user is logged in.
 
+### public colorMode: string
+
+Tracks the current theme. Possible values are `auto`, `light`, `dark`.
+
+### public em: string
+
+Stores an error message.
+
+### public public now: any
+
+Stores the current date.
+
+### public oneYear: any 
+
+Stores the current date plus one year and two months.
+
+### public minYear: any
+
+Stores the lower year boundary to create a task.
+
+### public maxYear: any
+
+Stores the higher year boundary to create a task.
+
+### public minMonth: any
+
+Stores the lower month boundary to create a task.
+
+### public maxMonth: any
+
+Stores the higher month boundary to create a task.
+
+### public notifications: string[]
+
+An array of notifications containing `task._id` values. Updated by setNotifications().
+
+### private user: any
+
+Stores the current user.
+
+Setter function: public setUser(user: any)
+
+### public loginError: string
+
+Store the current login error.
+
+### public taskFormActive: boolean
+
+True if the add task form is active (not hidden).
+
+### public taskFormWeek: boolean[]
+
+Determines the active weekdays on the add task form when repeat by week is selected.
+`taskFormWeek[0]` determines monday, `taskFormWeek[1]` tuesday and so on.
+
+### form: Formgroup
+
+Contains values that determine the content of the fields in the add task form.
+
 ### public tasks
 
-An array of task JSON objects, with attributes: content, name, day, month, year, dueTime. `tasks` is used as a temporary variable to house the results of functions in class `GlobalsService`.
+An array of task JSON objects, with attributes: _id, content, name, day, month, year, dueTime. `tasks` is used as a temporary variable to house the results of functions in class `GlobalsService`.
 
 Getter function: public getTasks()
 Setter function: public setTasks(tasks: any)
@@ -128,6 +204,23 @@ Array of tasks containing the tasks to be displayed on the monthly log page.
 ### public futureTasks: any[]
 
 Array of tasks containing the tasks to be displayed on the future log page.
+
+### public tags
+
+Array of tag objects with attributes: _id, creater, name, color, icon, totalExpectedTime, totalActualTime.
+
+Getter function: public getTags()
+Setter function: public setTags(tags: any)
+
+## public async refresh()
+
+## public setAppTime()
+
+## public setNotifications()
+
+## public formReset()
+
+## public getMonthlyTasks()
 
 ## public loadUser()
 
@@ -213,14 +306,47 @@ Array of tasks containing the tasks to be displayed on the future log page.
 - Expected Response:
   - field `tasks` houses all the user's tasks with hierarchy "future", empty array if user has no tasks.
 
-## public async createTask(form: FormGroup)
+## public async createModifyTask(form: FormGroup)
 
-- Description: create tasks for the user, and update tasks on dashboard, daily-log, and future-log.
+- Description: create/modify tasks for the user, and update tasks on dashboard, daily-log, and future-log. Create if `form.value._id` is `null`, otherwise modify.
 - Body Parameters: 
   - form: FormGroup - the task input form the user filled to input task
 - Expected Response:
-  - the result of creating task from the server.
+  - the result of creating/modify task from the server.
 
+## public async deleteTask(id: string)
+
+- Description: delete thie task with the `_id` value of passed `id`.
+- Body Parameters: 
+  - id: string - the id of task to be deleted.
+- Expected Response:
+  - the result of creating/modify task from the server.
+
+## public async getAllTags(userID: string)
+
+- Description: query all user's tags to field tags as an array of tags
+- Body Parameters: None
+- Expected Response:
+  - field tags houses all the user's tags, empty array if user has no tags.
+
+## public async createTag(value: any)
+
+- Description: creates a tag
+- Body Parameters: 
+  - object with tag input information
+- Expected Response:
+  - add this tag to tags field
+
+## public async markSignifier()
+
+- Description: marks a task with signifiers
+- Body Parameters: 
+  - id: string - id of task to be marked
+  - important: Boolean - a signifier
+  - completed: Boolean - a signifier
+  - abandoned: Boolean - a signifier
+- Expected Response:
+  - mark tag with give id with given signifiers.
 
 # Backend Documentation
 Since we are using graphQL as our api, it behaves little different from REST:
@@ -235,7 +361,6 @@ Since we are using graphQL as our api, it behaves little different from REST:
 
 - Description: user can create a new task through this function
 - Body Parameters:
-  - hierarchy: String //this field represent the task is daily, monthly log or future log
   - content: String
   - name: String
   - date: String
@@ -243,6 +368,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - repeat: Boolean
   - dayWeekMonth: String
   - frequency: String
+  - tegID: String
 - Expected Response:
   - 200 OK
     - create successfully
@@ -251,9 +377,31 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - 500 Input error
     - Invalid argument type.
 
+## modifyTask
+
+- Description: this is used to update all given fields of the task with the given id
+- Body Parameters:
+  - taskId: String
+  - content: String
+  - name: String
+  - date: String
+  - dueTime: String
+  - repeat: Boolean
+  - dayWeekMonth: String
+  - frequency: String
+  - tegID: String
+- Expected Response:
+  - 200 OK
+    - return the updated task
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+
 ## getDailyTask
 
-- Description: user can get their tasks for the given date, tasks include this day’s daily task and repeated tasks on this day.
+- Description: user can get their tasks for the given date, tasks include this day’s daily task and repeated tasks on this day. Tasks are ordered by chronological order where tasks without a time will be put in the end of list.
 - Body Parameters:
   - day: Int
   - month: Int
@@ -268,7 +416,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
 
 ## getMonthTask
 
-- Description: user can get their monthly tasks for the given month.
+- Description: user can get their monthly tasks for the given month. It will only return the tasks start in 6 days leter until the end of this month.
 - Body Parameters:
   - month: Int
   - year: Int
@@ -282,7 +430,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
 
 ## getFutureTask
 
-- Description: user can get their future tasks for the given year.
+- Description: user can get their future tasks for the next 12 months.
 - Body Parameters:
   - year: Int
 - Expected Response:
@@ -295,6 +443,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
 
 
 ## getSingleTask
+
 - Description: user can get the details of the task with the given id.
 - Body Parameters:
   - id: ID
@@ -308,6 +457,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
 
 
 ## getAllTask
+
 - Description: user can get all of their tasks
 - Body Parameters:
   - type: String  //user wants to get their daily task or monthly log….For now, it’s all
@@ -320,6 +470,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
     - Invalid argument type.
 
 ## getAllTag
+
 - Description:return all tags the user has currently.
 - Body Parameters:
   - id: String //This doesn’t matter since we will use token in the next sprint, for now it can be any string
@@ -332,6 +483,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
     - Invalid argument type.
 
 ## getTag
+
 - Description:return the tag details for the given tagId.
 - Body Parameters:
   - tagId: the tag id
@@ -343,7 +495,22 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - 500 Input error
     - Invalid argument type.
 
+## createTag
+
+- Description:  to allow user to create their own tag 
+- Body Parameters:
+  - name: String
+  - color: String
+- Expected Response:
+  - 200 OK
+    - return the tag
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.    
+
 ## createUser
+
 - Description: to create a user in database and return its token.
 - Body Parameters:
   - email: String
@@ -358,6 +525,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
     - Invalid argument type.
 
 ## emailLogin
+
 - Description:  to allow user log in their account and return a token. 
 - Body Parameters:
   - email: String
@@ -370,20 +538,58 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - 500 Input error
     - Invalid argument type.
 
+## markSignifier
+
+- Description:  it will update these 3 fields(important, completed and abandoned) of the given task id in database 
+- Body Parameters:
+  - id: String
+  - important: Boolean
+  - completed: Boolean
+  - abandoned: Boolean
+- Expected Response:
+  - 200 OK
+    - return the updated task
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
+## test
+
+- Description: this is used during developing, its body parameters and return response can be changed at anytime 
+- Body Parameters:
+  - any: String //this can be changed deponds on what you want to test
+- Expected Response:
+  - 200 OK
+    - this can be changed deponds on what you want to test
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+    - Invalid argument type.
+
 # Database Structure
 
 ## Task
-- creater(backend): ID
-- day(frontend):int
-- month(frontend):int
-- year(frontend):int
-- hierarchy(frontend):String //should be daily, monthly or future
-- stratTime(frontend):int //the start time of this task
-- expectedDuration(frontend): int
-- repeatOrSingle(frontend):String //should be single or repeat
-- dayWeekMonth(frontend): String //should be day, week or month
-- frequency(frontend):String //if repeat on month or every n days, put the date or n; if repeat on week, e.g. every Mon, Wed and Fri, put 135 as string
-- content(frontend):String
+- id: ID
+- creater: ID
+- day:int
+- month:int
+- year:int
+- schedule:Boolean //whether this task has a specific day when it was created
+- hierarchy:String //we update this field, all task should be daily right now
+- dueTime:String //the due time of this task
+- dueDate:String //in the format of 2022-07-01
+- expectedDuration: int
+- isRepeat:Boolean
+- dayWeekMonth: String //should be day, week or month
+- frequency:String //if repeat on month or every n days, put the date or n; if repeat on week, e.g. every Mon, Wed and Fri, put 135 as string
+- repeatStartDay: String //created based on day, month and year. It's the start day of this repeat task in ISO String, used to calculated which day it should be showed.
+- content:String
+- tag: ID
+- color: String // the color of the tag stored in this task
+- important: Boolean
+- completed: Boolean
+- abandoned: Boolean
 
 ## User
 
@@ -395,7 +601,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
 ## Tag
 - creator: ID
 - name: String
-- color: Int
+- color: String
 - icon: Int
 - totalExpectedTime: Int
 - totalActualTime: Ine

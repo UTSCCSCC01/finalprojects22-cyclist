@@ -1,11 +1,25 @@
 <div class="monthly-log-task-container">
-  <h1>Monthly Log: {{ monthName }}</h1>
-  <hr class="monthly-log-underline">
+  <h1>{{ monthName }}</h1>
+  <hr class="monthly-log-underline" />
 
-  <div class="tasks">
-    <div class="tasks">
-      <div class="task" *ngFor="let task of globals.monthlyTasks">
-        <app-task [name]=task.name [startTime]=task.startTime [year]=task.year [month]=task.month [day]=task.day></app-task>
+  <div class="split-view">
+    <div class="left">
+      <h2>Calendar</h2>
+      <div class="days-weekdays" >
+      <!--   {{days}}
+        {{weekDaysName}} -->
+      </div>
+    </div>
+    <div class="right">
+      <h2>Unscheduled Tasks</h2>
+      <div *ngFor="let task of globals.monthlyTasks">
+        <app-task
+          [_id]="task._id" [name]="task.name" [content]="task.content" 
+          [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
+          [isRepeat]="task.isRepeat" [frequency]="task.frequency"
+          [tag]="task.tag" [color]="task.color" 
+          [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
+        </app-task>
       </div>
     </div>
   </div>

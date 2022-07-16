@@ -4,7 +4,20 @@
   <div class="tasks">
     <div class="tasks">
       <div class="task" *ngFor="let task of globals.dashboardTasks">
-        <app-task [name]=task.name [startTime]=task.startTime [year]=task.year [month]=task.month [day]=task.day [tagID]=task.tag></app-task>
+        <app-task
+          [_id]="task._id"
+          [name]="task.name"
+          [content]="task.content"
+          [schedule]="task.schedule"
+          [dueTime]="task.dueTime"
+          [isRepeat]="task.isRepeat"
+          [tag]="task.tag"
+          [color]="task.color"
+          [dayWeekMonth]="task.dayWeekMonth"
+            
+          [dueDate]="task.dueDate"
+          [frequency]="task.frequency"
+        ></app-task>
       </div>
     </div>
   </div>

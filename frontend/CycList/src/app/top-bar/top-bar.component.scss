@@ -1,6 +1,6 @@
 @import "../../styles.scss";
 
-$bg-top-bar: $color-dark;
+$bg-top-bar: transparentize(darken($color-dark,2), 0.2);
 $fg-top-bar: $color-light;
 $shadow-top-bar: $shadow-huge;
 
@@ -16,12 +16,16 @@ $shadow-top-bar: $shadow-huge;
     padding: $pd-top-bar;
     display: flex;
     align-items: center;
-    padding-right: 2%;
-}
+    padding: 0.2em 0.5em;
+    backdrop-filter: blur(18px);
+  }
 
 .top-bar-elem {
     margin-left: 2%;
     text-decoration: none; 
+    position: absolute;
+    top: 20px;
+    right: 45px;
 }
 
 .top-bar-elem:visited { 
@@ -33,9 +37,29 @@ $shadow-top-bar: $shadow-huge;
     flex: 1;
 }
 
-.btn {
-  border-radius: $radius-btn;
-  background-color: $color-grey-trans;
+.btn.flat {
+  // border-radius: $radius-btn;
+  background-color: #ffffff0b;
   padding: 0.5em;
   line-height: 1em;
+
+  &:hover {
+    background-color: #ffffff14;
+  }
+
+  &:active {
+    background-color: #00000014;
+  }
+  // position: relative;
+  // bottom:10px;
+}
+
+.title{
+  padding: 0 0.5em;
+  margin: 0 0.2em;
+  // position:relative;
+  // bottom:100px;
+  // top:0;
+  // right:0;
+  // left:5px;
 }
