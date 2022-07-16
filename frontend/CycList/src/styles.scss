@@ -417,14 +417,32 @@ app-dashboard, app-daily-log, app-monthly-log, app-future-log {
     font-size: 0.8em;
   }
 
+  & .signifier-menu {
+    font-size: 0.88rem ;
+  }
+
   & .signifier {
-    width: 10px!important;
-    height: 10px!important;
-    border-radius: 100%!important;
+    width: 28px!important;
+    height: 15px!important;
+    //border-radius: 100%!important;
   }
   & #task-time {
     display: none;
   } 
+  
+  &.important {
+    left: 2px;
+  }
+
+  &.incomplete {
+    left: 12px!important;
+  }
+
+  &.completed {
+    left: 10px!important;
+  }
 }
+
+
 
 // -------------------------------
