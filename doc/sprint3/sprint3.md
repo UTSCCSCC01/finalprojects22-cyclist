@@ -17,19 +17,22 @@ experience.
 ## User Stories
 
 - CYC-30: modify task
-  - CYC-153: add pencil button beside each task to edit
-  - CYC-154: clicking a task brings up edit page
-  - CYC-108: create backend functions update task
-  - CYC-171: backend - provide a function to delete task
+  - CYC-108: 	backend- create function for different fields/tasks so frontend can update the task using this function
+  - CYC-153: frontend - a pencil button beside each tasks to edit/reschedule the task
+  - CYC-154: Clicking on the edit task button brings up edit task pop up
   - CYC-162: frontend - the pencil button should be visible only when hovering
-    over on a task 
+  - CYC-171: backend - provide a function to delete task over on a task 
+  - CYC-180: backend - create schedule in the database
+  - CYC-181: frontend - implement deleting a task
+  
 - CYC-33: signifiers / actions on the tasks
-  - CYC-104: display symbol on the left of the task depending on the task’s type
+  - CYC-104: frontend - update task template to display the different icons from the signifiers.
   - CYC-110: backend- create a relative function to update different
     fields(important, completed)
-  - CYC-160: frontend - implement 'complete' signifier, with its icon
-  - CYC-163: frontend - implement 'abandoned'
-  - CYC-167: frontend - create icons for "important" task
+  - CYC-160: frontend - set color of signifier symbol to task's tag color
+  - CYC-163: frontend - dropdown list to toggle signifier when user clicks on signifiers.
+  - CYC-167: iddle end - add service to get and set task signifier
+  
 - CYC-128: housekeeping / wrapping up sprint 2
   - CYC-130: daily log should display in grid layout
   - CYC-136: daily log should be able to scroll
@@ -39,7 +42,6 @@ experience.
   - CYC-138: future log: display all months of the year in grid layout
   - CYC-139: future log: display tasks planned for each month under the month
     title
-  - CYC-137: add task: make add task interface prettier
   - CYC-141: tag: display all user's tags on the left menu
   - CYC-142: tag: add tag
   - CYC-147: top menu bar: display the user name after successful log in
@@ -53,8 +55,8 @@ experience.
   - CYC-176: frontend - display the future log starting at the current month
   - CYC-177: frontend - increase the contrast on the buttons
   - CYC-178: backend - store time as empty string when there is no time
-  - CYC-179: backend - return all tasks start from next month until 1 year later
-    in get future log
+  - CYC-179: backend - return all tasks start from next month until 1 year later in get future log
+
 - CYC-129: debug sprint 2
   - CYC-135: side bar: indicate which page the user is on
   - CYC-140: future log: add task has too many fields.
@@ -63,8 +65,11 @@ experience.
     box)
   - CYC-146: (fixed) daily log doesn't display tasks on that day
   - CYC-173: backend - throw error if password is too weak
-- CYC-152: notification before start / end date of a task
 
+- CYC-152: notification before start / end date of a task
+  - CYC-182	frontend - send notification at dueTime  
+  - CYC-183	frontend - send system notification
+  - CYC-184	frontend - request permission to send system notifications if the app has not yet been granted permission
 ## Team Capacity
 
 62 hours
