@@ -8,6 +8,20 @@
 - [Frontend GlobalsService Documentation](#frontend-globalsservice-documentation)
   - [Fields](#fields)
     - [public loggedIn: boolean](#public-loggedin-boolean)
+    - [public colorMode: string]
+    - [public em: string]
+    - [public public now: any]
+    - [public oneYear: any]
+    - [public minYear: any]
+    - [public maxYear: any]
+    - [public minMonth: any]
+    - [public maxMonth: any]
+    - [public notifications: string[]
+    - [private user: any]
+    - [public loginError: string]
+    - [public taskFormActive: boolean]
+    - [public taskFormWeek: boolean[]]
+    - [form: Formgroup]
     - [public tasks](#public-tasks)
     - [public nDays: number](#public-ndays-number)
     - [public nDates: Date[]](#public-ndates-date)
@@ -98,9 +112,68 @@ The class GlobalsService is a singleton class that provides each Angular compone
 
 True if a user is logged in.
 
+### public colorMode: string
+
+Tracks the current theme. Possible values are `auto`, `light`, `dark`.
+
+### public em: string
+
+Stores an error message.
+
+### public public now: any
+
+Stores the current date.
+
+### public oneYear: any 
+
+Stores the current date plus one year and two months.
+
+### public minYear: any
+
+Stores the lower year boundary to create a task.
+
+### public maxYear: any
+
+Stores the higher year boundary to create a task.
+
+### public minMonth: any
+
+Stores the lower month boundary to create a task.
+
+### public maxMonth: any
+
+Stores the higher month boundary to create a task.
+
+### public notifications: string[]
+
+An array of notifications containing `task._id` values. Updated by setNotifications().
+
+### private user: any
+
+Stores the current user.
+
+Setter function: public setUser(user: any)
+
+### public loginError: string
+
+Store the current login error.
+
+### public taskFormActive: boolean
+
+True if the add task form is active (not hidden).
+
+### public taskFormWeek: boolean[]
+
+Determines the active weekdays on the add task form when repeat by week is selected.
+`taskFormWeek[0]` determines monday, `taskFormWeek[1]` tuesday and so on.
+
+### form: Formgroup
+
+Contains values that determine the content of the fields in the add task form.
+
 ### public tasks
 
-An array of task JSON objects, with attributes: content, name, day, month, year, dueTime. `tasks` is used as a temporary variable to house the results of functions in class `GlobalsService`.
+An array of task JSON objects, with attributes: _id, content, name, day, month, year, dueTime. `tasks` is used as a temporary variable to house the results of functions in class `GlobalsService`.
 
 Getter function: public getTasks()
 Setter function: public setTasks(tasks: any)
@@ -131,6 +204,23 @@ Array of tasks containing the tasks to be displayed on the monthly log page.
 ### public futureTasks: any[]
 
 Array of tasks containing the tasks to be displayed on the future log page.
+
+### public tags
+
+Array of tag objects with attributes: _id, creater, name, color, icon, totalExpectedTime, totalActualTime.
+
+Getter function: public getTags()
+Setter function: public setTags(tags: any)
+
+## public async refresh()
+
+## public setAppTime()
+
+## public setNotifications()
+
+## public formReset()
+
+## public getMonthlyTasks()
 
 ## public loadUser()
 
@@ -216,14 +306,47 @@ Array of tasks containing the tasks to be displayed on the future log page.
 - Expected Response:
   - field `tasks` houses all the user's tasks with hierarchy "future", empty array if user has no tasks.
 
-## public async createTask(form: FormGroup)
+## public async createModifyTask(form: FormGroup)
 
-- Description: create tasks for the user, and update tasks on dashboard, daily-log, and future-log.
+- Description: create/modify tasks for the user, and update tasks on dashboard, daily-log, and future-log. Create if `form.value._id` is `null`, otherwise modify.
 - Body Parameters: 
   - form: FormGroup - the task input form the user filled to input task
 - Expected Response:
-  - the result of creating task from the server.
+  - the result of creating/modify task from the server.
 
+## public async deleteTask(id: string)
+
+- Description: delete thie task with the `_id` value of passed `id`.
+- Body Parameters: 
+  - id: string - the id of task to be deleted.
+- Expected Response:
+  - the result of creating/modify task from the server.
+
+## public async getAllTags(userID: string)
+
+- Description: query all user's tags to field tags as an array of tags
+- Body Parameters: None
+- Expected Response:
+  - field tags houses all the user's tags, empty array if user has no tags.
+
+## public async createTag(value: any)
+
+- Description: creates a tag
+- Body Parameters: 
+  - object with tag input information
+- Expected Response:
+  - add this tag to tags field
+
+## public async markSignifier()
+
+- Description: marks a task with signifiers
+- Body Parameters: 
+  - id: string - id of task to be marked
+  - important: Boolean - a signifier
+  - completed: Boolean - a signifier
+  - abandoned: Boolean - a signifier
+- Expected Response:
+  - mark tag with give id with given signifiers.
 
 # Backend Documentation
 Since we are using graphQL as our api, it behaves little different from REST:
