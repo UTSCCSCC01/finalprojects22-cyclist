@@ -1,6 +1,6 @@
-# Sprint 2: Schedule
+# Sprint 3 : Schedule
 
-![schedule](./asset/schedule.png)
+![schedule](./schedule.png)
 
 The diagram is structured top to bottom and left to right. Circles indicate user
 stories and rounded rectangles are subtasks of the user stories on the same row.

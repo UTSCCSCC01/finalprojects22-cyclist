@@ -34,17 +34,11 @@
 
 # Sprint3
 
-1. As a user, I want to modify a task (scheduled time, task name, description)
-   so that I can reschedule it.
-
-2. As a user, I want to mark a task with different signifier (task completion,
-   important task, …) so that I can better focus at the moment.
-3. [housekeeping] As a developer, I want to complete leftover tasks from
-   sprint2, so that sprint3 has a solid foundation to develop.
-4. As a user, I want the application to be bug free, so that the application
-   does what I want.
-5. As a user, I want the app to notify me when a task is almost due, so that I
-   get reminded to complete the task.
+1. As a user, I want to modify and delete a task (scheduled time, task name, description, ...) so that I can reschedule it.
+2. As a user, I want to mark a task with different signifier (task completion, important task, …) so that I can better focus at the moment.
+3. (housekeeping) As a developer, I want to complete leftover tasks from sprint2, so that sprint3 has a solid foundation to develop.
+4. As a user, I want the application to be bug free, so that the application does what I want.
+5. As a user, I want the app to notify me when a task is almost due, so that I get reminded to complete the task.
 
 # Not Assigned
 
