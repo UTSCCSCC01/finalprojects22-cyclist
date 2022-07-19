@@ -366,78 +366,8 @@ module.exports = {
     },
     test: async args=>{
         try{
-            let dwm;
-            let fre;
-            let repeatStartDay;
-            let year;
-            let month;
-            let day = 0;
-            let tag;
-            let color;
-            let time;
-            let schedule
-            if(args.tagID === "" || args.tagID === "null"){
-                tag = null;
-                color = "";
-            }else{
-                tag = args.tagID;
-                let tagInfo = await Tag.findById(args.tagID);
-                if(tagInfo.creater.valueOf() !== req.userId){
-                    throw new Error("You are not tag creater");
-                }
-                color = tagInfo.color;
-            }
-            year = args.date.split("-")[0];
-            month = args.date.split("-")[1];
-            schedule = false;
-            if(args.date.split("-").length === 3){
-                schedule = true;
-                day = args.date.split("-")[2];
-            }
-            if(!args.repeat){
-                dwm = null;
-                fre = null;
-                repeatStartDay = null;
-            }else{
-                dwm = args.dayWeekMonth;
-                fre = args.frequency;
-                let date = month+"/"+day+"/"+year;
-                repeatStartDay = new Date(date).toISOString();
-            }
-            time = args.dueTime;
-            if(args.dueTime === "null"){
-                time = "";
-            }
-            const newTask = new Task({
-                creater: "62b4a2421115bad92e1b5efd",
-                name: args.name,
-                day: day,
-                month: month,
-                year: year,
-                schedule: schedule,
-                hierarchy: "daily",
-                dueTime: time,
-                dueDate: args.date,
-                expectedDuration: 0,
-                actualDuration: 0,
-                start: new Date().toISOString(),
-                isRepeat: args.repeat,
-                dayWeekMonth: dwm,
-                frequency: fre,
-                repeatStartDay: repeatStartDay,
-                content: args.content,
-                tag: tag,
-                color: color,
-                important: false,
-                identity: "parent",
-                subTask:[],
-                parentTask: null,
-                mood: [],
-                difficulty: [],
-                location:null,
-            })
-            const result = await newTask.save();
-            return result;
+            await Task.deleteMany({year:2023});
+            return "done";
         } catch(err){
             throw err;
         }
@@ -463,4 +393,26 @@ module.exports = {
             throw err;
         }
     },
+    getLastMonthComp: async (args, req)=>{
+        try{
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            //62b4a2421115bad92e1b5efd   user
+            //62ce5122c58dd1afa145534c   task
+            let lastMonth = new Date();
+            lastMonth.setMonth(lastMonth.getMonth()-1);
+            let year = lastMonth.getFullYear();
+            let month = lastMonth.getMonth()+1;
+            let allTask = await Task.find({creater: ObjectId(req.userId), month:month, year:year});
+            let compTask = await Task.find({creater: ObjectId(req.userId), month:month, year:year, $or:[{completed:true}, {abandoned:true}]});
+            if(allTask.length === 0){
+                return 0;
+            }
+            return compTask.length / allTask.length;
+        } catch(err){
+            throw err;
+        }
+    },
+
 }

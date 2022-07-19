@@ -71,6 +71,7 @@ type RootQuery {
     getAllTask(type: String):[task!]
     getAllTag(id: ID):[tag]
     getTag(tagId:ID):tag
+    getLastMonthComp(field:String): Float
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
@@ -84,9 +85,7 @@ type RootMutation {
         frequency: String, content:String, dueTime: String, expectedDuration: Int, 
         name:String!, tagID: ID): task
     createTag(name:String!, color:String): tag
-    test(hierarchy: String, date: String!, repeat: Boolean, dayWeekMonth: String, 
-        frequency: String, content:String, dueTime: String, expectedDuration: Int, 
-        name:String!, tagID: ID): task
+    test(field:String): String
 }
 schema {
     query: RootQuery
