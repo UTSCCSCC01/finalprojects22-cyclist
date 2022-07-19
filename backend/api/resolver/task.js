@@ -444,19 +444,36 @@ module.exports = {
     },
     markSignifier: async (args, req)=>{
         try{
-            if(!req.isAuth){
-                throw new Error("User not authenticated");
-            }
+            // if(!req.isAuth){
+            //     throw new Error("User not authenticated");
+            // }
             //62b4a2421115bad92e1b5efd   user
             //62ce5122c58dd1afa145534c   task
             let task = await Task.find({_id:ObjectId(args.id), creater: ObjectId(req.userId)});
             if(task.length === 0){
                 throw new Error("wrong task id");
             }
+            if(args.completed && args.abandoned){
+                throw new Error("task can't be both completed and abandoned");
+            }
             await Task.updateOne(
                 {_id: args.id},
                 {$set:{important:args.important, completed:args.completed, abandoned:args.abandoned}}
             );
+            if(args.actual<0){
+                throw new Error("actual time must >= 0");
+            }
+            task = await Task.findById(args.id);
+            if(task.expectedDuration > 0 && args.actual > 0){
+                await Task.updateOne(
+                    {_id: args.id},
+                    {$set:{actualDuration:args.actual}}
+                );
+                await Tag.updateOne(
+                    {_id: task.tag},
+                    {$inc:{totalExpectedTime:task.expectedDuration, totalActualTime:args.actual}}
+                );
+            }
             task = await Task.findById(args.id);
             return task;
         } catch(err){
