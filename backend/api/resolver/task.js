@@ -441,5 +441,25 @@ module.exports = {
             throw err;
         }
     },
+    getAllComp: async (args, req)=>{
+        try{
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            //62b4a2421115bad92e1b5efd   user
+            //62ce5122c58dd1afa145534c   task
+            let lastMonth = new Date();
+            let year = lastMonth.getFullYear();
+            let month = lastMonth.getMonth()+1;
+            let allTask = await Task.find({creater: ObjectId(req.userId), $or:[{year:year, month:{$lt: month}}, {year:{$lt:year}}]});
+            let compTask = await Task.find({creater: ObjectId(req.userId), $or:[{year:year, month:{$lt: month}}, {year:{$lt:year}}], $or:[{completed:true}, {abandoned:true}]});
+            if(allTask.length === 0){
+                return 0;
+            }
+            return compTask.length / allTask.length;
+        } catch(err){
+            throw err;
+        }
+    },
 
 }
