@@ -72,6 +72,7 @@ type RootQuery {
     getAllTag(id: ID):[tag]
     getTag(tagId:ID):tag
     getLastMonthComp(field:String): Float
+    getLastThreeMonthComp(field:String): Float
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!

@@ -414,5 +414,32 @@ module.exports = {
             throw err;
         }
     },
+    getLastThreeMonthComp: async (args, req)=>{
+        try{
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            //62b4a2421115bad92e1b5efd   user
+            //62ce5122c58dd1afa145534c   task
+            let lastMonth = new Date();
+            let sumAll=0;
+            let sumComp =0;
+            for(let i=0; i<3;i++){
+                lastMonth.setMonth(lastMonth.getMonth()-1);
+                let year = lastMonth.getFullYear();
+                let month = lastMonth.getMonth()+1;
+                let allTask = await Task.find({creater: ObjectId(req.userId), month:month, year:year});
+                let compTask = await Task.find({creater: ObjectId(req.userId), month:month, year:year, $or:[{completed:true}, {abandoned:true}]});
+                sumAll += allTask.length;
+                sumComp += compTask.length;
+            }
+            if(sumAll.length === 0){
+                return 0;
+            }
+            return sumComp / sumAll;
+        } catch(err){
+            throw err;
+        }
+    },
 
 }
