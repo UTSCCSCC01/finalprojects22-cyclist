@@ -1,15 +1,21 @@
 @import "../../styles.scss";
 
-// .task {
-//   display: flex;
-//   align-items: stretch;
-//   justify-content: space-between;
+.wrapper {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 1em;
+  border: wheat solid 1px;
+  min-height: 80vh;
+}
 
-//   & > .name {
-//     flex: 1;
-//   }
-//   & > :not(.name) {
-//     color: $color-lightgrey;
-//   }
-
-// }
+.wrapper > div {
+  min-width: 0;
+  min-height: 0;
+  color: gold;
+  word-wrap: break-word;
+  word-break: break-all;
+  max-width: 100%;
+  border: wheat solid 1px;
+  padding: 1em;
+  margin: 1em;
+}
