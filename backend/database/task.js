@@ -44,6 +44,12 @@ const taskSchema = new Schema({
     start:{
         type: Date,
     },
+    notifiable:{
+        type: Boolean,
+    },
+    notifyTime:{
+        type: Number,
+    },
     isRepeat:{
         type: Boolean,
     },

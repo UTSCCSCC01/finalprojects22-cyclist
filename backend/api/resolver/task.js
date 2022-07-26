@@ -64,6 +64,8 @@ module.exports = {
                 expectedDuration: 0,
                 actualDuration: 0,
                 start: new Date().toISOString(),
+                notifiable:args.notifiable,
+                notifyTime:args.notifyTime,
                 isRepeat: args.repeat,
                 dayWeekMonth: dwm,
                 frequency: fre,
@@ -146,7 +148,8 @@ module.exports = {
                 {$set:{name:args.name, day:day, month: month, year: year, 
                     dueTime: time, dueDate: args.date,isRepeat: args.repeat,
                     dayWeekMonth: dwm,frequency: fre,repeatStartDay: repeatStartDay,
-                    content: args.content, tag: tag, color: color,schedule:schedule}}
+                    content: args.content, tag: tag, color: color,schedule:schedule,
+                    notifiable:args.notifiable,notifyTime:args.notifyTime}}
             );
             task = await Task.findById(args.taskId);
             return task;
@@ -375,24 +378,31 @@ module.exports = {
             let tag;
             let color;
             let time;
-            let schedule
-            if(args.tagID === "" || args.tagID === "null"){
+            let schedule;
+            let task = await Task.find({_id:ObjectId(args.taskId), creater: ObjectId("62b4a2421115bad92e1b5efd")});
+            if(task.length === 0){
+                throw new Error("wrong task id or task is not created by you");
+            }
+            if(args.tagID === ""|| args.tagID === "null"){
                 tag = null;
                 color = "";
             }else{
                 tag = args.tagID;
                 let tagInfo = await Tag.findById(args.tagID);
-                if(tagInfo.creater.valueOf() !== req.userId){
+                if(!tagInfo){
+                    throw new Error("No such tag");
+                }
+                if(tagInfo.creater.valueOf() !== "62b4a2421115bad92e1b5efd"){
                     throw new Error("You are not tag creater");
                 }
                 color = tagInfo.color;
             }
             year = args.date.split("-")[0];
             month = args.date.split("-")[1];
-            schedule = false;
+            schedule=false;
             if(args.date.split("-").length === 3){
-                schedule = true;
                 day = args.date.split("-")[2];
+                schedule = true;
             }
             if(!args.repeat){
                 dwm = null;
@@ -408,36 +418,16 @@ module.exports = {
             if(args.dueTime === "null"){
                 time = "";
             }
-            const newTask = new Task({
-                creater: "62b4a2421115bad92e1b5efd",
-                name: args.name,
-                day: day,
-                month: month,
-                year: year,
-                schedule: schedule,
-                hierarchy: "daily",
-                dueTime: time,
-                dueDate: args.date,
-                expectedDuration: 0,
-                actualDuration: 0,
-                start: new Date().toISOString(),
-                isRepeat: args.repeat,
-                dayWeekMonth: dwm,
-                frequency: fre,
-                repeatStartDay: repeatStartDay,
-                content: args.content,
-                tag: tag,
-                color: color,
-                important: false,
-                identity: "parent",
-                subTask:[],
-                parentTask: null,
-                mood: [],
-                difficulty: [],
-                location:null,
-            })
-            const result = await newTask.save();
-            return result;
+            await Task.updateOne(
+                {_id: args.taskId},
+                {$set:{name:args.name, day:day, month: month, year: year, 
+                    dueTime: time, dueDate: args.date,isRepeat: args.repeat,
+                    dayWeekMonth: dwm,frequency: fre,repeatStartDay: repeatStartDay,
+                    content: args.content, tag: tag, color: color,schedule:schedule,
+                    notifiable:args.notifiable,notifyTime:args.notifyTime}}
+            );
+            task = await Task.findById(args.taskId);
+            return task;
         } catch(err){
             throw err;
         }
