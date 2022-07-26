@@ -71,6 +71,7 @@ type RootQuery {
     getAllTask(type: String):[task!]
     getAllTag(id: ID):[tag]
     getTag(tagId:ID):tag
+    suggestion(expect:Int, tagID:ID): Float
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!

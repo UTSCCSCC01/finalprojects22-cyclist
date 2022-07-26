@@ -25,6 +25,9 @@ module.exports = {
             }else{
                 tag = args.tagID;
                 let tagInfo = await Tag.findById(args.tagID);
+                if(!tagInfo){
+                    throw new Error("wrong tag id")
+                }
                 if(tagInfo.creater.valueOf() !== req.userId){
                     throw new Error("You are not tag creater");
                 }
@@ -444,9 +447,9 @@ module.exports = {
     },
     markSignifier: async (args, req)=>{
         try{
-            // if(!req.isAuth){
-            //     throw new Error("User not authenticated");
-            // }
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
             //62b4a2421115bad92e1b5efd   user
             //62ce5122c58dd1afa145534c   task
             let task = await Task.find({_id:ObjectId(args.id), creater: ObjectId(req.userId)});
@@ -476,6 +479,29 @@ module.exports = {
             }
             task = await Task.findById(args.id);
             return task;
+        } catch(err){
+            throw err;
+        }
+    },
+    suggestion: async (args, req)=>{
+        try{
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            //62b4a2421115bad92e1b5efd   user
+            //62ce5122c58dd1afa145534c   task
+            let tag = await Tag.findById(args.tagID);
+            if(!tag){
+                throw new Error("wrong tag id");
+            }
+            if(tag.creater.valueOf() !== req.userId){
+                throw new Error("You are not tag creater");
+            }
+            if(tag.totalActualTime === 0){
+                throw new Error("don't have enough tasks to predict")
+            }
+            let ratio = tag.totalActualTime / tag.totalExpectedTime;
+            return ratio * args.expect;
         } catch(err){
             throw err;
         }
