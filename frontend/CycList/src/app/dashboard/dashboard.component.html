@@ -1,15 +1,35 @@
 <div class="wrapper">
   <div class="weather">
-    <h1>Weather</h1>
+    <h3>Weather</h3>
     22°C
   </div>
   <div class="complete-rate">
+    <h3>Complete Rate</h3>
     You completed 80% of your tasks
   </div>
   <div class="notification-log">
+    <h3>Incoming Notification</h3>
     No incoming notifications
   </div>
   <div class="overdue-tasks">
-    No overdue tasks
+    <h3>Overdue Tasks</h3>
+      <div class="tasks">
+        <div class="task" *ngFor="let task of globals.dashboardTasks">
+          <app-task
+            [_id]="task._id"
+            [name]="task.name"
+            [content]="task.content"
+            [schedule]="task.schedule"
+            [dueTime]="task.dueTime"
+            [isRepeat]="task.isRepeat"
+            [tag]="task.tag"
+            [color]="task.color"
+            [dayWeekMonth]="task.dayWeekMonth"
+
+            [dueDate]="task.dueDate"
+            [frequency]="task.frequency"
+          ></app-task>
+        </div>
+    </div>
   </div>
 </div>

@@ -14,7 +14,7 @@ export class GlobalsService {
   }
 
 
-  
+
 
 
 
@@ -110,7 +110,7 @@ export class GlobalsService {
               body: 'due: '+task.dueDate+' '+task.dueTime,
               icon: "../assets/list.png"
             }
-            new Notification(task.name, options);        
+            new Notification(task.name, options);
           },time);
         }
       }
@@ -196,15 +196,15 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
           this.setErr("** " + data.errors[0].message + " **");
         }
-      }else{ 
-        // all g!        
+      }else{
+        // all g!
         this.setUser(data.data.createUser);
         // console.log(cookie.get('user'));
         // cookie.set('user', data);
       }
     })
     .catch(err =>{
-      // 
+      //
       console.log(err)
     });
 
@@ -253,8 +253,8 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
           this.setErr("** " + data.errors[0].message + " **");
         }
-      }else{ 
-        // all g!        
+      }else{
+        // all g!
         this.setUser(data.data.emailLogin);
         // console.log(cookie.get('user'));
         // cookie.set('user', data);
@@ -312,7 +312,7 @@ export class GlobalsService {
     dueDate: null,            // please merge     day: Int month: Int year: Int
     dueTime: null,
     // startDate: null,
-    
+
     // startTime: null,
     // expectedDuration: null,  // pointless because we have start and due/end unless this is an AI value
 
@@ -322,12 +322,12 @@ export class GlobalsService {
     // repeatStartDay: null,     // only in backend
 
     tagID: "",                // maybe just call tag, group, was this what was meant????????
-    // priority: null,         // maybe like options: ! !! or !!!    
+    // priority: null,         // maybe like options: ! !! or !!!
     // mood: null,
     // location: null,
     // interests: null,        // ?????????
 
-    // reminders: null,      // TODO: need to be able to have multiple so maybe an array of 
+    // reminders: null,      // TODO: need to be able to have multiple so maybe an array of
     // collaborations: null  // TODO: add friends that you will do that job with
 
                             // Ideas: file (image), url
@@ -391,8 +391,8 @@ export class GlobalsService {
 
   }
   /**
-   * reset the value of `this.tasks` to default value. 
-   * This is to solve the problem that switching between pages briefly show 
+   * reset the value of `this.tasks` to default value.
+   * This is to solve the problem that switching between pages briefly show
    * tasks from the previous page.
    */
   public resetTasks() {
@@ -415,12 +415,18 @@ export class GlobalsService {
     return this.tasks;
   }
   public async getDashboardTasks() {
-    // TODO: actual update for Dashboard
     await this.getAllTasks("");
     this.dashboardTasks = this.getTasks().slice();
     this.setNotifications();
-    // console.log(this.dashboardTasks);
   }
+
+  public async getOverdueTasks() {
+    // TODO: actual update for Dashboard
+    await this.getAllTasks("overdue");
+    this.dashboardTasks = this.getTasks().slice();
+  }
+
+
   public async getAllTasks(type: string) {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
@@ -522,6 +528,8 @@ export class GlobalsService {
     await this.getMonthlyTasks(date.getMonth()+1, date.getFullYear());
     this.monthlyTasks = this.getTasks().slice();
   }
+
+
   public async getMonthlyTasks(month: number, year: number) {
     const body = {
       query: this.query(`getMonthTask`, `month: ${month}, year: ${year}`)
