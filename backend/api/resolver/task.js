@@ -19,6 +19,7 @@ module.exports = {
             let color;
             let time;
             let schedule;
+            let expectedDuration = args.hour*60+args.minute;
             if(args.tagID === "" || args.tagID === "null"){
                 tag = null;
                 color = "";
@@ -64,7 +65,9 @@ module.exports = {
                 hierarchy: "daily",
                 dueTime: time,
                 dueDate: args.date,
-                expectedDuration: 0,
+                hour: args.hour,
+                minute:args.minute,
+                expectedDuration: expectedDuration,
                 actualDuration: 0,
                 start: new Date().toISOString(),
                 isRepeat: args.repeat,
@@ -105,6 +108,7 @@ module.exports = {
             let color;
             let time;
             let schedule;
+            let expectedDuration = args.hour*60+args.minute;
             let task = await Task.find({_id:ObjectId(args.taskId), creater: ObjectId(req.userId)});
             if(task.length === 0){
                 throw new Error("wrong task id or task is not created by you");
@@ -149,7 +153,8 @@ module.exports = {
                 {$set:{name:args.name, day:day, month: month, year: year, 
                     dueTime: time, dueDate: args.date,isRepeat: args.repeat,
                     dayWeekMonth: dwm,frequency: fre,repeatStartDay: repeatStartDay,
-                    content: args.content, tag: tag, color: color,schedule:schedule}}
+                    content: args.content, tag: tag, color: color,schedule:schedule,
+                    hour: args.hour,minute:args.minute,}}
             );
             task = await Task.findById(args.taskId);
             return task;
@@ -378,7 +383,8 @@ module.exports = {
             let tag;
             let color;
             let time;
-            let schedule
+            let schedule;
+            let expectedDuration = args.hour*60+args.minute;
             if(args.tagID === "" || args.tagID === "null"){
                 tag = null;
                 color = "";
@@ -421,7 +427,9 @@ module.exports = {
                 hierarchy: "daily",
                 dueTime: time,
                 dueDate: args.date,
-                expectedDuration: 0,
+                hour: args.hour,
+                minute:args.minute,
+                expectedDuration: expectedDuration,
                 actualDuration: 0,
                 start: new Date().toISOString(),
                 isRepeat: args.repeat,
