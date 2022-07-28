@@ -61,6 +61,10 @@ type tag{
     totalExpectedTime: Float
     totalActualTime: Float
 }
+type sug{
+    hour: Int
+    minute: Int
+}
 type RootQuery {
     emailLogin(email: String!, password: String!): authdata!
     getDailyTask(day: Int!, month: Int!, year:Int!): [task!]
@@ -71,7 +75,7 @@ type RootQuery {
     getAllTask(type: String):[task!]
     getAllTag(id: ID):[tag]
     getTag(tagId:ID):tag
-    suggestion(expect:Int, tagID:ID): Float
+    suggestion(hour:Int, minute: Int, tagID:ID): sug
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!

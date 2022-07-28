@@ -489,6 +489,7 @@ module.exports = {
                 throw new Error("User not authenticated");
             }
             //62b4a2421115bad92e1b5efd   user
+            //62cca051539ee0f4eebbd484   tag
             //62ce5122c58dd1afa145534c   task
             let tag = await Tag.findById(args.tagID);
             if(!tag){
@@ -501,7 +502,12 @@ module.exports = {
                 throw new Error("don't have enough tasks to predict")
             }
             let ratio = tag.totalActualTime / tag.totalExpectedTime;
-            return ratio * args.expect;
+            let total = args.hour* 60 + args.minute;
+            let suggestion = ratio* total;
+            let sugHour = parseInt(suggestion/60);
+            let sugMinute = suggestion%60;
+            let result={hour:sugHour, minute:sugMinute};
+            return result;
         } catch(err){
             throw err;
         }
