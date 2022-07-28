@@ -761,9 +761,9 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        this.completionRates[0] = data.data.getAllComp;
-        this.completionRates[1] = data.data.getLastThreeMonthComp;
-        this.completionRates[2] = data.data.getLastMonthComp;
+        this.completionRates[0] = Math.round(data.data.getAllComp * 100);
+        this.completionRates[1] = Math.round(data.data.getLastThreeMonthComp * 100);
+        this.completionRates[2] = Math.round(data.data.getLastMonthComp * 100);
         console.log(data);
       }
     })
@@ -1020,6 +1020,7 @@ export class GlobalsService {
         }
       }else{
         // all good!
+        this.getCompletionRates();
         return 0;
         /* TODO: update logs after marking signifiers.
          * This doesn't seem necessary, as the frontend re-renders the signifiers

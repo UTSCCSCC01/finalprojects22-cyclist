@@ -4,7 +4,10 @@
     22°C
   </div>
   <div class="complete-rate">
-    You completed 80% of your tasks
+    Task completion rates:
+    <br> Last Month: {{ this.globals.completionRates[2] }}%
+    <br> Last 3 Months: {{ this.globals.completionRates[1] }}%
+    <br> All Time: {{ this.globals.completionRates[0] }}%
   </div>
   <div class="notification-log">
     No incoming notifications
