@@ -418,7 +418,6 @@ export class GlobalsService {
   public async getDashboardTasks() {
     await this.getOverdueTasks();
     this.dashboardTasks = this.getTasks().slice();
-    this.setNotifications();
   }
 
   public async getOverdueTasks() {
