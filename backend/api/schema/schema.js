@@ -74,6 +74,7 @@ type RootQuery {
     getLastMonthComp(field:String): Float
     getLastThreeMonthComp(field:String): Float
     getAllComp(field:String): Float
+    getOverdue(field:String):[task!]
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!

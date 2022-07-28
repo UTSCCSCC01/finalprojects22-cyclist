@@ -461,5 +461,23 @@ module.exports = {
             throw err;
         }
     },
-
+    getOverdue: async (args, req)=>{
+        try{
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            //62b4a2421115bad92e1b5efd   user
+            //62ce5122c58dd1afa145534c   task
+            let yesterday = new Date();
+            let year = yesterday.getFullYear();
+            let month = yesterday.getMonth()+1;
+            let day = yesterday.getDate();
+            let allTask = await Task.find({creater: ObjectId(req.userId), 
+                $or:[{year:year, month:month, day:{$lt:day,$gt:0}},{year:year, month:{$lt: month}}, 
+                {year:{$lt:year}}], $and:[{completed:false}, {abandoned:false}]});
+            return allTask;
+        } catch(err){
+            throw err;
+        }
+    },
 }
