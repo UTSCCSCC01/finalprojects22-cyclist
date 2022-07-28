@@ -424,6 +424,9 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - dayWeekMonth: String
   - frequency: String
   - tegID: String
+  - notifiable: Boolean
+  - notifyTime: Int
+  - expectedDuration: Int
 - Expected Response:
   - 200 OK
     - create successfully
@@ -446,6 +449,9 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - dayWeekMonth: String
   - frequency: String
   - tegID: String
+  - notifiable: Boolean
+  - notifyTime: Int
+  - expectedDuration: Int
 - Expected Response:
   - 200 OK
     - return the updated task
@@ -605,6 +611,7 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - important: Boolean
   - completed: Boolean
   - abandoned: Boolean
+  - actual: Int
 - Expected Response:
   - 200 OK
     - return the updated task
@@ -627,6 +634,68 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - 500 Input error
     - Invalid argument type.
 
+## getLastMonthComp
+
+- Description: return the user's task completion rate for the last month
+- Body Parameters:
+  - field: String //this can be empty string, you can change it for later development
+- Expected Response:
+  - 200 OK
+    - return the rate as float
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+
+## getLastThreeMonthComp
+
+- Description: return the user's task completion rate for the last three months
+- Body Parameters:
+  - field: String //this can be empty string, you can change it for later development
+- Expected Response:
+  - 200 OK
+    - return the rate as float
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+
+## getAllComp
+
+- Description: return the user's task completion rate for all tasks until last month
+- Body Parameters:
+  - field: String //this can be empty string, you can change it for later development
+- Expected Response:
+  - 200 OK
+    - return the rate as float
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+
+## getOverdue
+
+- Description: return the user's all unfinished tasks until yesterday
+- Body Parameters:
+  - field: String //this can be empty string, you can change it for later development
+- Expected Response:
+  - 200 OK
+    - return all unfinished tasks
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+
+## suggestion
+
+- Description: return the suggest task time based on the given tagID and expect time
+- Body Parameters:
+  - hour: Int
+  - minute: Int
+  - tagID: ID
+- Expected Response:
+  - 200 OK
+    - return the suggestion in the format of hour and minute
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+
 # Database Structure
 
 ## Task
@@ -641,6 +710,9 @@ Since we are using graphQL as our api, it behaves little different from REST:
 - dueTime:String //the due time of this task
 - dueDate:String //in the format of 2022-07-01
 - expectedDuration: int
+- actualDuration: int
+- notifiable: boolean
+- notifyTime: int
 - isRepeat:Boolean
 - dayWeekMonth: String //should be day, week or month
 - frequency:String //if repeat on month or every n days, put the date or n; if
