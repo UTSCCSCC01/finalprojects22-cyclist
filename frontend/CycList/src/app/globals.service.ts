@@ -33,6 +33,7 @@ export class GlobalsService {
     this.getNDailyTasks();
     this.getFutureLogTasks();
     this.getMonthlyLogTasks();
+    this.getCompletionRates();
   }
 
 
@@ -719,7 +720,57 @@ export class GlobalsService {
     });
   }
 
+  public completionRates = [-1.0, -1.0, -1.0];
 
+  public async getCompletionRates() {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query: `
+      query {
+        getAllComp(field:""),
+        getLastThreeMonthComp(field:""),
+        getLastMonthComp(field:"")
+      }
+      `,
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        this.completionRates[0] = data.data.getAllComp;
+        this.completionRates[1] = data.data.getLastThreeMonthComp;
+        this.completionRates[2] = data.data.getLastMonthComp;
+        console.log(data);
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
 
 
 
