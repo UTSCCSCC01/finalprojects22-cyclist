@@ -433,7 +433,7 @@ module.exports = {
                 sumAll += allTask.length;
                 sumComp += compTask.length;
             }
-            if(sumAll.length === 0){
+            if(sumAll === 0){
                 return 0;
             }
             return sumComp / sumAll;
