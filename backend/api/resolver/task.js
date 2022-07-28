@@ -505,7 +505,7 @@ module.exports = {
             let total = args.hour* 60 + args.minute;
             let suggestion = ratio* total;
             let sugHour = parseInt(suggestion/60);
-            let sugMinute = suggestion%60;
+            let sugMinute = parseInt(suggestion%60);
             let result={hour:sugHour, minute:sugMinute};
             return result;
         } catch(err){
