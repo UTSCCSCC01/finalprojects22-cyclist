@@ -95,12 +95,12 @@ export class TaskComponent {
 
   toggleSigImportant() {
     this.important = !this.important;
-    // this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
   }
   
   toggleSigAbandoned() {
     this.abandoned = !this.abandoned;
-    // this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
   }
 
 
