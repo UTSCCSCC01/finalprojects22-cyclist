@@ -4,11 +4,11 @@
     <div class="task-head">
       <div class="signifier" [ngClass]="color">
         <div class="signifier-button" (click)="toggleSigMenu()"></div>
-        
-        <div class="signifier-menu" *ngIf="sigMenuOpened">
+
+        <div class="signifier-menu" *ngIf="sigMenuShown">
           <div class="signifier-menu-item">
             <span class="signifier-checkmark" *ngIf="completed">✓</span>
-            <span class="signifier-choice" (click)="toggleSigCompleted()">completed</span>
+            <span class="signifier-choice" (click)="sigMarkCompleted()">completed</span>
           </div>
           <div class="signifier-menu-item">
             <span class="signifier-checkmark" *ngIf="important">✓</span>
@@ -18,6 +18,24 @@
             <span class="signifier-checkmark" *ngIf="abandoned">✓</span>
             <span class="signifier-choice" (click)="toggleSigAbandoned()">abandon</span>
           </div>
+        </div>
+
+        <div class="task-completion-form" *ngIf="completionFormShown">
+          <form (ngSubmit)="submitTaskCompletion()" [formGroup]="taskCompletionForm">
+            <span>Task completion time:</span>
+            <div class="form-group">
+              <input required type="number" min="0" formControlName="hour"/>
+              hours
+              <input required type="number" min="0" max="59" formControlName="minute"/>
+              mins
+            </div>
+            <div class="form-error">
+              <div *ngIf="completionFormOutOfRangeError">Please enter a valid completion time.</div>
+            </div>          
+            <div class="form-group">
+              <button type="button" (click)="submitTaskCompletion()">Submit</button>
+            </div>
+          </form>
         </div>
 
         <span class="important" *ngIf="important">★</span>

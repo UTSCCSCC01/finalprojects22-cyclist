@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalsService } from '../globals.service';
 
 @Component({
@@ -56,31 +57,58 @@ export class TaskComponent {
   @Input()
   abandoned: Boolean = false;
 
-  sigMenuOpened : Boolean = false;
+  sigMenuShown : Boolean = false;
+  completionFormShown : Boolean = false;
+  taskCompletionForm : FormGroup;
+  completionFormOutOfRangeError : Boolean = false;
+
   view: boolean = false;
   date: string = "";
 
   toggleSigMenu() {
-    this.sigMenuOpened = !this.sigMenuOpened;
+    if(!this.completionFormShown) {
+      this.sigMenuShown = !this.sigMenuShown;
+    }
   }
 
-  toggleSigCompleted() {
-    this.completed = !this.completed;
-    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+  sigMarkCompleted() {
+    if(!this.completed) {
+      this.sigMenuShown = false;
+      this.completionFormShown = true;
+    }
+    else {
+      
+    }
+  }
+
+  submitTaskCompletion() {
+    console.log(this.taskCompletionForm.get("hour")?.value);
+    console.log(this.taskCompletionForm.get("minute")?.value);
+    let hour: number = this.taskCompletionForm.get("hour")?.value;
+    let minute: number = this.taskCompletionForm.get("minute")?.value;
+
+    // this.completed = true;
+    // this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned, hour, minute);
+
+    this.completionFormShown = false;
   }
 
   toggleSigImportant() {
     this.important = !this.important;
-    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+    // this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
   }
   
   toggleSigAbandoned() {
     this.abandoned = !this.abandoned;
-    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+    // this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
   }
 
 
-  constructor(public globals: GlobalsService) { 
+  constructor(public globals: GlobalsService, private formBuilder: FormBuilder) { 
+    this.taskCompletionForm = this.formBuilder.group({
+      hour: 0,
+      minute: 0
+    });
     // this.tags = this.globals.getTags();
     // this.taskTag = GlobalsService.getTag(this.tagID);
     
