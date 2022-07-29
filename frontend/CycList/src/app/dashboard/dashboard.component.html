@@ -1,37 +1,31 @@
 <div class="wrapper">
   <div class="weather">
-    <h3>Weather</h3>
 
   </div>
   <div class="complete-rate">
     <h3>Complete Rate</h3>
-    <br> Last Month: {{ this.globals.completionRates[2] }}%
-    <br> Last 3 Months: {{ this.globals.completionRates[1] }}%
-    <br> All Time: {{ this.globals.completionRates[0] }}%
-  </div>
-  <div class="notification-log">
-    <h3>Incoming Notification</h3>
-    No incoming notifications
+    <div>Last Month: {{ this.globals.completionRates[2] }}%</div>
+    <div> Last 3 Months: {{ this.globals.completionRates[1] }}%</div>
+    <div> All Time: {{ this.globals.completionRates[0] }}%</div>
   </div>
   <div class="overdue-tasks">
     <h3>Overdue Tasks</h3>
-      <div class="tasks">
-        <div class="task" *ngFor="let task of globals.dashboardTasks">
-          <app-task
-            [_id]="task._id"
-            [name]="task.name"
-            [content]="task.content"
-            [schedule]="task.schedule"
-            [dueTime]="task.dueTime"
-            [isRepeat]="task.isRepeat"
-            [tag]="task.tag"
-            [color]="task.color"
-            [dayWeekMonth]="task.dayWeekMonth"
-
-            [dueDate]="task.dueDate"
-            [frequency]="task.frequency"
-          ></app-task>
-        </div>
+    <div class="tasks">
+      <div *ngFor="let task of globals.dashboardTasks" class="task">
+        <app-task
+          [_id]="task._id"
+          [color]="task.color"
+          [content]="task.content"
+          [dayWeekMonth]="task.dayWeekMonth"
+          [dueDate]="task.dueDate"
+          [dueTime]="task.dueTime"
+          [frequency]="task.frequency"
+          [isRepeat]="task.isRepeat"
+          [name]="task.name"
+          [schedule]="task.schedule"
+          [tag]="task.tag"
+        ></app-task>
+      </div>
     </div>
   </div>
 </div>

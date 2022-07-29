@@ -19,6 +19,9 @@ h3 {
 }
 
 .overdue-tasks {
-
+  color: $color-red;
 }
 
+.complete-rate > div {
+  font-size: large;
+}
