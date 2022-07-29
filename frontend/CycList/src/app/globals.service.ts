@@ -423,7 +423,7 @@ export class GlobalsService {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
     const body = {
-      query: this.query(`getOverdue`, ``)
+      query: this.query(`getOverdue`, `field: ""`)
     }
     let err = false;
     let backenderr = false;
