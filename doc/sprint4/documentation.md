@@ -426,7 +426,8 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - tegID: String
   - notifiable: Boolean
   - notifyTime: Int
-  - expectedDuration: Int
+  - hour: Int
+  - minute: Int
 - Expected Response:
   - 200 OK
     - create successfully
@@ -451,7 +452,8 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - tegID: String
   - notifiable: Boolean
   - notifyTime: Int
-  - expectedDuration: Int
+  - hour: Int
+  - minute: Int
 - Expected Response:
   - 200 OK
     - return the updated task
@@ -611,7 +613,8 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - important: Boolean
   - completed: Boolean
   - abandoned: Boolean
-  - actual: Int
+  - hour: Int
+  - minute: Int
 - Expected Response:
   - 200 OK
     - return the updated task
@@ -709,6 +712,8 @@ Since we are using graphQL as our api, it behaves little different from REST:
 - hierarchy:String //we update this field, all task should be daily right now
 - dueTime:String //the due time of this task
 - dueDate:String //in the format of 2022-07-01
+- hour: int // expected time stored as hour and minute
+- minute: int
 - expectedDuration: int
 - actualDuration: int
 - notifiable: boolean
