@@ -986,5 +986,61 @@ export class GlobalsService {
 
 
 
+  public suggestedDuration = [
+    {
+      hour:0,
+      minute:0
+    }
+  ];
+  public async getSuggestedDuration(hour: number, minute: number, tagID: string) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query:`
+      query {
+        suggestion(hour:${hour}, minute:${minute}, tagID: "${tagID}"){
+          hour
+          minute
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        console.log(data)
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
+
+
+
 
 }
