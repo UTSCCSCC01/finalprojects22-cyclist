@@ -1,8 +1,10 @@
+<div class="overlay" [class.hidden]="!view && !sigMenuOpened" (click)="sigMenuOpened = false; view = false"></div>
+
 <div class="task">
     <div class="task-head">
       <div class="signifier" [ngClass]="color">
         <div class="signifier-button" (click)="toggleSigMenu()"></div>
-
+        
         <div class="signifier-menu" *ngIf="sigMenuOpened">
           <div class="signifier-menu-item">
             <span class="signifier-checkmark" *ngIf="completed">✓</span>
@@ -23,11 +25,55 @@
         <span class="completed" *ngIf="completed">🞬</span>
       </div>
 
-      <div id="task-text" [ngClass]="{abandoned: abandoned}">{{ name }}</div>
+      <div id="task-text" [ngClass]="{abandoned: abandoned}" (click)="this.view = !this.view">{{ name }}</div>
     </div>
+    <div class="fill" (click)="this.view = !this.view"> <br> </div>
     <div class="right-aligned">
+      <div id="task-time" (click)="this.view = !this.view"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
+    </div>
+</div>
+
+
+
+<div class="menu" [class.hidden]="!view">
+  <div class="between">
+    <div class="title">{{ name }}</div>
+    <div>
       <div class="btn flat circ edit" (click)="addTaskForm()"><div>✎</div></div>
       <div class="btn flat circ del" (click)="deleteTask()"><div>✗</div></div>
-      <div id="task-time"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
     </div>
+  </div>
+
+    <div *ngIf="schedule">Due: {{ date }}</div>
+    <div *ngIf="!schedule">Due: {{ dueDate }}</div>
+    <!-- <div *ngIf="this.isRepeat">
+      Repeat: 
+      <input (change)="globals.form.patchValue({ isRepeat: !globals.form.value.isRepeat, frequency: '', dayWeekMonth: [null] })" type="checkbox" [checked]="globals.form.value.isRepeat"/>  
+      <span *ngIf="globals.form.value.isRepeat">
+        every
+        <span *ngIf="globals.form.value.dayWeekMonth === 'day'">
+          <input type="number" min="1" required formControlName="frequency"/>
+          th
+        </span>
+        <span *ngIf="globals.form.value.dayWeekMonth === 'week'">
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[6]" (click)="globals.taskFormWeek[6] = !globals.taskFormWeek[6]">S</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[0]" (click)="globals.taskFormWeek[0] = !globals.taskFormWeek[0]">M</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[1]" (click)="globals.taskFormWeek[1] = !globals.taskFormWeek[1]">T</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[2]" (click)="globals.taskFormWeek[2] = !globals.taskFormWeek[2]">W</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[3]" (click)="globals.taskFormWeek[3] = !globals.taskFormWeek[3]">T</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[4]" (click)="globals.taskFormWeek[4] = !globals.taskFormWeek[4]">F</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[5]" (click)="globals.taskFormWeek[5] = !globals.taskFormWeek[5]">S</div>
+        </span>
+        <select required formControlName="dayWeekMonth">
+          <option>day</option>
+          <option>week</option>
+          <option>month</option>
+        </select>
+      </span>
+    </div> -->
+    <span *ngIf="tag">
+      Tag: {{ tag }}
+    </span>
+
+    <div *ngIf="hour">Suggested Duration: {{ hour }}:{{  minute }} hours</div>
 </div>

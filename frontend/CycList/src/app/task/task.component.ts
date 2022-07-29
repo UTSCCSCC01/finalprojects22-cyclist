@@ -57,6 +57,8 @@ export class TaskComponent {
   abandoned: Boolean = false;
 
   sigMenuOpened : Boolean = false;
+  view: boolean = false;
+  date: string = "";
 
   toggleSigMenu() {
     this.sigMenuOpened = !this.sigMenuOpened;
@@ -103,6 +105,7 @@ export class TaskComponent {
 
 
   ngOnInit(): void {
+    this.date = (new Date(this.dueDate)).toString().slice(0,15);
   }
 
   addTaskForm() {
@@ -125,6 +128,8 @@ export class TaskComponent {
     }else{
       this.globals.form.patchValue({tempDueMonth: this.dueDate});
     }
+
+    this.date = (new Date(this.dueDate)).toString().slice(0,9);
     
     //testing below
     //this.globals.form.patchValue({isRepeat: true});
