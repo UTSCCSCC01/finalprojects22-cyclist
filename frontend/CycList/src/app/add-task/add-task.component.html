@@ -119,6 +119,14 @@
       </select>
     </span>
 
+    <div>
+     ExpectedDuration:
+      Hour:
+      <input type="number" min="0" formControlName="hour"/>
+      Minute:
+      <input type="number" min="0" max="60" formControlName="minute"/>
+    </div>
+
     <textarea type="text" id="description" placeholder="Description" formControlName="content"></textarea>
   </form>
   <button type="submit" class="add-task btn circ submit" (click)="submitForm()"><div>✓</div></button>

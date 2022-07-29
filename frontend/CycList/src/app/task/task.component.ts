@@ -40,6 +40,12 @@ export class TaskComponent {
   @Input() 
   frequency: string = "";
 
+  @Input() 
+  hour: string = "";
+
+  @Input() 
+  minute: string = "";
+
   // vvv Signifiers: completed, important, abandoned
   @Input()
   completed: Boolean = false;
@@ -111,6 +117,8 @@ export class TaskComponent {
     this.globals.form.patchValue({tagID: this.tag});
     this.globals.form.patchValue({color: this.color});
     this.globals.form.patchValue({dayWeekMonth: this.dayWeekMonth});
+    this.globals.form.patchValue({hour: this.hour});
+    this.globals.form.patchValue({minute: this.minute});
     
     if(this.schedule){
       this.globals.form.patchValue({tempDueDate: this.dueDate});

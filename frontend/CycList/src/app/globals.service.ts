@@ -313,7 +313,9 @@ export class GlobalsService {
     // startDate: null,
     
     // startTime: null,
-    // expectedDuration: null,  // pointless because we have start and due/end unless this is an AI value
+    //expectedDuration: null,  // pointless because we have start and due/end unless this is an AI value
+    hour: null,
+    minute: null,
 
     isRepeat: false,         // maybe just repeat true of false
     frequency: "",
@@ -371,6 +373,8 @@ export class GlobalsService {
         completed
         important
         abandoned
+        hour
+        minute
       }
     }
     `
