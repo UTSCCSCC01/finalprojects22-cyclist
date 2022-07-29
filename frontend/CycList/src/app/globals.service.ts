@@ -98,10 +98,8 @@ export class GlobalsService {
     }
   }
   public setNotifications() {
-    console.log(this.notifications);
     if (this.dailyTasks.length === 0) return;
     for (let task of this.dailyTasks[0]) {
-      // console.log(task.dueTime);
       if (task.notifiable && !(task._id in this.notifications)) {
         // make sure it's not overdue
         let time = (new Date(task.dueDate+' '+task.dueTime)).getTime() - (new Date()).getTime() - 60000*task.notifyTime;
@@ -118,24 +116,18 @@ export class GlobalsService {
           },time);
           // only set the notification once, and save timeout id to be able to clear it when reset it
           this.notifications[task._id] = timeOutId;
-          console.log(this.dailyTasks[0]);
-          console.log("added notification with id " + timeOutId)
+          // console.log("added notification with id " + timeOutId)
         }
       }
     }
   }
   public removeNotification(taskId: any) {
-    // console.log(this.notifications);
-    // console.log(taskId);
     if (!(taskId in this.notifications)) return;
     // clear time out
-    // console.log(this.notifications[taskId]);
     window.clearTimeout(this.notifications[taskId]);
-    console.log("cleared notification with id " + this.notifications[taskId]);
-    // console.log("cleared");
+    // console.log("cleared notification with id " + this.notifications[taskId]);
     // reset the notification of an edited task
     delete this.notifications[taskId];
-    // console.log(this.notifications);
   }
 
 
