@@ -11,7 +11,7 @@
 }
 
 .weather-widget {
-  width: 22%;
+  width: 50%;
   height: 350px;
   display: flex;
   flex-direction: column;
@@ -37,13 +37,13 @@
 .weather-add-info-container {
   display: flex;
   justify-content: space-around;
+}
 
 .wrapper {
   display: grid;
   grid-template-columns: 50% 50%;
   grid-gap: 1em;
   min-height: 80vh;
-
 }
 
 .complete-rate, .overdue-tasks, .weather, .notification-log  {
