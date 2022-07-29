@@ -7,12 +7,11 @@ import { GlobalsService } from '../globals.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  
+
   constructor(public globals: GlobalsService) {}
-  
+
   async ngOnInit() {
-    this.globals.getDashboardTasks();
+    await this.globals.getDashboardTasks();
     this.globals.curLog = "daily";
   }
-
 }

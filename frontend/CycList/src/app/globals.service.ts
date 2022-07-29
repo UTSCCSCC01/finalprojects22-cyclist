@@ -415,14 +415,50 @@ export class GlobalsService {
     return this.tasks;
   }
   public async getDashboardTasks() {
-    await this.getAllTasks("");
+    await this.getOverdueTasks();
     this.dashboardTasks = this.getTasks().slice();
   }
 
   public async getOverdueTasks() {
-    // TODO: actual update for Dashboard
-    await this.getAllTasks("overdue");
-    this.dashboardTasks = this.getTasks().slice();
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query: this.query(`getOverdue`, ``)
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
+      }
+    })
+      .then(res =>{
+        if(res.status !== 200 && res.status !== 201){
+          err = true;
+          if(res.status === 400){
+            backenderr = true;
+          }
+        }
+        return res.json();
+      })
+      .then(data =>{
+        if(err){
+          if(backenderr){
+            console.log("Something wrong with server, please contact to admin");
+          }else{
+            console.log("** " + data.errors[0].message + " **");
+          }
+        }else{
+          this.setTasks(data.data.getOverdue);
+          console.log(this.tasks);
+        }
+      })
+      .catch(err =>{
+        console.log(err)
+      });
   }
 
 

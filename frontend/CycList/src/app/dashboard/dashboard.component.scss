@@ -4,15 +4,12 @@
   display: grid;
   grid-template-columns: 50% 50%;
   grid-gap: 1em;
-  border: wheat solid 1px;
   min-height: 80vh;
 
 }
 
 .complete-rate, .overdue-tasks, .weather, .notification-log  {
-  color: gold;
   max-width: 100%;
-  border: wheat solid 1px;
   padding: 1em;
   margin: 1em;
 }
