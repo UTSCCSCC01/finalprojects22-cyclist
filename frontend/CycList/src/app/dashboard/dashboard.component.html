@@ -26,6 +26,31 @@
           [tag]="task.tag"
         ></app-task>
       </div>
+
+      <div class="weather-widget">
+
+        <div class="weather-img-container">
+          <img class="weather-icon" *ngIf="this.weather"  src = "http://openweathermap.org/img/wn/{{this.weather['weather'][0]['icon']}}@2x.png"/>
+        </div>
+        <p class="weather-description" *ngIf="this.weather">{{ this.weather['weather'][0]['description'] }}</p>
+        <h1 class="weather-temp" *ngIf="this.weather">{{ this.weather['main']['temp'] }}<span style="font-weight: 200">&#8451;</span></h1>
+        <h2 class="weather-city" *ngIf="this.weather">{{ this.weather['name'] }}</h2>
+
+        <div class="weather-add-info-container">
+          <div>
+            <h6>Wind</h6>
+            <h4 class="weather-add-info-content" *ngIf="this.weather">{{ this.weather['wind']['speed'] }}m/s</h4>
+          </div>
+          <div>
+            <h6>Humidity</h6>
+            <h4 class="weather-add-info-content" *ngIf="this.weather">{{ this.weather['main']['humidity'] }}%</h4>
+          </div>
+          <div>
+            <h6>Feels Like</h6>
+            <h4 class="weather-add-info-content" *ngIf="this.weather">{{ this.weather['main']['feels_like'] }}&#8451;</h4>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

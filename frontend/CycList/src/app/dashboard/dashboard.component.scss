@@ -1,5 +1,43 @@
 @import "../../styles.scss";
 
+.weather-img-container {
+  height: 35%;
+}
+
+.weather-icon {
+  width: auto;
+  height: 100%;
+  border-radius: 9px;
+}
+
+.weather-widget {
+  width: 22%;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  background-color: $bg-alt;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 3%;
+}
+
+.weather-description {
+  margin: 0 0px 25px 0;
+}
+
+.weather-city {
+  margin: 0;
+}
+
+.weather-temp {
+  font-size: 5em;
+  margin: 0;
+}
+
+.weather-add-info-container {
+  display: flex;
+  justify-content: space-around;
+
 .wrapper {
   display: grid;
   grid-template-columns: 50% 50%;
