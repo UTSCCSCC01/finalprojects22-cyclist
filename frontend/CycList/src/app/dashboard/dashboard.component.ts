@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   constructor(public globals: GlobalsService, private http: HttpClient) {}
 
   async ngOnInit() {
-    this.globals.getDashboardTasks();
+    await this.globals.getDashboardTasks();
     this.globals.curLog = "daily";
 
     this.getWeatherForLocation();

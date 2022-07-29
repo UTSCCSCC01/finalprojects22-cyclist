@@ -1,19 +1,5 @@
 @import "../../styles.scss";
 
-// .task {
-//   display: flex;
-//   align-items: stretch;
-//   justify-content: space-between;
-
-//   & > .name {
-//     flex: 1;
-//   }
-//   & > :not(.name) {
-//     color: $color-lightgrey;
-//   }
-
-// }
-
 .weather-img-container {
   height: 35%;
 }
@@ -51,4 +37,29 @@
 .weather-add-info-container {
   display: flex;
   justify-content: space-around;
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 1em;
+  min-height: 80vh;
+
+}
+
+.complete-rate, .overdue-tasks, .weather, .notification-log  {
+  max-width: 100%;
+  padding: 1em;
+  margin: 1em;
+}
+
+h3 {
+  color: $fg-alt;
+}
+
+.overdue-tasks {
+  color: $color-red;
+}
+
+.complete-rate > div {
+  font-size: large;
 }
