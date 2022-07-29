@@ -30,7 +30,7 @@
               mins
             </div>
             <div class="form-error">
-              <div *ngIf="completionFormOutOfRangeError">Please enter a valid completion time.</div>
+              <div *ngIf="actualTimeOutOfRangeError" class="warning">*Please enter a positive completion time.</div>
             </div>          
             <div class="form-group">
               <button type="button" (click)="submitTaskCompletion()">Submit</button>

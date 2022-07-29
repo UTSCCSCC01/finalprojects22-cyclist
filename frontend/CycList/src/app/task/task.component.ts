@@ -60,7 +60,7 @@ export class TaskComponent {
   sigMenuShown : Boolean = false;
   completionFormShown : Boolean = false;
   taskCompletionForm : FormGroup;
-  completionFormOutOfRangeError : Boolean = false;
+  actualTimeOutOfRangeError : Boolean = false;
 
   view: boolean = false;
   date: string = "";
@@ -71,25 +71,31 @@ export class TaskComponent {
     }
   }
 
+  /**
+   * Toggle a task's completed signifier. If task is not completed, then display
+   * the task completion time form for the user to fill out.
+   */
   sigMarkCompleted() {
     if(!this.completed) {
       this.sigMenuShown = false;
       this.completionFormShown = true;
     }
     else {
-      
+      this.globals.completeTask(this._id, false, 0, 0);
+      this.completed = false;
     }
   }
 
   submitTaskCompletion() {
-    console.log(this.taskCompletionForm.get("hour")?.value);
-    console.log(this.taskCompletionForm.get("minute")?.value);
     let hour: number = this.taskCompletionForm.get("hour")?.value;
     let minute: number = this.taskCompletionForm.get("minute")?.value;
 
-    // this.completed = true;
-    // this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned, hour, minute);
+    if(hour*60 + minute <= 0) {
+      this.actualTimeOutOfRangeError = true;
+    }
 
+    this.globals.completeTask(this._id, true, hour, minute);
+    this.completed = true;
     this.completionFormShown = false;
   }
 
