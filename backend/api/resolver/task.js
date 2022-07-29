@@ -471,18 +471,16 @@ module.exports = {
                 {_id: args.id},
                 {$set:{important:args.important, completed:args.completed, abandoned:args.abandoned}}
             );
-            if(args.actual<0){
-                throw new Error("actual time must >= 0");
-            }
+            let actual = args.hour*60+args.minute;
             task = await Task.findById(args.id);
-            if(task.expectedDuration > 0 && args.actual > 0){
+            if(task.expectedDuration > 0 && actual > 0){
                 await Task.updateOne(
                     {_id: args.id},
-                    {$set:{actualDuration:args.actual}}
+                    {$set:{actualDuration:actual}}
                 );
                 await Tag.updateOne(
                     {_id: task.tag},
-                    {$inc:{totalExpectedTime:task.expectedDuration, totalActualTime:args.actual}}
+                    {$inc:{totalExpectedTime:task.expectedDuration, totalActualTime:actual}}
                 );
             }
             task = await Task.findById(args.id);
