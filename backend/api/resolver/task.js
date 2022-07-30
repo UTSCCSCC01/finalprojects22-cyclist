@@ -562,7 +562,7 @@ module.exports = {
             let year = lastMonth.getFullYear();
             let month = lastMonth.getMonth()+1;
             let allTask = await Task.find({creater: ObjectId(req.userId), $or:[{year:year, month:{$lt: month}}, {year:{$lt:year}}]});
-            let compTask = await Task.find({creater: ObjectId(req.userId), $or:[{year:year, month:{$lt: month}}, {year:{$lt:year}}], $or:[{completed:true}, {abandoned:true}]});
+            let compTask = await Task.find({creater: ObjectId(req.userId), $and:[{$or:[{year:year, month:{$lt: month}}, {year:{$lt:year}}]}, {$or:[{completed:true}, {abandoned:true}]}]});
             if(allTask.length === 0){
                 return 0;
             }
