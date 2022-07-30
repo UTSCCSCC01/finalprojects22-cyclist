@@ -18,16 +18,19 @@
   border-color: $color-grey-trans;
 }
 
+.date-title {
+  padding-left: 2%;
+}
+
 .weather-icon {
   width: 50px;
   height: 50px;
-  background-color: lightgrey;
+  background-color: $bg-alt;
   border-radius: 9px;
 }
 
 .day-title-container {
   display: flex;
-  justify-content: space-between;
 }
 
 .daily-log-day-container {

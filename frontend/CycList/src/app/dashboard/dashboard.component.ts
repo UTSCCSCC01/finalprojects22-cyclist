@@ -30,8 +30,8 @@ export class DashboardComponent implements OnInit {
   }
 
   showPosition(position: any) {
-    let lat = parseInt(position.coords.latitude);
-    let lon = parseInt(position.coords.longitude);
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
 
     this.loadCurrentWeather(lat, lon).subscribe(data => {
       console.log(data)
