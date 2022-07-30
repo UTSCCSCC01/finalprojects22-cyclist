@@ -696,7 +696,7 @@ export class GlobalsService {
     } else {
       query = `
       mutation {
-        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}", hour:${value.hour}, minute:${value.minute}, notifiable: ${value.notifiable}, notifyTime: ${value.notifyTime}){
+        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",name:"${value.name}",tagID:"${value.tagID}", hour:${value.hour}, minute:${value.minute}, notifiable: ${value.notifiable}, notifyTime: ${value.notifyTime}){
           name
         }
       }
