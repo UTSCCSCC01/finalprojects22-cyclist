@@ -4,10 +4,30 @@
 
   <div class="split-view">
     <div class="left">
-      <h2>Calendar</h2>
-      <div class="days-weekdays">
-        <!--   {{days}}
-          {{weekDaysName}} -->
+      <h2>Calendar</h2> 
+      <div class="calendar-container">
+        <div class="calendar">
+          <div class="weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+          </div>
+          <div class="days">
+            <div class="prev-dates" *ngFor="let prev of this.prev_days">
+              {{prev}}
+            </div>
+            <div *ngFor="let i of this.days" [ngClass]="i === this.today? 'today':''">
+              {{i}}
+            </div>
+            <div *ngFor="let next of this.next_days">
+              <div class="next-dates">{{next}}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="right">
