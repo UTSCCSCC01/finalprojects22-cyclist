@@ -2,15 +2,12 @@
 
 # Burndown
 
-1. Our graph looks flat at the beginning because testing is one of the subtasks
-   which need to the last one. We really want to make sure all features works
-   before marking them done.
-2. We also planned to do QA tests before anyone can mark a user story as
-   completed. That is also the reason our burn down went straight down at the
-   end.
+1. Our graph looks flat at the beginning because we were busy with assignment 2.
+2. We have changed our planning strategy for this sprint. We removed the testing for each user story and do a final check in `dev` branch.
+
 
 # Velocity:
 
-For sprint 3, we had 544 points which was the way more than the sprint 2
-velocity, 304. One reason is that this sprint is for us to polish, debug and
-improve user experience further. Therefore, we have a lot more points that sprint 2.
+For sprint 4, we had 448 points which was the slightly less than the sprint 2
+velocity, 544. One reason is that this sprint is for us to complete everything and to polish, debug and
+improve user experience further. 
