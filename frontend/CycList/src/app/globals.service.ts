@@ -33,6 +33,7 @@ export class GlobalsService {
     await this.getNDailyTasks();
     this.getFutureLogTasks();
     this.getMonthlyLogTasks();
+    this.getMonthlyLogTasksNoDate();
     this.setNotifications();
     this.getCompletionRates();
   }
@@ -291,6 +292,7 @@ export class GlobalsService {
     this.dashboardTasks = [];
     this.dailyTasks = [];
     this.monthlyTasks = [];
+    this.monthlyTasksNoDay = [];
     this.futureTasks = [];
   }
 
@@ -370,6 +372,7 @@ export class GlobalsService {
   public dashboardTasks: any[] = [];
   public dailyTasks: any[] = [];
   public monthlyTasks: any[] = [];
+  public monthlyTasksNoDay: any[] = [];
   public futureTasks: any[] = [];
 
 
@@ -397,7 +400,7 @@ export class GlobalsService {
         hour
         minute
         notifiable
-        notifyTime    
+        notifyTime
       }
     }
     `
@@ -584,10 +587,57 @@ export class GlobalsService {
     });
   }
   public async getMonthlyLogTasks() {
-    // TODO: Actually update for Monthly Log
     let date = new Date();
     await this.getMonthlyTasks(date.getMonth()+1, date.getFullYear());
     this.monthlyTasks = this.getTasks().slice();
+  }
+
+  public async getMonthlyLogTasksNoDate(){
+    let currMonth = new Date().getMonth()+1;
+    let currYear = new Date().getFullYear();
+    await this.getMonthlyTasksNoDay(currMonth, currYear);
+    this.monthlyTasksNoDay = this.getTasks().slice();
+  }
+
+
+  public async getMonthlyTasksNoDay(month: number, year: number ){
+    const body = {
+      query: this.query(`getMonthTaskNoDay`, `month: ${month}, year: ${year}`)
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
+      }
+    })
+      .then(res =>{
+        if(res.status !== 200 && res.status !== 201){
+          err = true;
+          if(res.status === 400){
+            backenderr = true;
+          }
+        }
+        return res.json();
+      })
+      .then(data =>{
+        if(err){
+          if(backenderr){
+            console.log("Something wrong with server, please contact to admin");
+          }else{
+            console.log("** " + data.errors[0].message + " **");
+          }
+        }else{
+          this.setTasks(data.data.getMonthTaskNoDay);
+          console.log(this.getTasks());
+        }
+      })
+      .catch(err =>{
+        console.log(err)
+      });
   }
 
 
@@ -692,7 +742,7 @@ export class GlobalsService {
           name
         }
       }
-      `      
+      `
     } else {
       query = `
       mutation {
