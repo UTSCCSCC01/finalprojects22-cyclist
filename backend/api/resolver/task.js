@@ -505,7 +505,8 @@ module.exports = {
                 throw new Error("You are not tag creater");
             }
             if(tag.totalActualTime === 0){
-                throw new Error("don't have enough tasks to predict")
+                let result={hour:args.hour, minute:args.minute};
+                return result;
             }
             let ratio = tag.totalActualTime / tag.totalExpectedTime;
             let total = args.hour* 60 + args.minute;
