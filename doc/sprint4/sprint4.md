@@ -29,10 +29,13 @@ well-designed and implemented and ready to be deployed if needed.
    2. CYC-192: Daily log - add a weather icon and temperature on the right of each day
 3. CYC-45: As a user, I want the app to notify me in advance so that I can have a better
    preparation of the task before it takes place.
+   1. CYC-185: backend - store time and notifiable for each task
+   2. CYC-194: Add & edit task - add input fields: yes/no notify & dropdown to select notification (check for valid input, edge cases, etc.)
+   3. CYC-197: Schedule notifications to display at their specified times.
 4. CYC-64: As a user, I want to suggest a duration time for each task I create.
    1. CYC-198: Add & edit task - add “estimated time” input field (check for valid input, edge cases, etc.)
    2. CYC-200: Display the suggested time only after the user enters an estimated time & tag.
-   3. CYC-201: (Should this be for CYC-39 track task completion?)Display mandatory input “actual completion time” when the user marks a task as complete.
+   3. CYC-201: Display mandatory input “actual completion time” when the user marks a task as complete.
    4. CYC-202: Implement a global-service function to store the actual completion time.
    5. CYC-207: backend - update expected and actual time in tag when task has been finished
    6. CYC-213: backend - provide a suggestion time based on given expect time and tag
