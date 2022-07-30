@@ -113,7 +113,7 @@ export class GlobalsService {
             }
             new Notification(task.name, options);
             // remove the notification when we are done with it
-            this.notifications.splice(task._id, 1);
+            delete this.notifications[task._id];
           },time);
           // only set the notification once, and save timeout id to be able to clear it when reset it
           this.notifications[task._id] = timeOutId;
