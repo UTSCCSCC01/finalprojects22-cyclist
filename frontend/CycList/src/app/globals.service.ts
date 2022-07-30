@@ -30,9 +30,10 @@ export class GlobalsService {
   public async refresh() {
     this.getAllTags();
     this.getDashboardTasks();
-    this.getNDailyTasks();
+    await this.getNDailyTasks();
     this.getFutureLogTasks();
     this.getMonthlyLogTasks();
+    this.setNotifications();
     this.getCompletionRates();
   }
 
@@ -69,21 +70,23 @@ export class GlobalsService {
   public now: any;
   public oneYear: any;
   // public oneMonth: any;
-  public minYear: any;
-  public maxYear: any;
+  public minDate: any;
+  public maxDate: any;
   public minMonth: any;
   public maxMonth: any;
   public nDays: number = 6;
   public nDates: Date[] = [];
-  public notifications: string[] = [];
+  public notifications: any[] = [];
   public setAppTime() {
     this.now = new Date();
     this.oneYear = new Date(this.now.getFullYear() + 1, this.now.getMonth() + 2, 0); // we allow one year + one more month
     // this.oneMonth = new Date(this.now.getFullYear(), this.now.getMonth() + 1, this.now.getDay());
-    this.minYear = this.now.toISOString().slice(0,10);
-    this.maxYear = this.oneYear.toISOString().slice(0,10);
-    this.minMonth = this.now.toISOString().slice(0,7);
-    this.maxMonth = this.oneYear.toISOString().slice(0,7);
+    let mntNow = this.now.getMonth() + 1;
+    let mntOneYear = this.oneYear.getMonth() + 1;
+    this.minMonth = this.now.getFullYear() + '-' + ("0" + mntNow).slice(-2);
+    this.maxMonth = this.oneYear.getFullYear() + '-' + ("0" + mntOneYear).slice(-2);
+    this.minDate = this.minMonth + '-' + this.now.getDate();
+    this.maxDate = this.maxMonth + '-' + this.oneYear.getDate();
     this.setNDates();
     // TODO: update when go to a new day
   }
@@ -96,26 +99,38 @@ export class GlobalsService {
     }
   }
   public setNotifications() {
-    for (let task of this.dashboardTasks) {
-      console.log(task.dueTime);
-      if (task.dueTime && task.dueDate && !this.notifications.includes(task._id)) {
-        // only set the notification once
-        this.notifications.push(task._id);
+    if (this.dailyTasks.length === 0) return;
+    for (let task of this.dailyTasks[0]) {
+      if (task.notifiable && !(task._id in this.notifications)) {
         // make sure it's not overdue
-        let time = (new Date(task.dueDate+' '+task.dueTime)).getTime()-(new Date()).getTime();
+        let time = (new Date(task.dueDate+' '+task.dueTime)).getTime() - (new Date()).getTime() - 60000*task.notifyTime;
         if (time > 0) {
           // console.log(task.dueDate+' '+task.dueTime);
-          setTimeout(function(){
+          let timeOutId = window.setTimeout(() => {
             const options = {
               body: 'due: '+task.dueDate+' '+task.dueTime,
               icon: "../assets/list.png"
             }
-            new Notification(task.name, options);        
+            new Notification(task.name, options);
+            // remove the notification when we are done with it
+            this.notifications.splice(task._id, 1);
           },time);
+          // only set the notification once, and save timeout id to be able to clear it when reset it
+          this.notifications[task._id] = timeOutId;
+          // console.log("added notification with id " + timeOutId)
         }
       }
     }
   }
+  public removeNotification(taskId: any) {
+    if (!(taskId in this.notifications)) return;
+    // clear time out
+    window.clearTimeout(this.notifications[taskId]);
+    // console.log("cleared notification with id " + this.notifications[taskId]);
+    // reset the notification of an edited task
+    delete this.notifications[taskId];
+  }
+
 
 
 
@@ -321,6 +336,9 @@ export class GlobalsService {
     dayWeekMonth: null,   // add year?
     // repeatStartDay: null,     // only in backend
 
+    notifiable: false,
+    notifyTime: 0,
+
     tagID: "",                // maybe just call tag, group, was this what was meant????????
     // priority: null,         // maybe like options: ! !! or !!!    
     // mood: null,
@@ -342,7 +360,9 @@ export class GlobalsService {
       frequency: "",
       isRepeat: false,
       tagID: "",
-      content: ""
+      content: "",
+      notifiable: false,
+      notifyTime: 0
     });
   }
   public dashboardTasks: any[] = [];
@@ -372,6 +392,8 @@ export class GlobalsService {
         completed
         important
         abandoned
+        notifiable
+        notifyTime    
       }
     }
     `
@@ -418,7 +440,6 @@ export class GlobalsService {
     // TODO: actual update for Dashboard
     await this.getAllTasks("");
     this.dashboardTasks = this.getTasks().slice();
-    this.setNotifications();
     // console.log(this.dashboardTasks);
   }
   public async getAllTasks(type: string) {
@@ -619,15 +640,15 @@ export class GlobalsService {
     if (!value._id) {
       query = `
       mutation {
-        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.content}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
+        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.content}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}", notifiable: ${value.notifiable}, notifyTime: ${value.notifyTime}){
           name
         }
       }
-      `
+      `      
     } else {
       query = `
       mutation {
-        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}"){
+        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}", notifiable: ${value.notifiable}, notifyTime: ${value.notifyTime}){
           name
         }
       }
@@ -667,6 +688,7 @@ export class GlobalsService {
         }
       }else{
         // all g!
+        if (value._id) this.removeNotification(value._id);
         this.refresh();
       }
     })
@@ -712,6 +734,8 @@ export class GlobalsService {
         }
       }else{
         // all g!
+        // remove notifications
+        this.removeNotification(id);
         this.refresh();
       }
     })

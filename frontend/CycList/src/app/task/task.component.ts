@@ -17,13 +17,13 @@ export class TaskComponent {
   content: string = "";
 
   @Input() 
-  schedule: string = "";
+  schedule: boolean = false;
 
   @Input() 
   dueTime: string = "";
 
   @Input() 
-  isRepeat: string = "";
+  isRepeat: boolean = false;
 
   @Input() 
   tag: string = "";
@@ -40,17 +40,23 @@ export class TaskComponent {
   @Input() 
   frequency: string = "";
 
+  @Input()
+  notifiable: boolean = false;
+
+  @Input()
+  notifyTime: number = 0;
+
   // vvv Signifiers: completed, important, abandoned
   @Input()
-  completed: Boolean = false;
+  completed: boolean = false;
 
   @Input()
-  important: Boolean = false;
+  important: boolean = false;
 
   @Input()
-  abandoned: Boolean = false;
+  abandoned: boolean = false;
 
-  sigMenuOpened : Boolean = false;
+  sigMenuOpened : boolean = false;
 
   toggleSigMenu() {
     this.sigMenuOpened = !this.sigMenuOpened;
@@ -111,6 +117,8 @@ export class TaskComponent {
     this.globals.form.patchValue({tagID: this.tag});
     this.globals.form.patchValue({color: this.color});
     this.globals.form.patchValue({dayWeekMonth: this.dayWeekMonth});
+    this.globals.form.patchValue({notifiable: this.notifiable});
+    this.globals.form.patchValue({notifyTime: this.notifyTime});
     
     if(this.schedule){
       this.globals.form.patchValue({tempDueDate: this.dueDate});
@@ -118,6 +126,7 @@ export class TaskComponent {
       this.globals.form.patchValue({tempDueMonth: this.dueDate});
     }
     
+    // console.log(this.globals.form.value);
     //testing below
     //this.globals.form.patchValue({isRepeat: true});
     //this.frequency = "136";
