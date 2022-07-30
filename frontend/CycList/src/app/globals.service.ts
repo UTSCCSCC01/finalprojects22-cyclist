@@ -622,7 +622,7 @@ export class GlobalsService {
     if (!value._id) {
       query = `
       mutation {
-        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.content}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
+        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.content}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}", hour:${value.hour}, minute:${value.minute}){
           name
         }
       }
@@ -630,7 +630,7 @@ export class GlobalsService {
     } else {
       query = `
       mutation {
-        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}"){
+        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}", hour:${value.hour}, minute:${value.minute}){
           name
         }
       }
@@ -986,12 +986,18 @@ export class GlobalsService {
 
 
 
-  public suggestedDuration = [
+  public sug = 
     {
       hour:0,
       minute:0
     }
-  ];
+  ;
+  public setSug(sug:any) {
+    this.sug = sug;
+  }
+  public getSug(){
+    return this.sug;
+  }
   public async getSuggestedDuration(hour: number, minute: number, tagID: string) {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
@@ -1032,15 +1038,12 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        console.log(data)
+        console.log(data.data.sug)
       }
     })
     .catch(err =>{
       console.log(err)
     });
   }
-
-
-
 
 }
