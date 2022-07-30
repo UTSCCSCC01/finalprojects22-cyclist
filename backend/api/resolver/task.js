@@ -154,7 +154,7 @@ module.exports = {
                     dueTime: time, dueDate: args.date,isRepeat: args.repeat,
                     dayWeekMonth: dwm,frequency: fre,repeatStartDay: repeatStartDay,
                     content: args.content, tag: tag, color: color,schedule:schedule,
-                    hour: args.hour,minute:args.minute,}}
+                    hour: args.hour,minute:args.minute,expectedDuration:expectedDuration}}
             );
             task = await Task.findById(args.taskId);
             return task;

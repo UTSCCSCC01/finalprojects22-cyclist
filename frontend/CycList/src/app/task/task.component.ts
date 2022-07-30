@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalsService } from '../globals.service';
 
 @Component({
@@ -56,17 +57,46 @@ export class TaskComponent {
   @Input()
   abandoned: Boolean = false;
 
-  sigMenuOpened : Boolean = false;
+  sigMenuShown : Boolean = false;
+  completionFormShown : Boolean = false;
+  taskCompletionForm : FormGroup;
+  actualTimeOutOfRangeError : Boolean = false;
+
   view: boolean = false;
   date: string = "";
 
   toggleSigMenu() {
-    this.sigMenuOpened = !this.sigMenuOpened;
+    if(!this.completionFormShown) {
+      this.sigMenuShown = !this.sigMenuShown;
+    }
   }
 
-  toggleSigCompleted() {
-    this.completed = !this.completed;
-    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+  /**
+   * Toggle a task's completed signifier. If task is not completed, then display
+   * the task completion time form for the user to fill out.
+   */
+  sigMarkCompleted() {
+    if(!this.completed) {
+      this.sigMenuShown = false;
+      this.completionFormShown = true;
+    }
+    else {
+      this.globals.completeTask(this._id, false, 0, 0);
+      this.completed = false;
+    }
+  }
+
+  submitTaskCompletion() {
+    let hour: number = this.taskCompletionForm.get("hour")?.value;
+    let minute: number = this.taskCompletionForm.get("minute")?.value;
+
+    if(hour*60 + minute <= 0) {
+      this.actualTimeOutOfRangeError = true;
+    }
+
+    this.globals.completeTask(this._id, true, hour, minute);
+    this.completed = true;
+    this.completionFormShown = false;
   }
 
   toggleSigImportant() {
@@ -80,7 +110,11 @@ export class TaskComponent {
   }
 
 
-  constructor(public globals: GlobalsService) { 
+  constructor(public globals: GlobalsService, private formBuilder: FormBuilder) { 
+    this.taskCompletionForm = this.formBuilder.group({
+      hour: 0,
+      minute: 0
+    });
     // this.tags = this.globals.getTags();
     // this.taskTag = GlobalsService.getTag(this.tagID);
     

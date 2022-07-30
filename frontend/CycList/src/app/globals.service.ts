@@ -630,7 +630,7 @@ export class GlobalsService {
     } else {
       query = `
       mutation {
-        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}", hour:${value.hour}, minute:${value.minute}){
+        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",name:"${value.name}",tagID:"${value.tagID}", hour:${value.hour}, minute:${value.minute}){
           name
         }
       }
@@ -984,7 +984,67 @@ export class GlobalsService {
     });
   }
 
+  public async completeTask(id: string, completed: Boolean, hour: number, minute: number) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
 
+    const body = {
+      query:`
+      mutation {
+          markSignifier(id:"${id}", completed: ${completed}, hour:${hour}, minute:${minute}){
+            _id
+            creater
+            name
+            color
+            important
+            completed
+            abandoned
+            actualDuration
+          }
+        }
+      `
+    }
+
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
+      }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+          return;
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+          return;
+        }
+      }else{
+        // all good!
+        return;
+        /* TODO: update logs after marking signifiers.
+         * This doesn't seem necessary, as the frontend re-renders the signifiers
+         * immediately after the signifier is chosen.*/
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
 
   public sug = 
     {
