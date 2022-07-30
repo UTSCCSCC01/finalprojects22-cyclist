@@ -329,7 +329,9 @@ export class GlobalsService {
     // startDate: null,
 
     // startTime: null,
-    // expectedDuration: null,  // pointless because we have start and due/end unless this is an AI value
+    //expectedDuration: null,  // pointless because we have start and due/end unless this is an AI value
+    hour: null,
+    minute: null,
 
     isRepeat: false,         // maybe just repeat true of false
     frequency: "",
@@ -392,6 +394,8 @@ export class GlobalsService {
         completed
         important
         abandoned
+        hour
+        minute
         notifiable
         notifyTime    
       }
@@ -684,7 +688,7 @@ export class GlobalsService {
     if (!value._id) {
       query = `
       mutation {
-        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.content}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}", notifiable: ${value.notifiable}, notifyTime: ${value.notifyTime}){
+        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.content}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}", hour:${value.hour}, minute:${value.minute}, notifiable: ${value.notifiable}, notifyTime: ${value.notifyTime}){
           name
         }
       }
@@ -692,7 +696,7 @@ export class GlobalsService {
     } else {
       query = `
       mutation {
-        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}", notifiable: ${value.notifiable}, notifyTime: ${value.notifyTime}){
+        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}", hour:${value.hour}, minute:${value.minute}, notifiable: ${value.notifiable}, notifyTime: ${value.notifyTime}){
           name
         }
       }
@@ -1100,7 +1104,125 @@ export class GlobalsService {
     });
   }
 
+  public async completeTask(id: string, completed: Boolean, hour: number, minute: number) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
 
+    const body = {
+      query:`
+      mutation {
+          markSignifier(id:"${id}", completed: ${completed}, hour:${hour}, minute:${minute}){
+            _id
+            creater
+            name
+            color
+            important
+            completed
+            abandoned
+            actualDuration
+          }
+        }
+      `
+    }
 
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
+      }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+          return;
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+          return;
+        }
+      }else{
+        // all good!
+        return;
+        /* TODO: update logs after marking signifiers.
+         * This doesn't seem necessary, as the frontend re-renders the signifiers
+         * immediately after the signifier is chosen.*/
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
+
+  public sug = {
+      hour:0,
+      minute:0
+  }
+  public setSug(sug:any) {
+    this.sug = sug;
+  }
+  public getSug(){
+    return this.sug;
+  }
+  public async getSuggestedDuration(hour: number, minute: number, tagID: string) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query:`
+      query {
+        suggestion(hour:${hour}, minute:${minute}, tagID:"${tagID}"){
+          hour
+          minute
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        console.log(data.data.suggestion);
+        if (data.data.suggestion) this.setSug(data.data.suggestion);
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
 
 }

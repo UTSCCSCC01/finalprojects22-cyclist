@@ -1,33 +1,95 @@
 <div class="task">
-    <div class="task-head">
-      <div class="signifier" [ngClass]="color">
-        <div class="signifier-button" (click)="toggleSigMenu()"></div>
+  <div class="task-head">
+    <div class="signifier" [ngClass]="color">
+      <div class="signifier-button" (click)="toggleSigMenu()"></div>
 
-        <div class="signifier-menu" *ngIf="sigMenuOpened">
-          <div class="signifier-menu-item">
-            <span class="signifier-checkmark" *ngIf="completed">✓</span>
-            <span class="signifier-choice" (click)="toggleSigCompleted()">completed</span>
-          </div>
-          <div class="signifier-menu-item">
-            <span class="signifier-checkmark" *ngIf="important">✓</span>
-            <span class="signifier-choice" (click)="toggleSigImportant()">important</span>
-          </div>
-          <div class="signifier-menu-item">
-            <span class="signifier-checkmark" *ngIf="abandoned">✓</span>
-            <span class="signifier-choice" (click)="toggleSigAbandoned()">abandon</span>
-          </div>
+      <div class="signifier-menu" *ngIf="sigMenuShown">
+        <div class="signifier-menu-item">
+          <span class="signifier-checkmark" *ngIf="completed">✓</span>
+          <span class="signifier-choice" (click)="sigMarkCompleted()">completed</span>
         </div>
-
-        <span class="important" *ngIf="important">★</span>
-        <span class="incomplete" *ngIf="!completed">●</span>
-        <span class="completed" *ngIf="completed">🞬</span>
+        <div class="signifier-menu-item">
+          <span class="signifier-checkmark" *ngIf="important">✓</span>
+          <span class="signifier-choice" (click)="toggleSigImportant()">important</span>
+        </div>
+        <div class="signifier-menu-item">
+          <span class="signifier-checkmark" *ngIf="abandoned">✓</span>
+          <span class="signifier-choice" (click)="toggleSigAbandoned()">abandon</span>
+        </div>
       </div>
 
-      <div id="task-text" [ngClass]="{abandoned: abandoned}">{{ name }}</div>
+      <div class="task-completion-form" *ngIf="completionFormShown">
+        <form (ngSubmit)="submitTaskCompletion()" [formGroup]="taskCompletionForm">
+          <span>Task completion time:</span>
+          <div class="form-group">
+            <input required type="number" min="0" formControlName="hour"/>
+            hours
+            <input required type="number" min="0" max="59" formControlName="minute"/>
+            mins
+          </div>
+          <div class="form-error">
+            <div *ngIf="actualTimeOutOfRangeError" class="warning">*Please enter a positive completion time.</div>
+          </div>          
+          <div class="form-group">
+            <button type="button" (click)="submitTaskCompletion()">Submit</button>
+          </div>
+        </form>
+      </div>
+
+      <span class="important" *ngIf="important">★</span>
+      <span class="incomplete" *ngIf="!completed">●</span>
+      <span class="completed" *ngIf="completed">🞬</span>
     </div>
-    <div class="right-aligned">
+
+    <div id="task-text" [ngClass]="{abandoned: abandoned}" (click)="showDetails()">{{ name }}</div>
+  </div>
+  <div class="fill" (click)="showDetails()"> <br> </div>
+  <div class="right-aligned">
+    <div id="task-time" (click)="showDetails()"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
+  </div>
+</div>
+
+<div class="overlay" [class.hidden]="!view && !sigMenuShown" (click)="hideDetails()"></div>
+
+<div class="menu" [class.hidden]="!view">
+  <div class="between">
+    <div class="title">{{ name }}</div>
+    <div>
       <div class="btn flat circ edit" (click)="addTaskForm()"><div>✎</div></div>
       <div class="btn flat circ del" (click)="deleteTask()"><div>✗</div></div>
-      <div id="task-time"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
     </div>
+  </div>
+
+    <div *ngIf="schedule">Due: {{ date }}</div>
+    <div *ngIf="!schedule">Due: {{ dueDate }}</div>
+    <!-- <div *ngIf="this.isRepeat">
+      Repeat: 
+      <input (change)="globals.form.patchValue({ isRepeat: !globals.form.value.isRepeat, frequency: '', dayWeekMonth: [null] })" type="checkbox" [checked]="globals.form.value.isRepeat"/>  
+      <span *ngIf="globals.form.value.isRepeat">
+        every
+        <span *ngIf="globals.form.value.dayWeekMonth === 'day'">
+          <input type="number" min="1" required formControlName="frequency"/>
+          th
+        </span>
+        <span *ngIf="globals.form.value.dayWeekMonth === 'week'">
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[6]" (click)="globals.taskFormWeek[6] = !globals.taskFormWeek[6]">S</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[0]" (click)="globals.taskFormWeek[0] = !globals.taskFormWeek[0]">M</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[1]" (click)="globals.taskFormWeek[1] = !globals.taskFormWeek[1]">T</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[2]" (click)="globals.taskFormWeek[2] = !globals.taskFormWeek[2]">W</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[3]" (click)="globals.taskFormWeek[3] = !globals.taskFormWeek[3]">T</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[4]" (click)="globals.taskFormWeek[4] = !globals.taskFormWeek[4]">F</div>
+          <div class="btn circ day" [class.toggled]="globals.taskFormWeek[5]" (click)="globals.taskFormWeek[5] = !globals.taskFormWeek[5]">S</div>
+        </span>
+        <select required formControlName="dayWeekMonth">
+          <option>day</option>
+          <option>week</option>
+          <option>month</option>
+        </select>
+      </span>
+    </div> -->
+    <span *ngIf="tag">
+      Tag: {{ tagName }}
+    </span>
+
+    <div *ngIf="globals.sug.hour != 0 && !completed">Suggested Duration: {{ globals.sug.hour }} hours{{  globals.sug.minute }} minutes</div>
 </div>

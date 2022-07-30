@@ -19,12 +19,16 @@ module.exports = {
             let color;
             let time;
             let schedule;
+            let expectedDuration = args.hour*60+args.minute;
             if(args.tagID === "" || args.tagID === "null"){
                 tag = null;
                 color = "";
             }else{
                 tag = args.tagID;
                 let tagInfo = await Tag.findById(args.tagID);
+                if(!tagInfo){
+                    throw new Error("wrong tag id")
+                }
                 if(tagInfo.creater.valueOf() !== req.userId){
                     throw new Error("You are not tag creater");
                 }
@@ -61,7 +65,9 @@ module.exports = {
                 hierarchy: "daily",
                 dueTime: time,
                 dueDate: args.date,
-                expectedDuration: 0,
+                hour: args.hour,
+                minute:args.minute,
+                expectedDuration: expectedDuration,
                 actualDuration: 0,
                 start: new Date().toISOString(),
                 notifiable:args.notifiable,
@@ -104,6 +110,7 @@ module.exports = {
             let color;
             let time;
             let schedule;
+            let expectedDuration = args.hour*60+args.minute;
             let task = await Task.find({_id:ObjectId(args.taskId), creater: ObjectId(req.userId)});
             if(task.length === 0){
                 throw new Error("wrong task id or task is not created by you");
@@ -149,6 +156,7 @@ module.exports = {
                     dueTime: time, dueDate: args.date,isRepeat: args.repeat,
                     dayWeekMonth: dwm,frequency: fre,repeatStartDay: repeatStartDay,
                     content: args.content, tag: tag, color: color,schedule:schedule,
+                    hour: args.hour,minute:args.minute,expectedDuration:expectedDuration,
                     notifiable:args.notifiable,notifyTime:args.notifyTime}}
             );
             task = await Task.findById(args.taskId);
@@ -379,11 +387,8 @@ module.exports = {
             let color;
             let time;
             let schedule;
-            let task = await Task.find({_id:ObjectId(args.taskId), creater: ObjectId("62b4a2421115bad92e1b5efd")});
-            if(task.length === 0){
-                throw new Error("wrong task id or task is not created by you");
-            }
-            if(args.tagID === ""|| args.tagID === "null"){
+            let expectedDuration = args.hour*60+args.minute;
+            if(args.tagID === "" || args.tagID === "null"){
                 tag = null;
                 color = "";
             }else{
@@ -443,12 +448,57 @@ module.exports = {
             if(task.length === 0){
                 throw new Error("wrong task id");
             }
+            if(args.completed && args.abandoned){
+                throw new Error("task can't be both completed and abandoned");
+            }
             await Task.updateOne(
                 {_id: args.id},
                 {$set:{important:args.important, completed:args.completed, abandoned:args.abandoned}}
             );
+            let actual = args.hour*60+args.minute;
+            task = await Task.findById(args.id);
+            if(task.expectedDuration > 0 && actual > 0){
+                await Task.updateOne(
+                    {_id: args.id},
+                    {$set:{actualDuration:actual}}
+                );
+                await Tag.updateOne(
+                    {_id: task.tag},
+                    {$inc:{totalExpectedTime:task.expectedDuration, totalActualTime:actual}}
+                );
+            }
             task = await Task.findById(args.id);
             return task;
+        } catch(err){
+            throw err;
+        }
+    },
+    suggestion: async (args, req)=>{
+        try{
+            if(!req.isAuth){
+                throw new Error("User not authenticated");
+            }
+            //62b4a2421115bad92e1b5efd   user
+            //62cca051539ee0f4eebbd484   tag
+            //62ce5122c58dd1afa145534c   task
+            let tag = await Tag.findById(args.tagID);
+            if(!tag){
+                throw new Error("wrong tag id");
+            }
+            if(tag.creater.valueOf() !== req.userId){
+                throw new Error("You are not tag creater");
+            }
+            if(tag.totalActualTime === 0){
+                let result={hour:args.hour, minute:args.minute};
+                return result;
+            }
+            let ratio = tag.totalActualTime / tag.totalExpectedTime;
+            let total = args.hour* 60 + args.minute;
+            let suggestion = ratio* total;
+            let sugHour = parseInt(suggestion/60);
+            let sugMinute = parseInt(suggestion%60);
+            let result={hour:sugHour, minute:sugMinute};
+            return result;
         } catch(err){
             throw err;
         }

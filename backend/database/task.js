@@ -34,6 +34,12 @@ const taskSchema = new Schema({
     dueDate:{
         type: String,
     },
+    hour:{
+        type: Number,
+    },
+    minute:{
+        type: Number,
+    },
     expectedDuration:{
         type: Number,
     },

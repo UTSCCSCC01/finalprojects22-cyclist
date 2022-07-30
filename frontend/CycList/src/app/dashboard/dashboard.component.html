@@ -44,11 +44,13 @@
           [dueDate]="task.dueDate"
           [dueTime]="task.dueTime"
           [frequency]="task.frequency"
+          [hour]="task.hour" [minute]="task.minute"
           [isRepeat]="task.isRepeat"
           [name]="task.name"
           [schedule]="task.schedule"
           [tag]="task.tag"
-        ></app-task>
+          [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
+        </app-task>
       </div>
 
 
