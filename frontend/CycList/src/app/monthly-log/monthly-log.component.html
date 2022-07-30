@@ -1,25 +1,37 @@
 <div class="monthly-log-task-container">
   <h1>{{ monthName }}</h1>
-  <hr class="monthly-log-underline" />
+  <hr class="monthly-log-underline"/>
 
   <div class="split-view">
     <div class="left">
       <h2>Calendar</h2>
-      <div class="days-weekdays" >
-      <!--   {{days}}
-        {{weekDaysName}} -->
+      <div class="days-weekdays">
+        <!--   {{days}}
+          {{weekDaysName}} -->
       </div>
     </div>
     <div class="right">
       <h2>Unscheduled Tasks</h2>
       <div *ngFor="let task of globals.monthlyTasks">
         <app-task
-          [_id]="task._id" [name]="task.name" [content]="task.content" 
-          [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
-          [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-          [hour]="task.hour" [minute]="task.minute"
-          [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
-          [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
+          [_id]="task._id" [abandoned]=task.abandoned [color]="task.color"
+          [completed]=task.completed [content]="task.content" [dayWeekMonth]="task.dayWeekMonth"
+          [dueDate]="task.dueDate"
+          [dueTime]="task.dueTime" [frequency]="task.frequency"
+          [hour]="task.hour" [important]=task.important
+          [isRepeat]="task.isRepeat" [minute]="task.minute" [name]="task.name" [notifiable]="task.notifiable"
+          [notifyTime]="task.notifyTime" [schedule]="task.schedule" [tag]="task.tag">
+        </app-task>
+      </div>
+      <div *ngFor="let task of globals.monthlyTasksNoDay">
+        <app-task
+          [_id]="task._id" [abandoned]=task.abandoned [color]="task.color"
+          [completed]=task.completed [content]="task.content" [dayWeekMonth]="task.dayWeekMonth"
+          [dueDate]="task.dueDate"
+          [dueTime]="task.dueTime" [frequency]="task.frequency"
+          [hour]="task.hour" [important]=task.important
+          [isRepeat]="task.isRepeat" [minute]="task.minute" [name]="task.name" [notifiable]="task.notifiable"
+          [notifyTime]="task.notifyTime" [schedule]="task.schedule" [tag]="task.tag">
         </app-task>
       </div>
     </div>
