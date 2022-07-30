@@ -1,4 +1,4 @@
-# sprint 2 Retrospective
+# sprint 3 Retrospective
 
 July 18 22:00, 2022. Discord
 
