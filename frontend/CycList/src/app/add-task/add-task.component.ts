@@ -61,9 +61,15 @@ export class AddTaskComponent implements OnInit {
     }
 
     // set notify time to int
-    this.globals.form.patchValue({
-      notifyTime: parseInt(this.globals.form.value.notifyTime)
-    });
+    if (!this.globals.form.value.notifiable) {
+      this.globals.form.patchValue({
+        notifyTime: 0
+      });
+    } else {
+      this.globals.form.patchValue({
+        notifyTime: parseInt(this.globals.form.value.notifyTime)
+      });
+    }
   }
 
   async submitForm() {
