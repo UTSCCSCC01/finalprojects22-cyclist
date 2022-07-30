@@ -51,7 +51,8 @@ export class MonthlyLogComponent implements OnInit {
       .filter((v) => v.getMonth() === month - 1);
 
   async ngOnInit() {
-    this.globals.getMonthlyLogTasks();
+    await this.globals.getMonthlyLogTasks();
+    await this.globals.getMonthlyLogTasksNoDate();
     this.globals.curLog = 'monthly';
   }
 
