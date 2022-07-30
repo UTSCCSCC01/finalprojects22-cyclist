@@ -7,6 +7,9 @@ $size-add-task: 0.9em;
 // $line-height-add-task: 1.289em;
 $font-size-add-task: 3.1em;
 
+form > div {
+  min-height: 3em;
+}
 
 .add-task {
   margin: 0.2em;

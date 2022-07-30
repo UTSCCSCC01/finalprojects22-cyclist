@@ -18,13 +18,13 @@ export class TaskComponent {
   content: string = "";
 
   @Input() 
-  schedule: string = "";
+  schedule: boolean = false;
 
   @Input() 
   dueTime: string = "";
 
   @Input() 
-  isRepeat: string = "";
+  isRepeat: boolean = false;
 
   @Input() 
   tag: string = "";
@@ -47,15 +47,23 @@ export class TaskComponent {
   @Input() 
   minute: string = "";
 
+  @Input()
+  notifiable: boolean = false;
+
+  @Input()
+  notifyTime: number = 0;
+
+
   // vvv Signifiers: completed, important, abandoned
   @Input()
-  completed: Boolean = false;
+  completed: boolean = false;
 
   @Input()
-  important: Boolean = false;
+  important: boolean = false;
 
   @Input()
-  abandoned: Boolean = false;
+  abandoned: boolean = false;
+
 
   sigMenuShown : Boolean = false;
   completionFormShown : Boolean = false;
@@ -175,6 +183,8 @@ export class TaskComponent {
     this.globals.form.patchValue({dayWeekMonth: this.dayWeekMonth});
     this.globals.form.patchValue({hour: this.hour});
     this.globals.form.patchValue({minute: this.minute});
+    this.globals.form.patchValue({notifiable: this.notifiable});
+    this.globals.form.patchValue({notifyTime: this.notifyTime});
     
     if(this.schedule){
       this.globals.form.patchValue({tempDueDate: this.dueDate});
@@ -184,6 +194,7 @@ export class TaskComponent {
 
     this.date = (new Date(this.dueDate)).toString().slice(0,9);
     
+    // console.log(this.globals.form.value);
     //testing below
     //this.globals.form.patchValue({isRepeat: true});
     //this.frequency = "136";
