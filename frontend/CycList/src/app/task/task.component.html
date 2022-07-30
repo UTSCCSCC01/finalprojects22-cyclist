@@ -41,15 +41,15 @@
       <span class="completed" *ngIf="completed">🞬</span>
     </div>
 
-    <div id="task-text" [ngClass]="{abandoned: abandoned}" (click)="this.view = !this.view">{{ name }}</div>
+    <div id="task-text" [ngClass]="{abandoned: abandoned}" (click)="showDetails()">{{ name }}</div>
   </div>
-  <div class="fill" (click)="this.view = !this.view"> <br> </div>
+  <div class="fill" (click)="showDetails()"> <br> </div>
   <div class="right-aligned">
-    <div id="task-time" (click)="this.view = !this.view"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
+    <div id="task-time" (click)="showDetails()"><span *ngIf="dueTime">{{ dueTime }}: </span>{{ dueDate }}</div>
   </div>
 </div>
 
-<div class="overlay" [class.hidden]="!view && !sigMenuShown" (click)="sigMenuShown = false; view = false"></div>
+<div class="overlay" [class.hidden]="!view && !sigMenuShown" (click)="hideDetails()"></div>
 
 <div class="menu" [class.hidden]="!view">
   <div class="between">
@@ -88,8 +88,8 @@
       </span>
     </div> -->
     <span *ngIf="tag">
-      Tag: {{ tag }}
+      Tag: {{ tagName }}
     </span>
 
-    <div *ngIf="hour">Suggested Duration: {{ globals.sug.hour }}:{{  globals.sug.minute }} hours</div>
+    <div *ngIf="globals.sug.hour != 0 && !completed">Suggested Duration: {{ globals.sug.hour }}:{{  globals.sug.minute }} hours</div>
 </div>

@@ -1046,12 +1046,10 @@ export class GlobalsService {
     });
   }
 
-  public sug = 
-    {
+  public sug = {
       hour:0,
       minute:0
-    }
-  ;
+  }
   public setSug(sug:any) {
     this.sug = sug;
   }
@@ -1064,7 +1062,7 @@ export class GlobalsService {
     const body = {
       query:`
       query {
-        suggestion(hour:${hour}, minute:${minute}, tagID: "${tagID}"){
+        suggestion(hour:${hour}, minute:${minute}, tagID:"${tagID}"){
           hour
           minute
         }
@@ -1098,7 +1096,8 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
         }
       }else{
-        console.log(data.data.sug)
+        console.log(data.data.suggestion);
+        if (data.data.suggestion) this.setSug(data.data.suggestion);
       }
     })
     .catch(err =>{

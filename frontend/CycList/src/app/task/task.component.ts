@@ -64,11 +64,24 @@ export class TaskComponent {
 
   view: boolean = false;
   date: string = "";
+  tagName: string = "";
 
   toggleSigMenu() {
     if(!this.completionFormShown) {
       this.sigMenuShown = !this.sigMenuShown;
     }
+  }
+
+  showDetails() {
+    this.view = !this.view;
+    if (!this.hour || !this.minute || !this.tag) return;
+    this.globals.getSuggestedDuration(parseInt(this.hour), parseInt(this.minute), this.tag);
+  }
+
+  hideDetails() {
+    this.view = false;
+    this.sigMenuShown = false;
+    this.globals.sug = { hour:0, minute:0 };
   }
 
   /**
@@ -140,6 +153,12 @@ export class TaskComponent {
 
   ngOnInit(): void {
     this.date = (new Date(this.dueDate)).toString().slice(0,15);
+    if (!this.globals.tags) return;
+    for (let tag of this.globals.tags) {
+      if (tag._id === this.tag) {
+        this.tagName = tag.name;
+      }
+    }
   }
 
   addTaskForm() {
