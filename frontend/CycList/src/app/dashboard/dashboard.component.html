@@ -1,15 +1,57 @@
 <div class="wrapper">
   <div class="weather">
-    <h1>Weather</h1>
-    22°C
+
+    <div class="weather-widget">
+
+      <div class="weather-img-container">
+        <img class="weather-icon" *ngIf="this.weather"  src = "http://openweathermap.org/img/wn/{{this.weather['weather'][0]['icon']}}@2x.png"/>
+      </div>
+      <p class="weather-description" *ngIf="this.weather">{{ this.weather['weather'][0]['description'] }}</p>
+      <h1 class="weather-temp" *ngIf="this.weather">{{ this.weather['main']['temp'] }}<span style="font-weight: 200">&#8451;</span></h1>
+      <h2 class="weather-city" *ngIf="this.weather">{{ this.weather['name'] }}</h2>
+
+      <div class="weather-add-info-container">
+        <div>
+          <h6>Wind</h6>
+          <h4 class="weather-add-info-content" *ngIf="this.weather">{{ this.weather['wind']['speed'] }}m/s</h4>
+        </div>
+        <div>
+          <h6>Humidity</h6>
+          <h4 class="weather-add-info-content" *ngIf="this.weather">{{ this.weather['main']['humidity'] }}%</h4>
+        </div>
+        <div>
+          <h6>Feels Like</h6>
+          <h4 class="weather-add-info-content" *ngIf="this.weather">{{ this.weather['main']['feels_like'] }}&#8451;</h4>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="complete-rate">
-    You completed 80% of your tasks
-  </div>
-  <div class="notification-log">
-    No incoming notifications
+    <h3>Complete Rate</h3>
+    <div>Last Month: {{ this.globals.completionRates[2] }}%</div>
+    <div> Last 3 Months: {{ this.globals.completionRates[1] }}%</div>
+    <div> All Time: {{ this.globals.completionRates[0] }}%</div>
   </div>
   <div class="overdue-tasks">
-    No overdue tasks
+    <h3>Overdue Tasks</h3>
+    <div class="tasks">
+      <div *ngFor="let task of globals.dashboardTasks" class="task">
+        <app-task
+          [_id]="task._id"
+          [color]="task.color"
+          [content]="task.content"
+          [dayWeekMonth]="task.dayWeekMonth"
+          [dueDate]="task.dueDate"
+          [dueTime]="task.dueTime"
+          [frequency]="task.frequency"
+          [isRepeat]="task.isRepeat"
+          [name]="task.name"
+          [schedule]="task.schedule"
+          [tag]="task.tag"
+        ></app-task>
+      </div>
+
+
+    </div>
   </div>
 </div>
