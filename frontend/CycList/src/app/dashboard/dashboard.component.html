@@ -28,9 +28,12 @@
 
   <div class="complete-rate">
     <h3>Complete Rate</h3>
-    <div>Last Month: {{ this.globals.completionRates[2] }}%</div>
-    <div> Last 3 Months: {{ this.globals.completionRates[1] }}%</div>
-    <div> All Time: {{ this.globals.completionRates[0] }}%</div>
+    <span>Last Month: </span>
+    <span *ngIf="compRatesAvailable()">{{ this.globals.completionRates[2] }}%</span>
+    <br><span> Last 3 Months: </span>
+    <span *ngIf="compRatesAvailable()">{{ this.globals.completionRates[1] }}%</span>
+    <br><span> All Time: </span>
+    <span *ngIf="compRatesAvailable()">{{ this.globals.completionRates[0] }}%</span>
   </div>
 
   <div></div>

@@ -45,4 +45,8 @@ export class DashboardComponent implements OnInit {
   loadCurrentWeather(lat: any, lon: any): Observable<any> {
     return this.http.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=91553bf4033d4aef2a4d46a66f38cb01`);
   }
+
+  compRatesAvailable(){
+    return this.globals.completionRates[2] !== -1.0;
+  }
 }
