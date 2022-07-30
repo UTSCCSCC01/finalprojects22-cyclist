@@ -1,8 +1,6 @@
 <div class="wrapper">
   <div class="weather">
-
     <div class="weather-widget">
-
       <div class="weather-img-container">
         <img class="weather-icon" *ngIf="this.weather"  src = "http://openweathermap.org/img/wn/{{this.weather['weather'][0]['icon']}}@2x.png"/>
       </div>
@@ -26,12 +24,17 @@
       </div>
     </div>
   </div>
+
+
   <div class="complete-rate">
     <h3>Complete Rate</h3>
     <div>Last Month: {{ this.globals.completionRates[2] }}%</div>
     <div> Last 3 Months: {{ this.globals.completionRates[1] }}%</div>
     <div> All Time: {{ this.globals.completionRates[0] }}%</div>
   </div>
+
+  <div></div>
+
   <div class="overdue-tasks">
     <h3>Overdue Tasks</h3>
     <div class="tasks">
