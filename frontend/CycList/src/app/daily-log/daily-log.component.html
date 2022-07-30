@@ -4,27 +4,26 @@
 
   <div class="daily-log-day-container">
     <div class="day" *ngFor = "let day of globals.dailyTasks; index as i">
-      <div class="day-title-container">
-        <img class="weather-icon" *ngIf="i != 5 && this.weather"  src = "http://openweathermap.org/img/wn/{{this.weather[i]['weather'][0]['icon']}}@2x.png"/>
-        <img class="weather-icon" *ngIf="i == 5 && this.weather"  src = "http://openweathermap.org/img/wn/{{this.weather[4]['weather'][0]['icon']}}@2x.png"/>
-        <h2 class="date-title">{{globals.nDates[i].toDateString()}}</h2>
-      </div>
-
+      <h2>{{globals.nDates[i].toDateString()}}</h2>
       <hr class="daily-log-underline">
 
       <div class = "daily-log-task-container">
         <div *ngFor = "let task of day">
           <app-task
-            [_id]="task._id" [name]="task.name" [content]="task.content"
-            [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth"
+            [_id]="task._id" [name]="task.name" [content]="task.content" 
+            [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
             [isRepeat]="task.isRepeat" [frequency]="task.frequency"
             [hour]="task.hour" [minute]="task.minute"
-            [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime"
+            [tag]="task.tag" [color]="task.color" 
             [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
           </app-task>
         </div>
       </div>
+
     </div>
   </div>
-</div>
 
+  <!-- <div class="task" *ngFor="let task of globals.tasks">
+    <div class="name">{{ task.name }}</div><div>{{ task.dueTime}}: {{ task.year}}-{{ task.month }}-{{ task.day }}</div>
+  </div> -->
+</div>

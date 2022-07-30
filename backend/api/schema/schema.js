@@ -38,8 +38,6 @@ type task{
     expectedDuration: Int
     actualDuration: Int
     start: String
-    notifiable: Boolean
-    notifyTime: Int
     isRepeat: Boolean
     dayWeekMonth: String
     frequency: String
@@ -80,22 +78,18 @@ type RootQuery {
     getAllTag(id: ID):[tag]
     getTag(tagId:ID):tag
     suggestion(hour:Int, minute: Int, tagID:ID): sug
-    getLastMonthComp(field:String): Float
-    getLastThreeMonthComp(field:String): Float
-    getAllComp(field:String): Float
-    getOverdue(field:String):[task!]
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
     createTask(hierarchy: String, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String, dueTime: String, hour: Int, minute: Int,
-        name:String!, tagID: ID, notifiable: Boolean, notifyTime: Int): task
+        name:String!, tagID: ID): task
     rateDifficulty(id: ID!, score: Float!): String
     markSignifier(id: ID!, important:Boolean, completed:Boolean, abandoned:Boolean, hour: Int, minute:Int): task
     deleteTask(id:ID!): String
     modifyTask(taskId: ID!, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String, dueTime: String, hour: Int, minute: Int, 
-        name:String!, tagID: ID, notifiable: Boolean, notifyTime: Int): task
+        name:String!, tagID: ID): task
     createTag(name:String!, color:String): tag
     test(hierarchy: String, date: String!, repeat: Boolean, dayWeekMonth: String, 
         frequency: String, content:String, dueTime: String, hour: Int, minute: Int, 

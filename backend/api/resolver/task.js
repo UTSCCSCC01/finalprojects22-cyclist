@@ -70,8 +70,6 @@ module.exports = {
                 expectedDuration: expectedDuration,
                 actualDuration: 0,
                 start: new Date().toISOString(),
-                notifiable:args.notifiable,
-                notifyTime:args.notifyTime,
                 isRepeat: args.repeat,
                 dayWeekMonth: dwm,
                 frequency: fre,
@@ -156,8 +154,7 @@ module.exports = {
                     dueTime: time, dueDate: args.date,isRepeat: args.repeat,
                     dayWeekMonth: dwm,frequency: fre,repeatStartDay: repeatStartDay,
                     content: args.content, tag: tag, color: color,schedule:schedule,
-                    hour: args.hour,minute:args.minute,expectedDuration:expectedDuration,
-                    notifiable:args.notifiable,notifyTime:args.notifyTime}}
+                    hour: args.hour,minute:args.minute,expectedDuration:expectedDuration}}
             );
             task = await Task.findById(args.taskId);
             return task;
@@ -394,20 +391,17 @@ module.exports = {
             }else{
                 tag = args.tagID;
                 let tagInfo = await Tag.findById(args.tagID);
-                if(!tagInfo){
-                    throw new Error("No such tag");
-                }
-                if(tagInfo.creater.valueOf() !== "62b4a2421115bad92e1b5efd"){
+                if(tagInfo.creater.valueOf() !== req.userId){
                     throw new Error("You are not tag creater");
                 }
                 color = tagInfo.color;
             }
             year = args.date.split("-")[0];
             month = args.date.split("-")[1];
-            schedule=false;
+            schedule = false;
             if(args.date.split("-").length === 3){
-                day = args.date.split("-")[2];
                 schedule = true;
+                day = args.date.split("-")[2];
             }
             if(!args.repeat){
                 dwm = null;
@@ -423,16 +417,38 @@ module.exports = {
             if(args.dueTime === "null"){
                 time = "";
             }
-            await Task.updateOne(
-                {_id: args.taskId},
-                {$set:{name:args.name, day:day, month: month, year: year, 
-                    dueTime: time, dueDate: args.date,isRepeat: args.repeat,
-                    dayWeekMonth: dwm,frequency: fre,repeatStartDay: repeatStartDay,
-                    content: args.content, tag: tag, color: color,schedule:schedule,
-                    notifiable:args.notifiable,notifyTime:args.notifyTime}}
-            );
-            task = await Task.findById(args.taskId);
-            return task;
+            const newTask = new Task({
+                creater: "62b4a2421115bad92e1b5efd",
+                name: args.name,
+                day: day,
+                month: month,
+                year: year,
+                schedule: schedule,
+                hierarchy: "daily",
+                dueTime: time,
+                dueDate: args.date,
+                hour: args.hour,
+                minute:args.minute,
+                expectedDuration: expectedDuration,
+                actualDuration: 0,
+                start: new Date().toISOString(),
+                isRepeat: args.repeat,
+                dayWeekMonth: dwm,
+                frequency: fre,
+                repeatStartDay: repeatStartDay,
+                content: args.content,
+                tag: tag,
+                color: color,
+                important: false,
+                identity: "parent",
+                subTask:[],
+                parentTask: null,
+                mood: [],
+                difficulty: [],
+                location:null,
+            })
+            const result = await newTask.save();
+            return result;
         } catch(err){
             throw err;
         }
@@ -499,93 +515,6 @@ module.exports = {
             let sugMinute = parseInt(suggestion%60);
             let result={hour:sugHour, minute:sugMinute};
             return result;
-        } catch(err){
-            throw err;
-        }
-    },
-    getLastMonthComp: async (args, req)=>{
-        try{
-            if(!req.isAuth){
-                throw new Error("User not authenticated");
-            }
-            //62b4a2421115bad92e1b5efd   user
-            //62ce5122c58dd1afa145534c   task
-            let lastMonth = new Date();
-            lastMonth.setMonth(lastMonth.getMonth()-1);
-            let year = lastMonth.getFullYear();
-            let month = lastMonth.getMonth()+1;
-            let allTask = await Task.find({creater: ObjectId(req.userId), month:month, year:year});
-            let compTask = await Task.find({creater: ObjectId(req.userId), month:month, year:year, $or:[{completed:true}, {abandoned:true}]});
-            if(allTask.length === 0){
-                return 0;
-            }
-            return compTask.length / allTask.length;
-        } catch(err){
-            throw err;
-        }
-    },
-    getLastThreeMonthComp: async (args, req)=>{
-        try{
-            if(!req.isAuth){
-                throw new Error("User not authenticated");
-            }
-            //62b4a2421115bad92e1b5efd   user
-            //62ce5122c58dd1afa145534c   task
-            let lastMonth = new Date();
-            let sumAll=0;
-            let sumComp =0;
-            for(let i=0; i<3;i++){
-                lastMonth.setMonth(lastMonth.getMonth()-1);
-                let year = lastMonth.getFullYear();
-                let month = lastMonth.getMonth()+1;
-                let allTask = await Task.find({creater: ObjectId(req.userId), month:month, year:year});
-                let compTask = await Task.find({creater: ObjectId(req.userId), month:month, year:year, $or:[{completed:true}, {abandoned:true}]});
-                sumAll += allTask.length;
-                sumComp += compTask.length;
-            }
-            if(sumAll === 0){
-                return 0;
-            }
-            return sumComp / sumAll;
-        } catch(err){
-            throw err;
-        }
-    },
-    getAllComp: async (args, req)=>{
-        try{
-            if(!req.isAuth){
-                throw new Error("User not authenticated");
-            }
-            //62b4a2421115bad92e1b5efd   user
-            //62ce5122c58dd1afa145534c   task
-            let lastMonth = new Date();
-            let year = lastMonth.getFullYear();
-            let month = lastMonth.getMonth()+1;
-            let allTask = await Task.find({creater: ObjectId(req.userId), $or:[{year:year, month:{$lt: month}}, {year:{$lt:year}}]});
-            let compTask = await Task.find({creater: ObjectId(req.userId), $or:[{year:year, month:{$lt: month}}, {year:{$lt:year}}], $or:[{completed:true}, {abandoned:true}]});
-            if(allTask.length === 0){
-                return 0;
-            }
-            return compTask.length / allTask.length;
-        } catch(err){
-            throw err;
-        }
-    },
-    getOverdue: async (args, req)=>{
-        try{
-            if(!req.isAuth){
-                throw new Error("User not authenticated");
-            }
-            //62b4a2421115bad92e1b5efd   user
-            //62ce5122c58dd1afa145534c   task
-            let yesterday = new Date();
-            let year = yesterday.getFullYear();
-            let month = yesterday.getMonth()+1;
-            let day = yesterday.getDate();
-            let allTask = await Task.find({creater: ObjectId(req.userId), 
-                $or:[{year:year, month:month, day:{$lt:day,$gt:0}},{year:year, month:{$lt: month}}, 
-                {year:{$lt:year}}], $and:[{completed:false}, {abandoned:false}]});
-            return allTask;
         } catch(err){
             throw err;
         }

@@ -12,8 +12,8 @@
     - [public em: string]
     - [public public now: any]
     - [public oneYear: any]
-    - [public minDate: any]
-    - [public maxDate: any]
+    - [public minYear: any]
+    - [public maxYear: any]
     - [public minMonth: any]
     - [public maxMonth: any]
     - [public notifications: string[]
@@ -128,11 +128,11 @@ Stores the current date.
 
 Stores the current date plus one year and two months.
 
-### public minDate: any
+### public minYear: any
 
 Stores the lower year boundary to create a task.
 
-### public maxDate: any
+### public maxYear: any
 
 Stores the higher year boundary to create a task.
 

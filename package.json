@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "concurrently": "^7.3.0"
-  },
-  "scripts": {
-    "start": "concurrently \"nodemon backend/app.js\" \"cd frontend/CycList && ng serve && cd ../..\""
-  }
-}

@@ -5,4 +5,3 @@ node_modules/
 backend/package-lock.json
 .angular
 doc/sprint2/schedule.md
-.idea/
