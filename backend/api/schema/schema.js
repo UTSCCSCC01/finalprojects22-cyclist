@@ -73,6 +73,10 @@ type RootQuery {
     getAllTask(type: String):[task!]
     getAllTag(id: ID):[tag]
     getTag(tagId:ID):tag
+    getLastMonthComp(field:String): Float
+    getLastThreeMonthComp(field:String): Float
+    getAllComp(field:String): Float
+    getOverdue(field:String):[task!]
 }
 type RootMutation {
     createUser(email: String!, nickName: String!, password: String!): authdata!
