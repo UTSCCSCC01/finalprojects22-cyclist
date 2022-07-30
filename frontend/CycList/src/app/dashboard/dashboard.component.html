@@ -1,63 +1,59 @@
 <div class="wrapper">
   <div class="weather">
+
     <div class="weather-widget">
+
       <div class="weather-img-container">
-        <img *ngIf="this.weather" class="weather-icon"
-             src="http://openweathermap.org/img/wn/{{this.weather['weather'][0]['icon']}}@2x.png"/>
+        <img class="weather-icon" *ngIf="this.weather"  src = "http://openweathermap.org/img/wn/{{this.weather['weather'][0]['icon']}}@2x.png"/>
       </div>
-      <p *ngIf="this.weather" class="weather-description">{{ this.weather['weather'][0]['description'] }}</p>
-      <h1 *ngIf="this.weather" class="weather-temp">{{ this.weather['main']['temp'] }}<span style="font-weight: 200">&#8451;</span>
-      </h1>
-      <h2 *ngIf="this.weather" class="weather-city">{{ this.weather['name'] }}</h2>
+      <p class="weather-description" *ngIf="this.weather">{{ this.weather['weather'][0]['description'] }}</p>
+      <h1 class="weather-temp" *ngIf="this.weather">{{ this.weather['main']['temp'] }}<span style="font-weight: 200">&#8451;</span></h1>
+      <h2 class="weather-city" *ngIf="this.weather">{{ this.weather['name'] }}</h2>
 
       <div class="weather-add-info-container">
         <div>
           <h6>Wind</h6>
-          <h4 *ngIf="this.weather" class="weather-add-info-content">{{ this.weather['wind']['speed'] }}m/s</h4>
+          <h4 class="weather-add-info-content" *ngIf="this.weather">{{ this.weather['wind']['speed'] }}m/s</h4>
         </div>
         <div>
           <h6>Humidity</h6>
-          <h4 *ngIf="this.weather" class="weather-add-info-content">{{ this.weather['main']['humidity'] }}%</h4>
+          <h4 class="weather-add-info-content" *ngIf="this.weather">{{ this.weather['main']['humidity'] }}%</h4>
         </div>
         <div>
           <h6>Feels Like</h6>
-          <h4 *ngIf="this.weather" class="weather-add-info-content">{{ this.weather['main']['feels_like'] }}&#8451;</h4>
+          <h4 class="weather-add-info-content" *ngIf="this.weather">{{ this.weather['main']['feels_like'] }}&#8451;</h4>
         </div>
       </div>
     </div>
   </div>
-
-
+  <div class="complete-rate">
+    <h3>Complete Rate</h3>
+    <div>Last Month: {{ this.globals.completionRates[2] }}%</div>
+    <div> Last 3 Months: {{ this.globals.completionRates[1] }}%</div>
+    <div> All Time: {{ this.globals.completionRates[0] }}%</div>
+  </div>
   <div class="overdue-tasks">
-    <h1>Overdue Tasks</h1>
+    <h3>Overdue Tasks</h3>
     <div class="tasks">
       <div *ngFor="let task of globals.dashboardTasks" class="task">
         <app-task
           [_id]="task._id"
-          [abandoned]=task.abandoned
           [color]="task.color"
-          [completed]=task.completed
           [content]="task.content"
           [dayWeekMonth]="task.dayWeekMonth"
           [dueDate]="task.dueDate"
-          [dueTime]="task.dueTime" [frequency]="task.frequency"
-          [hour]="task.hour"
-          [important]=task.important
+          [dueTime]="task.dueTime"
+          [frequency]="task.frequency"
+          [hour]="task.hour" [minute]="task.minute"
           [isRepeat]="task.isRepeat"
-          [minute]="task.minute"
-          [name]="task.name" [schedule]="task.schedule" [tag]="task.tag">
+          [name]="task.name"
+          [schedule]="task.schedule"
+          [tag]="task.tag"
+          [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
         </app-task>
       </div>
+
+
     </div>
   </div>
-
-  <div class="complete-rate">
-    <h1>Complete Rate</h1>
-    <div><strong>Last Month:</strong>  {{ this.globals.completionRates[2] }}%</div>
-    <div><strong>Last 3 Months: </strong> {{ this.globals.completionRates[1] }}%</div>
-    <div><strong> All Time: </strong>{{ this.globals.completionRates[0] }}%</div>
-  </div>
-
-  <div></div>
-
 </div>

@@ -57,13 +57,9 @@ h3 {
 }
 
 .overdue-tasks {
-  color: red;
-}
-
-.overdue-tasks > h3 {
-  color: $fg-alt;
+  color: $color-red;
 }
 
 .complete-rate > div {
-  font-size: 1.5em;
+  font-size: large;
 }

@@ -28,13 +28,23 @@ Clone the repo
 ```
  git clone https://github.com/UTSCCSCC01/finalprojects22-cyclist.git
 ```
+Frontend:
 
-# How to Start Frontend and Backend:
+1 go into thisfolder `cd finalprojects22-cyclist`.
 
+2 Enter the frontend directory `cd frontend/CycList`.
 
-1. Run `npm install && npm start` at the root folder.
-2. Frontend will be running at `http://localhost:4200/`
-3. Backend will be running at `http://localhost:3000/`
+3 Run `npm install` under this folder, to install necessary packages for frontend.
+
+4 Run `npm start` under this folder to run Angular app. Now the app will be running at `http://localhost:4200/`.
+
+Backend:
+
+1 go to backend directory.
+
+2 Run `npm install` to install necessary packages for backend code.
+
+3 Run `npm start` to start backend service, the backend should be running at `http://localhost:3000/`.
 
 
 # Contribution
