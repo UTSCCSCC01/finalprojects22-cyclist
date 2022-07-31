@@ -47,6 +47,10 @@ well-designed and implemented and ready to be deployed if needed.
    3. CYC-211: backend - provide completion rate for last month
    4. CYC-212: backend - provide a completion rate for last 3 months
 
+## Spikes
+- Requiring a deeper progression of the algorithm for the suggested time function
+- Implementing more features for the web app
+
 ## Team Capacity
 
 - 48 hours
