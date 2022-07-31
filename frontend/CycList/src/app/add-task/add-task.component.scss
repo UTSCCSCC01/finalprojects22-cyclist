@@ -7,6 +7,9 @@ $size-add-task: 0.9em;
 // $line-height-add-task: 1.289em;
 $font-size-add-task: 3.1em;
 
+form > div {
+  min-height: 3em;
+}
 
 .add-task {
   margin: 0.2em;
@@ -57,6 +60,7 @@ $font-size-add-task: 3.1em;
 }
 
 .menu {
+  z-index: 4;
   transition: all 200ms ease-in-out;
   transform: scale(0);
   transform-origin: bottom right;
@@ -94,6 +98,7 @@ $font-size-add-task: 3.1em;
 }
 
 .overlay {
+  z-index: 3;
   position: absolute;
   top: 0;
   right: 0;

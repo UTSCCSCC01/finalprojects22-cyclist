@@ -34,6 +34,12 @@ const taskSchema = new Schema({
     dueDate:{
         type: String,
     },
+    hour:{
+        type: Number,
+    },
+    minute:{
+        type: Number,
+    },
     expectedDuration:{
         type: Number,
     },
@@ -43,6 +49,12 @@ const taskSchema = new Schema({
     // record the start time of this task to calculate actualDuration
     start:{
         type: Date,
+    },
+    notifiable:{
+        type: Boolean,
+    },
+    notifyTime:{
+        type: Number,
     },
     isRepeat:{
         type: Boolean,

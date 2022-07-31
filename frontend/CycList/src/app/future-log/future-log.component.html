@@ -14,7 +14,8 @@
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
               [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>
@@ -31,7 +32,8 @@
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
               [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>
@@ -48,7 +50,8 @@
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
               [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>
@@ -64,8 +67,9 @@
             <app-task *ngIf="(task.month === ((this.month + 4) % 12)) || ((task.month === 12) && ((this.month + 4) === 12))" 
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
-              [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [isRepeat]="task.isRepeat" [frequency]="task.frequency" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>
@@ -84,7 +88,8 @@
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
               [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>
@@ -101,7 +106,8 @@
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
               [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>
@@ -118,7 +124,8 @@
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
               [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>
@@ -133,7 +140,8 @@
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
               [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>
@@ -150,7 +158,8 @@
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
               [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>
@@ -165,7 +174,8 @@
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
               [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>
@@ -180,7 +190,8 @@
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
               [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>
@@ -195,7 +206,8 @@
               [_id]="task._id" [name]="task.name" [content]="task.content" 
               [schedule]="task.schedule" [dueDate]="task.dueDate" [dueTime]="task.dueTime" [dayWeekMonth]="task.dayWeekMonth" 
               [isRepeat]="task.isRepeat" [frequency]="task.frequency"
-              [tag]="task.tag" [color]="task.color" 
+              [hour]="task.hour" [minute]="task.minute"
+              [tag]="task.tag" [color]="task.color" [notifiable]="task.notifiable" [notifyTime]="task.notifyTime" 
               [completed]=task.completed [important]=task.important [abandoned]=task.abandoned>
             </app-task>
           </div>

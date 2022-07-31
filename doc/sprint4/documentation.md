@@ -1,75 +1,89 @@
-- [Installation](#installation)
-- [Implementation Details](#implementation-details)
-- [Set up](#set-up)
-  - [Frontend](#frontend)
-    - [Frontend Structure](#frontend-structure)
-  - [Backend](#backend)
-  - [Database](#database)
-- [Frontend GlobalsService Documentation](#frontend-globalsservice-documentation)
-  - [Fields](#fields)
-    - [public loggedIn: boolean](#public-loggedin-boolean)
-    - [public colorMode: string](#public-colormode-string)
-    - [public em: string](#public-em-string)
-    - [public public now: any](#public-public-now-any)
-    - [public oneYear: any](#public-oneyear-any)
-    - [public minYear: any](#public-minyear-any)
-    - [public maxYear: any](#public-maxyear-any)
-    - [public minMonth: any](#public-minmonth-any)
-    - [public maxMonth: any](#public-maxmonth-any)
-    - [public notifications: string[]](#public-notifications-string)
-    - [private user: any](#private-user-any)
-    - [public loginError: string](#public-loginerror-string)
-    - [public taskFormActive: boolean](#public-taskformactive-boolean)
-    - [public taskFormWeek: boolean[]](#public-taskformweek-boolean)
-    - [form: Formgroup](#form-formgroup)
-    - [public tasks](#public-tasks)
-    - [public nDays: number](#public-ndays-number)
-    - [public nDates: Date[]](#public-ndates-date)
-    - [public dashboardTasks: any[]](#public-dashboardtasks-any)
-    - [public dailyTasks: any[]](#public-dailytasks-any)
-    - [public monthlyTasks: any[]](#public-monthlytasks-any)
-    - [public futureTasks: any[]](#public-futuretasks-any)
-    - [public tags](#public-tags)
-  - [public async refresh()](#public-async-refresh)
-  - [public setAppTime()](#public-setapptime)
-  - [public setNotifications()](#public-setnotifications)
-  - [public formReset()](#public-formreset)
-  - [public getMonthlyTasks()](#public-getmonthlytasks)
-  - [public loadUser()](#public-loaduser)
-  - [public isAuthenticated()](#public-isauthenticated)
-  - [public logout()](#public-logout)
-  - [public async register(form: FormGroup)](#public-async-registerform-formgroup)
-  - [public async login(form: FormGroup)](#public-async-loginform-formgroup)
-  - [public async getDashboardTasks()](#public-async-getdashboardtasks)
-  - [public async getAllTasks(type: string)](#public-async-getalltaskstype-string)
-  - [public async getNDailyTasks()](#public-async-getndailytasks)
-  - [public async getDailyTasks(day: number, month: number, year: number)](#public-async-getdailytasksday-number-month-number-year-number)
-  - [public async getFutureLogTasks()](#public-async-getfuturelogtasks)
-  - [public async getFutureTasks(year: number)](#public-async-getfuturetasksyear-number)
-  - [public async createModifyTask(form: FormGroup)](#public-async-createmodifytaskform-formgroup)
-  - [public async deleteTask(id: string)](#public-async-deletetaskid-string)
-  - [public async getAllTags(userID: string)](#public-async-getalltagsuserid-string)
-  - [public async createTag(value: any)](#public-async-createtagvalue-any)
-  - [public async markSignifier()](#public-async-marksignifier)
-- [Backend Documentation](#backend-documentation)
-  - [createTask](#createtask)
-  - [modifyTask](#modifytask)
-  - [getDailyTask](#getdailytask)
-  - [getMonthTask](#getmonthtask)
-  - [getFutureTask](#getfuturetask)
-  - [getSingleTask](#getsingletask)
-  - [getAllTask](#getalltask)
-  - [getAllTag](#getalltag)
-  - [getTag](#gettag)
-  - [createTag](#createtag)
-  - [createUser](#createuser)
-  - [emailLogin](#emaillogin)
-  - [markSignifier](#marksignifier)
-  - [test](#test)
-- [Database Structure](#database-structure)
-  - [Task](#task)
-  - [User](#user)
-  - [Tag](#tag)
+da- [Installation](#installation)
+1. [Installation](#installation)
+2. [Implementation Details](#implementation-details)
+3. [Set up](#set-up)
+   1. [Frontend](#frontend)
+      1. [Frontend Structure](#frontend-structure)
+   2. [Backend](#backend)
+   3. [Database](#database)
+4. [Frontend GlobalsService Documentation](#frontend-globalsservice-documentation)
+   1. [Fields](#fields)
+      1. [public loggedIn: boolean](#public-loggedin-boolean)
+      2. [public colorMode: string](#public-colormode-string)
+      3. [public em: string](#public-em-string)
+      4. [public public now: any](#public-public-now-any)
+      5. [public oneYear: any](#public-oneyear-any)
+      6. [public minDate: any](#public-mindate-any)
+      7. [public maxDate: any](#public-maxDate-any)
+      8. [public minMonth: any](#public-minmonth-any)
+      9. [public maxMonth: any](#public-maxmonth-any)
+      10. [public notifications: string\[\]](#public-notifications-string)
+      11. [private user: any](#private-user-any)
+      12. [public loginError: string](#public-loginerror-string)
+      13. [public taskFormActive: boolean](#public-taskformactive-boolean)
+      14. [public taskFormWeek: boolean\[\]](#public-taskformweek-boolean)
+      15. [form: Formgroup](#form-formgroup)
+      16. [public tasks](#public-tasks)
+      17. [public nDays: number](#public-ndays-number)
+      18. [public nDates: Date\[\]](#public-ndates-date)
+      19. [public dashboardTasks: any\[\]](#public-dashboardtasks-any)
+      20. [public dailyTasks: any\[\]](#public-dailytasks-any)
+      21. [public monthlyTasks: any\[\]](#public-monthlytasks-any)
+      22. [public monthlyTasksNoDay: any\[\]](#public-monthlyTasksNoDay-any)
+      23. [public futureTasks: any\[\]](#public-futuretasks-any)
+      24. [public tags](#public-tags)
+      25. [public completionRates: any\[\]](#public-completionRates-any)
+      26. [public sug](#public-sug)
+   2. [public async refresh()](#public-async-refresh)
+   3. [public setAppTime()](#public-setapptime)
+   4. [public setNDates()](#public-setNDates)
+   5. [public setNotifications()](#public-setnotifications)
+   6. [public removeNotification()](#public-removeNotification)
+   7. [public formReset()](#public-formreset)
+   8. [public loadUser()](#public-loaduser)
+   9. [public isAuthenticated()](#public-isauthenticated)
+   10. [public logout()](#public-logout)
+   11. [public async register(form: FormGroup)](#public-async-registerform-formgroup)
+   12. [public async login(form: FormGroup)](#public-async-loginform-formgroup)
+   13. [public async getDashboardTasks()](#public-async-getdashboardtasks)
+   14. [public async getOverdueTasks()](#public-async-getOverdueTasks)
+   15. [public async getAllTasks(type: string)](#public-async-getalltaskstype-string)
+   16. [public async getNDailyTasks()](#public-async-getndailytasks)
+   17. [public async getDailyTasks(day: number, month: number, year: number)](#public-async-getdailytasksday-number-month-number-year-number)
+   18. [public async getMonthlyLogTasks()](#public-async-getMonthlyLogTasks)
+   19. [public async getMonthlyLogTasksNoDate()](#public-async-getMonthlyLogTasksNoDate)
+   20. [public async getMonthlyTasksNoDay(month: number, year: number)](#public-async-getMonthlyTasksNoDay)
+   21. [public async getMonthlyTasks(month: number, year: number)](#public-async-getMonthlyTasks)
+   22. [public async getFutureLogTasks()](#public-async-getfuturelogtasks)
+   23. [public async getFutureTasks(year: number)](#public-async-getfuturetasksyear-number)
+   24. [public async createModifyTask(form: FormGroup)](#public-async-createmodifytaskform-formgroup)
+   25. [public async deleteTask(id: string)](#public-async-deletetaskid-string)
+   26. [public async getCompletionRates()](#public-async-getCompletionRates)
+   27. [public async getAllTags(userID: string)](#public-async-getalltagsuserid-string)
+   28. [public async getTag(tagID: string)](#public-async-getTag)
+   29. [public async createTag(value: any)](#public-async-createtagvalue-any)
+   30. [public async markSignifier()](#public-async-marksignifier)
+   31. [public async completeTask()](#public-async-completeTask)
+   32. [public async getSuggestedDuration(hour: number, minute: number, tagID: string)](#public-async-getSuggestedDuration)
+5. [Backend Documentation](#backend-documentation)
+   1. [createTask](#createtask)
+   2. [modifyTask](#modifytask)
+   3. [getDailyTask](#getdailytask)
+   4. [getMonthTask](#getmonthtask)
+   5. [getFutureTask](#getfuturetask)
+   6. [getSingleTask](#getsingletask)
+   7. [getAllTask](#getalltask)
+   8. [getAllTag](#getalltag)
+   9. [getTag](#gettag)
+   10. [createTag](#createtag)
+   11. [createUser](#createuser)
+   12. [emailLogin](#emaillogin)
+   13. [markSignifier](#marksignifier)
+   14. [test](#test)
+6. [Database Structure](#database-structure)
+   1. [Task](#task)
+   2. [User](#user)
+   3. [Tag](#tag)
 
 # Installation
 
@@ -152,13 +166,13 @@ Stores the current date.
 
 Stores the current date plus one year and two months.
 
-### public minYear: any
+### public minDate: any
 
-Stores the lower year boundary to create a task.
+Stores the lower date boundary to create a task.
 
-### public maxYear: any
+### public maxDate: any
 
-Stores the higher year boundary to create a task.
+Stores the higher date boundary to create a task.
 
 ### public minMonth: any
 
@@ -228,7 +242,11 @@ Array of tasks containing the tasks to be displayed on the daily log page.
 
 ### public monthlyTasks: any[]
 
-Array of tasks containing the tasks to be displayed on the monthly log page.
+Array of tasks containing the monthly tasks in the next 6 days.
+
+### public monthlyTasksNoDay: any[]
+
+Array of tasks containing tasks in the current month but not yet scheduled.
 
 ### public futureTasks: any[]
 
@@ -241,15 +259,57 @@ totalExpectedTime, totalActualTime.
 
 Getter function: public getTags() Setter function: public setTags(tags: any)
 
+### public completionRates: any[]
+
+Array of numbers representing the current user's completion rates as a
+percentage.
+Index 0: all time completion
+Index 1: last 3 months
+Index 2: last month
+
+### public sug
+
+An object represeting a duration for the purpose of suggesting task duration.
+
 ## public async refresh()
+
+Description: Calls functions that get latest data from the backend
+Body Parameters: None
+Expected Response: Relevant variables are populated with new data
 
 ## public setAppTime()
 
+Description: Sets some variables based on current date and time. Variables are
+now, oneYear, minDate, maxDate, minMonth, maxMonth 
+Body Parameters: None
+Expected Response: The variables are set
+
+## public setNDates()
+
+Description: Set nDates to contain the next nDays Dates.
+Body Parameters: None
+Expected Response: nDates is set
+
 ## public setNotifications()
+
+Description: Set notifications for tasks with their _id in notification.
+Body Parameters: None
+Expected Response: A notification is created and the task _id is removed 
+from notification for each task that needs one created.
+
+## public removeNotification()
+
+Description: Remove a notification based on a task id
+Body Parameters: 
+Expected Response: A notification is created and the task _id is removed 
+from notification for each task that needs one created.
 
 ## public formReset()
 
-## public getMonthlyTasks()
+Description: Sets taskFormWeek and values of form to their default values
+Body Parameters: None
+Expected Response: taskFormWeek is set to all false and values of form are set
+to default values (each value has some default, not necessarily null)
 
 ## public loadUser()
 
@@ -300,6 +360,13 @@ Getter function: public getTags() Setter function: public setTags(tags: any)
   - field `dashboardTasks` houses all the user's tasks, empty array if user has
     no tasks.
 
+## public async getOverdueTasks()
+
+- Description: store all the user's overdue tasks into `Tasks`
+- Body Parameters: None
+- Expected Response:
+  - field `Tasks` houses all the user's overdue tasks
+
 ## public async getAllTasks(type: string)
 
 - Description: query all user's tasks to field `tasks` as an array of tasks.
@@ -330,6 +397,40 @@ Getter function: public getTags() Setter function: public setTags(tags: any)
   - field `tasks` houses all the user's tasks for the specified date, empty
     array if user has no tasks.
 
+## public async getMonthlyLogTasks()
+
+- Description: query all user's tasks to field `tasks` appropriate for monthly
+  log, as an array of tasks.
+- Body Parameters: None
+- Expected Response:
+  - field `monthlyTasks` houses all the user's tasks for monthly log
+
+## public async getMonthlyLogTasksNoDate()
+
+- Description: query all user's tasks to field `tasks` appropriate for monthly
+  log, as an array of tasks.
+- Body Parameters: None
+- Expected Response:
+  - field `monthlyTasksNoDay` houses all the user's tasks for monthly log
+
+## public async getMonthlyTasksNoDay(month: number, year: number)
+
+- Description: query all user's monthly tasks to field `tasks` 
+- Body Parameters:
+  - year: number - the 4 digit year of the targeted year
+  - month: month - the 2 digit year of the targeted month
+- Expected Response:
+  - field `tasks` houses all the user's monthly tasks
+
+## public async getMonthlyTasks(month: number, year: number) 
+
+- Description: query all user's monthly tasks to field `tasks` 
+- Body Parameters:
+  - year: number - the 4 digit year of the targeted year
+  - month: month - the 2 digit year of the targeted month
+- Expected Response:
+  - field `tasks` houses all the user's monthly tasks
+  
 ## public async getFutureLogTasks()
 
 - Description: store all the user's tasks with hierarchy "future" into field
@@ -368,12 +469,28 @@ Getter function: public getTags() Setter function: public setTags(tags: any)
 - Expected Response:
   - the result of creating/modify task from the server.
 
+## public async getCompletionRates()
+
+- Description: query user's task completion rates to field `completionRates` 
+  as array of percentages.
+- Body Parameters: None
+- Expected Response:
+  - `completionRates` houses the latest figures for current user 
+
 ## public async getAllTags(userID: string)
 
 - Description: query all user's tags to field tags as an array of tags
 - Body Parameters: None
 - Expected Response:
   - field tags houses all the user's tags, empty array if user has no tags.
+
+## public async getTag(tagID: string)
+
+- Description: query for a tag given a tag id
+- Body Parameters: 
+  - tagID: string - the id of tag to be returned
+Expected Response:
+  - field tags houses the requested tag
 
 ## public async createTag(value: any)
 
@@ -393,6 +510,25 @@ Getter function: public getTags() Setter function: public setTags(tags: any)
   - abandoned: Boolean - a signifier
 - Expected Response:
   - mark tag with give id with given signifiers.
+
+## public async completeTask()
+
+- Description: marks a task as complete and reports time taken to complete it
+- Body Parameters:
+  - id: string - id of task to be marked
+  - completed: Boolean - a signifier
+  - hour: number - hours taken
+  - minute: number - minutes taken
+- Expected Response:
+  - task associated with id is marked complete
+
+## public async getSuggestedDuration(hour: number, minute: number, tagID: string)
+- Description: given a tag and duration to do a task, suggests a better duration
+- Body Paramters:
+  - hour: number - hours expected
+  - minute: number - minutes expected
+- Expected Response:
+  - `sug` has a suggested duration 
 
 # Backend Documentation
 
@@ -424,6 +560,10 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - dayWeekMonth: String
   - frequency: String
   - tegID: String
+  - notifiable: Boolean
+  - notifyTime: Int
+  - hour: Int
+  - minute: Int
 - Expected Response:
   - 200 OK
     - create successfully
@@ -446,6 +586,10 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - dayWeekMonth: String
   - frequency: String
   - tegID: String
+  - notifiable: Boolean
+  - notifyTime: Int
+  - hour: Int
+  - minute: Int
 - Expected Response:
   - 200 OK
     - return the updated task
@@ -605,6 +749,8 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - important: Boolean
   - completed: Boolean
   - abandoned: Boolean
+  - hour: Int
+  - minute: Int
 - Expected Response:
   - 200 OK
     - return the updated task
@@ -627,6 +773,68 @@ Since we are using graphQL as our api, it behaves little different from REST:
   - 500 Input error
     - Invalid argument type.
 
+## getLastMonthComp
+
+- Description: return the user's task completion rate for the last month
+- Body Parameters:
+  - field: String //this can be empty string, you can change it for later development
+- Expected Response:
+  - 200 OK
+    - return the rate as float
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+
+## getLastThreeMonthComp
+
+- Description: return the user's task completion rate for the last three months
+- Body Parameters:
+  - field: String //this can be empty string, you can change it for later development
+- Expected Response:
+  - 200 OK
+    - return the rate as float
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+
+## getAllComp
+
+- Description: return the user's task completion rate for all tasks until last month
+- Body Parameters:
+  - field: String //this can be empty string, you can change it for later development
+- Expected Response:
+  - 200 OK
+    - return the rate as float
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+
+## getOverdue
+
+- Description: return the user's all unfinished tasks until yesterday
+- Body Parameters:
+  - field: String //this can be empty string, you can change it for later development
+- Expected Response:
+  - 200 OK
+    - return all unfinished tasks
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+
+## suggestion
+
+- Description: return the suggest task time based on the given tagID and expect time
+- Body Parameters:
+  - hour: Int
+  - minute: Int
+  - tagID: ID
+- Expected Response:
+  - 200 OK
+    - return the suggestion in the format of hour and minute
+  - 400 Server error
+    - Some error with the server, maybe MongoDB Altas is not running
+  - 500 Input error
+
 # Database Structure
 
 ## Task
@@ -640,7 +848,12 @@ Since we are using graphQL as our api, it behaves little different from REST:
 - hierarchy:String //we update this field, all task should be daily right now
 - dueTime:String //the due time of this task
 - dueDate:String //in the format of 2022-07-01
+- hour: int // expected time stored as hour and minute
+- minute: int
 - expectedDuration: int
+- actualDuration: int
+- notifiable: boolean
+- notifyTime: int
 - isRepeat:Boolean
 - dayWeekMonth: String //should be day, week or month
 - frequency:String //if repeat on month or every n days, put the date or n; if

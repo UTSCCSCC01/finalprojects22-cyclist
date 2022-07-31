@@ -14,7 +14,7 @@ export class GlobalsService {
   }
 
 
-  
+
 
 
 
@@ -30,9 +30,12 @@ export class GlobalsService {
   public async refresh() {
     this.getAllTags();
     this.getDashboardTasks();
-    this.getNDailyTasks();
+    await this.getNDailyTasks();
     this.getFutureLogTasks();
     this.getMonthlyLogTasks();
+    this.getMonthlyLogTasksNoDate();
+    this.setNotifications();
+    this.getCompletionRates();
   }
 
 
@@ -68,21 +71,23 @@ export class GlobalsService {
   public now: any;
   public oneYear: any;
   // public oneMonth: any;
-  public minYear: any;
-  public maxYear: any;
+  public minDate: any;
+  public maxDate: any;
   public minMonth: any;
   public maxMonth: any;
   public nDays: number = 6;
   public nDates: Date[] = [];
-  public notifications: string[] = [];
+  public notifications: any[] = [];
   public setAppTime() {
     this.now = new Date();
     this.oneYear = new Date(this.now.getFullYear() + 1, this.now.getMonth() + 2, 0); // we allow one year + one more month
     // this.oneMonth = new Date(this.now.getFullYear(), this.now.getMonth() + 1, this.now.getDay());
-    this.minYear = this.now.toISOString().slice(0,10);
-    this.maxYear = this.oneYear.toISOString().slice(0,10);
-    this.minMonth = this.now.toISOString().slice(0,7);
-    this.maxMonth = this.oneYear.toISOString().slice(0,7);
+    let mntNow = this.now.getMonth() + 1;
+    let mntOneYear = this.oneYear.getMonth() + 1;
+    this.minMonth = this.now.getFullYear() + '-' + ("0" + mntNow).slice(-2);
+    this.maxMonth = this.oneYear.getFullYear() + '-' + ("0" + mntOneYear).slice(-2);
+    this.minDate = this.minMonth + '-' + this.now.getDate();
+    this.maxDate = this.maxMonth + '-' + this.oneYear.getDate();
     this.setNDates();
     // TODO: update when go to a new day
   }
@@ -95,26 +100,38 @@ export class GlobalsService {
     }
   }
   public setNotifications() {
-    for (let task of this.dashboardTasks) {
-      console.log(task.dueTime);
-      if (task.dueTime && task.dueDate && !this.notifications.includes(task._id)) {
-        // only set the notification once
-        this.notifications.push(task._id);
+    if (this.dailyTasks.length === 0) return;
+    for (let task of this.dailyTasks[0]) {
+      if (task.notifiable && !(task._id in this.notifications)) {
         // make sure it's not overdue
-        let time = (new Date(task.dueDate+' '+task.dueTime)).getTime()-(new Date()).getTime();
+        let time = (new Date(task.dueDate+' '+task.dueTime)).getTime() - (new Date()).getTime() - 60000*task.notifyTime;
         if (time > 0) {
           // console.log(task.dueDate+' '+task.dueTime);
-          setTimeout(function(){
+          let timeOutId = window.setTimeout(() => {
             const options = {
               body: 'due: '+task.dueDate+' '+task.dueTime,
               icon: "../assets/list.png"
             }
-            new Notification(task.name, options);        
+            new Notification(task.name, options);
+            // remove the notification when we are done with it
+            delete this.notifications[task._id];
           },time);
+          // only set the notification once, and save timeout id to be able to clear it when reset it
+          this.notifications[task._id] = timeOutId;
+          // console.log("added notification with id " + timeOutId)
         }
       }
     }
   }
+  public removeNotification(taskId: any) {
+    if (!(taskId in this.notifications)) return;
+    // clear time out
+    window.clearTimeout(this.notifications[taskId]);
+    // console.log("cleared notification with id " + this.notifications[taskId]);
+    // reset the notification of an edited task
+    delete this.notifications[taskId];
+  }
+
 
 
 
@@ -195,15 +212,15 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
           this.setErr("** " + data.errors[0].message + " **");
         }
-      }else{ 
-        // all g!        
+      }else{
+        // all g!
         this.setUser(data.data.createUser);
         // console.log(cookie.get('user'));
         // cookie.set('user', data);
       }
     })
     .catch(err =>{
-      // 
+      //
       console.log(err)
     });
 
@@ -252,8 +269,8 @@ export class GlobalsService {
           console.log("** " + data.errors[0].message + " **");
           this.setErr("** " + data.errors[0].message + " **");
         }
-      }else{ 
-        // all g!        
+      }else{
+        // all g!
         this.setUser(data.data.emailLogin);
         // console.log(cookie.get('user'));
         // cookie.set('user', data);
@@ -275,6 +292,7 @@ export class GlobalsService {
     this.dashboardTasks = [];
     this.dailyTasks = [];
     this.monthlyTasks = [];
+    this.monthlyTasksNoDay = [];
     this.futureTasks = [];
   }
 
@@ -311,22 +329,27 @@ export class GlobalsService {
     dueDate: null,            // please merge     day: Int month: Int year: Int
     dueTime: null,
     // startDate: null,
-    
+
     // startTime: null,
-    // expectedDuration: null,  // pointless because we have start and due/end unless this is an AI value
+    //expectedDuration: null,  // pointless because we have start and due/end unless this is an AI value
+    hour: null,
+    minute: null,
 
     isRepeat: false,         // maybe just repeat true of false
     frequency: "",
     dayWeekMonth: null,   // add year?
     // repeatStartDay: null,     // only in backend
 
+    notifiable: false,
+    notifyTime: 0,
+
     tagID: "",                // maybe just call tag, group, was this what was meant????????
-    // priority: null,         // maybe like options: ! !! or !!!    
+    // priority: null,         // maybe like options: ! !! or !!!
     // mood: null,
     // location: null,
     // interests: null,        // ?????????
 
-    // reminders: null,      // TODO: need to be able to have multiple so maybe an array of 
+    // reminders: null,      // TODO: need to be able to have multiple so maybe an array of
     // collaborations: null  // TODO: add friends that you will do that job with
 
                             // Ideas: file (image), url
@@ -341,12 +364,15 @@ export class GlobalsService {
       frequency: "",
       isRepeat: false,
       tagID: "",
-      content: ""
+      content: "",
+      notifiable: false,
+      notifyTime: 0
     });
   }
   public dashboardTasks: any[] = [];
   public dailyTasks: any[] = [];
   public monthlyTasks: any[] = [];
+  public monthlyTasksNoDay: any[] = [];
   public futureTasks: any[] = [];
 
 
@@ -371,6 +397,10 @@ export class GlobalsService {
         completed
         important
         abandoned
+        hour
+        minute
+        notifiable
+        notifyTime
       }
     }
     `
@@ -390,8 +420,8 @@ export class GlobalsService {
 
   }
   /**
-   * reset the value of `this.tasks` to default value. 
-   * This is to solve the problem that switching between pages briefly show 
+   * reset the value of `this.tasks` to default value.
+   * This is to solve the problem that switching between pages briefly show
    * tasks from the previous page.
    */
   public resetTasks() {
@@ -414,12 +444,53 @@ export class GlobalsService {
     return this.tasks;
   }
   public async getDashboardTasks() {
-    // TODO: actual update for Dashboard
-    await this.getAllTasks("");
+    await this.getOverdueTasks();
     this.dashboardTasks = this.getTasks().slice();
-    this.setNotifications();
-    // console.log(this.dashboardTasks);
   }
+
+  public async getOverdueTasks() {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query: this.query(`getOverdue`, `field: ""`)
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
+      }
+    })
+      .then(res =>{
+        if(res.status !== 200 && res.status !== 201){
+          err = true;
+          if(res.status === 400){
+            backenderr = true;
+          }
+        }
+        return res.json();
+      })
+      .then(data =>{
+        if(err){
+          if(backenderr){
+            console.log("Something wrong with server, please contact to admin");
+          }else{
+            console.log("** " + data.errors[0].message + " **");
+          }
+        }else{
+          this.setTasks(data.data.getOverdue);
+          console.log(this.tasks);
+        }
+      })
+      .catch(err =>{
+        console.log(err)
+      });
+  }
+
+
   public async getAllTasks(type: string) {
     // if user is not Authenticated (signed in), don't let them
     if (!this.isAuthenticated()) return;
@@ -516,11 +587,60 @@ export class GlobalsService {
     });
   }
   public async getMonthlyLogTasks() {
-    // TODO: Actually update for Monthly Log
     let date = new Date();
     await this.getMonthlyTasks(date.getMonth()+1, date.getFullYear());
     this.monthlyTasks = this.getTasks().slice();
   }
+
+  public async getMonthlyLogTasksNoDate(){
+    let currMonth = new Date().getMonth()+1;
+    let currYear = new Date().getFullYear();
+    await this.getMonthlyTasksNoDay(currMonth, currYear);
+    this.monthlyTasksNoDay = this.getTasks().slice();
+  }
+
+
+  public async getMonthlyTasksNoDay(month: number, year: number ){
+    const body = {
+      query: this.query(`getMonthTaskNoDay`, `month: ${month}, year: ${year}`)
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
+      }
+    })
+      .then(res =>{
+        if(res.status !== 200 && res.status !== 201){
+          err = true;
+          if(res.status === 400){
+            backenderr = true;
+          }
+        }
+        return res.json();
+      })
+      .then(data =>{
+        if(err){
+          if(backenderr){
+            console.log("Something wrong with server, please contact to admin");
+          }else{
+            console.log("** " + data.errors[0].message + " **");
+          }
+        }else{
+          this.setTasks(data.data.getMonthTaskNoDay);
+          console.log(this.getTasks());
+        }
+      })
+      .catch(err =>{
+        console.log(err)
+      });
+  }
+
+
   public async getMonthlyTasks(month: number, year: number) {
     const body = {
       query: this.query(`getMonthTask`, `month: ${month}, year: ${year}`)
@@ -618,7 +738,7 @@ export class GlobalsService {
     if (!value._id) {
       query = `
       mutation {
-        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.content}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}"){
+        createTask(date:"${value.dueDate}",repeat:${value.isRepeat}, content:"${value.content}",name:"${value.name}", dueTime:"${value.dueTime}", frequency:"${value.frequency}", dayWeekMonth:"${value.dayWeekMonth}", tagID:"${value.tagID}", hour:${value.hour}, minute:${value.minute}, notifiable: ${value.notifiable}, notifyTime: ${value.notifyTime}){
           name
         }
       }
@@ -626,7 +746,7 @@ export class GlobalsService {
     } else {
       query = `
       mutation {
-        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",expectedDuration:0,name:"${value.name}",tagID:"${value.tagID}"){
+        modifyTask(taskId:"${value._id}",date:"${value.dueDate}",repeat:${value.isRepeat},dayWeekMonth:"${value.dayWeekMonth}",frequency:"${value.frequency}",content:"${value.content}", dueTime:"${value.dueTime}",name:"${value.name}",tagID:"${value.tagID}", hour:${value.hour}, minute:${value.minute}, notifiable: ${value.notifiable}, notifyTime: ${value.notifyTime}){
           name
         }
       }
@@ -666,6 +786,7 @@ export class GlobalsService {
         }
       }else{
         // all g!
+        if (value._id) this.removeNotification(value._id);
         this.refresh();
       }
     })
@@ -711,6 +832,8 @@ export class GlobalsService {
         }
       }else{
         // all g!
+        // remove notifications
+        this.removeNotification(id);
         this.refresh();
       }
     })
@@ -719,7 +842,57 @@ export class GlobalsService {
     });
   }
 
+  public completionRates = [-1.0, -1.0, -1.0];
 
+  public async getCompletionRates() {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query: `
+      query {
+        getAllComp(field:""),
+        getLastThreeMonthComp(field:""),
+        getLastMonthComp(field:"")
+      }
+      `,
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        this.completionRates[0] = Math.round(data.data.getAllComp * 100);
+        this.completionRates[1] = Math.round(data.data.getLastThreeMonthComp * 100);
+        this.completionRates[2] = Math.round(data.data.getLastMonthComp * 100);
+        console.log(data);
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
 
 
 
@@ -969,6 +1142,7 @@ export class GlobalsService {
         }
       }else{
         // all good!
+        this.getCompletionRates();
         return 0;
         /* TODO: update logs after marking signifiers.
          * This doesn't seem necessary, as the frontend re-renders the signifiers
@@ -980,7 +1154,125 @@ export class GlobalsService {
     });
   }
 
+  public async completeTask(id: string, completed: Boolean, hour: number, minute: number) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
 
+    const body = {
+      query:`
+      mutation {
+          markSignifier(id:"${id}", completed: ${completed}, hour:${hour}, minute:${minute}){
+            _id
+            creater
+            name
+            color
+            important
+            completed
+            abandoned
+            actualDuration
+          }
+        }
+      `
+    }
 
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers:{
+        "Content-Type": 'application/json',
+        "Authorization": this.getToken()
+      }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+          return;
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+          return;
+        }
+      }else{
+        // all good!
+        return;
+        /* TODO: update logs after marking signifiers.
+         * This doesn't seem necessary, as the frontend re-renders the signifiers
+         * immediately after the signifier is chosen.*/
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
+
+  public sug = {
+      hour:0,
+      minute:0
+  }
+  public setSug(sug:any) {
+    this.sug = sug;
+  }
+  public getSug(){
+    return this.sug;
+  }
+  public async getSuggestedDuration(hour: number, minute: number, tagID: string) {
+    // if user is not Authenticated (signed in), don't let them
+    if (!this.isAuthenticated()) return;
+    const body = {
+      query:`
+      query {
+        suggestion(hour:${hour}, minute:${minute}, tagID:"${tagID}"){
+          hour
+          minute
+        }
+      }
+      `
+    }
+    let err = false;
+    let backenderr = false;
+    await fetch("http://localhost:3000/graphql", {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers:{
+      "Content-Type": 'application/json',
+      "Authorization": this.getToken()
+    }
+    })
+    .then(res =>{
+      if(res.status !== 200 && res.status !== 201){
+        err = true;
+        if(res.status === 400){
+          backenderr = true;
+        }
+      }
+      return res.json();
+    })
+    .then(data =>{
+      if(err){
+        if(backenderr){
+          console.log("Something wrong with server, please contact to admin");
+        }else{
+          console.log("** " + data.errors[0].message + " **");
+        }
+      }else{
+        console.log(data.data.suggestion);
+        if (data.data.suggestion) this.setSug(data.data.suggestion);
+      }
+    })
+    .catch(err =>{
+      console.log(err)
+    });
+  }
 
 }

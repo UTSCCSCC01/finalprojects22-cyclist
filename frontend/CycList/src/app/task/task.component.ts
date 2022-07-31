@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalsService } from '../globals.service';
 
 @Component({
@@ -17,13 +18,13 @@ export class TaskComponent {
   content: string = "";
 
   @Input() 
-  schedule: string = "";
+  schedule: boolean = false;
 
   @Input() 
   dueTime: string = "";
 
   @Input() 
-  isRepeat: string = "";
+  isRepeat: boolean = false;
 
   @Input() 
   tag: string = "";
@@ -40,25 +41,83 @@ export class TaskComponent {
   @Input() 
   frequency: string = "";
 
+  @Input() 
+  hour: string = "";
+
+  @Input() 
+  minute: string = "";
+
+  @Input()
+  notifiable: boolean = false;
+
+  @Input()
+  notifyTime: number = 0;
+
+
   // vvv Signifiers: completed, important, abandoned
   @Input()
-  completed: Boolean = false;
+  completed: boolean = false;
 
   @Input()
-  important: Boolean = false;
+  important: boolean = false;
 
   @Input()
-  abandoned: Boolean = false;
+  abandoned: boolean = false;
 
-  sigMenuOpened : Boolean = false;
+
+  sigMenuShown : Boolean = false;
+  completionFormShown : Boolean = false;
+  taskCompletionForm : FormGroup;
+  actualTimeOutOfRangeError : Boolean = false;
+
+  view: boolean = false;
+  date: string = "";
+  tagName: string = "";
 
   toggleSigMenu() {
-    this.sigMenuOpened = !this.sigMenuOpened;
+    if(!this.completionFormShown) {
+      this.sigMenuShown = !this.sigMenuShown;
+    }
   }
 
-  toggleSigCompleted() {
-    this.completed = !this.completed;
-    this.globals.markSignifier(this._id, this.important, this.completed, this.abandoned);
+  showDetails() {
+    this.view = !this.view;
+    if (!this.hour || !this.minute || !this.tag) return;
+    this.globals.getSuggestedDuration(parseInt(this.hour), parseInt(this.minute), this.tag);
+  }
+
+  hideDetails() {
+    this.view = false;
+    this.sigMenuShown = false;
+    this.globals.sug = { hour:0, minute:0 };
+  }
+
+  /**
+   * Toggle a task's completed signifier. If task is not completed, then display
+   * the task completion time form for the user to fill out.
+   */
+  sigMarkCompleted() {
+    if(!this.completed) {
+      this.sigMenuShown = false;
+      this.completionFormShown = true;
+    }
+    else {
+      this.globals.completeTask(this._id, false, 0, 0);
+      this.completed = false;
+    }
+  }
+
+  submitTaskCompletion() {
+    let hour: number = this.taskCompletionForm.get("hour")?.value;
+    let minute: number = this.taskCompletionForm.get("minute")?.value;
+
+    if(hour*60 + minute <= 0) {
+      this.actualTimeOutOfRangeError = true;
+    }
+
+    this.globals.completeTask(this._id, true, hour, minute);
+    this.completed = true;
+    this.completionFormShown = false;
   }
 
   toggleSigImportant() {
@@ -72,7 +131,11 @@ export class TaskComponent {
   }
 
 
-  constructor(public globals: GlobalsService) { 
+  constructor(public globals: GlobalsService, private formBuilder: FormBuilder) { 
+    this.taskCompletionForm = this.formBuilder.group({
+      hour: 0,
+      minute: 0
+    });
     // this.tags = this.globals.getTags();
     // this.taskTag = GlobalsService.getTag(this.tagID);
     
@@ -97,6 +160,13 @@ export class TaskComponent {
 
 
   ngOnInit(): void {
+    this.date = (new Date(this.dueDate)).toString().slice(0,15);
+    if (!this.globals.tags) return;
+    for (let tag of this.globals.tags) {
+      if (tag._id === this.tag) {
+        this.tagName = tag.name;
+      }
+    }
   }
 
   addTaskForm() {
@@ -111,13 +181,20 @@ export class TaskComponent {
     this.globals.form.patchValue({tagID: this.tag});
     this.globals.form.patchValue({color: this.color});
     this.globals.form.patchValue({dayWeekMonth: this.dayWeekMonth});
+    this.globals.form.patchValue({hour: this.hour});
+    this.globals.form.patchValue({minute: this.minute});
+    this.globals.form.patchValue({notifiable: this.notifiable});
+    this.globals.form.patchValue({notifyTime: this.notifyTime});
     
     if(this.schedule){
       this.globals.form.patchValue({tempDueDate: this.dueDate});
     }else{
       this.globals.form.patchValue({tempDueMonth: this.dueDate});
     }
+
+    this.date = (new Date(this.dueDate)).toString().slice(0,9);
     
+    // console.log(this.globals.form.value);
     //testing below
     //this.globals.form.patchValue({isRepeat: true});
     //this.frequency = "136";

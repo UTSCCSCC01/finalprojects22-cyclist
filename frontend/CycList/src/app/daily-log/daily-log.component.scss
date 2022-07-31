@@ -1,7 +1,7 @@
 @import "../../styles.scss";
 
 @media screen {
-  
+
 }
 
 .daily-log-page-container {
@@ -18,6 +18,21 @@
   border-color: $color-grey-trans;
 }
 
+.date-title {
+  padding-left: 2%;
+}
+
+.weather-icon {
+  width: 50px;
+  height: 50px;
+  background-color: $bg-alt;
+  border-radius: 9px;
+}
+
+.day-title-container {
+  display: flex;
+}
+
 .daily-log-day-container {
   height: 100%;
 
@@ -27,7 +42,7 @@
     grid-auto-rows: 1fr;
     grid-gap: 1em;
   }
-  
+
   @media screen and (min-width: 1080px) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

@@ -18,12 +18,27 @@
       <input (change)="globals.form.patchValue({ schedule: !globals.form.value.schedule })" type="checkbox" [checked]="globals.form.value.schedule"/>  
        Due: 
       <div *ngIf="globals.form.value.schedule">
-        <input type="date" min="{{globals.minYear}}" max="{{globals.maxYear}}" required formControlName="tempDueDate"/>
+        <input type="date" min="{{globals.minDate}}" max="{{globals.maxDate}}" required formControlName="tempDueDate"/>
         <input type="time" formControlName="dueTime"/>
       </div>
       <div *ngIf="!globals.form.value.schedule">
         <input type="month" min="{{globals.minMonth}}" max="{{globals.maxMonth}}" required formControlName="tempDueMonth"/>
-      </div>  
+      </div>
+    </div>
+    <div *ngIf="globals.form.value.schedule">
+      Notification: 
+      <input (change)="globals.form.patchValue({ notifiable: !globals.form.value.notifiable })" type="checkbox" [checked]="globals.form.value.notifiable"/>
+      <div *ngIf="globals.form.value.notifiable">
+        <select formControlName="notifyTime">
+          <option value=0>At time</option>
+          <option value=2>2 min</option>
+          <option value=5>5 min</option>
+          <option value=10>10 min</option>
+          <option value=15>15 min</option>
+          <option value=30>30 min</option>
+          <option value=60>1 hr</option>
+        </select>
+      </div>
     </div>
 
     <!-- <div>
@@ -118,6 +133,14 @@
         </option>
       </select>
     </span>
+
+    <div>
+     ExpectedDuration:
+      Hour:
+      <input type="number" min="0" formControlName="hour"/>
+      Minute:
+      <input type="number" min="0" max="60" formControlName="minute"/>
+    </div>
 
     <textarea type="text" id="description" placeholder="Description" formControlName="content"></textarea>
   </form>
