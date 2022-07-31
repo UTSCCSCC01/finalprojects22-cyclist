@@ -173,4 +173,6 @@ Collaborator: globals.service
 # System Architecture Design
 Architecture: we use Three-tiered architecture where Tier 1 is our frontend server(using Angular), Tier 2 is our backend server(using Graphql) and Tier 3 is mongodb cloud service
 
+https://www.linuxjournal.com/article/3508
+
 ![system architecture](./sys-archi.png)
