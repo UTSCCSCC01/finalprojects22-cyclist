@@ -38,6 +38,10 @@ export class DashboardComponent implements OnInit {
       this.weather = data;
       this.weather['main']['temp'] = Math.floor(this.weather['main']['temp'] - 273)
       this.weather['main']['feels_like'] = Math.floor(this.weather['main']['feels_like'] - 273)
+
+      if (this.weather['weather'][0]['icon'].includes("n.")) {
+        this.weather['weather'][0]['icon'] = this.weather['weather'][0]['icon'].replace("n.", "d.");
+      }
     });
   }
 

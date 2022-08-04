@@ -6,3 +6,5 @@ backend/package-lock.json
 .angular
 doc/sprint2/schedule.md
 .idea/
+frontend/CycList/package-lock.json
+package-lock.json
