@@ -28,6 +28,13 @@ export class AddTaskComponent implements OnInit {
     this.globals.taskFormActive = false;
   }
 
+  async getSuggestedTime() {
+    if (!this.globals.form.value.hour || !this.globals.form.value.minute || !this.globals.form.value.tagID) return;
+    await this.globals.getSuggestedDuration(this.globals.form.value.hour, this.globals.form.value.minute, this.globals.form.value.tagID);
+    this.globals.form.patchValue({ hour: this.globals.sug.hour });
+    this.globals.form.patchValue({ minute: this.globals.sug.minute });
+  }
+
   setFormForSubmission() {
     // set frequency:
     if (this.globals.form.value.dayWeekMonth === 'week') {
