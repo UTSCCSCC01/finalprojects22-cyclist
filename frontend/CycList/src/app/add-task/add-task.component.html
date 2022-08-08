@@ -132,10 +132,11 @@
           {{ tag.name }}
         </option>
       </select>
+      <input type="button" class="btn flat" value="Get Suggested Time" (click)="getSuggestedTime()"/>
     </span>
 
     <div>
-     ExpectedDuration:
+     Expected Duration:
       Hour:
       <input type="number" min="0" formControlName="hour"/>
       Minute:

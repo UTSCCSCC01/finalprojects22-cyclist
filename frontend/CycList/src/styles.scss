@@ -16,6 +16,7 @@
   --bg: #f1f3f6; //$color-light;
   --fg: #313443;  //$color-darker;
   --menu: white; //$color-white;
+  --warn: #cc0202cc;
   // --variant: 'light';
 }
 
@@ -29,6 +30,7 @@
     --bg: #2b2d3a;//#313443 //$color-darker;
     --fg: #acaeb8; //$color-light;
     --menu: #3f4252; //$color-dark;
+    --warn: #ff5252bb;
     // --variant: 'dark';
   }
 }
@@ -42,6 +44,7 @@
   --bg: #2b2d3a;//#313443 //$color-darker;
   --fg: #acaeb8; //$color-light;
   --menu: #3f4252; //$color-dark;
+  --warn: #ff5252bb;
   // --variant: 'dark';
 }
 #root.light, #root.light * {
@@ -52,6 +55,7 @@
   --bg: #f1f3f6; //$color-light;
   --fg: #313443; //;  //$color-darker;
   --menu: white; //$color-white;
+  --warn: #cc0202cc;
   // --variant: 'light';
 }
 
@@ -64,6 +68,7 @@ $bg-alt: var(--bg-alt);
 $bg-alt-trans: var(--bg-alt-trans);
 $fg-opp: var(--fg-opp);
 $menu: var(--menu);
+$warn: var(--warn);
 // $bg: if($variant == 'light', #f1f3f6, #343434);
 // $fg: if($variant == 'dark', #f1f3f6, #343434);
 

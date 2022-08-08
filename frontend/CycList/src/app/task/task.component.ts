@@ -89,6 +89,7 @@ export class TaskComponent {
   hideDetails() {
     this.view = false;
     this.sigMenuShown = false;
+    this.completionFormShown = false;
     this.globals.sug = { hour:0, minute:0 };
   }
 

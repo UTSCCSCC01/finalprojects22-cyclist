@@ -4,5 +4,8 @@
   },
   "scripts": {
     "start": "concurrently \"nodemon backend/app.js\" \"cd frontend/CycList && ng serve && cd ../..\""
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }

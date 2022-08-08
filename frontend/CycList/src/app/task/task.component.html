@@ -49,7 +49,7 @@
   </div>
 </div>
 
-<div class="overlay" [class.hidden]="!view && !sigMenuShown" (click)="hideDetails()"></div>
+<div class="overlay" [class.hidden]="!view && !sigMenuShown && !completionFormShown" (click)="hideDetails()"></div>
 
 <div class="menu" [class.hidden]="!view">
   <div class="between">
@@ -91,5 +91,5 @@
       Tag: {{ tagName }}
     </span>
 
-    <div *ngIf="globals.sug.hour != 0 && !completed">Suggested Duration: {{ globals.sug.hour }} hours{{  globals.sug.minute }} minutes</div>
+    <div *ngIf="(globals.sug.hour != 0 || globals.sug.minute != 0) && !completed">Suggested Duration: {{ globals.sug.hour }} hours{{  globals.sug.minute }} minutes</div>
 </div>
