@@ -39,7 +39,19 @@ export class DailyLogComponent implements OnInit {
     let lon = parseInt(position.coords.longitude);
 
     this.loadCurrentWeather(lat, lon).subscribe(data => {
-      this.weather = [data["list"][4], data["list"][12], data["list"][20], data["list"][28], data["list"][36]];
+
+      let weatherConvert = []
+
+      for (let i = 4; i <= 36; i+=8) {
+        let weatherData = data["list"][i];
+
+        if (weatherData['weather'][0]['icon'].includes("n.")) {
+          weatherData['weather'][0]['icon'] = weatherData['weather'][0]['icon'].replace("n.", "d.");
+        }
+
+        weatherConvert.push(weatherData);
+      }
+      this.weather = weatherConvert;
     });
   }
 
