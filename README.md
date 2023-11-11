@@ -70,3 +70,21 @@ We will use discord/Github issues for ticketing.
 ### Do you use pull requests?
 
 Our team members will use pull requests to help other members understand the changes with details during building our web app.
+
+# Figma UI Design
+
+![](media/CycList-UX-UI-1.png)
+
+![](media/CycList-UX-UI-2.png)
+
+![](media/CycList-UX-UI-3.png)
+
+![](media/CycList-UX-UI-4.png)
+
+![](media/CycList-UX-UI-5.png)
+
+![](media/CycList-UX-UI-6.png)
+
+![](media/CycList-UX-UI-7.png)
+
+![](media/CycList-UX-UI-8.png)
